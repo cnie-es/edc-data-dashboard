@@ -1,0 +1,18 @@
+<div class="px-4 pb-10 md:px-6">
+  <lib-breadcrumbs [items]="breadcrumbItemsTranslated"></lib-breadcrumbs>
+
+  <h1 class="mb-3 text-3xl font-semibold text-(--app-color-primary-darker)">
+    {{ 'catalog.pageTitle' | translate }}
+  </h1>
+
+  <div class="col-span-full my-6 text-left">
+    <hr class="mb-4 mt-4 border-t border-gray-300" />
+  </div>
+
+  <div class="mb-4 border border-base-300 bg-base-100 px-4 py-2 text-sm">
+    <span class="material-symbols-rounded mr-1 align-middle text-base! opacity-75">info</span>
+    {{ 'menu.catalogDesc' | translate }}
+  </div>
+
+  <lib-catalog-offer-search-list></lib-catalog-offer-search-list>
+</div>

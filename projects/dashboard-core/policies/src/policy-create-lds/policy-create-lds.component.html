@@ -1,0 +1,293 @@
+<div class="px-6 py-8 mx-auto">
+  <h1 class="text-primary font-bold text-2xl mb-6">Crear nueva política: Licencia LDS</h1>
+
+  <div class="col-span-full text-left my-6">
+    <hr class="border-t border-gray-300 mb-4 mt-4" />
+  </div>
+
+  <!-- STEP 1 -->
+  <div [hidden]="currentStep !== 1" class="max-w-[60%]">
+    <h1 class="text-secondary py-4 text-xl mb-2">Texto Licencia</h1>
+
+    <div class="mb-4">
+      <p class="font-semibold mb-2">LANGUAGE DATA SPACE STANDAR LICENSE</p>
+    </div>
+    <div class="mb-4">
+      <p class="font-semibold mb-2">PREAMBLE</p>
+    </div>
+    <div class="mb-4">
+      <p class="mb-2">
+        In order to be permitted to enter into this Language Data Space Standard Licence (the "Licence"), Participants
+        need to be able to access the Language Data Space (LDS) marketplace by adhering to the LDS General Terms and
+        Conditions. Participants to the LDS act as data providers or as data recipients at each data transaction.
+        <br /><br />
+        The LDS structure is fully decentralised. According to the LDS General Terms and Conditions, Participants have
+        acknowledged and agreed that, as of now, LDS does not implement quality checking measures of data exchanged on
+        LDS. However, Data Providers must guarantee that data that they offer through the Language Data Space is under
+        their full ownership or include clear and appropriate distribution rights. Data providers do not upload their
+        data to central repositories. The data is transferred directly from the providers' infrastructure to that of the
+        data recipient. The data provider can freely decide when, under which conditions and with whom they will share
+        the data. Upon execution of this licence, each party receives a copy of the Licence via its respective
+        connector. The existence, metadata and transaction details of the licence are logged through the LDS central
+        monitoring component.
+        <br /><br />
+        Each party acknowledges that the licence has been developed by LDS with the objective of achieving an
+        appropriate balance between the respective rights and obligations of the LDS participants, in order to
+        facilitate the use of the LDS marketplace, promote more efficient exchanges between participating data providers
+        and data recipients, and foster the development of a data market. The parties acknowledge that the LDS
+        marketplace operates across the EU. French law is chosen as the governing law of the Licence, taking into
+        account the organization and governance of LDS. The provisions of the Licence have therefore not been
+        unilaterally predetermined by either participant, and therefore Article 1171 of the French Civil Code shall not
+        apply.
+        <br /><br />
+        In light of the foregoing, the Participants hereby agree as follows.
+      </p>
+      <br />
+      <p class="font-semibold mb-2">DEFINITIONS</p>
+      <p>Licence: This Language Data Space Standard Licence</p>
+      <p>
+        <br /><br />
+        Connector: The software provided by LDS that enables Participants to formulate offers, access, and exchange Data
+        and data services with other Participants. The connector facilitates automated data transmission and
+        interoperability between systems in accordance with the LDS General Terms & Conditions
+        <br /><br />
+        Data: Any digital representation of acts, facts or information and any compilation of such acts, facts or
+        information, including in the form of text, sound, visual or audiovisual recording, which may be Personal Data
+        and/or Non-Personal Data
+        <br /><br />
+        Data Provider: Participant, including public sector bodies and international organizations, which, in accordance
+        with applicable Union or national law, has the right to grant access to or to share Data exclusively by using
+        the Connector
+        <br /><br />
+        Data Recipient: Participant, acting for purposes which are related to that person's trade, business, craft or
+        profession, to whom the Data Provider makes Data available exclusively by using the Connector
+        <br /><br />
+        LDS General Terms and Conditions: agreement defining the roles, relationships, rights and obligations of LDS
+        participants.
+        <br /><br />
+        Non-personal data: Data other than Personal Data
+        <br /><br />
+        Participant: either of the Parties committed to the governance framework of LDS and having a set of rights and
+        obligations stemming from this framework and which has adhered to the LDS General Terms & Conditions
+        <br /><br />
+        Party: Any legal person that has entered into this Licence as either Data Provider or Data Recipient Personal
+        Data: any information relating to an identified or identifiable natural person ('data subject'); an identifiable
+        natural person is one who can be identified, directly or indirectly, in particular by reference to an identifier
+        such as a name, an identification number, location data, an online identifier or to one or more factors specific
+        to the physical, physiological, genetic, mental, economic, cultural or social identity of that natural person
+        <br /><br />
+        Representatives: as applicable in relation to a Party, its directors, officers, employees, contractors, in each
+        case who have access to or use any Data in the course of the performance of the Licence. Reference to Data
+        Provider or Data Recipient necessarily includes the representatives of each.
+        <br /><br />
+        Third-Party Rights: Third parties' rights on Data resulting from, among others, legislation on Personal Data
+        protection, intellectual property rights (copyright and related rights, the sui generis database right), trade
+        secrets, rights resulting fron the Data Act, rights resulting from Data Governance Act, rights from contractual
+        obligations of confidenciality.
+      </p>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div [hidden]="currentStep !== 2" class="space-y-6 max-w-[60%]">
+    <h1 class="text-secondary text-xl">Restricciones de uso</h1>
+    <h2 class="text-primary font-bold mb-6">
+      Si no las incluyes, aceptas que el usuario podrá utilizar los datos libremente sin restricciones.
+    </h2>
+
+    <hr class="border-t border-gray-300" />
+
+    <mat-slide-toggle [(ngModel)]="restriccionUsoAceptable.habilitado" color="primary">
+      Incluir restricciones de uso aceptable
+    </mat-slide-toggle>
+
+    <div *ngIf="restriccionUsoAceptable.habilitado" class="mt-4 space-y-10">
+      <!-- 1 — Ámbito de uso -->
+      <div>
+        <h3 class="text-primary font-bold text-lg">Ámbito de uso</h3>
+        <div class="col-span-full text-left my-6">
+          <hr class="border-t border-gray-300 mb-4 mt-4" />
+        </div>
+        <div class="space-y-4 pl-4">
+          <label class="flex items-start gap-2">
+            <input type="checkbox" [(ngModel)]="restricciones[0].activo" class="mt-1" />
+            <div class="flex flex-col">
+              <span class="font-semibold">{{ restricciones[0].titulo }}</span>
+              <span class="text-gray-700 text-sm">{{ restricciones[0].descripcion }}</span>
+            </div>
+          </label>
+
+          <label class="flex items-start gap-2">
+            <input type="checkbox" [(ngModel)]="restricciones[1].activo" class="mt-1" />
+            <div class="flex flex-col">
+              <span class="font-semibold">{{ restricciones[1].titulo }}</span>
+              <span class="text-gray-700 text-sm">{{ restricciones[1].descripcion }}</span>
+            </div>
+          </label>
+
+          <label class="flex items-start gap-2">
+            <input type="checkbox" [(ngModel)]="restricciones[2].activo" class="mt-1" />
+            <div class="flex flex-col">
+              <span class="font-semibold">{{ restricciones[2].titulo }}</span>
+              <span class="text-gray-700 text-sm">{{ restricciones[2].descripcion }}</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- 2 — Tipo de uso -->
+      <div>
+        <h3 class="text-primary font-bold text-lg">Tipo de uso</h3>
+        <div class="col-span-full text-left my-6">
+          <hr class="border-t border-gray-300 mb-4 mt-4" />
+        </div>
+        <div class="space-y-4 pl-4">
+          <label class="flex items-start gap-2">
+            <input type="checkbox" [(ngModel)]="restricciones[3].activo" class="mt-1" />
+            <div class="flex flex-col">
+              <span class="font-semibold">{{ restricciones[3].titulo }}</span>
+              <span class="text-gray-700 text-sm">{{ restricciones[3].descripcion }}</span>
+            </div>
+          </label>
+
+          <label class="flex items-start gap-2">
+            <input type="checkbox" [(ngModel)]="restricciones[4].activo" class="mt-1" />
+            <div class="flex flex-col">
+              <span class="font-semibold">{{ restricciones[4].titulo }}</span>
+              <span class="text-gray-700 text-sm">{{ restricciones[4].descripcion }}</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- 3 — Derivación de datos -->
+      <div>
+        <h3 class="text-primary font-bold text-lg">Derivación de datos</h3>
+        <div class="col-span-full text-left my-6">
+          <hr class="border-t border-gray-300 mb-4 mt-4" />
+        </div>
+        <div class="space-y-4 pl-4">
+          <label class="flex items-start gap-2">
+            <input type="checkbox" [(ngModel)]="restricciones[5].activo" class="mt-1" />
+            <div class="flex flex-col">
+              <span class="font-semibold">{{ restricciones[5].titulo }}</span>
+              <span class="text-gray-700 text-sm">{{ restricciones[5].descripcion }}</span>
+            </div>
+          </label>
+
+          <label class="flex items-start gap-2">
+            <input type="checkbox" [(ngModel)]="restricciones[6].activo" class="mt-1" />
+            <div class="flex flex-col">
+              <span class="font-semibold">{{ restricciones[6].titulo }}</span>
+              <span class="text-gray-700 text-sm">{{ restricciones[6].descripcion }}</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- 4 — Uso de datos para desarrollo de productos -->
+      <div>
+        <h3 class="text-primary font-bold text-lg">Uso de los datos para desarrollo de productos</h3>
+        <div class="col-span-full text-left my-6">
+          <hr class="border-t border-gray-300 mb-4 mt-4" />
+        </div>
+        <div class="space-y-4 pl-4">
+          <label class="flex items-start gap-2">
+            <input type="checkbox" [(ngModel)]="restricciones[7].activo" class="mt-1" />
+            <div class="flex flex-col">
+              <span class="font-semibold">{{ restricciones[7].titulo }}</span>
+              <span class="text-gray-700 text-sm">{{ restricciones[7].descripcion }}</span>
+            </div>
+          </label>
+
+          <label class="flex items-start gap-2">
+            <input type="checkbox" [(ngModel)]="restricciones[8].activo" class="mt-1" />
+            <div class="flex flex-col">
+              <span class="font-semibold">{{ restricciones[8].titulo }}</span>
+              <span class="text-gray-700 text-sm">{{ restricciones[8].descripcion }}</span>
+            </div>
+          </label>
+
+          <label class="flex items-start gap-2">
+            <input type="checkbox" [(ngModel)]="restricciones[9].activo" class="mt-1" />
+            <div class="flex flex-col">
+              <span class="font-semibold">{{ restricciones[9].titulo }}</span>
+              <span class="text-gray-700 text-sm">{{ restricciones[9].descripcion }}</span>
+            </div>
+          </label>
+
+          <label class="flex items-start gap-2">
+            <input type="checkbox" [(ngModel)]="restricciones[10].activo" class="mt-1" />
+            <div class="flex flex-col">
+              <span class="font-semibold">{{ restricciones[10].titulo }}</span>
+              <span class="text-gray-700 text-sm">{{ restricciones[10].descripcion }}</span>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div [hidden]="currentStep !== 3" class="space-y-4 max-w-[60%]">
+    <div>
+      <h1 class="text-secondary text-xl">Tarifas y monetizacion</h1>
+      <h2 class="text-primary font-bold mb-6">Selecciona lo que corresponda para esta licencia.</h2>
+
+      <div class="space-y-4 pl-4">
+        <label class="flex items-start gap-2">
+          <input
+            type="radio"
+            name="desarrolloProductos"
+            [(ngModel)]="opcionDesarrolloProductos"
+            [value]="7"
+            class="mt-1"
+          />
+          <span>Los datos se proporcionan de forma gratuita</span>
+        </label>
+
+        <label class="flex items-start gap-2">
+          <input
+            type="radio"
+            name="desarrolloProductos"
+            [(ngModel)]="opcionDesarrolloProductos"
+            [value]="8"
+            class="mt-1"
+          />
+          <span>Los datos se proporcionan previo pago de una tarifa</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div [hidden]="currentStep !== 4" class="space-y-4 max-w-[60%]">
+    <h1 class="text-secondary text-xl">Revisar y guardar</h1>
+    <h2 class="text-primary font-bold mb-6">Revisa las condiciones y guarda esta política.</h2>
+    <h1 class="text-primary font-bold text-xl mb-4">Resumen</h1>
+    <div class="col-span-full text-left my-6">
+      <hr class="border-t border-gray-300 mb-4 mt-4" />
+    </div>
+
+    <div class="border p-4 rounded shadow-sm bg-white">
+      <p class="font-semibold">Nombre / identificación de la política</p>
+      <a class="text-secondary font-bold block">{{ policyName }}</a>
+      <p class="text-sm secondary font-semibold text-secondary">{{ policyDescription }}</p>
+      <p *ngIf="legalText" class="text-sm text-secondary">{{ legalText }}</p>
+    </div>
+
+    <div *ngFor="let r of restriccionesActivas" class="border p-4 rounded shadow-sm bg-white">
+      <p class="font-semibold">{{ r.titulo }}</p>
+      <ul class="list-disc list-inside text-gray-700">
+        <li>{{ r.descripcion }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="flex justify-end mt-6 gap-2">
+    <button class="btn btn-my-grey" (click)="prev()" [disabled]="currentStep === 1">Paso anterior</button>
+    <button class="btn btn-secondary" (click)="next()">
+      {{ currentStep === 4 ? 'Guardar política' : 'Guardar y continuar' }}
+    </button>
+  </div>
+</div>

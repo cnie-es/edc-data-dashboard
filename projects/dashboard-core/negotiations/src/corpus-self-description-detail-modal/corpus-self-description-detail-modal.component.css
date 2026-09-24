@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.corpus-sd-detail-modal {
+  min-width: min(90vw, 64rem);
+  max-width: min(90vw, 64rem);
+}
+
+@media (max-width: 1023px) {
+  :host ::ng-deep .corpus-offer-detail--embedded .corpus-offer-detail__main {
+    flex-direction: column;
+  }
+}

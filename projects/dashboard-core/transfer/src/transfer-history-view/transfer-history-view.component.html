@@ -1,0 +1,43 @@
+<div class="px-4 md:px-6 pb-10" data-cy="transfer-history-page">
+  <lib-breadcrumbs [items]="breadcrumbItemsTranslated"></lib-breadcrumbs>
+
+  <h1 class="text-3xl font-semibold text-(--app-color-primary-darker) mb-3">
+    {{ 'assets.transfer.history' | translate }}
+  </h1>
+
+  <div class="col-span-full text-left my-6">
+    <hr class="border-t border-gray-300 mb-4 mt-4" />
+  </div>
+
+  @let filtered = filteredTransferProcesses$ | async;
+
+  <div class="mb-4 flex flex-wrap items-center gap-4">
+    <lib-filter-input
+      [focusShortcut]="['Alt', 'j']"
+      class="min-w-0 grow max-w-md"
+      (inputChange)="onSearchInput($event)"
+    ></lib-filter-input>
+  </div>
+
+  <lib-transfer-history-table
+    [transferProcesses]="(pageTransferProcesses$ | async) ?? []"
+    [fetched]="fetched"
+    [loadFailed]="loadFailed"
+    [filterActive]="filterActive"
+    [assetDisplayByAssetId]="assetDisplayByAssetId"
+    [connectorLabelByContractId]="connectorLabelByContractId"
+    [assetEnrichmentInProgress]="pageAssetEnrichmentInProgress"
+    [isProviderView]="isProviderOnlyView"
+  ></lib-transfer-history-table>
+
+  @if (filtered && filtered.length > 0) {
+    <div class="mt-4 flex flex-wrap items-center justify-end gap-3">
+      <lib-pagination
+        [items]="filtered"
+        [pageItemCount]="pageItemCount"
+        (pageItems)="paginationEvent($event)"
+        class="shrink-0 rounded-2xl bg-base-300 [&_button:hover]:bg-base-100 [&_.join>button]:first:rounded-l-2xl [&_.join>button]:last:rounded-r-2xl"
+      ></lib-pagination>
+    </div>
+  }
+</div>

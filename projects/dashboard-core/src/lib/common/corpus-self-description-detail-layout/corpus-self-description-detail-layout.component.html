@@ -1,0 +1,1267 @@
+<!-- VISTA DESDE PROVEEDOR -->
+
+<div class="corpus-offer-detail" [class.corpus-offer-detail--embedded]="embeddedInModal()">
+  @if (!embeddedInModal()) {
+    <lib-breadcrumbs [items]="breadcrumbItemsTranslated()" class="corpus-offer-detail__breadcrumbs block mb-4" />
+  }
+
+  @if (errorMessageKey() && !loading()) {
+    <div class="alert alert-warning mb-4" role="alert">
+      <span>{{ errorMessageKey()! | translate }}</span>
+    </div>
+  }
+
+  @if (loading()) {
+    <div class="flex justify-center items-center py-16">
+      <span class="loading loading-bars loading-lg text-primary"></span>
+    </div>
+  } @else if (vm()) {
+    @let v = vm()!;
+
+    @if (layoutMode() === 'asset' && hasLinkedOffers()) {
+      <div
+        class="corpus-offer-detail__linked-alert mb-4 flex gap-2 rounded-lg border border-gray-300 bg-gray-100 px-3 py-2 text-sm"
+      >
+        <span class="material-symbols-rounded shrink-0 text-base!">info</span>
+        <span>{{ 'assets.detail.linkedOffersAlert' | translate }}</span>
+      </div>
+    }
+
+    <div class="corpus-offer-detail__title-row">
+      <h1 class="corpus-offer-detail__title wrap-break-word">{{ v.title }}</h1>
+      @if (!embeddedInModal()) {
+        <a [routerLink]="backRoute()" class="corpus-offer-detail__back shrink-0" data-cy="sd-detail-back-list">
+          <span class="corpus-offer-detail__back-chevron" aria-hidden="true">&lt;</span>
+          <span class="corpus-offer-detail__back-label">{{ backLabelKey() | translate }}</span>
+        </a>
+      }
+    </div>
+    <hr class="corpus-offer-detail__title-divider" />
+
+    <div class="corpus-offer-detail__provider">
+      <span class="material-symbols-rounded align-middle text-base!">stacks</span>
+      <span [textContent]="v.providerLabel"></span>
+    </div>
+
+    @if (layoutMode() === 'offer') {
+      <div class="corpus-offer-detail__meta-actions-row">
+        <div class="corpus-offer-detail__meta-row">
+          @if (v.conformsToTitle) {
+            <span class="badge-blue p-1">{{ getAssetTypeKey(v.conformsToTitle) | translate }}</span>
+          }
+          @if (v.version) {
+            <span class="badge-blue p-1">v.{{ v.version }}</span>
+          }
+          @if (listDateDisplay()) {
+            <span class="corpus-offer-detail__date-pill" data-cy="sd-detail-list-date">{{ listDateDisplay() }}</span>
+          }
+        </div>
+        <div class="corpus-offer-detail__actions-group">
+          <div
+            class="corpus-offer-detail__toggle"
+            role="group"
+            [attr.aria-label]="'offers.detail.publicCatalogAria' | translate"
+          >
+            <span class="corpus-offer-detail__toggle-track">
+              <span class="corpus-offer-detail__toggle-thumb" [class.is-on]="v.isPublicOffering">
+                <span class="material-symbols-rounded text-[12px]! leading-none">
+                  {{ v.isPublicOffering ? 'check' : 'close' }}
+                </span>
+              </span>
+            </span>
+            <span>{{ 'offers.detail.publicCatalogReadonly' | translate }}</span>
+            <span class="tooltip tooltip-left" [attr.data-tip]="'offers.toggle.tooltip' | translate">
+              <span class="material-symbols-rounded cursor-help text-sm opacity-75">help</span>
+            </span>
+          </div>
+          @if (showDeleteOffer()) {
+            <span class="corpus-offer-detail__actions-separator" aria-hidden="true"></span>
+            <button
+              type="button"
+              class="corpus-offer-detail__delete"
+              [disabled]="deleteOfferDisabled()"
+              [attr.title]="deleteOfferDisabled() ? ('offers.detail.deleteWait' | translate) : null"
+              [attr.aria-label]="'offers.detail.deleteAria' | translate"
+              data-cy="offer-detail-delete"
+              (click)="deleteOffer.emit()"
+            >
+              <span class="material-symbols-rounded text-lg! leading-none">delete</span>
+              {{ 'offers.detail.delete' | translate }}
+            </button>
+          }
+        </div>
+      </div>
+      <hr class="corpus-offer-detail__header-divider" />
+    } @else {
+      <div class="corpus-offer-detail__meta-row">
+        @if (v.offeringTypeLabel) {
+          <span class="badge-blue p-1">{{ v.offeringTypeLabel }}</span>
+        }
+        @if (v.version) {
+          <span class="badge-blue p-1">v.{{ v.version }}</span>
+        }
+        @if (listDateDisplay()) {
+          <span class="corpus-offer-detail__date-pill" data-cy="sd-detail-list-date">{{ listDateDisplay() }}</span>
+        }
+      </div>
+    }
+
+    <div class="corpus-offer-detail__main" [class.corpus-offer-detail__main--offer]="layoutMode() === 'offer'">
+      <div class="corpus-offer-detail__main-left">
+        @if (layoutMode() === 'offer') {
+          <div class="corpus-offer-detail__intro-pair">
+            <div class="corpus-offer-detail__intro-pair-left">
+              <section class="corpus-offer-detail__description-intro corpus-offer-detail__grid-description">
+                <h2 class="corpus-title-h2">
+                  <span class="material-symbols-rounded align-middle text-xl!">description</span>
+                  {{ 'offers.detail.assetDescription' | translate }}
+                </h2>
+                <p class="corpus-offer-detail__body whitespace-pre-wrap text-base">{{ v.description }}</p>
+              </section>
+              <hr class="corpus-offer-detail__intro-divider" />
+            </div>
+          </div>
+
+          <div class="corpus-offer-detail__languages-pair">
+            <div class="corpus-offer-detail__languages-pair-left">
+              @if (v.sections.corpus.languages.length > 0) {
+                <section class="corpus-offer-detail__grid-languages">
+                  <h2 class="corpus-title-h2">
+                    <span class="material-symbols-rounded align-middle text-xl!">translate</span>
+                    {{ 'offers.detail.linguisticVarieties' | translate }}
+                  </h2>
+                  <div class="grid gap-4 sm:grid-cols-2">
+                    @for (row of v.sections.corpus.languages; track row.varietyLine + row.regionCode) {
+                      <div class="corpus-offer-detail__lang-card">
+                        <div class="label">{{ 'offers.detail.region' | translate }}</div>
+                        <div class="region">
+                          {{ getFlag(row.regionCode || row.regionLabel) }}
+                          {{ formatRegion(row.regionCode || row.regionLabel) }}
+                        </div>
+                        <div class="label variety">{{ 'offers.detail.linguisticVariety' | translate }}</div>
+                        <div class="variety-line">
+                          {{ formatLanguage(row.varietyLine, row.regionCode || row.regionLabel) }}
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </section>
+              }
+              <hr class="corpus-offer-detail__intro-divider" />
+            </div>
+          </div>
+        }
+
+        <div class="corpus-offer-detail__column-main">
+          @if (layoutMode() === 'asset') {
+            <section class="corpus-offer-detail__description-intro">
+              <h2 class="corpus-title-h2">
+                <span class="material-symbols-rounded align-middle text-xl!">description</span>
+                {{ 'assets.detail.assetDescription' | translate }}
+              </h2>
+              <p class="corpus-offer-detail__body whitespace-pre-wrap text-base">{{ v.description }}</p>
+            </section>
+
+            <div class="col-span-full text-left">
+              <hr class="border-t border-gray-300" />
+            </div>
+
+            @if (hasLanguageContent(v.sections.corpus.languages) || v.sections.corpus.languages.length > 0) {
+              <section>
+                <h2 class="corpus-title-h2">
+                  <span class="material-symbols-rounded align-middle text-xl!">translate</span>
+                  {{ 'offers.detail.linguisticVarieties' | translate }}
+                </h2>
+                <div
+                  class="corpus-offer-detail__lang-grid"
+                  [class.corpus-offer-detail__lang-grid--multi]="v.sections.corpus.languages.length > 1"
+                >
+                  @for (row of v.sections.corpus.languages; track row.varietyLine + row.regionCode) {
+                    <div class="corpus-offer-detail__lang-card">
+                      @if (row.regionCode) {
+                        <div class="corpus-offer-detail__lang-block">
+                          <div class="corpus-offer-detail__lang-label">{{ 'offers.detail.region' | translate }}</div>
+                          <div class="corpus-offer-detail__lang-region">
+                            <span class="corpus-offer-detail__lang-flag" aria-hidden="true">{{
+                              regionFlag(row.regionCode)
+                            }}</span>
+                            <span>{{ row.regionDisplay }}</span>
+                          </div>
+                        </div>
+                      }
+                      @if (row.varietyLine) {
+                        <div class="corpus-offer-detail__lang-block">
+                          <div class="corpus-offer-detail__lang-label">
+                            {{ 'offers.detail.linguisticVariety' | translate }}
+                          </div>
+                          <div class="corpus-offer-detail__lang-value">{{ row.varietyLine }}</div>
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              </section>
+            }
+          }
+
+          <!-- ========================================================== -->
+          <!-- SECCIÓN: CATEGORÍAS (corpus.basicInfo)                     -->
+          <!-- ========================================================== -->
+          @if (
+            v.sections.corpus.basicInfo.lrType ||
+            v.sections.corpus.basicInfo.keywords.length ||
+            v.sections.corpus.basicInfo.mediaTypes.length ||
+            v.sections.corpus.basicInfo.lingualityType ||
+            v.modelFunctionLabels.length
+          ) {
+            <section class="corpus-offer-detail__card">
+              <h2 class="corpus-title-h2">
+                <span class="material-symbols-rounded align-middle text-xl!">category</span>
+                {{ 'offers.detail.categories' | translate }}
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                @if (v.sections.corpus.basicInfo.lrType) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.lrType' | translate }}</span>
+                    <span class="corpus-offer-detail__keyword-pill self-start">{{
+                      formatDisplayLabel(v.sections.corpus.basicInfo.lrType)
+                    }}</span>
+                  </div>
+                }
+                @if (v.sections.corpus.basicInfo.keywords.length) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.keywords' | translate }}</span>
+                    <div class="flex flex-wrap gap-2">
+                      @for (kw of v.sections.corpus.basicInfo.keywords; track kw) {
+                        <span class="corpus-offer-detail__keyword-pill">{{ kw }}</span>
+                      }
+                    </div>
+                  </div>
+                }
+                @if (v.sections.corpus.basicInfo.mediaTypes.length) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.supportType' | translate }}</span>
+                    <div class="flex flex-wrap gap-2">
+                      @for (m of v.sections.corpus.basicInfo.mediaTypes; track m) {
+                        <span class="corpus-offer-detail__keyword-pill">{{ formatDisplayLabel(m) }}</span>
+                      }
+                    </div>
+                  </div>
+                }
+                @if (v.sections.corpus.basicInfo.lingualityType) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'offers.detail.linguisticType' | translate
+                    }}</span>
+                    <span class="corpus-offer-detail__keyword-pill self-start">{{
+                      formatDisplayLabel(v.sections.corpus.basicInfo.lingualityType)
+                    }}</span>
+                  </div>
+                }
+                @if (v.modelFunctionLabels.length) {
+                  <div class="flex flex-col gap-1 col-span-full">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'assets.detail.modelFunction' | translate
+                    }}</span>
+                    <div class="flex flex-wrap gap-2">
+                      @for (mf of v.modelFunctionLabels; track mf) {
+                        <span class="corpus-offer-detail__keyword-pill">{{ formatDisplayLabel(mf) }}</span>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+          <!-- ========================================================== -->
+          <!-- SECCIÓN: PROTECCIÓN DE DATOS (corpus.dataProtection)       -->
+          <!-- ========================================================== -->
+          @if (
+            v.sections.corpus.dataProtection.personalDataIncluded ||
+            v.sections.corpus.dataProtection.sensitiveDataIncluded ||
+            v.sections.corpus.dataProtection.anonymized ||
+            v.sections.corpus.dataProtection.anonymizationDetails ||
+            v.sections.corpus.dataProtection.personalDataDetails ||
+            v.sections.corpus.dataProtection.sensitiveDataDetails
+          ) {
+            <section class="bg-base-100 rounded-lg shadow-sm p-4">
+              <h2 class="corpus-title-h2">
+                <span class="material-symbols-rounded align-middle text-xl!">security</span>
+                {{ 'offers.detail.dataProtection' | translate }}
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                @if (v.sections.corpus.dataProtection.personalDataIncluded) {
+                  <div class="flex items-center justify-between gap-2 rounded-md bg-gray-50 px-4 py-2">
+                    <span class="text-sm font-medium text-gray-700">{{
+                      'offers.detail.personalData' | translate
+                    }}</span>
+                    <span class="corpus-offer-detail__dp-pill">{{
+                      dpLabel(formatBoolean(v.sections.corpus.dataProtection.personalDataIncluded))
+                    }}</span>
+                  </div>
+                }
+                @if (v.sections.corpus.dataProtection.sensitiveDataIncluded) {
+                  <div class="flex items-center justify-between gap-2 rounded-md bg-gray-50 px-4 py-2">
+                    <span class="text-sm font-medium text-gray-700">{{
+                      'offers.detail.sensitiveData' | translate
+                    }}</span>
+                    <span class="corpus-offer-detail__dp-pill">{{
+                      dpLabel(formatBoolean(v.sections.corpus.dataProtection.sensitiveDataIncluded))
+                    }}</span>
+                  </div>
+                }
+                @if (v.sections.corpus.dataProtection.anonymized) {
+                  <div class="flex items-center justify-between gap-2 rounded-md bg-gray-50 px-4 py-2">
+                    <span class="text-sm font-medium text-gray-700">{{ 'offers.detail.anonymized' | translate }}</span>
+                    <span class="corpus-offer-detail__dp-pill">{{
+                      dpLabel(formatBoolean(v.sections.corpus.dataProtection.anonymized))
+                    }}</span>
+                  </div>
+                }
+              </div>
+              @if (
+                v.sections.corpus.dataProtection.anonymizationDetails ||
+                v.sections.corpus.dataProtection.personalDataDetails ||
+                v.sections.corpus.dataProtection.sensitiveDataDetails
+              ) {
+                <div class="mt-4 space-y-3">
+                  @if (v.sections.corpus.dataProtection.anonymizationDetails) {
+                    <div class="rounded-md bg-gray-50 p-3">
+                      <span class="text-sm font-medium text-gray-700">{{
+                        'offers.detail.anonymizationDetails' | translate
+                      }}</span>
+                      <p class="mt-1 text-sm">{{ v.sections.corpus.dataProtection.anonymizationDetails }}</p>
+                    </div>
+                  }
+                  @if (v.sections.corpus.dataProtection.personalDataDetails) {
+                    <div class="rounded-md bg-gray-50 p-3">
+                      <span class="text-sm font-medium text-gray-700">{{
+                        'offers.detail.personalDataDetails' | translate
+                      }}</span>
+                      <p class="mt-1 text-sm">{{ v.sections.corpus.dataProtection.personalDataDetails }}</p>
+                    </div>
+                  }
+                  @if (v.sections.corpus.dataProtection.sensitiveDataDetails) {
+                    <div class="rounded-md bg-gray-50 p-3">
+                      <span class="text-sm font-medium text-gray-700">{{
+                        'offers.detail.sensitiveDataDetails' | translate
+                      }}</span>
+                      <p class="mt-1 text-sm">{{ v.sections.corpus.dataProtection.sensitiveDataDetails }}</p>
+                    </div>
+                  }
+                </div>
+              }
+            </section>
+          }
+
+          <!-- ========================================================== -->
+          <!-- SECCIÓN: CLASIFICACIÓN (corpus.classification)             -->
+          <!-- ========================================================== -->
+          @if (
+            v.sections.corpus.classification.corpusSubclass ||
+            v.sections.corpus.classification.spatialCoverage ||
+            v.sections.corpus.classification.temporalCoverage ||
+            v.sections.corpus.classification.multilingualityType ||
+            v.sections.corpus.classification.annotationTypes.length ||
+            v.sections.corpus.classification.domain ||
+            v.sections.corpus.classification.standardsConformance
+          ) {
+            <section class="bg-base-100 rounded-lg shadow-sm p-4">
+              <h2 class="corpus-title-h2">
+                <span class="material-symbols-rounded align-middle text-xl!">category</span>
+                {{ 'offers.detail.classification' | translate }}
+              </h2>
+              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                @if (v.sections.corpus.classification.corpusSubclass) {
+                  <div class="rounded-md bg-blue-50 p-3 flex flex-col gap-1">
+                    <span class="text-xs font-medium text-blue-700">{{
+                      'offers.detail.corpusSubclass' | translate
+                    }}</span>
+                    <span class="text-sm">{{
+                      formatDisplayLabel(v.sections.corpus.classification.corpusSubclass)
+                    }}</span>
+                  </div>
+                }
+                @if (v.sections.corpus.classification.domain) {
+                  <div class="rounded-md bg-blue-50 p-3 flex flex-col gap-1">
+                    <span class="text-xs font-medium text-blue-700">{{ 'offers.detail.domain' | translate }}</span>
+                    <span class="text-sm">{{ v.sections.corpus.classification.domain }}</span>
+                  </div>
+                }
+                @if (v.sections.corpus.classification.spatialCoverage) {
+                  <div class="rounded-md bg-blue-50 p-3 flex flex-col gap-1">
+                    <span class="text-xs font-medium text-blue-700">{{
+                      'offers.detail.spatialCoverage' | translate
+                    }}</span>
+                    <span class="text-sm">{{
+                      formatDisplayLabel(v.sections.corpus.classification.spatialCoverage)
+                    }}</span>
+                  </div>
+                }
+                @if (v.sections.corpus.classification.temporalCoverage) {
+                  <div class="rounded-md bg-blue-50 p-3 flex flex-col gap-1">
+                    <span class="text-xs font-medium text-blue-700">{{
+                      'offers.detail.temporalCoverage' | translate
+                    }}</span>
+                    <span class="text-sm">
+                      {{ v.sections.corpus.classification.temporalCoverage!.startDate }} –
+                      {{ v.sections.corpus.classification.temporalCoverage!.endDate }}
+                    </span>
+                  </div>
+                }
+                @if (v.sections.corpus.classification.multilingualityType) {
+                  <div class="rounded-md bg-blue-50 p-3 flex flex-col gap-1">
+                    <span class="text-xs font-medium text-blue-700">{{
+                      'offers.detail.multilingualityType' | translate
+                    }}</span>
+                    <span class="text-sm">{{
+                      formatDisplayLabel(v.sections.corpus.classification.multilingualityType)
+                    }}</span>
+                  </div>
+                }
+                @if (v.sections.corpus.classification.standardsConformance) {
+                  <div class="rounded-md bg-blue-50 p-3 flex flex-col gap-1">
+                    <span class="text-xs font-medium text-blue-700">{{
+                      'offers.detail.standardsConformance' | translate
+                    }}</span>
+                    <span class="text-sm">{{
+                      formatDisplayLabel(v.sections.corpus.classification.standardsConformance)
+                    }}</span>
+                  </div>
+                }
+                @for (ann of v.sections.corpus.classification.annotationTypes; track ann) {
+                  <div class="rounded-md bg-blue-50 p-3 flex flex-col gap-1">
+                    <span class="text-xs font-medium text-blue-700">{{
+                      'offers.detail.annotationType' | translate
+                    }}</span>
+                    <span class="text-sm">{{ formatDisplayLabel(ann) }}</span>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+          <!-- ========================================================== -->
+          <!-- SECCIÓN: IDENTIFICACIÓN (corpus.identification)            -->
+          <!-- ========================================================== -->
+          @if (
+            v.sections.corpus.identification.alternativeTitle || v.sections.corpus.identification.identifiers.length
+          ) {
+            <section class="bg-base-100 rounded-lg shadow-sm p-4">
+              <h2 class="corpus-title-h2">
+                <span class="material-symbols-rounded align-middle text-xl!">badge</span>
+                {{ 'offers.detail.identification' | translate }}
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                @if (v.sections.corpus.identification.alternativeTitle) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'offers.detail.alternativeTitle' | translate
+                    }}</span>
+                    <div class="text-sm">{{ v.sections.corpus.identification.alternativeTitle }}</div>
+                  </div>
+                }
+                @if (v.sections.corpus.identification.identifiers.length) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.identifiers' | translate }}</span>
+                    <ul class="space-y-1">
+                      @for (id of v.sections.corpus.identification.identifiers; track id.notation + id.agency) {
+                        <li class="text-sm flex items-center gap-2">
+                          @if (id.isUrl) {
+                            <a
+                              class="link link-primary break-all"
+                              [href]="id.notation"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {{ id.notation }}
+                            </a>
+                          } @else {
+                            <span class="font-mono">{{ id.notation }}</span>
+                          }
+                          @if (id.agency) {
+                            <span class="text-xs text-gray-500">({{ id.agency }})</span>
+                          }
+                        </li>
+                      }
+                    </ul>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+          <!-- ========================================================== -->
+          <!-- SECCIÓN: LICENCIA DEL CORPUS (corpus.license)              -->
+          <!-- ========================================================== -->
+          @if (v.sections.corpus.license) {
+            <section class="bg-base-100 rounded-lg shadow-sm p-4">
+              <h2 class="corpus-title-h2">
+                <span class="material-symbols-rounded align-middle text-xl!">copyright</span>
+                {{ 'offers.detail.corpusLicense' | translate }}
+              </h2>
+              <div class="grid grid-cols-1 gap-3">
+                @if (v.sections.corpus.license.title) {
+                  <div>
+                    <span class="text-sm font-medium text-gray-600">{{ 'policies.title' | translate }}</span>
+                    <div class="text-sm">{{ v.sections.corpus.license.title }}</div>
+                  </div>
+                }
+                @if (v.sections.corpus.license.description) {
+                  <div>
+                    <span class="text-sm font-medium text-gray-600">{{ 'table.description' | translate }}</span>
+                    <div class="text-sm">{{ v.sections.corpus.license.description }}</div>
+                  </div>
+                }
+                @if (v.sections.corpus.license.legalCode) {
+                  <div>
+                    <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.legalCode' | translate }}</span>
+                    <div class="text-sm break-all">
+                      <a
+                        class="link link-primary"
+                        [href]="v.sections.corpus.license.legalCode"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {{ v.sections.corpus.license.legalCode }}
+                      </a>
+                    </div>
+                  </div>
+                }
+                @if (v.sections.corpus.license.identifiers.length) {
+                  <div>
+                    <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.identifiers' | translate }}</span>
+                    <ul class="space-y-1">
+                      @for (id of v.sections.corpus.license.identifiers; track id.notation + id.agency) {
+                        <li class="text-sm flex items-center gap-2">
+                          @if (id.isUrl) {
+                            <a
+                              class="link link-primary break-all"
+                              [href]="id.notation"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {{ id.notation }}
+                            </a>
+                          } @else {
+                            <span class="font-mono">{{ id.notation }}</span>
+                          }
+                          @if (id.agency) {
+                            <span class="text-xs text-gray-500">({{ id.agency }})</span>
+                          }
+                        </li>
+                      }
+                    </ul>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+          <!-- ========================================================== -->
+          <!-- SECCIÓN: EDITOR (corpus.publisher)                         -->
+          <!-- ========================================================== -->
+          @if (v.sections.corpus.publisher) {
+            <section class="bg-base-100 rounded-lg shadow-sm p-4">
+              <h2 class="corpus-title-h2">
+                <span class="material-symbols-rounded align-middle text-xl!">business</span>
+                {{ 'offers.detail.publisher' | translate }}
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                @if (v.sections.corpus.publisher.name) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.name' | translate }}</span>
+                    <div class="text-sm">{{ v.sections.corpus.publisher.name }}</div>
+                  </div>
+                }
+                @if (v.sections.corpus.publisher.identifiers.length) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.identifiers' | translate }}</span>
+                    <ul class="space-y-1">
+                      @for (id of v.sections.corpus.publisher.identifiers; track id.notation + id.agency) {
+                        <li class="text-sm flex items-center gap-2">
+                          @if (id.isUrl) {
+                            <a
+                              class="link link-primary break-all"
+                              [href]="id.notation"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {{ id.notation }}
+                            </a>
+                          } @else {
+                            <span class="font-mono">{{ id.notation }}</span>
+                          }
+                          @if (id.agency) {
+                            <span class="text-xs text-gray-500">({{ id.agency }})</span>
+                          }
+                        </li>
+                      }
+                    </ul>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+          <!-- ========================================================== -->
+          <!-- SECCIÓN: TITULARES DE DERECHOS (corpus.iprHolders)        -->
+          <!-- ========================================================== -->
+          @if (v.sections.corpus.iprHolders.length) {
+            <section class="bg-base-100 rounded-lg shadow-sm p-4">
+              <h2 class="corpus-title-h2">
+                <span class="material-symbols-rounded align-middle text-xl!">group</span>
+                {{ 'offers.detail.iprHolders' | translate }}
+              </h2>
+              <div class="space-y-4">
+                @for (holder of v.sections.corpus.iprHolders; track holder.name) {
+                  <div class="rounded-md border border-gray-200 p-4">
+                    <div class="text-base font-semibold">{{ holder.name }}</div>
+                    @if (holder.identifiers.length) {
+                      <div class="mt-2">
+                        <span class="text-sm font-medium text-gray-600">{{
+                          'assets.detail.identifiers' | translate
+                        }}</span>
+                        <ul class="mt-1 space-y-1">
+                          @for (id of holder.identifiers; track id.notation + id.agency) {
+                            <li class="text-sm flex items-center gap-2">
+                              @if (id.isUrl) {
+                                <a
+                                  class="link link-primary break-all"
+                                  [href]="id.notation"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {{ id.notation }}
+                                </a>
+                              } @else {
+                                <span class="font-mono">{{ id.notation }}</span>
+                              }
+                              @if (id.agency) {
+                                <span class="text-xs text-gray-500">({{ id.agency }})</span>
+                              }
+                            </li>
+                          }
+                        </ul>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+          <!-- ========================================================== -->
+          <!-- SECCIÓN: LENGUAJES ESPECÍFICOS (source/target/pivot)       -->
+          <!-- ========================================================== -->
+          @if (
+            v.sections.corpus.sourceLanguages.length ||
+            v.sections.corpus.targetLanguages.length ||
+            v.sections.corpus.pivotLanguages.length
+          ) {
+            <section class="bg-base-100 rounded-lg shadow-sm p-4">
+              <h2 class="corpus-title-h2">
+                <span class="material-symbols-rounded align-middle text-xl!">translate</span>
+                {{ 'offers.detail.specificLanguages' | translate }}
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                @if (v.sections.corpus.sourceLanguages.length) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'offers.detail.sourceLanguages' | translate
+                    }}</span>
+                    <ul class="list-disc list-inside text-sm">
+                      @for (lang of v.sections.corpus.sourceLanguages; track lang.varietyLine + lang.regionCode) {
+                        <li>{{ lang.varietyLine || lang.regionDisplay }}</li>
+                      }
+                    </ul>
+                  </div>
+                }
+                @if (v.sections.corpus.targetLanguages.length) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'offers.detail.targetLanguages' | translate
+                    }}</span>
+                    <ul class="list-disc list-inside text-sm">
+                      @for (lang of v.sections.corpus.targetLanguages; track lang.varietyLine + lang.regionCode) {
+                        <li>{{ lang.varietyLine || lang.regionDisplay }}</li>
+                      }
+                    </ul>
+                  </div>
+                }
+                @if (v.sections.corpus.pivotLanguages.length) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'offers.detail.pivotLanguages' | translate
+                    }}</span>
+                    <ul class="list-disc list-inside text-sm">
+                      @for (lang of v.sections.corpus.pivotLanguages; track lang.varietyLine + lang.regionCode) {
+                        <li>{{ lang.varietyLine || lang.regionDisplay }}</li>
+                      }
+                    </ul>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+          <!-- ========================================================== -->
+          <!-- SECCIÓN: DOCUMENTACIÓN (corpus.documentation)              -->
+          <!-- ========================================================== -->
+          @if (v.sections.corpus.documentation.length) {
+            <section class="bg-base-100 rounded-lg shadow-sm p-4">
+              <h2 class="corpus-title-h2">
+                <span class="material-symbols-rounded align-middle text-xl!">description</span>
+                {{ 'assets.detail.relatedDocs' | translate }}
+              </h2>
+              <div class="space-y-3">
+                @for (doc of v.sections.corpus.documentation; track doc.citationText + $index) {
+                  <div class="rounded-md border border-gray-200 p-4">
+                    <div class="flex items-start gap-2">
+                      <span class="material-symbols-rounded text-base! text-gray-500">bookmark</span>
+                      <span class="text-sm">{{ 'offers.detail.citation' | translate }}</span>
+                    </div>
+                    <p class="mt-1 text-sm">{{ doc.citationText }}</p>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+          <!-- ========================================================== -->
+          <!-- SECCIÓN: PROPIEDADES DEL SERVICIO (generalService)         -->
+          <!-- ========================================================== -->
+          @if (
+            v.sections.generalService.serviceAccessPoint ||
+            v.sections.generalService.inLanguage ||
+            v.sections.generalService.offeringType ||
+            v.sections.generalService.sharingMethodId
+          ) {
+            <section class="bg-base-100 rounded-lg shadow-sm p-4">
+              <h2 class="corpus-title-h2">
+                <span class="material-symbols-rounded align-middle text-xl!">settings</span>
+                {{ 'offers.detail.serviceProperties' | translate }}
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @if (v.sections.generalService.serviceAccessPoint) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'offers.detail.serviceAccessPoint' | translate
+                    }}</span>
+                    <div class="text-sm break-all">
+                      <a
+                        class="link link-primary"
+                        [href]="v.sections.generalService.serviceAccessPoint"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {{ v.sections.generalService.serviceAccessPoint }}
+                      </a>
+                    </div>
+                  </div>
+                }
+                @if (v.sections.generalService.inLanguage) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'offers.detail.metadataLanguage' | translate
+                    }}</span>
+                    <div class="text-sm uppercase">{{ v.sections.generalService.inLanguage }}</div>
+                  </div>
+                }
+                @if (v.sections.generalService.offeringType) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'offers.detail.offeringType' | translate
+                    }}</span>
+                    <div class="text-sm">{{ v.sections.generalService.offeringType }}</div>
+                  </div>
+                }
+                @if (v.sections.generalService.sharingMethodId) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'offers.detail.sharingMethod' | translate
+                    }}</span>
+                    <div class="text-sm">{{ v.sections.generalService.sharingMethodId }}</div>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+          <!-- ========================================================== -->
+          <!-- SECCIÓN: PROPIEDADES DE DATOS (dataProperties)             -->
+          <!-- ========================================================== -->
+          @if (
+            v.sections.dataProperties.producedBy ||
+            v.sections.dataProperties.format ||
+            v.sections.dataProperties.openApi ||
+            v.sections.dataProperties.additionalInfo ||
+            v.sections.dataProperties.relatedDatasets ||
+            v.sections.dataProperties.targetUsers ||
+            v.sections.dataProperties.dataQuality ||
+            v.sections.dataProperties.encryption ||
+            v.sections.dataProperties.anonymization
+          ) {
+            <section class="bg-base-100 rounded-lg shadow-sm p-4">
+              <h2 class="corpus-title-h2">
+                <span class="material-symbols-rounded align-middle text-xl!">data_usage</span>
+                {{ 'offers.detail.dataProperties' | translate }}
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @if (v.sections.dataProperties.producedBy) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.producedBy' | translate }}</span>
+                    <div class="text-sm break-all">
+                      <a
+                        class="link link-primary"
+                        [href]="v.sections.dataProperties.producedBy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {{ v.sections.dataProperties.producedBy }}
+                      </a>
+                    </div>
+                  </div>
+                }
+                @if (v.sections.dataProperties.format) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.format' | translate }}</span>
+                    <div class="text-sm">{{ v.sections.dataProperties.format }}</div>
+                  </div>
+                }
+                @if (v.sections.dataProperties.openApi) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.openApi' | translate }}</span>
+                    <div class="text-sm break-all">
+                      <a
+                        class="link link-primary"
+                        [href]="v.sections.dataProperties.openApi"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {{ v.sections.dataProperties.openApi }}
+                      </a>
+                    </div>
+                  </div>
+                }
+                @if (v.sections.dataProperties.additionalInfo) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'offers.detail.additionalInfo' | translate
+                    }}</span>
+                    <div class="text-sm break-all">
+                      <a
+                        class="link link-primary"
+                        [href]="v.sections.dataProperties.additionalInfo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {{ v.sections.dataProperties.additionalInfo }}
+                      </a>
+                    </div>
+                  </div>
+                }
+                @if (v.sections.dataProperties.relatedDatasets) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'offers.detail.relatedDatasets' | translate
+                    }}</span>
+                    <div class="text-sm">{{ v.sections.dataProperties.relatedDatasets }}</div>
+                  </div>
+                }
+                @if (v.sections.dataProperties.targetUsers) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.targetUsers' | translate }}</span>
+                    <div class="text-sm">{{ v.sections.dataProperties.targetUsers }}</div>
+                  </div>
+                }
+                @if (v.sections.dataProperties.dataQuality) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.dataQuality' | translate }}</span>
+                    <div class="text-sm">{{ v.sections.dataProperties.dataQuality }}</div>
+                  </div>
+                }
+                @if (v.sections.dataProperties.encryption) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.encryption' | translate }}</span>
+                    <div class="text-sm">{{ v.sections.dataProperties.encryption }}</div>
+                  </div>
+                }
+                @if (v.sections.dataProperties.anonymization) {
+                  <div class="flex flex-col gap-1 col-span-full">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'offers.detail.anonymizationMeasure' | translate
+                    }}</span>
+                    <div class="text-sm">{{ v.sections.dataProperties.anonymization }}</div>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+          <!-- ========================================================== -->
+          <!-- SECCIÓN: INFORMACIÓN DEL PROVEEDOR (providerInformation)   -->
+          <!-- ========================================================== -->
+          @if (v.sections.providerInformation.contact || v.sections.providerInformation.signature) {
+            <section class="bg-base-100 rounded-lg shadow-sm p-4">
+              <h2 class="corpus-title-h2">
+                <span class="material-symbols-rounded align-middle text-xl!">business</span>
+                {{ 'sdDetails.detail.providerInformation' | translate }}
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @if (v.sections.providerInformation.contact) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.contact' | translate }}</span>
+                    <div class="text-sm break-all">{{ v.sections.providerInformation.contact }}</div>
+                  </div>
+                }
+                @if (v.sections.providerInformation.signature) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'sdDetails.detail.signature' | translate
+                    }}</span>
+                    <div class="text-sm break-all font-mono">{{ v.sections.providerInformation.signature }}</div>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+
+          <!-- ========================================================== -->
+          <!-- SECCIÓN: POLÍTICAS (servicePolicy)                         -->
+          <!-- ========================================================== -->
+          @if (
+            v.sections.servicePolicy.accessPolicyRows.length ||
+            v.sections.servicePolicy.usagePolicyRows.length ||
+            v.sections.servicePolicy.dataProtectionRegime
+          ) {
+            <section class="bg-base-100 rounded-lg shadow-sm p-4">
+              <h2 class="corpus-title-h2">
+                <span class="material-symbols-rounded align-middle text-xl!">policy</span>
+                {{ 'menu.policies' | translate }}
+              </h2>
+
+              @if (v.sections.servicePolicy.usagePolicyRaw) {
+                <div class="mb-4 flex items-center gap-2 rounded-md bg-info/10 px-4 py-2 text-sm text-info">
+                  <span class="material-symbols-rounded text-base!">info</span>
+                  {{ 'sdDetails.detail.usagePolicy' | translate: { count: 'disponible' } }}
+                </div>
+              }
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                @if (v.sections.servicePolicy.accessPolicyRows.length) {
+                  <div class="rounded-lg border border-gray-200 p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                      <span class="material-symbols-rounded text-blue-600">lock_open</span>
+                      <span class="font-semibold">{{ 'sdDetails.detail.accessPolicy' | translate }}</span>
+                    </div>
+                    @for (row of v.sections.servicePolicy.accessPolicyRows; track row.user + row.from) {
+                      <div class="border-t border-gray-100 pt-2 mt-2 first:border-t-0 first:pt-0 first:mt-0">
+                        <div class="flex justify-between text-sm">
+                          <span class="text-gray-600">{{ 'sdDetails.detail.users' | translate }}</span>
+                          <span>{{ row.user }}</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                          <span class="text-gray-600">{{ 'sdDetails.detail.actions' | translate }}</span>
+                          <span>{{ row.actions }}</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                          <span class="text-gray-600">{{ 'sdDetails.detail.dateConstraint' | translate }}</span>
+                          <span>{{ row.from }} → {{ row.to }}</span>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                }
+
+                @if (v.sections.servicePolicy.usagePolicyRows.length) {
+                  <div class="rounded-lg border border-gray-200 p-4">
+                    <div class="flex items-center gap-2 mb-3">
+                      <span class="material-symbols-rounded text-green-600">assignment</span>
+                      <span class="font-semibold">{{ 'sdDetails.detail.usagePolicy' | translate }}</span>
+                    </div>
+                    @for (row of v.sections.servicePolicy.usagePolicyRows; track row.user + row.constraint) {
+                      <div class="border-t border-gray-100 pt-2 mt-2 first:border-t-0 first:pt-0 first:mt-0">
+                        <div class="flex justify-between text-sm">
+                          <span class="text-gray-600">{{ 'sdDetails.detail.user' | translate }}</span>
+                          <span>{{ row.user }}</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                          <span class="text-gray-600">{{ 'sdDetails.detail.usageType' | translate }}</span>
+                          <span>{{ row.usageType }}</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                          <span class="text-gray-600">{{ 'sdDetails.detail.constraint' | translate }}</span>
+                          <span>{{ row.constraint }}</span>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+
+              @if (v.sections.servicePolicy.dataProtectionRegime) {
+                <div class="mt-4 flex flex-col gap-1 rounded-md bg-gray-50 p-3">
+                  <span class="text-sm font-medium text-gray-600">{{
+                    'offers.detail.dataProtectionRegime' | translate
+                  }}</span>
+                  <span class="text-sm">{{ v.sections.servicePolicy.dataProtectionRegime }}</span>
+                </div>
+              }
+            </section>
+          }
+
+          <!-- ========================================================== -->
+          <!-- SECCIÓN: PLANTILLA DE CONTRATO (contractTemplate)          -->
+          <!-- ========================================================== -->
+          @if (
+            v.sections.contractTemplate.document ||
+            v.sections.contractTemplate.hashAlg ||
+            v.sections.contractTemplate.hashValue ||
+            v.sections.contractTemplate.url
+          ) {
+            <section class="bg-base-100 rounded-lg shadow-sm p-4">
+              <h2 class="corpus-title-h2">
+                <span class="material-symbols-rounded align-middle text-xl!">description</span>
+                {{ 'sdDetails.detail.contractTemplate' | translate }}
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @if (v.sections.contractTemplate.document) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{ 'sdDetails.detail.document' | translate }}</span>
+                    <div class="text-sm">{{ v.sections.contractTemplate.document }}</div>
+                  </div>
+                }
+                @if (v.sections.contractTemplate.hashAlg) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'sdDetails.detail.hashAlgorithm' | translate
+                    }}</span>
+                    <div class="text-sm">{{ v.sections.contractTemplate.hashAlg }}</div>
+                  </div>
+                }
+                @if (v.sections.contractTemplate.hashValue) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'sdDetails.detail.hashValue' | translate
+                    }}</span>
+                    <div class="text-sm break-all font-mono">{{ v.sections.contractTemplate.hashValue }}</div>
+                  </div>
+                }
+                @if (v.sections.contractTemplate.url) {
+                  <div class="flex flex-col gap-1">
+                    <span class="text-sm font-medium text-gray-600">{{
+                      'sdDetails.detail.templateUrl' | translate
+                    }}</span>
+                    <div class="text-sm break-all">
+                      <a
+                        class="link link-primary"
+                        [href]="v.sections.contractTemplate.url"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {{ v.sections.contractTemplate.url }}
+                      </a>
+                    </div>
+                  </div>
+                }
+              </div>
+            </section>
+          }
+        </div>
+      </div>
+      <!-- fin main-left -->
+
+      <!-- ============================================================ -->
+      <!-- BARRA LATERAL (ASIDE)                                         -->
+      <!-- ============================================================ -->
+      <aside class="corpus-offer-detail__aside space-y-4">
+        @if (
+          layoutMode() === 'offer' &&
+          (contractPolicyName() ||
+            v.licenseUrl ||
+            v.priceAmount ||
+            canViewPolicy() ||
+            v.sections.corpus.license?.identifiers?.length)
+        ) {
+          <!-- Tarjeta de contratación -->
+          <div class="corpus-offer-detail__aside-card">
+            <span class="corpus-offer-detail__aside-badge is-muted">
+              {{ 'offers.detail.license' | translate }}
+            </span>
+
+            <!-- Licencia del activo -->
+            @if (v.corpusLicense) {
+              <h3 class="text-base font-semibold">{{ v.corpusLicense.title }}</h3>
+              @if (v.corpusLicense.description) {
+                <p class="text-sm text-base-content/80">{{ v.corpusLicense.description }}</p>
+              }
+              <p class="text-sm">
+                <a
+                  class="link link-primary break-all"
+                  [href]="v.corpusLicense.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {{ v.corpusLicense.url }}
+                </a>
+              </p>
+              <!-- ID de licencia (tag opcional) -->
+              <!-- @if (v.corpusLicense.identifiers && v.corpusLicense.identifiers.length > 0) {
+                <span class="badge-blue p-1 mt-1">{{ v.corpusLicense.identifiers[0].notation }}</span>
+              } -->
+            }
+
+            @if (v.sections.corpus.license?.identifiers?.length) {
+              <div class="flex flex-col gap-1">
+                <span class="text-sm font-medium text-gray-600">{{ 'offers.detail.identifiers' | translate }}</span>
+                <ul class="space-y-1">
+                  @for (id of v.sections.corpus.license!.identifiers; track id.notation + id.agency) {
+                    <li class="text-sm flex items-center gap-2">
+                      @if (id.isUrl) {
+                        <a
+                          class="link link-primary break-all"
+                          [href]="id.notation"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {{ id.notation }}
+                        </a>
+                      } @else {
+                        <span class="font-mono">{{ id.notation }}</span>
+                      }
+                      @if (id.agency) {
+                        <span class="text-xs text-gray-500">({{ id.agency }})</span>
+                      }
+                    </li>
+                  }
+                </ul>
+              </div>
+            }
+
+            <!-- Precio -->
+            @if (v.priceAmount || v.priceCurrency) {
+              <p class="corpus-offer-detail__price">
+                <span class="material-symbols-rounded text-xl!">euro_symbol</span>
+                <span>{{ formatOfferPriceLine(v.priceAmount, v.priceCurrency) }}</span>
+              </p>
+            }
+
+            <!-- Botón para ver política de uso (ODRL) -->
+            @if (canViewPolicy()) {
+              <button type="button" class="corpus-offer-detail__view-policy" (click)="viewPolicy.emit()">
+                {{ 'offers.detail.viewPolicy' | translate }}
+              </button>
+            }
+          </div>
+        }
+
+        <!-- Tarjeta de publicación (solo si existe política de publicación) -->
+        <!-- @if (layoutMode() === 'offer' && canViewPublicationPolicy() && publicationPolicyName()) {
+          <div class="corpus-offer-detail__aside-card">
+            <span class="corpus-offer-detail__aside-badge is-muted">{{
+              'offers.detail.cardPublication' | translate
+            }}</span>
+            <p class="mb-2 text-sm text-base-content break-words">{{ publicationPolicyName() }}</p>
+            <button type="button" class="corpus-offer-detail__view-policy" (click)="viewPublicationPolicy.emit()">
+              {{ 'offers.detail.viewPolicy' | translate }}
+            </button>
+          </div>
+        } -->
+
+        <!-- Distribución (tarjeta) -->
+        @if (v.byteSize || v.packageFormat || v.fileFormatLabels.length > 0 || (v.sizeAmount && v.sizeUnit)) {
+          <div class="corpus-offer-detail__aside-card">
+            <h3 class="text-base font-semibold mb-2">{{ 'offers.detail.cardDistribution' | translate }}</h3>
+            @if (v.byteSize) {
+              <div class="mb-2">
+                <div class="corpus-offer-detail__kv-label">{{ 'offers.detail.byteSize' | translate }}</div>
+                <div class="corpus-offer-detail__kv-value font-mono">{{ v.byteSize }}</div>
+              </div>
+            }
+            @if (v.packageFormat) {
+              <div class="mb-2">
+                <div class="corpus-offer-detail__kv-label">{{ 'offers.detail.packageFormat' | translate }}</div>
+                <div class="corpus-offer-detail__kv-value">{{ formatDisplayLabel(v.packageFormat) }}</div>
+              </div>
+            }
+            @if (v.fileFormatLabels.length > 0) {
+              <div class="mb-2">
+                <div class="corpus-offer-detail__kv-label">
+                  {{
+                    layoutMode() === 'asset'
+                      ? ('assets.detail.fileFormatsTitle' | translate)
+                      : ('offers.detail.fileFormats' | translate)
+                  }}
+                </div>
+                <ul class="files">
+                  @for (f of v.fileFormatLabels; track f) {
+                    <li>{{ layoutMode() === 'asset' ? formatFileFormat(f) : formatDisplayLabel(f) }}</li>
+                  }
+                </ul>
+              </div>
+            }
+            @if (v.sizeAmount && v.sizeUnit) {
+              <div>
+                <div class="corpus-offer-detail__kv-label">{{ 'offers.detail.size' | translate }}</div>
+                <div class="corpus-offer-detail__kv-value">{{ v.sizeAmount }} {{ formatDisplayLabel(v.sizeUnit) }}</div>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- ModelProperties (solo modo asset) -->
+        @if (
+          layoutMode() === 'asset' &&
+          v.modelProperties &&
+          (v.modelProperties.modelType || v.modelProperties.variantOf || v.modelProperties.detailsUrl)
+        ) {
+          <div class="corpus-offer-detail__aside-card">
+            <h3 class="text-base font-semibold mb-2">{{ 'assets.detail.modelProperties' | translate }}</h3>
+            @if (v.modelProperties!.modelType) {
+              <div class="mb-2">
+                <div class="corpus-offer-detail__kv-label">{{ 'assets.detail.modelType' | translate }}</div>
+                <div class="corpus-offer-detail__kv-value">{{ v.modelProperties!.modelType }}</div>
+              </div>
+            }
+            @if (v.modelProperties!.variantOf) {
+              <div class="mb-2">
+                <div class="corpus-offer-detail__kv-label">{{ 'assets.detail.variantOf' | translate }}</div>
+                <div class="corpus-offer-detail__kv-value">{{ v.modelProperties!.variantOf }}</div>
+              </div>
+            }
+            @if (v.modelProperties!.detailsUrl) {
+              <a
+                class="corpus-offer-detail__view-policy"
+                [href]="v.modelProperties!.detailsUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {{ 'assets.detail.viewModelDetails' | translate }}
+              </a>
+            }
+          </div>
+        }
+
+        <!-- providerDataAddress (de assetProperties) -->
+        @if (v.sections.assetProperties.providerDataAddress) {
+          <div class="corpus-offer-detail__aside-card">
+            <h3 class="text-base font-semibold mb-2">{{ 'offers.detail.providerDataAddress' | translate }}</h3>
+            <div class="corpus-offer-detail__kv-value font-mono wrap-break-word text-sm">
+              {{ v.sections.assetProperties.providerDataAddress }}
+            </div>
+          </div>
+        }
+
+        <!-- documentId -->
+        @if (v.documentId) {
+          <div class="corpus-offer-detail__doc-id">
+            <div class="corpus-offer-detail__kv-label">{{ 'offers.detail.documentId' | translate }}</div>
+            <div class="mono text-sm">{{ v.documentId }}</div>
+          </div>
+        }
+      </aside>
+    </div>
+  }
+</div>

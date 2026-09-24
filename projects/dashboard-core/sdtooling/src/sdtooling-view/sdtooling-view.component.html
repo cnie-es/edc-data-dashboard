@@ -1,0 +1,790 @@
+<div id="main" class="col-span-full px-4 pb-8">
+  <lib-breadcrumbs [items]="breadcrumbItemsTranslated"></lib-breadcrumbs>
+
+  <h1 class="text-3xl font-bold text-primary">{{ 'createoffer' | translate }}</h1>
+
+  <div class="col-span-full my-6 text-left">
+    <hr class="mb-4 mt-4 border-t border-gray-300" />
+  </div>
+
+  @if (sections.length) {
+    <nav
+      class="offer-circle-stepper mb-6 w-full"
+      data-cy="offer-wizard-stepper-panel"
+      aria-label="Offer creation steps"
+    >
+      <div
+        class="offer-stepper-rail relative w-full"
+        [style.--step-count]="steps.length"
+        [style.--step-index]="currentStepIndex"
+      >
+        @if (steps.length > 1) {
+          <div class="offer-stepper-line offer-stepper-line--track" aria-hidden="true"></div>
+          <div class="offer-stepper-line offer-stepper-line--progress" aria-hidden="true"></div>
+        }
+        <ol class="offer-stepper-nodes relative z-10 m-0 flex w-full list-none p-0 text-sm">
+          @for (step of steps; track step.key; let idx = $index) {
+            <li class="offer-step-node flex min-w-0 flex-1 flex-col items-center px-0.5">
+              <button
+                type="button"
+                class="offer-step-circle relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold transition-all"
+                [ngClass]="
+                  isStepCircleReached(idx)
+                    ? 'border-primary bg-primary text-white'
+                    : 'border-base-300 bg-base-100 text-base-content'
+                "
+                [class.offer-wizard-step-active]="isStepActive(idx)"
+                [disabled]="isStepButtonDisabled(idx)"
+                [attr.aria-current]="isStepActive(idx) ? 'step' : null"
+                [attr.aria-label]="step.label"
+                (click)="goToStep(idx)"
+              >
+                {{ idx + 1 }}
+              </button>
+              <span
+                class="mt-2 max-w-full text-center text-xs leading-tight md:text-sm"
+                [ngClass]="isStepActive(idx) ? 'font-semibold text-primary' : 'text-base-content opacity-60'"
+                [innerText]="step.label"
+              ></span>
+            </li>
+          }
+        </ol>
+      </div>
+    </nav>
+
+    <div class="col-span-full mb-6 text-left">
+      <hr class="mb-4 mt-0 border-t border-gray-300" />
+    </div>
+
+    <div id="offer-wizard-step-content" class="mb-2 scroll-mt-4">
+      <p class="text-xl font-bold text-primary">{{ offerTypeHeading }}</p>
+    </div>
+  }
+
+  @if (schemasError) {
+    <div class="alert alert-error mt-4">
+      <span [innerText]="schemasError"></span>
+    </div>
+  }
+
+  @if (loadingSchemaDetails) {
+    <div class="mt-4 rounded-xl border border-border bg-base-100 p-3">
+      <span class="loading loading-bars loading-md opacity-75 text-primary"></span>
+      <p class="mt-2 text-sm text-my-text">{{ 'preparing' | translate }}</p>
+    </div>
+  }
+
+  @if (detailsError) {
+    <div class="alert alert-error mt-4">
+      <span [innerText]="detailsError"></span>
+    </div>
+  }
+
+  @if (sections.length && !isSummaryStep()) {
+    <form
+      class="mt-2 rounded-none border border-base-300 bg-base-100 p-4 md:p-6"
+      data-cy="offer-wizard-form-panel"
+      [formGroup]="dynamicForm"
+    >
+      @if (getActiveSection(); as section) {
+        <div class="mb-2">
+          <h2 class="text-xl font-semibold tracking-tight text-base-content" [innerText]="section.label"></h2>
+          @if (section.description) {
+            <p class="mb-5 mt-2 text-sm text-my-text" [innerText]="section.description"></p>
+          }
+
+          @if (isAssetPropertiesSection(section) && selectedSchema && sharingMethodsResult) {
+            <div
+              class="mb-4 rounded-lg border border-border bg-(--app-color-info-bg-light) p-3 md:p-4"
+              [formGroup]="templateForm"
+            >
+              <h4 class="text-sm font-semibold mb-3">{{ 'sdtooling.templateConfig' | translate }}</h4>
+              <div class="grid gap-4 md:grid-cols-2">
+                <div>
+                  <label for="sharing-method-selector" class="block text-sm font-medium mb-2"
+                    >{{ 'sdtooling.resourceSharingMethod' | translate }} *</label
+                  >
+                  <select
+                    id="sharing-method-selector"
+                    class="select select-bordered w-full"
+                    [(ngModel)]="selectedSharingMethod"
+                    [ngModelOptions]="{ standalone: true }"
+                    (change)="onSharingMethodChanged()"
+                  >
+                    <option [ngValue]="">{{ 'sdtooling.selectSharingMethod' | translate }}</option>
+                    @for (method of sharingMethodOptions; track method.value) {
+                      <option [ngValue]="method.value" [innerText]="method.label"></option>
+                    }
+                  </select>
+                </div>
+
+                <div>
+                  <label for="template-selector" class="block text-sm font-medium mb-2"
+                    >{{ 'sdtooling.sourceTemplate' | translate }} *</label
+                  >
+                  <select
+                    id="template-selector"
+                    class="select select-bordered w-full"
+                    [(ngModel)]="selectedTemplateId"
+                    [ngModelOptions]="{ standalone: true }"
+                    (change)="onTemplateChanged()"
+                    [disabled]="loadingTemplates || !selectedSharingMethod"
+                  >
+                    <option [ngValue]="">{{ 'selectemp' | translate }}</option>
+                    @for (option of templateOptions; track option.value) {
+                      <option [ngValue]="option.value" [innerText]="option.label"></option>
+                    }
+                  </select>
+                </div>
+              </div>
+
+              @if (loadingTemplates) {
+                <p class="mt-2 text-sm text-my-text">{{ 'loadtemp' | translate }}</p>
+              }
+              @if (loadingTemplateDetails) {
+                <p class="mt-2 text-sm text-my-text">{{ 'loaddetail' | translate }}</p>
+              }
+              @if (templateError) {
+                <div class="alert alert-error mt-2">
+                  <span [innerText]="templateError"></span>
+                </div>
+              }
+
+              @for (templateSection of templateSections; track templateSection.key) {
+                <div class="mt-4 rounded-lg border border-border bg-(--app-color-info-bg-light) p-3">
+                  <div class="flex flex-col gap-3">
+                    @for (field of templateSection.fields; track field.controlName) {
+                      <div class="flex flex-col">
+                        <label
+                          class="mb-1 block text-sm font-semibold text-base-content"
+                          [attr.for]="field.controlName"
+                        >
+                          <span [innerText]="getTemplateFieldLabel(field)"></span>
+                          @if (field.required) {
+                            <span class="ml-1 text-error">*</span>
+                          }
+                        </label>
+                        @if (field.description) {
+                          <p class="mb-1 text-xs text-my-text" [innerText]="field.description"></p>
+                        }
+
+                        @if (field.controlType === 'select') {
+                          <select
+                            class="select select-bordered w-full"
+                            [id]="field.controlName"
+                            [ngModel]="templateForm.get(field.controlName)?.value"
+                            (ngModelChange)="templateForm.get(field.controlName)?.setValue($event)"
+                            [ngModelOptions]="{ standalone: true }"
+                            [disabled]="isTemplateFieldReadonly(field)"
+                          >
+                            <option [ngValue]="">{{ 'sdtooling.selectOption' | translate }}</option>
+                            @for (option of field.enumOptions; track option) {
+                              <option
+                                [ngValue]="option"
+                                [innerText]="field.enumOptionLabels?.[option] ?? option"
+                              ></option>
+                            }
+                          </select>
+                        } @else if (isSelectMultipleField(field)) {
+                          <div
+                            class="mt-2 flex max-h-36 flex-col gap-2 overflow-y-auto rounded-lg border border-border bg-base-100 p-3"
+                          >
+                            @for (option of field.enumOptions; track option) {
+                              <label class="flex items-center gap-2 text-sm">
+                                <input
+                                  class="checkbox checkbox-primary"
+                                  type="checkbox"
+                                  [checked]="isMultiSelectOptionSelected(field, option, templateForm)"
+                                  [disabled]="isTemplateFieldReadonly(field)"
+                                  (change)="
+                                    onMultiSelectOptionChange(field, option, $any($event.target).checked, templateForm)
+                                  "
+                                />
+                                <span [innerText]="field.enumOptionLabels?.[option] ?? option"></span>
+                              </label>
+                            }
+                          </div>
+                        } @else if (field.controlType === 'number') {
+                          <input
+                            class="input input-bordered w-full"
+                            type="number"
+                            [id]="field.controlName"
+                            [formControlName]="field.controlName"
+                            [readonly]="isTemplateFieldReadonly(field)"
+                          />
+                        } @else if (field.controlType === 'checkbox') {
+                          <input
+                            class="checkbox checkbox-primary"
+                            type="checkbox"
+                            [id]="field.controlName"
+                            [formControlName]="field.controlName"
+                            [disabled]="isTemplateFieldReadonly(field)"
+                          />
+                        } @else {
+                          <input
+                            class="input input-bordered w-full"
+                            [type]="getTemplateFieldInputType(field)"
+                            [id]="field.controlName"
+                            [formControlName]="field.controlName"
+                            [readonly]="isTemplateFieldReadonly(field)"
+                          />
+                        }
+
+                        @if (isTemplateFieldInvalid(field)) {
+                          <p class="mt-1 text-xs text-error" [innerText]="getTemplateFieldError(field)"></p>
+                        }
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+
+          <div class="flex flex-col gap-5">
+            @for (subsection of getDisplaySubsections(section); track subsection.key) {
+              <div class="flex flex-col gap-4" [class.property-group-panel]="subsection.label">
+                @if (subsection.label) {
+                  <h3
+                    class="text-base font-semibold tracking-tight text-base-content"
+                    [innerText]="subsection.label"
+                  ></h3>
+                }
+                @for (field of subsection.fields; track field.controlName) {
+                  <div class="flex flex-col">
+                    <label class="mb-1 block text-sm font-semibold text-base-content" [attr.for]="field.controlName">
+                      <span [innerText]="field.label"></span>
+                      @if (field.required) {
+                        <span class="ml-1 text-error">*</span>
+                      }
+                    </label>
+                    @if (field.description) {
+                      <p class="mb-1 text-xs text-my-text" [innerText]="field.description"></p>
+                    }
+
+                    @if (field.controlType === 'select') {
+                      <select
+                        class="select select-bordered w-full"
+                        [id]="field.controlName"
+                        [ngModel]="dynamicForm.get(field.controlName)?.value"
+                        (ngModelChange)="onDynamicFieldValueChange(field, $event)"
+                        [ngModelOptions]="{ standalone: true }"
+                        [disabled]="isDynamicFieldDisabled(field)"
+                      >
+                        <option [ngValue]="">{{ 'sdtooling.selectOption' | translate }}</option>
+                        @for (option of getFieldEnumOptions(field); track option) {
+                          <option [ngValue]="option" [innerText]="field.enumOptionLabels?.[option] ?? option"></option>
+                        }
+                      </select>
+                    } @else if (isSelectMultipleField(field)) {
+                      <div
+                        class="mt-2 flex max-h-36 flex-col gap-2 overflow-y-auto rounded-lg border border-border bg-base-100 p-3"
+                      >
+                        @for (option of getFieldEnumOptions(field); track option) {
+                          <label class="flex items-center gap-2 text-sm">
+                            <input
+                              class="checkbox checkbox-primary"
+                              type="checkbox"
+                              [checked]="isMultiSelectOptionSelected(field, option, dynamicForm)"
+                              [disabled]="isDynamicFieldDisabled(field)"
+                              (change)="
+                                onMultiSelectOptionChange(field, option, $any($event.target).checked, dynamicForm)
+                              "
+                            />
+                            <span [innerText]="field.enumOptionLabels?.[option] ?? option"></span>
+                          </label>
+                        }
+                      </div>
+                    } @else if (field.controlType === 'number') {
+                      <input
+                        class="input input-bordered w-full"
+                        type="number"
+                        [id]="field.controlName"
+                        [formControlName]="field.controlName"
+                        [readonly]="isDynamicFieldDisabled(field)"
+                      />
+                    } @else if (field.controlType === 'checkbox') {
+                      <input
+                        class="checkbox checkbox-primary"
+                        type="checkbox"
+                        [id]="field.controlName"
+                        [formControlName]="field.controlName"
+                        [disabled]="isDynamicFieldDisabled(field)"
+                      />
+                    } @else if (field.controlType === 'object-array') {
+                      <div class="space-y-3">
+                        @for (item of getObjectArrayItems(field); track $index; let itemIndex = $index) {
+                          <div class="bg-base-100 border border-border rounded-lg p-4 space-y-3">
+                            <div class="flex items-center justify-between">
+                              <h4 class="font-semibold" [innerText]="field.label + ' ' + ($index + 1)"></h4>
+                              <button
+                                class="btn btn-sm btn-outline btn-error"
+                                type="button"
+                                (click)="removeObjectArrayItem(field, itemIndex)"
+                                [disabled]="isDynamicFieldDisabled(field) || !canRemoveObjectArrayItem(field)"
+                              >
+                                {{ 'sdtooling.delete' | translate }}
+                              </button>
+                            </div>
+
+                            <lib-sdtooling-object-array-item-fields
+                              [itemFields]="field.objectArrayFields ?? []"
+                              [itemSubsections]="field.objectArrayItemSubsections"
+                              [row]="item"
+                              [showErrors]="shouldShowObjectArrayErrors(field)"
+                              [rowIndex]="itemIndex"
+                              [nestedFieldErrors]="getObjectArrayNestedFieldErrors(field)"
+                              (rowChange)="onObjectArrayRowChange(field, itemIndex, $event.row)"
+                            />
+                          </div>
+                        }
+                        <button
+                          class="btn btn-sm btn-outline"
+                          type="button"
+                          [disabled]="isDynamicFieldDisabled(field) || hasReachedObjectArrayMax(field)"
+                          (click)="addObjectArrayItem(field)"
+                        >
+                          {{ 'sdtooling.add_item' | translate }}
+                        </button>
+                      </div>
+                    } @else if (field.controlType === 'array') {
+                      <div class="space-y-2">
+                        <div class="flex gap-2">
+                          <input
+                            class="input input-bordered w-full"
+                            type="text"
+                            [id]="field.controlName + '_draft'"
+                            [value]="getArrayDraft(field)"
+                            (input)="setArrayDraft(field, $any($event.target).value)"
+                            (keydown)="onArrayDraftKeydown($event, field)"
+                            placeholder="{{ 'sdtooling.placeholder_add_val' | translate }}"
+                            [readonly]="isDynamicFieldDisabled(field)"
+                          />
+                          <button
+                            class="btn btn-outline btn-sm"
+                            type="button"
+                            [disabled]="
+                              isDynamicFieldDisabled(field) || !getArrayDraft(field).trim() || hasReachedArrayMax(field)
+                            "
+                            (click)="addArrayToken(field)"
+                          >
+                            {{ 'sdtooling.add_item' | translate }}
+                          </button>
+                        </div>
+
+                        @if (getArrayTokens(field).length) {
+                          <div class="flex flex-wrap gap-2">
+                            @for (token of getArrayTokens(field); track token + '-' + $index) {
+                              <span class="badge badge-outline gap-2">
+                                <span [innerText]="token"></span>
+                                <button
+                                  class="btn btn-xs btn-ghost"
+                                  type="button"
+                                  (click)="removeArrayToken(field, $index)"
+                                  [disabled]="isDynamicFieldDisabled(field)"
+                                >
+                                  x
+                                </button>
+                              </span>
+                            }
+                          </div>
+                        }
+                      </div>
+                    } @else if (isPolicyCardField(field)) {
+                      <div class="space-y-3">
+                        @for (card of getPolicyCards(field); track $index) {
+                          <div class="bg-base-100 border border-border rounded-lg p-4 space-y-3">
+                            <div class="flex items-center justify-between">
+                              <h4 class="font-semibold" [innerText]="getPolicyCardTitle($index)"></h4>
+                              <button
+                                class="btn btn-sm btn-outline btn-error"
+                                type="button"
+                                (click)="removePolicyCard(field, $index)"
+                                [disabled]="!canRemovePolicyCard(field)"
+                              >
+                                {{ 'sdtooling.delete' | translate }}
+                              </button>
+                            </div>
+
+                            <div class="grid gap-3 md:grid-cols-2">
+                              @if (isUsagePolicyCardField(field)) {
+                                <div>
+                                  <label
+                                    class="block text-sm font-medium mb-1"
+                                    [attr.for]="field.controlName + '_usage_assignee_' + $index"
+                                  >
+                                    {{ 'sdtooling.usageAssignee' | translate }}
+                                  </label>
+                                  <select
+                                    [id]="field.controlName + '_usage_assignee_' + $index"
+                                    class="select select-bordered w-full"
+                                    [ngModel]="card.usageAssignee"
+                                    (ngModelChange)="onPolicyCardValueChange(field, $index, 'usageAssignee', $event)"
+                                    [ngModelOptions]="{ standalone: true }"
+                                  >
+                                    <option [ngValue]="">{{ 'sdtooling.selectUsageAssignee' | translate }}</option>
+                                    @for (option of policyAttributeOptions; track option.value) {
+                                      <option [ngValue]="option.value" [innerText]="option.label"></option>
+                                    }
+                                  </select>
+                                  @if (hasPolicyCardFieldError(field, $index, 'usageAssignee')) {
+                                    <p class="mt-1 text-xs text-error">
+                                      {{ 'sdtooling.policyFieldRequired' | translate }}
+                                    </p>
+                                  }
+                                </div>
+
+                                <div>
+                                  <label
+                                    class="block text-sm font-medium mb-1"
+                                    [attr.for]="field.controlName + '_usage_type_' + $index"
+                                  >
+                                    {{ 'sdtooling.usageType' | translate }}
+                                  </label>
+                                  <select
+                                    [id]="field.controlName + '_usage_type_' + $index"
+                                    class="select select-bordered w-full"
+                                    [ngModel]="card.usageType"
+                                    (ngModelChange)="onPolicyCardValueChange(field, $index, 'usageType', $event)"
+                                    [ngModelOptions]="{ standalone: true }"
+                                  >
+                                    @for (option of usageTypeOptions; track option.value) {
+                                      <option [ngValue]="option.value" [innerText]="option.label"></option>
+                                    }
+                                  </select>
+                                </div>
+
+                                @if (isRestrictedNumberUsage(card)) {
+                                  <div>
+                                    <label
+                                      class="block text-sm font-medium mb-1"
+                                      [attr.for]="field.controlName + '_usage_count_' + $index"
+                                    >
+                                      {{ 'sdtooling.numberOfUsages' | translate }}
+                                    </label>
+                                    <input
+                                      [id]="field.controlName + '_usage_count_' + $index"
+                                      class="input input-bordered w-full"
+                                      type="number"
+                                      min="1"
+                                      step="1"
+                                      [value]="card.numberOfUsages"
+                                      (change)="
+                                        onPolicyCardValueChange(
+                                          field,
+                                          $index,
+                                          'numberOfUsages',
+                                          $any($event.target).value
+                                        )
+                                      "
+                                    />
+                                    @if (hasPolicyCardFieldError(field, $index, 'numberOfUsages')) {
+                                      <p class="mt-1 text-xs text-error">
+                                        {{ 'sdtooling.policyFieldRequired' | translate }}
+                                      </p>
+                                    }
+                                  </div>
+                                }
+
+                                @if (isRestrictedDurationUsage(card)) {
+                                  <div>
+                                    <label
+                                      class="block text-sm font-medium mb-1"
+                                      [attr.for]="field.controlName + '_usage_from_' + $index"
+                                    >
+                                      {{ 'sdtooling.fromDate' | translate }}
+                                    </label>
+                                    <input
+                                      [id]="field.controlName + '_usage_from_' + $index"
+                                      class="input input-bordered w-full"
+                                      type="datetime-local"
+                                      [value]="card.from"
+                                      (change)="
+                                        onPolicyCardValueChange(field, $index, 'from', $any($event.target).value)
+                                      "
+                                    />
+                                    @if (hasPolicyCardFieldError(field, $index, 'from')) {
+                                      <p class="mt-1 text-xs text-error">
+                                        {{ 'sdtooling.policyFieldRequired' | translate }}
+                                      </p>
+                                    }
+                                  </div>
+
+                                  <div>
+                                    <label
+                                      class="block text-sm font-medium mb-1"
+                                      [attr.for]="field.controlName + '_usage_to_' + $index"
+                                    >
+                                      {{ 'sdtooling.toDate' | translate }}
+                                    </label>
+                                    <input
+                                      [id]="field.controlName + '_usage_to_' + $index"
+                                      class="input input-bordered w-full"
+                                      type="datetime-local"
+                                      [value]="card.to"
+                                      (change)="onPolicyCardValueChange(field, $index, 'to', $any($event.target).value)"
+                                    />
+                                    @if (hasPolicyCardFieldError(field, $index, 'to')) {
+                                      <p class="mt-1 text-xs text-error">
+                                        {{ 'sdtooling.policyFieldRequired' | translate }}
+                                      </p>
+                                    }
+                                  </div>
+                                }
+                              } @else if (isAccessPolicyCardField(field)) {
+                                <div>
+                                  <label
+                                    class="block text-sm font-medium mb-1"
+                                    [attr.for]="field.controlName + '_access_action_' + $index"
+                                  >
+                                    {{ 'sdtooling.action' | translate }}
+                                  </label>
+                                  <select
+                                    [id]="field.controlName + '_access_action_' + $index"
+                                    class="select select-bordered w-full"
+                                    [ngModel]="card.action"
+                                    (ngModelChange)="onPolicyCardValueChange(field, $index, 'action', $event)"
+                                    [ngModelOptions]="{ standalone: true }"
+                                  >
+                                    <option [ngValue]="">{{ 'sdtooling.selectAction' | translate }}</option>
+                                    @for (option of policyActionOptions; track option.value) {
+                                      <option [ngValue]="option.value" [innerText]="option.label"></option>
+                                    }
+                                  </select>
+                                  @if (hasPolicyCardFieldError(field, $index, 'action')) {
+                                    <p class="mt-1 text-xs text-error">
+                                      {{ 'sdtooling.policyFieldRequired' | translate }}
+                                    </p>
+                                  }
+                                </div>
+
+                                <div>
+                                  <label
+                                    class="block text-sm font-medium mb-1"
+                                    [attr.for]="field.controlName + '_access_attribute_' + $index"
+                                  >
+                                    {{ 'sdtooling.attribute' | translate }}
+                                  </label>
+                                  <select
+                                    [id]="field.controlName + '_access_attribute_' + $index"
+                                    class="select select-bordered w-full"
+                                    [ngModel]="card.attribute"
+                                    (ngModelChange)="onPolicyCardValueChange(field, $index, 'attribute', $event)"
+                                    [ngModelOptions]="{ standalone: true }"
+                                  >
+                                    <option [ngValue]="">{{ 'sdtooling.selectAttribute' | translate }}</option>
+                                    @for (option of policyAttributeOptions; track option.value) {
+                                      <option [ngValue]="option.value" [innerText]="option.label"></option>
+                                    }
+                                  </select>
+                                  @if (hasPolicyCardFieldError(field, $index, 'attribute')) {
+                                    <p class="mt-1 text-xs text-error">
+                                      {{ 'sdtooling.policyFieldRequired' | translate }}
+                                    </p>
+                                  }
+                                </div>
+
+                                <div>
+                                  <label
+                                    class="block text-sm font-medium mb-1"
+                                    [attr.for]="field.controlName + '_access_from_' + $index"
+                                  >
+                                    {{ 'sdtooling.fromDate' | translate }}
+                                  </label>
+                                  <input
+                                    [id]="field.controlName + '_access_from_' + $index"
+                                    class="input input-bordered w-full"
+                                    type="datetime-local"
+                                    [value]="card.from"
+                                    (change)="onPolicyCardValueChange(field, $index, 'from', $any($event.target).value)"
+                                  />
+                                  @if (hasPolicyCardFieldError(field, $index, 'from')) {
+                                    <p class="mt-1 text-xs text-error">
+                                      {{ 'sdtooling.policyFieldRequired' | translate }}
+                                    </p>
+                                  }
+                                </div>
+
+                                <div>
+                                  <label
+                                    class="block text-sm font-medium mb-1"
+                                    [attr.for]="field.controlName + '_access_to_' + $index"
+                                  >
+                                    {{ 'sdtooling.toDate' | translate }}
+                                  </label>
+                                  <input
+                                    [id]="field.controlName + '_access_to_' + $index"
+                                    class="input input-bordered w-full"
+                                    type="datetime-local"
+                                    [value]="card.to"
+                                    (change)="onPolicyCardValueChange(field, $index, 'to', $any($event.target).value)"
+                                  />
+                                  @if (hasPolicyCardFieldError(field, $index, 'to')) {
+                                    <p class="mt-1 text-xs text-error">
+                                      {{ 'sdtooling.policyFieldRequired' | translate }}
+                                    </p>
+                                  }
+                                </div>
+                              }
+                            </div>
+                          </div>
+                        }
+
+                        <button class="btn btn-sm btn-outline" type="button" (click)="addPolicyCard(field)">
+                          {{ 'sdtooling.addPolicy' | translate }}
+                        </button>
+                      </div>
+                    } @else {
+                      <input
+                        class="input input-bordered w-full"
+                        type="text"
+                        [id]="field.controlName"
+                        [formControlName]="field.controlName"
+                        [readonly]="isDynamicFieldDisabled(field)"
+                      />
+                    }
+
+                    @if (isFieldInvalid(field)) {
+                      <p class="mt-1 text-xs text-error" [innerText]="getFieldError(field)"></p>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </form>
+  }
+
+  @if (sections.length && isSummaryStep()) {
+    <div class="mt-6 flex flex-col gap-3">
+      <p class="text-sm text-my-text">
+        {{ 'sdtooling.reviewIntro' | translate }}
+      </p>
+      <div class="rounded-xl border border-border bg-base-100 p-4 md:p-5">
+        <h3 class="text-lg font-semibold mb-3">{{ 'sdtooling.reviewBeforeSubmit' | translate }}</h3>
+        <div class="grid gap-2 md:grid-cols-2 text-sm">
+          <p>
+            <span class="font-semibold">{{ 'sdtooling.schemaColon' | translate }}</span>
+            <span [innerText]="getSelectedSchemaLabel()"></span>
+          </p>
+          <p>
+            <span class="font-semibold">{{ 'sdtooling.schemaIdColon' | translate }}</span>
+            <span [innerText]="selectedSchema || '-'"></span>
+          </p>
+          <p>
+            <span class="font-semibold">{{ 'sdtooling.sharingMethodColon' | translate }}</span>
+            <span [innerText]="selectedSharingMethod ? getSelectedSharingMethodLabel() : '-'"></span>
+          </p>
+          <p>
+            <span class="font-semibold">{{ 'sdtooling.templateColon' | translate }}</span>
+            <span [innerText]="selectedTemplateId ? getSelectedTemplateLabel() : '-'"></span>
+          </p>
+        </div>
+      </div>
+
+      @if (getReviewSummarySections().length === 0) {
+        <div class="rounded-xl border border-border bg-base-100 p-4">
+          <p class="text-sm text-my-text">{{ 'sdtooling.noValuesToReview' | translate }}</p>
+        </div>
+      } @else {
+        @for (reviewSection of getReviewSummarySections(); track reviewSection.key) {
+          <div class="rounded-xl border border-border bg-base-100 p-4 md:p-5">
+            <h4 class="font-semibold text-base mb-3" [innerText]="reviewSection.label"></h4>
+            @if (reviewSection.subsections?.length) {
+              <div class="flex flex-col gap-4">
+                @for (reviewSubsection of reviewSection.subsections; track reviewSubsection.key) {
+                  @if (reviewSubsection.label) {
+                    <h5 class="text-sm font-semibold" [innerText]="reviewSubsection.label"></h5>
+                  }
+                  <div class="grid gap-3 md:grid-cols-2">
+                    @for (reviewField of reviewSubsection.fields; track reviewField.label + '-' + $index) {
+                      <div class="border border-border rounded-lg p-3">
+                        <p class="text-sm font-semibold" [innerText]="reviewField.label"></p>
+                        <div class="mt-1 space-y-1">
+                          @for (value of reviewField.values; track value + '-' + $index) {
+                            <p class="text-sm text-my-text" [innerText]="value"></p>
+                          }
+                        </div>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="grid gap-3 md:grid-cols-2">
+                @for (reviewField of reviewSection.fields; track reviewField.label + '-' + $index) {
+                  <div class="border border-border rounded-lg p-3">
+                    <p class="text-sm font-semibold" [innerText]="reviewField.label"></p>
+                    <div class="mt-1 space-y-1">
+                      @for (value of reviewField.values; track value + '-' + $index) {
+                        <p class="text-sm text-my-text" [innerText]="value"></p>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
+      }
+
+      <button
+        class="btn btn-primary btn-md md:btn-lg"
+        type="button"
+        [disabled]="
+          submitLoading ||
+          loadingSchemaDetails ||
+          loadingTemplateDetails ||
+          !dynamicForm.valid ||
+          (templateSections.length && !templateForm.valid)
+        "
+        (click)="submitCreateSelfDescription()"
+      >
+        @if (submitLoading) {
+          <span class="inline-flex items-center gap-2">
+            <span class="loading loading-spinner loading-sm"></span>
+            {{ 'sdtooling.submitting' | translate }}
+          </span>
+        } @else {
+          <span>{{ 'sdtooling.createSd' | translate }}</span>
+        }
+      </button>
+
+      @if (submissionError) {
+        <div class="alert alert-error border border-error/40 shadow-sm">
+          <span [innerText]="submissionError"></span>
+        </div>
+      }
+    </div>
+  }
+
+  @if (sections.length) {
+    <div class="mt-6 border-t border-gray-300 pt-4">
+      <div
+        class="flex flex-col gap-3 md:flex-row md:items-center"
+        [ngClass]="currentStepIndex > 0 ? 'md:justify-between' : 'md:justify-end'"
+      >
+        @if (currentStepIndex > 0) {
+          <button class="btn btn-gray btn-sm" type="button" (click)="previousStep()">
+            {{ 'sdtooling.back' | translate }}
+          </button>
+        }
+        <button
+          class="btn btn-sm border-0 bg-(--app-color-primary-darker) font-medium text-white hover:bg-(--app-color-primary-dark) disabled:opacity-50"
+          type="button"
+          (click)="nextStep()"
+          [disabled]="!canGoNextStep()"
+        >
+          {{ 'sdtooling.saveAndContinue' | translate }}
+        </button>
+      </div>
+      @if (!isSummaryStep() && !canGoNextStep()) {
+        <div class="alert mt-3 border border-warning/30 bg-warning/10 text-warning-content/90">
+          <span [innerText]="getNextStepBlockReason()"></span>
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,1073 @@
+/*
+ *  Copyright (c) 2025 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+ *
+ *  SPDX-License-Identifier: Apache-2.0
+ */
+
+:host {
+  display: block;
+}
+
+.corpus-offer-detail--embedded {
+  padding: 0 0 1.5rem;
+  min-height: 0;
+}
+
+.corpus-offer-detail {
+  --corpus-offer-navy: #1a2b56;
+  --corpus-offer-navy-mid: #1557b5;
+  --corpus-offer-bg-page: #f5f5f7;
+  --corpus-offer-card-border: #e0e0e0;
+  --corpus-offer-pill-info-bg: #e8f0fe;
+  --corpus-offer-pill-info-text: #1a2b56;
+  --corpus-offer-tag-grey-bg: #f0f0f0;
+  --corpus-offer-tag-grey-text: #333333;
+  --corpus-offer-price: #856404;
+  --corpus-offer-label: #777777;
+  --corpus-offer-body: #333333;
+  --corpus-offer-divider: #e8e8e8;
+  --corpus-offer-danger: #d32f2f;
+
+  padding: 1rem 1rem 2.5rem;
+  min-height: 100%;
+}
+
+@media (min-width: 768px) {
+  .corpus-offer-detail {
+    padding-inline: 1.5rem;
+  }
+}
+
+.corpus-title-h2 {
+  color: #000 !important;
+  font-size: 18px;
+}
+
+.corpus-offer-detail :is(h1, h2) {
+  color: var(--corpus-offer-navy);
+}
+
+.corpus-offer-detail .corpus-offer-detail__breadcrumbs {
+  font-size: 0.8125rem;
+  color: var(--corpus-offer-label);
+}
+
+.corpus-offer-detail .corpus-offer-detail__title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--corpus-offer-navy);
+  margin: 0;
+}
+
+.corpus-offer-detail .corpus-offer-detail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000;
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1.25;
+}
+
+.corpus-offer-detail .corpus-offer-detail__back-chevron {
+  font-size: 1.125rem;
+  line-height: 1;
+  font-weight: 300;
+  color: #000;
+}
+
+.corpus-offer-detail .corpus-offer-detail__back-label {
+  font-weight: 600;
+}
+
+.corpus-offer-detail .corpus-offer-detail__back:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.corpus-offer-detail .corpus-offer-detail__title-divider {
+  margin-top: 1rem;
+  margin-bottom: 1.25rem;
+  border: none;
+  border-top: 1px solid var(--corpus-offer-divider);
+}
+
+.corpus-offer-detail .corpus-offer-detail__provider {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--corpus-offer-navy);
+}
+
+.corpus-offer-detail .corpus-offer-detail__meta-actions-row {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__meta-row {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__meta-actions-row .corpus-offer-detail__meta-row {
+  margin-top: 0;
+}
+
+.corpus-offer-detail .corpus-offer-detail__pill-model {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 0.375rem;
+  background-color: var(--corpus-offer-pill-info-bg);
+  color: var(--corpus-offer-pill-info-text);
+  border: none;
+}
+
+.corpus-offer-detail .corpus-offer-detail__pill-version,
+.corpus-offer-detail .corpus-offer-detail__date-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 0.375rem;
+  border: 1px solid var(--corpus-offer-card-border);
+  color: #60646c;
+  background-color: #fff;
+}
+
+.corpus-offer-detail .corpus-offer-detail__actions-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+.corpus-offer-detail .corpus-offer-detail__actions-separator {
+  display: inline-block;
+  width: 1px;
+  height: 1.5rem;
+  background-color: var(--corpus-offer-divider);
+  flex-shrink: 0;
+}
+
+.corpus-offer-detail .corpus-offer-detail__header-divider {
+  margin-top: 1rem;
+  margin-bottom: 1.25rem;
+  border: none;
+  border-top: 1px solid var(--corpus-offer-divider);
+}
+
+.corpus-offer-detail .corpus-offer-detail__toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--corpus-offer-body);
+  cursor: default;
+}
+
+.corpus-offer-detail .corpus-offer-detail__toggle-track {
+  position: relative;
+  display: inline-flex;
+  height: 1.75rem;
+  width: 3.5rem;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  border: 1px solid rgba(26, 43, 86, 0.35);
+  background-color: #e5e7eb;
+  padding: 0.125rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__toggle-thumb {
+  pointer-events: none;
+  position: absolute;
+  left: 0.125rem;
+  top: 50%;
+  display: flex;
+  height: 1.25rem;
+  width: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid #333;
+  background-color: #1a1a1a;
+  color: #fff;
+  font-size: 10px;
+  transition: transform 0.2s ease;
+  transform: translateY(-50%) translateX(0);
+}
+
+.corpus-offer-detail .corpus-offer-detail__toggle-thumb.is-on {
+  transform: translateY(-50%) translateX(1.75rem);
+}
+
+.corpus-offer-detail .corpus-offer-detail__delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  border: 1px solid var(--corpus-offer-danger);
+  color: var(--corpus-offer-danger);
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.corpus-offer-detail .corpus-offer-detail__delete:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.corpus-offer-detail .corpus-offer-detail__delete:not(:disabled):hover {
+  background-color: #fff5f5;
+}
+
+.corpus-offer-detail .corpus-offer-detail__main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__main--offer {
+  gap: 1rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__intro-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__intro-pair-left {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.corpus-offer-detail .corpus-offer-detail__intro-divider {
+  margin: 0.5rem 0 0;
+  border: none;
+  border-top: 1px solid var(--corpus-offer-divider);
+  flex-shrink: 0;
+}
+
+.corpus-offer-detail .corpus-offer-detail__grid-description {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.corpus-offer-detail .corpus-offer-detail__grid-description .corpus-offer-detail__body {
+  flex: 1 1 auto;
+  margin: 0;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.corpus-offer-detail .corpus-offer-detail__languages-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__languages-pair-left {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.corpus-offer-detail .corpus-offer-detail__grid-languages {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.corpus-offer-detail .corpus-offer-detail__lang-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.corpus-offer-detail .corpus-offer-detail__lang-grid--multi {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.corpus-offer-detail .corpus-offer-detail__main-left {
+  min-width: 0;
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .corpus-offer-detail .corpus-offer-detail__main:not(.corpus-offer-detail__main--offer) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .corpus-offer-detail .corpus-offer-detail__main--offer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    column-gap: 2rem;
+    align-items: start;
+  }
+
+  .corpus-offer-detail .corpus-offer-detail__intro-pair-left {
+    min-height: 0;
+  }
+
+  .corpus-offer-detail .corpus-offer-detail__intro-divider {
+    margin-top: auto;
+    margin-bottom: 0;
+  }
+
+  .corpus-offer-detail .corpus-offer-detail__languages-pair-left {
+    min-height: 0;
+    align-self: stretch;
+  }
+
+  .corpus-offer-detail .corpus-offer-detail__languages-pair-left .corpus-offer-detail__intro-divider {
+    margin-top: auto;
+    margin-bottom: 0;
+  }
+
+  .corpus-offer-detail .corpus-offer-detail__main--offer .corpus-offer-detail__main-left {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .corpus-offer-detail .corpus-offer-detail__main--offer aside.corpus-offer-detail__aside {
+    grid-column: 2;
+    grid-row: 1;
+    width: 20rem;
+    margin-top: 0;
+    gap: 0.75rem;
+    align-self: start;
+  }
+}
+
+.corpus-offer-detail .corpus-offer-detail__column-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.corpus-offer-detail__column-main {
+  margin-top: 0;
+}
+
+.corpus-offer-detail .corpus-offer-detail__column-main section > h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__body {
+  color: var(--corpus-offer-body);
+  line-height: 1.625;
+}
+
+.corpus-offer-detail .corpus-offer-detail__lang-card {
+  min-width: 0;
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--corpus-offer-navy-mid);
+}
+
+.corpus-offer-detail .corpus-offer-detail__lang-block + .corpus-offer-detail__lang-block {
+  margin-top: 1rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__lang-label {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--corpus-offer-label);
+  margin-bottom: 0.375rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__lang-region {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--corpus-offer-navy-mid);
+}
+
+.corpus-offer-detail .corpus-offer-detail__lang-flag {
+  font-size: 1.125rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.corpus-offer-detail .corpus-offer-detail__lang-value {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--corpus-offer-navy-mid);
+}
+
+.corpus-offer-detail .corpus-offer-detail__card {
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: none;
+}
+
+.category-div {
+  border: 1px solid var(--corpus-offer-card-border);
+  padding: 15px 15px;
+}
+
+.corpus-offer-detail .corpus-offer-detail__card h3 {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--corpus-offer-navy-mid);
+  margin-bottom: 0.5rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__keyword-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.8125rem;
+  border-radius: 9999px;
+  background-color: var(--corpus-offer-tag-grey-bg);
+  color: var(--corpus-offer-tag-grey-text);
+  border: none;
+  font-weight: 600;
+}
+
+.corpus-offer-detail .corpus-offer-detail__dp-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 0.75rem;
+  border: 1px solid var(--corpus-offer-card-border);
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.corpus-offer-detail .corpus-offer-detail__dp-list li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--corpus-offer-divider);
+}
+
+.corpus-offer-detail .corpus-offer-detail__dp-list li:last-child {
+  border-bottom: none;
+}
+
+.corpus-offer-detail .corpus-offer-detail__dp-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+}
+
+.corpus-offer-detail .corpus-offer-detail__citation {
+  border-left: 4px solid #c5c9d0;
+  padding-left: 1rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__citation-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--corpus-offer-label);
+  margin-bottom: 0.25rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__citation-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--corpus-offer-navy);
+  line-height: 1.5;
+}
+
+.corpus-offer-detail .corpus-offer-detail__doc-block {
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--corpus-offer-divider);
+}
+
+.corpus-offer-detail .corpus-offer-detail__doc-block:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.corpus-offer-detail .corpus-offer-detail__identifier-box {
+  border-left: 4px solid #b8d4f0;
+  padding-left: 1rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__provenance-block {
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--corpus-offer-divider);
+}
+
+.corpus-offer-detail .corpus-offer-detail__provenance-block:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.corpus-offer-detail .corpus-offer-detail__provenance-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__provenance-name {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--corpus-offer-navy-mid);
+  margin-bottom: 0.25rem;
+}
+
+.corpus-offer-detail aside.corpus-offer-detail__aside {
+  width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .corpus-offer-detail aside.corpus-offer-detail__aside {
+    width: 20rem;
+  }
+}
+
+.corpus-offer-detail .corpus-offer-detail__aside-card {
+  border-radius: 12px;
+  border: 1px solid var(--corpus-offer-card-border);
+  background-color: #fff;
+  padding: 1rem;
+  box-shadow: none;
+}
+
+.corpus-offer-detail .corpus-offer-detail__aside-badge {
+  display: inline-block;
+  width: fit-content;
+  align-self: flex-start;
+  margin-bottom: 0.75rem;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 0.375rem;
+  background-color: var(--corpus-offer-navy);
+  color: #fff;
+  border: none;
+}
+.corpus-offer-detail .corpus-offer-detail__aside-badge.is-muted {
+  background-color: #4a5568;
+}
+
+.corpus-offer-detail .corpus-offer-detail__aside a.link {
+  color: var(--corpus-offer-navy-mid);
+}
+
+.corpus-offer-detail .corpus-offer-detail__price {
+  margin: 0.75rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--corpus-offer-price);
+}
+
+.corpus-offer-detail .corpus-offer-detail__view-policy {
+  display: inline-flex;
+  width: 75%;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  border: 1px solid #1a1a1a;
+  color: #1a1a1a;
+  background-color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.corpus-offer-detail .corpus-offer-detail__view-policy:hover {
+  background-color: #fafafa;
+}
+
+.corpus-offer-detail .corpus-offer-detail__aside h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--corpus-offer-body);
+  margin-bottom: 0.75rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__aside dt,
+.corpus-offer-detail .corpus-offer-detail__kv-label {
+  font-size: 1rem;
+  color: var(--corpus-offer-label);
+  margin-top: 20px;
+}
+
+.corpus-offer-detail .corpus-offer-detail__aside dd,
+.corpus-offer-detail .corpus-offer-detail__kv-value {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--corpus-offer-navy);
+}
+
+.corpus-offer-detail .corpus-offer-detail__aside ul.files {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--corpus-offer-navy);
+  font-weight: 400;
+}
+
+.corpus-offer-detail .corpus-offer-detail__doc-id {
+  border-radius: 12px;
+  border: 1px dashed var(--corpus-offer-card-border);
+  background-color: #fafafa;
+  padding: 0.75rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__doc-id .mono {
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+  word-break: break-all;
+}
+
+.corpus-offer-detail .corpus-offer-detail__linked-alert {
+  color: var(--corpus-offer-navy);
+}
+
+/* ================================================================
+   ESTILOS ADICIONALES PARA SD-DETAIL (tablas de políticas, etc.)
+   ================================================================ */
+
+/* Detalles de contrato / DCT (listas de dos y tres columnas) */
+.corpus-offer-detail .corpus-offer-detail__detail-list {
+  display: grid;
+  gap: 1.25rem;
+  border: 1px solid var(--corpus-offer-card-border);
+  padding: 15px;
+}
+
+@media (min-width: 768px) {
+  .corpus-offer-detail .corpus-offer-detail__detail-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .corpus-offer-detail .corpus-offer-detail__detail-list--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.corpus-offer-detail .corpus-offer-detail__detail-list h3 {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--corpus-offer-navy-mid);
+  margin-bottom: 0.5rem;
+}
+
+.corpus-offer-detail .corpus-offer-detail__detail-list p {
+  margin: 0;
+  color: var(--corpus-offer-body);
+  line-height: 1.5;
+}
+
+/* Resumen de políticas */
+.corpus-offer-detail .corpus-offer-detail__policy-summary {
+  border-left: 4px solid #b8d4f0;
+  padding-left: 1rem;
+  color: var(--corpus-offer-body);
+  line-height: 1.5;
+}
+
+/* Tablas de acceso/uso */
+.corpus-offer-detail .corpus-offer-detail__table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--corpus-offer-card-border);
+  background-color: #fff;
+}
+
+.corpus-offer-detail .corpus-offer-detail__table-wrap th {
+  color: var(--corpus-offer-body);
+}
+
+.corpus-offer-detail .corpus-offer-detail__sort {
+  color: var(--corpus-offer-navy-mid);
+  font-weight: 600;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Badge azul (reutilizado en meta-row) */
+.badge-blue {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 0.375rem;
+  background-color: var(--corpus-offer-pill-info-bg);
+  color: var(--corpus-offer-pill-info-text);
+  border: none;
+}
+/* Identificadores adicionales del corpus (adms:identifier repetible) */
+.corpus-offer-detail .corpus-offer-detail__kv-value.wrap-break-word {
+  overflow-wrap: anywhere;
+}
+
+/* ================================================================
+   ESTILOS ADICIONALES PARA LA NUEVA SECCIÓN "INFORMACIÓN ADICIONAL"
+   ================================================================ */
+
+.corpus-offer-detail__additional-info {
+  margin-top: 1.5rem;
+}
+
+.additional-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border: 1px solid var(--corpus-offer-card-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  background-color: #fff;
+}
+
+.additional-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.additional-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.additional-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--corpus-offer-label);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.additional-value {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--corpus-offer-body);
+  line-height: 1.5;
+}
+
+.additional-value a {
+  color: var(--corpus-offer-navy-mid);
+  text-decoration: underline;
+}
+
+.additional-value a:hover {
+  text-decoration: none;
+}
+
+/* Mejora visual de los títulos de sección */
+.corpus-title-h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--corpus-offer-navy);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--corpus-offer-divider);
+}
+
+.corpus-title-h2 .material-symbols-rounded {
+  font-size: 1.25rem !important;
+  color: var(--corpus-offer-navy-mid);
+}
+
+/* Ajuste de espaciado entre secciones */
+.corpus-offer-detail__column-main section {
+  margin-bottom: 1.5rem;
+}
+
+.corpus-offer-detail__column-main section:last-child {
+  margin-bottom: 0;
+}
+
+/* Detalles adicionales de protección de datos (descripciones) */
+.corpus-offer-detail__dp-details {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--corpus-offer-divider);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dp-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.dp-detail-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--corpus-offer-label);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.dp-detail-value {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--corpus-offer-body);
+  line-height: 1.5;
+}
+/* Clasificación en grid con tarjetas */
+.classification-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .classification-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .classification-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.classification-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background-color: var(--corpus-offer-tag-grey-bg);
+  border: 1px solid var(--corpus-offer-card-border);
+  transition: background-color 0.15s ease;
+}
+
+.classification-card:hover {
+  background-color: #e8edf5;
+}
+
+.classification-icon {
+  font-size: 1.25rem !important;
+  color: var(--corpus-offer-navy-mid);
+  margin-bottom: 0.25rem;
+}
+
+.classification-label {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--corpus-offer-label);
+  margin-bottom: 0.125rem;
+}
+
+.classification-value {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--corpus-offer-navy);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* ================================================================
+   POLÍTICAS (acceso y uso) - VISTA MEJORADA
+   ================================================================ */
+
+.policies-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .policies-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.policy-card {
+  border: 1px solid var(--corpus-offer-card-border);
+  border-radius: 12px;
+  background-color: #fff;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.15s ease;
+}
+
+.policy-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.policy-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  background-color: var(--corpus-offer-pill-info-bg);
+  border-bottom: 1px solid var(--corpus-offer-card-border);
+}
+
+.policy-icon {
+  font-size: 1.375rem !important;
+  color: var(--corpus-offer-navy-mid);
+}
+
+.policy-card-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--corpus-offer-navy);
+}
+
+.policy-card-body {
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.policy-entry {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--corpus-offer-divider);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.policy-entry:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.policy-entry:first-child {
+  padding-top: 0;
+}
+
+.policy-field {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.policy-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--corpus-offer-label);
+  min-width: 80px;
+}
+
+.policy-value {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--corpus-offer-body);
+  word-break: break-word;
+}
+
+.date-range {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.date-item {
+  display: flex;
+  gap: 0.25rem;
+  align-items: baseline;
+}
+
+.date-label {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--corpus-offer-label);
+}
+
+.policy-empty {
+  font-size: 0.875rem;
+  color: var(--corpus-offer-label);
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+/* Ajuste del resumen de políticas */
+.corpus-offer-detail__policy-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-left: 4px solid #b8d4f0;
+  padding: 0.75rem 1rem;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  color: var(--corpus-offer-body);
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.corpus-offer-detail__policy-summary .material-symbols-rounded {
+  color: var(--corpus-offer-navy-mid);
+}

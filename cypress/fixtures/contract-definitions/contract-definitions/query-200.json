@@ -1,0 +1,58 @@
+[
+  {
+    "@id": "401b28d7-9a1c-459e-888c-c5002c523695",
+    "@type": "ContractDefinition",
+    "accessPolicyId": "2b6b6b64-4c11-48d3-b8c1-51676e46b2b0",
+    "contractPolicyId": "551275b6-616b-4648-b235-312d86567572",
+    "assetsSelector": [
+      {
+        "@type": "Criterion",
+        "operandLeft": "https://w3id.org/edc/v0.0.1/ns/id",
+        "operator": "=",
+        "operandRight": "408de5d6-f834-49f8-9fc2-fce122487cfe"
+      }
+    ],
+    "@context": {
+      "@vocab": "https://w3id.org/edc/v0.0.1/ns/",
+      "edc": "https://w3id.org/edc/v0.0.1/ns/",
+      "odrl": "http://www.w3.org/ns/odrl/2/"
+    }
+  },
+  {
+    "@id": "9b1698b3-5d6c-4586-9542-4583c4c32812",
+    "@type": "ContractDefinition",
+    "accessPolicyId": "a4d9eb13-17fa-416f-aabf-e4bdc0d5b8b3",
+    "contractPolicyId": "cf4169b6-70be-4738-a232-ad332f9e9f13",
+    "assetsSelector": {
+      "@type": "Criterion",
+      "operandLeft": "https://w3id.org/edc/v0.0.1/ns/id",
+      "operator": "=",
+      "operandRight": "0bbdb51c-e19f-4fa8-ab2c-96dcfe1eaa96"
+    },
+    "@context": {
+      "@vocab": "https://w3id.org/edc/v0.0.1/ns/",
+      "edc": "https://w3id.org/edc/v0.0.1/ns/",
+      "odrl": "http://www.w3.org/ns/odrl/2/"
+    }
+  },
+  {
+    "@id": "08d33255-0a8c-41fa-9b5b-0c262f3521b9",
+    "@type": "ContractDefinition",
+    "accessPolicyId": "1cf67522-e031-41dc-a8a2-087addd9d110",
+    "contractPolicyId": "b9f29da2-6647-42ed-8c71-d0e2321cec5b",
+    "assetsSelector": [
+      {
+        "@type": "Criterion",
+        "operandLeft": "https://w3id.org/edc/v0.0.1/ns/id",
+        "operator": "=",
+        "operandRight": "c106d89c-ed77-40b3-9ca6-c73c1b576790"
+      }
+    ],
+    "@context": {
+      "@vocab": "https://w3id.org/edc/v0.0.1/ns/",
+      "edc": "https://w3id.org/edc/v0.0.1/ns/",
+      "odrl": "http://www.w3.org/ns/odrl/2/"
+    },
+    "testNote": "Array/object assetsSelector shapes covered"
+  }
+]

@@ -1,0 +1,167 @@
+<div id="main" class="bg-base-300 rounded-2xl mb-10 p-6">
+  <h2 class="text-2xl mb-4">{{ 'xfsc.advancedSearch' | translate }}</h2>
+  <p class="mb-4">{{ 'xfsc.selectSchemaPrompt' | translate }}</p>
+
+  <div class="max-w-xl">
+    <label for="ttl-selector" class="block text-sm font-medium mb-2">{{ 'xfsc.schema' | translate }}</label>
+    <select
+      id="ttl-selector"
+      class="select select-bordered w-full"
+      [(ngModel)]="selectedTtl"
+      (change)="onSchemaChange()"
+    >
+      <option value="">{{ 'xfsc.selectSchema' | translate }}</option>
+      @for (ttl of ttlOptions; track ttl) {
+        <option [value]="ttl" [innerText]="ttl.replace('.ttl', '')"></option>
+      }
+    </select>
+  </div>
+
+  @if (loadingOptions || loadingSchemaContent) {
+    <div class="mt-4">
+      <span class="loading loading-bars loading-lg opacity-75 text-primary"></span>
+      <p class="mt-2 text-sm opacity-80">
+        @if (loadingOptions) {
+          {{ 'xfsc.loadingOptions' | translate }}
+        } @else {
+          {{ 'xfsc.loadingFields' | translate }}
+        }
+      </p>
+    </div>
+  }
+
+  @if (schemaContentError) {
+    <div class="alert alert-error mt-4">
+      <span [innerText]="schemaContentError"></span>
+    </div>
+  }
+
+  @if (infoMessage) {
+    <div class="alert alert-info mt-4">
+      <span [innerText]="infoMessage"></span>
+    </div>
+  }
+
+  @if (sections.length) {
+    <form class="mt-6" [formGroup]="dynamicForm">
+      @for (section of sections; track section.key) {
+        <div class="mb-6 rounded-xl border border-base-content/20 bg-base-200/70 p-4">
+          <h3 class="text-lg font-semibold" [innerText]="section.label"></h3>
+          @if (section.description) {
+            <p class="mt-1 mb-4 text-sm text-base-content/80" [innerText]="section.description"></p>
+          }
+
+          <div class="flex flex-col gap-3">
+            @for (subsection of getAdvSearchSubsections(section); track subsection.key) {
+              @if (showPropertyGroupHeadings && subsection.label) {
+                <h4 class="text-sm font-semibold" [innerText]="subsection.label"></h4>
+              }
+              <div class="flex flex-col gap-3">
+                @for (field of subsection.fields; track field.controlName) {
+                  <div class="flex flex-col">
+                    <label class="block text-sm font-medium mb-1" [attr.for]="field.controlName">
+                      <span [innerText]="field.label"></span>
+                      @if (field.required) {
+                        <span class="ml-1 text-error">*</span>
+                      }
+                    </label>
+                    @if (field.description) {
+                      <p class="mb-1 text-xs text-base-content/70" [innerText]="field.description"></p>
+                    }
+
+                    @if (field.controlType === 'select') {
+                      <select
+                        class="select select-bordered w-full"
+                        [id]="field.controlName"
+                        [formControlName]="field.controlName"
+                      >
+                        <option value="">{{ 'sdtooling.selectOption' | translate }}</option>
+                        @for (option of field.enumOptions; track option) {
+                          <option [value]="option" [innerText]="field.enumOptionLabels?.[option] ?? option"></option>
+                        }
+                      </select>
+                    } @else if (field.controlType === 'number') {
+                      <input
+                        class="input input-bordered w-full"
+                        type="number"
+                        [id]="field.controlName"
+                        [formControlName]="field.controlName"
+                      />
+                    } @else if (field.controlType === 'checkbox') {
+                      <input
+                        class="checkbox checkbox-primary"
+                        type="checkbox"
+                        [id]="field.controlName"
+                        [formControlName]="field.controlName"
+                      />
+                    } @else if (field.controlType === 'array') {
+                      <input
+                        class="input input-bordered w-full"
+                        type="text"
+                        [id]="field.controlName"
+                        [formControlName]="field.controlName"
+                        [placeholder]="'xfsc.arrayPlaceholder' | translate"
+                      />
+                    } @else {
+                      <input
+                        class="input input-bordered w-full"
+                        type="text"
+                        [id]="field.controlName"
+                        [formControlName]="field.controlName"
+                      />
+                    }
+
+                    @if (isFieldInvalid(field)) {
+                      <p class="mt-1 text-xs text-error" [innerText]="getFieldError(field)"></p>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <div class="mt-4 flex justify-end gap-3">
+        <button class="btn btn-outline" type="button" (click)="clearAll()" [disabled]="isFormEmpty()">
+          {{ 'xfsc.clear' | translate }}
+        </button>
+        <button class="btn btn-primary" type="button" (click)="onSearch()" [disabled]="!canSearch()">
+          {{ 'xfsc.search' | translate }}
+        </button>
+      </div>
+    </form>
+  }
+
+  @if (searchPayloadPreview) {
+    <div class="mt-6">
+      <h3 class="text-lg font-semibold mb-2">{{ 'xfsc.payloadPreview' | translate }}</h3>
+      <pre class="bg-base-content text-base-100 p-4 rounded overflow-x-auto" [innerText]="searchPayloadPreview"></pre>
+    </div>
+  }
+
+  @if (authMode === 'bypass' && requestCurlPreview) {
+    <div class="mt-6">
+      <h3 class="text-lg font-semibold mb-2">{{ 'xfsc.curlPreview' | translate }}</h3>
+      <p class="text-sm opacity-80 mb-3">
+        {{ 'xfsc.endpoint' | translate }} <code [innerText]="requestEndpointPreview"></code>
+      </p>
+      <div class="flex gap-2 mb-2">
+        <button class="btn btn-outline btn-sm" type="button" (click)="copyCurlPreview()">
+          {{ 'xfsc.copyCurl' | translate }}
+        </button>
+        <button class="btn btn-outline btn-sm" type="button" (click)="copyPayloadPreview()">
+          {{ 'xfsc.copyPayload' | translate }}
+        </button>
+      </div>
+      @if (requestPreviewMessage) {
+        <p class="text-sm opacity-80 mb-2" [innerText]="requestPreviewMessage"></p>
+      }
+      <pre class="bg-base-content text-base-100 p-4 rounded overflow-x-auto" [innerText]="requestCurlPreview"></pre>
+    </div>
+  }
+
+  <div class="mt-8">
+    <lib-sd-list [simpleSearch]="false" [showSimpleSearchBar]="false" [enableDetailsAction]="true"></lib-sd-list>
+  </div>
+</div>

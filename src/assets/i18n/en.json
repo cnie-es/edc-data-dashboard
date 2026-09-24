@@ -1,0 +1,768 @@
+{
+  "common": {
+    "error": {
+      "title": "Error"
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "http": {
+        "sessionExpired": "Your session has expired. Please sign in again and retry.",
+        "forbidden": "You don't have permission to perform this action.",
+        "unavailable": "The service is currently unavailable. Please try again later.",
+        "network": "We couldn't reach the service. Check your connection and try again.",
+        "server": "The server is having trouble right now. Please try again in a moment.",
+        "failedWithStatus": "Request failed ({{status}})."
+      },
+      "edc": {
+        "unknown": "The connector returned an unexpected error.",
+        "badRequest": "The request was invalid. Please check your input and try again.",
+        "duplicate": "This resource already exists.",
+        "notFound": "The requested resource was not found.",
+        "unreachable": "Could not reach the connector.",
+        "badGateway": "The connector gateway returned an error."
+      }
+    }
+  },
+  "search": "Search",
+  "provider": "I'm provider",
+  "consumer": "I'm cosumer",
+  "header": {
+    "conector": "Connector",
+    "support": "Support",
+    "logout": "Log out"
+  },
+  "home": {
+    "explore": {
+      "title": "Explore & Share",
+      "subtitle": "Connect, consume and monetize linguistic data, models and other resources"
+    },
+    "myConnector": {
+      "title": "My connector",
+      "subtitle": "Create, manage and monitor your assets, policies and offers"
+    },
+    "buttons": {
+      "goCatalog": "Go to catalog",
+      "create": "Create",
+      "view": "View"
+    }
+  },
+  "menu": {
+    "home": "Home",
+    "exploreShare": "Explore & Share",
+    "catalog": "Offer Catalog",
+    "catalogDesc": "Explore offers from other connectors in the data space.",
+    "contracts": "Negotiations",
+    "contractsDesc": "Status of negotiations between data owners.",
+    "transferHistory": "Transfers",
+    "transferHistoryDesc": "Record of data product exchanges.",
+    "connector": "My Connector",
+    "assets": "My Assets",
+    "assetsDesc": "Share them with other users by creating an offer.",
+    "policies": "My Policies",
+    "policiesDesc": "License terms and publication policies.",
+    "offers": "My Offers",
+    "offersDesc": "Assets + conditions under which you share them",
+    "storage": "Storage",
+    "storageDesc": "Available connector data endpoints and locations.",
+    "xfscAdvancedSearch": "XFSC Advanced Search",
+    "xfscAdvancedSearchDesc": "The XFSC advanced search view enables the search and retrieval of self-descriptions within the federated catalogue, supporting both keyword-based queries and advanced search capabilities.",
+    "sdTooling": "SD Tooling",
+    "sdToolingDesc": "The SD Tooling view helps users create self-description assets from schema-driven templates."
+  },
+  "catalog": {
+    "pageTitle": "Data space offer catalog",
+    "offersFrom": "Offers from:",
+    "filters": "Filters:",
+    "filterPlaceholder": "Search by asset id or provider…",
+    "addFilters": "+ Add filters",
+    "federatedEnabled": "Federated catalog enabled",
+    "selectConnector": "Select…",
+    "connectorPickerHint": "Pick a configured connector or request the catalog manually",
+    "negotiate": "Negotiate",
+    "details": "Details",
+    "detailsAria": "View dataset details",
+    "categoryModel": "Model",
+    "categoryCorpus": "Corpus",
+    "categoryDataset": "Dataset",
+    "categoryOther": "Resource",
+    "searchFilterPlaceholder": "Filter by name, description…",
+    "searchPrompt": "Use Search to load offers from the catalog.",
+    "noSearchResults": "No offers were found.",
+    "ownOffer": "Your offer",
+    "ownOfferHint": "Published by this connector. It cannot be contracted; open it from My offers.",
+    "errors": {
+      "invalidCounterParty": "Invalid counter party address. Please check your input and try again.",
+      "requestFailed": "Failed to request catalog from '{{address}}'."
+    },
+    "negotiation": {
+      "noOfferSelected": "No offer selected."
+    }
+  },
+  "negotiation": {
+    "history": "Negotiation History",
+    "rol": "My Role",
+    "status": "Status / Date",
+    "name": "Asset Name",
+    "politic": "Contracting Policy",
+    "connector": "External Connector",
+    "transfer": "Transfer",
+    "consumer": "I'm a consumer",
+    "provider": "I'm a provider",
+    "search": "Search",
+    "disponible": "No negotiations available.",
+    "assetPending": "Pending asset",
+    "transferPending": "Pending",
+    "actions": "Actions",
+    "transferMissingContext": "Cannot start transfer: contract agreement or provider address is missing.",
+    "stateUnknown": "Unknown state",
+    "confirm_payment": "Confirm payment",
+    "reject_payment": "Reject payment",
+    "confirm": "Confirm",
+    "reject": "Reject",
+    "state": {
+      "INITIAL": "Created; not fully started yet",
+      "REQUESTING": "Sending the negotiation request",
+      "REQUESTED": "Negotiation request received",
+      "OFFERING": "Sending the offer",
+      "OFFERED": "Offer received",
+      "ACCEPTING": "Sending acceptance",
+      "ACCEPTED": "Acceptance received",
+      "AGREEING": "Sending the agreement",
+      "AGREED": "Agreement received",
+      "VERIFYING": "Verifying (e.g. policies / protocol; may stay here a while with external signing)",
+      "VERIFIED": "Verified",
+      "FINALIZING": "Closing successfully (agreement being finalized)",
+      "FINALIZED": "Closed successfully (agreement ready; contractAgreementId when applicable)",
+      "TERMINATING": "Cancelling",
+      "TERMINATED": "Cancelled or rejected (abnormal end)",
+      "PAYMENT_PENDING": "Pending confirmation"
+    }
+  },
+  "contractTransfer": {
+    "titleWithAsset": "Transfer — {{asset}}",
+    "titleDefault": "Data transfer",
+    "stepDetails": "1. Transfer details",
+    "stepProcess": "2. Transfer process",
+    "processTitle": "Transfer process step",
+    "processId": "Transfer process ID:",
+    "processStatus": "Current status:",
+    "processInProgress": "Transfer process in progress…",
+    "processFinalized": "Transfer process finalized. You can finish.",
+    "cancel": "Cancel",
+    "close": "Close",
+    "nextStep": "Next step",
+    "finish": "Finish",
+    "loadOfferFailed": "Failed to load offer details for transfer.",
+    "notEligibleForTransfer": "This offer cannot be used for transfer. Required connector registration data is missing.",
+    "detailsTitle": "Transfer details",
+    "sharingMethod": "Sharing method",
+    "template": "Template",
+    "selectTemplate": "Select a template",
+    "selectOption": "Select…",
+    "loadingTemplates": "Loading templates…",
+    "loadingSchema": "Loading template schema…",
+    "arrayPlaceholder": "value1, value2, value3"
+  },
+  "transferProcess": {
+    "list": {
+      "noTransfers": "No transfers yet.",
+      "noSearchResults": "No transfers matched your search.",
+      "loadError": "Could not load transfer history."
+    },
+    "stateUnknown": "Unknown state",
+    "assetPending": "Pending asset",
+    "policyPending": "Pending",
+    "connectorPending": "Pending",
+    "columnTransfer": "Transfer",
+    "transferTypePrefix": "Type:",
+    "viewDetails": "View details",
+    "details": {
+      "title": "Transfer detail",
+      "properties": "Properties",
+      "dataDestination": "Data destination",
+      "privateProperties": "Private properties",
+      "field": "Field",
+      "value": "Value",
+      "noData": "No data available"
+    },
+    "downloadReceivedAria": "Open received file",
+    "preparedTransferAria": "Open transfer details (ready to start pull)",
+    "fileNotAvailableYet": "Not available yet",
+    "openFileFailed": "Could not open the received file.",
+    "pullExecute": {
+      "title": "Execute Pull transfer",
+      "description": "Configure the HTTP request to execute the transfer.",
+      "methodGet": "GET",
+      "methodPost": "POST",
+      "paramKey": "Parameter",
+      "paramValue": "Value",
+      "addParam": "Add parameter",
+      "removeParam": "Remove parameter",
+      "postBodyLabel": "JSON body",
+      "postBodyPlaceholder": "{ \"key\": \"value\" }",
+      "execute": "Execute",
+      "executing": "Executing transfer…",
+      "downloading": "Downloading…",
+      "missingTransferId": "No transfer ID available.",
+      "fetchEdrFailed": "Could not fetch the EDR data address.",
+      "executeFailed": "Could not execute the pull transfer.",
+      "openAria": "Execute Pull transfer"
+    },
+    "state": {
+      "INITIAL": "Registered",
+      "PROVISIONED": "Provisioned",
+      "REQUESTED": "Requested",
+      "STARTED": "Active",
+      "COMPLETED": "Completed",
+      "SUSPENDED": "Suspended",
+      "TERMINATED": "Terminated",
+      "DEPROVISIONED": "Deprovisioned"
+    }
+  },
+  "assets": {
+    "transfer": {
+      "history": "Transfer History",
+      "view": "View",
+      "file": "Received file",
+      "trans_disponible": "No transferences vailable."
+    },
+    "table": {
+      "creationDate": "Creation Date",
+      "type": "Type",
+      "name": "Asset Name",
+      "description": "Description",
+      "details": "Details",
+      "view": "View",
+      "noAssets": "No assets created yet",
+      "policy": "Policy name"
+    },
+    "add_filter": "Add filters",
+    "filters": "Filters",
+    "myAssets": "My Assets: List",
+    "detail": {
+      "breadcrumbCurrent": "Asset detail",
+      "backToList": "View list",
+      "assetDescription": "Asset description",
+      "linkedOffersAlert": "To modify or delete this asset, you must first delete its linked offers.",
+      "errorInvalidId": "No valid self-description identifier was provided.",
+      "errorLoadFailed": "The asset self-description could not be loaded.",
+      "relatedDocs": "Related documentation",
+      "identifier": "Identifier",
+      "reference": "Reference",
+      "registrationAgency": "Registration agency",
+      "cardIdentifier": "Identifier",
+      "distribution": "Distribution",
+      "fileFormatsTitle": "File formats",
+      "modelProperties": "Model properties",
+      "modelType": "Model type",
+      "variantOf": "Variant of",
+      "viewModelDetails": "View model details",
+      "provenance": "Provenance",
+      "provenanceOriginalSource": "Original source",
+      "provenanceIpHolder": "Intellectual property rights holder",
+      "modelFunction": "Model function"
+    }
+  },
+  "connectorConfig": {
+    "errors": {
+      "unhealthy": "The connector is unhealthy.",
+      "unreachable": "Could not reach the default API '{{defaultUrl}}'. Please check your inputs."
+    }
+  },
+  "transfer": {
+    "deprovision": {
+      "success": "Deprovisioning of transfer process '{{id}}' requested successfully.",
+      "failed": "Requesting deprovisioning of transfer process '{{id}}' failed."
+    }
+  },
+  "policies": {
+    "errors": {
+      "invalidPermissionsJson": "Invalid JSON for permissions.",
+      "invalidProhibitionsJson": "Invalid JSON for prohibitions.",
+      "invalidObligationsJson": "Invalid JSON for obligations.",
+      "unknown": "An unknown error occurred."
+    },
+    "createpolicy": "Create new policy",
+    "policiList": "My policies: List",
+    "nopolicies": " No policies available.",
+    "viewPolicies": "View policies of",
+    "list": {
+      "name": "{{assetName}} · {{action}} · {{assigner}}",
+      "nameNoAssigner": "{{assetName}} · {{action}}",
+      "description": "{{action}}. {{constraint}}",
+      "pending": "Loading…",
+      "loadError": "Could not load the policy definition",
+      "typeOther": "Other"
+    },
+    "order": "Order by",
+    "recent": "Recent date",
+    "title": "Title",
+    "type": "Type",
+    "create": {
+      "title": "Create new policy",
+      "subtitle": "Select the type of policy you want to create.",
+      "description": "A policy ensures the use of your data according to your rules",
+      "contractPolicy": {
+        "title": "Contract policy",
+        "description": "Defines the rules and obligations for access and use of your assets.",
+        "create": "Create new contract policy",
+        "generateLds": "Generate LDS license"
+      },
+      "publicationPolicy": {
+        "title": "Publication policy",
+        "description": "Defines who can view your assets in the offer catalog.",
+        "create": "Create new publication policy"
+      }
+    },
+    "detail": {
+      "loading": "Loading policy...",
+      "missingId": "No policy id was provided.",
+      "tabLegal": "Legal license text",
+      "tabOdrl": "ODRL format",
+      "viewOriginalLicense": "View original license",
+      "noLicenseUrl": "There is no license URL on assets linked to this policy.",
+      "loadingLicense": "Loading license text...",
+      "licenseLoadError": "The license could not be loaded.",
+      "loadingOdrl": "Loading ODRL policy definition...",
+      "odrlLoadError": "The policy definition (ODRL) could not be loaded.",
+      "modalTitle": "Policy",
+      "modalCloseAria": "Close"
+    }
+  },
+  "offersL": "My offers: List",
+  "createoffer": "Create new offer",
+  "active": "Asset",
+  "cpoli": "Contracting Policy",
+  "ppoli": "Publishing Policy",
+  "anytype": "Any tipe",
+  "contract": "Contract",
+  "public": "Publication",
+  "publi": "Review and Publish",
+  "offers": {
+    "create": "Create new offer",
+    "info": "For archival and business reasons, offers cannot be edited: they must be deleted and recreated instead.",
+    "list": {
+      "noOffers": "No offers created yet.",
+      "noSearchResults": "No offers matched your search.",
+      "searchPlaceholder": "Search by offer name…"
+    },
+    "toggle": {
+      "publicCatalog": "Show all in public catalog",
+      "enable": "Enable public catalog",
+      "disable": "Disable public catalog",
+      "tooltip": "Global visibility switch. If disabled, no asset will be visible in the public catalog. If enabled, visibility depends on each asset’s individual state."
+    },
+    "createPage": {
+      "subtitle": "Select the type of asset you want to create:",
+      "corpus": {
+        "title": "Corpus",
+        "description": "Raw text data, video collection, etc.",
+        "create": "Create Corpus"
+      },
+      "lexical": {
+        "title": "Lexical/conceptual resource",
+        "description": "Dictionary, word list, ontology, etc.",
+        "create": "Create Resource"
+      },
+      "model": {
+        "title": "Model",
+        "description": "Language model, LLM, multimodal model, etc.",
+        "create": "Create Model"
+      },
+      "service": {
+        "title": "Service",
+        "description": "Data sharing via API",
+        "create": "Create offer with Service"
+      },
+      "typeUnavailableCorpus": "You cannot create corpus offers at this time.",
+      "typeUnavailableLexical": "You cannot create lexical/conceptual resource offers at this time.",
+      "typeUnavailableModel": "You cannot create model offers at this time.",
+      "typeUnavailableApi": "You cannot create service offers at this time.",
+      "schemaCatalogLoading": "Loading available offer types…",
+      "backToSelection": "< Change asset type"
+    },
+    "detail": {
+      "license": "License",
+      "breadcrumbCurrent": "Offer detail",
+      "backToList": "< View list",
+      "publicCatalogReadonly": "Show this offer also in the public catalog",
+      "publicCatalogAria": "Public catalog visibility",
+      "assetDescription": "Asset description",
+      "linguisticVarieties": "Linguistic varieties",
+      "region": "Region",
+      "linguisticVariety": "Linguistic variety",
+      "categories": "Categories",
+      "keywords": "Keywords",
+      "supportType": "Support type",
+      "linguisticType": "Linguistic type",
+      "none": "None",
+      "dataProtection": "Data protection",
+      "personalData": "Includes personal data",
+      "sensitiveData": "Includes special category data",
+      "anonymized": "Anonymized",
+      "relatedDocs": "Related documentation",
+      "citation": "Citation text",
+      "cardContracting": "Contracting",
+      "cardPublication": "Publication",
+      "publicationPlaceholder": "Publication scope is defined by your connector policies.",
+      "viewPolicy": "View policy",
+      "cardDistribution": "Distribution",
+      "byteSize": "Size (Bytes)",
+      "packageFormat": "Package format",
+      "fileFormats": "File formats",
+      "size": "Size",
+      "documentId": "Document identifier",
+      "priceLine": "Price: {{amount}} {{currency}}",
+      "priceLineWithVat": "Price: {{amount}} {{currency}} (+VAT)",
+      "errorInvalidId": "Invalid offer identifier.",
+      "errorLoadFailed": "Could not load the offer self-description.",
+      "delete": "Delete",
+      "deleteAria": "Delete this published offer",
+      "deleteConfirm": "Delete this published offer from the federated catalog? This cannot be undone.",
+      "deleteFailed": "Could not delete the offer. Try again or check your permissions.",
+      "deleteDisabledMocks": "This offer cannot be deleted while using offline mock data (development mode). Connect to a real connector to delete it.",
+      "deleteWait": "Please wait…",
+      "revokeModalTitle": "Delete offer",
+      "revokeModalCancel": "Cancel",
+      "revokeModalClose": "Close",
+      "revokeModalDismissAria": "Close dialog",
+      "alternativeTitle": "Alternative title",
+      "publisher": "Publisher",
+      "corpusLicense": "Corpus license",
+      "additionalDetails": "Additional details",
+      "anonymizationDetails": "Anonymization details",
+      "personalDataDetails": "Personal data details",
+      "sensitiveDataDetails": "Sensitive data details",
+      "originalSourceDescription": "Original source description",
+      "classification": "Classification",
+      "domain": "Domain",
+      "corpusSubclass": "Corpus subclass",
+      "lrType": "Language resource type",
+      "annotationType": "Annotation type",
+      "dataProtectionPrinciple": "Data protection principle",
+      "technicalMeasure": "Technical / organisational measure",
+      "specificLanguages": "Specific languages",
+      "sourceLanguages": "Source languages",
+      "targetLanguages": "Target languages",
+      "pivotLanguages": "Pivot languages",
+      "technicalInfo": "Technical information",
+      "contact": "Contact",
+      "sharingMethod": "Sharing method",
+      "serviceAccessPoint": "Service access point",
+      "dataQuality": "Data quality",
+      "encryption": "Encryption",
+      "contractTemplateDoc": "Contract template document",
+      "spatialCoverage": "Spatial coverage",
+      "temporalCoverage": "Temporal coverage",
+      "multilingualityType": "Multilinguality type",
+      "standardsConformance": "Standards conformance",
+      "identification": "Identification",
+      "identifiers": "Identifiers",
+      "legalCode": "Legal code",
+      "name": "Name",
+      "iprHolders": "Intellectual property rights holders",
+      "serviceProperties": "Service properties",
+      "metadataLanguage": "Metadata language",
+      "dataProperties": "Data properties",
+      "producedBy": "Produced by",
+      "format": "Format",
+      "openApi": "OpenAPI",
+      "additionalInfo": "Additional information",
+      "relatedDatasets": "Related datasets",
+      "targetUsers": "Target users",
+      "anonymizationMeasure": "Anonymization measure",
+      "dataProtectionRegime": "Data protection regime",
+      "providerDataAddress": "Provider data address",
+      "dp": {
+        "yes": "Yes",
+        "no": "No",
+        "unknown": "Unknown"
+      }
+    }
+  },
+  "sdDetails": {
+    "detail": {
+      "titleFallback": "Self-description detail",
+      "providerLabel": "Self-description provider",
+      "selfDescription": "Self-description",
+      "description": "Description",
+      "noDescription": "No description available.",
+      "offerDetails": "Offer details",
+      "price": "Price",
+      "priceType": "Price type",
+      "dataFormat": "Data format",
+      "providerEndpoint": "Provider endpoint",
+      "generalServiceProperties": "General service properties",
+      "name": "Name",
+      "offeringType": "Offering type",
+      "serviceAccessPoint": "Service access point",
+      "sharingMethodId": "Sharing method id",
+      "contractTemplate": "Contract template",
+      "document": "Document",
+      "hashAlgorithm": "Hash algorithm",
+      "hashValue": "Hash value",
+      "templateUrl": "Template URL",
+      "dctConformsTo": "Dct: conforms to",
+      "version": "Version",
+      "noUsagePolicy": "No usage policy available.",
+      "accessPolicy": "Access policy",
+      "users": "Users",
+      "user": "User",
+      "actions": "Actions",
+      "dateConstraint": "Date constraint",
+      "from": "From",
+      "to": "To",
+      "usagePolicy": "Usage policy",
+      "usageType": "Usage type",
+      "constraint": "Constraint",
+      "contractPolicyId": "Contract policy id",
+      "licenseUrl": "License URL",
+      "registration": "Registration",
+      "assetId": "Asset id",
+      "contractDefinitionId": "Contract definition id",
+      "servicePolicyId": "Service policy id",
+      "accessPolicyId": "Access policy id",
+      "providerInformation": "Provider information",
+      "contact": "Contact",
+      "providedBy": "Provided by",
+      "signature": "Signature",
+      "errorInvalidId": "Invalid self-description identifier.",
+      "errorLoadFailed": "Failed to load self-description details."
+    },
+    "transfer": {
+      "getData": "Get Data",
+      "loadingCatalogOffers": "Loading catalog offers...",
+      "contractNegotiation": "Contract Negotiation",
+      "negotiatingResource": "The contract is being negotiated for this resource.",
+      "negotiationId": "Negotiation ID",
+      "currentStatus": "Current status",
+      "negotiationInProgress": "Negotiation in progress...",
+      "negotiationFinalized": "Negotiation finalized. Continue the data transfer from Contracts.",
+      "negotiationAprovalPending": "The negotiation has been completed successfully. Once the payment is confirmed, the download will be available in the negotiations panel.",
+      "negotiationRejectedTitle": "The negotiation was rejected",
+      "negotiationRejectedNoDetail": "The provider gave no reason. Check the connector logs for details."
+    }
+  },
+  "sdtooling": {
+    "offerTypeHeading": "Offer type: {{type}}",
+    "backToOfferSelection": "Back to offer type selection",
+    "schemaLabel": "Schema",
+    "selectSchema": "Select schema",
+    "assetCreatedSuccess": "Asset created and published successfully.",
+    "assetCreatedSuccessWithId": "Asset created and published successfully: {{id}}",
+    "templateConfig": "Template configuration",
+    "resourceSharingMethod": "Resource sharing method",
+    "selectSharingMethod": "Select a sharing method...",
+    "sourceTemplate": "Source template",
+    "selectOption": "Select...",
+    "selectUsageAssignee": "Select usage assignee...",
+    "selectAction": "Select action...",
+    "selectAttribute": "Select attribute...",
+    "reviewBeforeSubmit": "Review before submit",
+    "reviewIntro": "Review the selected metadata and payload values before creating the self-description.",
+    "schemaColon": "Schema:",
+    "schemaIdColon": "Schema ID:",
+    "sharingMethodColon": "Sharing method:",
+    "templateColon": "Template:",
+    "noValuesToReview": "No selected values to review yet.",
+    "createSd": "Create SD",
+    "submitting": "Submitting...",
+    "stepSummary": "Summary",
+    "stepSummaryDesc": "Review and submit your self-description.",
+    "stepFillSection": "Fill in {{section}}.",
+    "yes": "Yes",
+    "no": "No",
+    "usageDeletionAfter": "Deletion after usage",
+    "usageRestrictedNumber": "Restricted number of usages",
+    "usageRestrictedDuration": "Restricted duration of usage",
+    "assetPropertiesTitle": "Asset properties",
+    "delete": "Delete",
+    "usageAssignee": "Usage assignee",
+    "usageType": "Usage type",
+    "numberOfUsages": "Number of usages",
+    "fromDate": "From date",
+    "toDate": "To date",
+    "action": "Action",
+    "attribute": "Attribute",
+    "addPolicy": "Add policy",
+    "policyFieldRequired": "Required field.",
+    "back": "Back",
+    "next": "Next",
+    "saveAndContinue": "Save and continue",
+    "stepOf": "Step {{current}} of {{total}}",
+    "add_item": "Add Item",
+    "placeholder_add_val": "Type value and click Add",
+    "errors": {
+      "schemasLoad": "We couldn't load service schemas right now.",
+      "invalidResourceType": "Please select a schema with a valid resource type.",
+      "schemaFormatUnsupported": "This schema format isn't supported for SD creation yet.",
+      "schemaContentLoad": "We couldn't load schema content.",
+      "sharingMethodsLoad": "We couldn't load sharing methods.",
+      "templatesLoad": "We couldn't load templates for this sharing method.",
+      "templateDetailsLoad": "We couldn't load template schema details.",
+      "policyActionsLoad": "We couldn't load policy action options.",
+      "policyAttributesLoad": "We couldn't load policy attribute options.",
+      "dynamicFormUnsupported": "This schema can't be rendered as a dynamic form yet.",
+      "missingContext": "Missing schema/form context. Please re-select a schema.",
+      "selectSharingMethodSubmit": "Please select a sharing method.",
+      "selectTemplateSubmit": "Please select a template.",
+      "schemaNotListed": "This schema is not listed for SD Tooling and no valid metadata was provided. Open it from offer creation.",
+      "templateError": "Template error"
+    },
+    "blockReason": {
+      "selectSchema": "Select a schema to continue.",
+      "waitSchemaDetails": "Wait until schema details are loaded.",
+      "completeSection": "Complete required fields in \"{{section}}\" to continue.",
+      "selectSharingMethod": "Select a resource sharing method to continue.",
+      "selectTemplate": "Select a source template to continue.",
+      "waitTemplateDetails": "Wait until template details are loaded.",
+      "completeTemplateFields": "Complete template fields to continue."
+    }
+  },
+  "dynamicForm": {
+    "fieldRequired": "{{label}} is required.",
+    "fieldMinLength": "{{label}} must have at least {{min}} characters.",
+    "fieldMaxLength": "{{label}} must have at most {{max}} characters.",
+    "fieldMin": "{{label}} must be at least {{min}}.",
+    "fieldMax": "{{label}} must be at most {{max}}.",
+    "fieldInvalidFormat": "{{label}} has an invalid format.",
+    "fieldMaxItems": "{{label}} allows at most {{max}} values.",
+    "fieldMinItems": "{{label}} requires at least {{min}} values.",
+    "fieldItemMinLength": "{{label}} contains values shorter than {{min}} characters.",
+    "fieldObjectArrayRequired": "{{label}} requires all mandatory fields for each item.",
+    "objectArrayNestedErrors": "Fix the highlighted fields below in {{label}}.",
+    "policyCardIncomplete": "Fix the highlighted policy fields in {{label}}.",
+    "fieldInvalidUri": "{{label}} must be a valid URL.",
+    "fieldCheck": "Check {{label}} and try again."
+  },
+  "xfsc": {
+    "simpleSearch": "Simple search",
+    "advancedSearch": "Advanced search",
+    "listTitle": "List of all available self-descriptions",
+    "listDesc": "This is the list of all self-descriptions according to the filters specified.",
+    "advancedTitle": "Advanced search",
+    "advancedDesc": "Choose a schema and apply filters to run advanced search.",
+    "selectSchemaPrompt": "Select a schema and complete any filters to run advanced search.",
+    "schema": "Schema",
+    "selectSchema": "Select a schema...",
+    "loadingOptions": "Loading schema options...",
+    "loadingFields": "Loading fields for selected schema...",
+    "clear": "Clear",
+    "search": "Search",
+    "payloadPreview": "Search payload preview",
+    "curlPreview": "Request cURL preview (bypass mode)",
+    "endpoint": "Endpoint:",
+    "copyCurl": "Copy cURL",
+    "copyPayload": "Copy payload",
+    "arrayPlaceholder": "value1, value2, value3",
+    "fieldRequired": "{{label}} is required.",
+    "fieldMinLength": "{{label}} must have at least {{min}} characters.",
+    "fieldMaxLength": "{{label}} must have at most {{max}} characters.",
+    "fieldMin": "{{label}} must be at least {{min}}.",
+    "fieldMax": "{{label}} must be at most {{max}}.",
+    "fieldInvalid": "{{label}} is invalid.",
+    "fieldCheck": "Check {{label}} and try again.",
+    "copiedCurl": "cURL copied to clipboard.",
+    "copiedPayload": "Payload copied to clipboard.",
+    "errors": {
+      "schemaLoad": "We couldn't load this schema. Please try again or choose another one.",
+      "schemaFormatUnsupported": "This schema format isn't supported for advanced search yet.",
+      "dynamicFormUnsupported": "This schema can't be rendered as an advanced search form yet.",
+      "sessionExpired": "Your session has expired. Please sign in again and retry.",
+      "forbidden": "You don't have permission to run this search.",
+      "unavailable": "The search service is currently unavailable. Please try again later.",
+      "network": "We couldn't reach the search service. Check your connection and try again.",
+      "server": "The server is having trouble right now. Please try again in a moment.",
+      "failedWithStatus": "Search request failed ({{status}})."
+    }
+  },
+  "storage": {
+    "table": {
+      "name": "Name",
+      "type": "Type",
+      "url": "URL"
+    }
+  },
+  "app": {
+    "configError": {
+      "dialogMissing": "Dashboard dialog container is missing.",
+      "title": "Configuration error",
+      "appConfigMissing": "Missing app configuration! Menu items must be set!"
+    },
+    "logout": {
+      "title": "Log out",
+      "notConfigured": "Log out action is not configured yet.",
+      "failed": "Could not log out. Please try again."
+    }
+  },
+  "storageloc": "Available storage locations",
+  "createsd": "Create self-descriptions through visual steps.",
+  "loading": "Loading schema options...",
+  "schema": "Service schema",
+  "selecechema": "Select schema",
+  "preparing": "Preparing selected schema details...",
+  "selecmethod": "Select a sharing method...",
+  "selectemp": "Select a template...",
+  "loadtemp": "Loading templates...",
+  "loaddetail": "Loading template details...",
+  "show_items_per_page": "Show {{count}} items per page",
+  "pagination": {
+    "page": "Page {{page}}"
+  },
+  "policy": {
+    "access": {
+      "action": {
+        "search": "Search catalog",
+        "consume": "Consume resource",
+        "restrictedConsume": "Restricted consumption",
+        "unknown": "Unknown access action"
+      }
+    },
+    "contract": {
+      "action": {
+        "consume": "Consume resource",
+        "use": "Use resource",
+        "unknown": "Unknown contract action"
+      }
+    },
+    "constraint": {
+      "validFrom": "Valid from {{from}}",
+      "validTo": "Valid until {{to}}",
+      "validRange": "Valid from {{from}} to {{to}}",
+      "openEnded": "No validity limit"
+    }
+  },
+  "language": {
+    "es": "Spanish",
+    "en": "English",
+    "de": "German",
+    "fr": "French"
+  },
+  "region": {
+    "ES": "Spain",
+    "US": "United States"
+  },
+  "filters": {
+    "category": {
+      "assetType": "Asset type",
+      "visibility": "Visibility",
+      "price": "Price"
+    },
+    "visibility": {
+      "all": "All",
+      "public": "Public catalog",
+      "private": "Non-public catalog"
+    },
+    "price": {
+      "all": "All",
+      "free": "Free",
+      "paid": "Paid"
+    },
+    "assetType": {
+      "corpus": "Corpus",
+      "mlmodel": "Model",
+      "api": "API",
+      "lexicalconceptualresource": "Lexical-conceptual resource"
+    }
+  }
+}

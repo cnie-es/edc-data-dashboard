@@ -1,0 +1,19 @@
+<div class="corpus-sd-detail-modal max-h-[70vh] overflow-y-auto w-full">
+  <lib-corpus-self-description-detail-view
+    [xfsc]="xfsc"
+    [selfDescriptionId]="selfDescriptionId()"
+    [edcAssetId]="edcAssetId()"
+    [edcAsset]="edcAsset()"
+    [titleOverride]="titleOverride()"
+    [providerLabelOverride]="providerLabelOverride()"
+    [offeringTypeLabelOverride]="offeringTypeLabelOverride()"
+    [listDateDisplay]="listDateDisplay()"
+    [embeddedInModal]="true"
+    [breadcrumbItemsTranslated]="[]"
+    backRoute="/contracts"
+    backLabelKey="assets.detail.backToList"
+    layoutMode="offer"
+    [showDeleteOffer]="false"
+    [deleteOfferDisabled]="true"
+  />
+</div>

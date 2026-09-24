@@ -1,0 +1,104 @@
+<div class="max-w-6xl mx-auto p-6">
+  @if (sdViewModel) {
+    <lib-sd-detail-view-layout
+      [vm]="sdViewModel"
+      [loading]="loading"
+      [errorMessageKey]="errorMessage"
+      [breadcrumbItemsTranslated]="breadcrumbItemsTranslated"
+      backRoute="/catalog"
+      backLabelKey="offers.detail.backToList"
+      [listDateDisplay]="listDateDisplay"
+      [contractPolicyId]="contractPolicyId"
+      [contractPolicyName]="contractPolicyName"
+      [publicationPolicyId]="publicationPolicyId"
+      [publicationPolicyName]="publicationPolicyName"
+      [sortedAccessPolicyRows]="sortedAccessPolicyRows"
+      [sortedUsagePolicyRows]="sortedUsagePolicyRows"
+    ></lib-sd-detail-view-layout>
+  }
+
+  @if (!loading && !errorMessage && sd) {
+    <div class="mt-6 rounded-2xl bg-base-300 p-6 shadow">
+      <div class="flex flex-wrap items-center gap-3">
+        <button class="btn btn-primary" type="button" (click)="openTransferWizard()" [disabled]="isGetDataDisabled">
+          {{ 'sdDetails.transfer.getData' | translate }}
+        </button>
+        @if (isOwnOffer) {
+          <span class="text-sm font-medium text-(--app-color-danger-dark)">
+            {{ 'catalog.ownOfferHint' | translate }}
+          </span>
+        }
+        @if (catalogOffersLoading) {
+          <span class="loading loading-spinner loading-sm text-primary"></span>
+          <span class="text-sm">{{ 'sdDetails.transfer.loadingCatalogOffers' | translate }}</span>
+        }
+      </div>
+      @if (catalogOffersError) {
+        <div class="alert alert-error mt-3">
+          <span class="font-semibold" [innerText]="catalogOffersError.title"></span>
+          <span [innerText]="catalogOffersError.description"></span>
+        </div>
+      }
+
+      @if (isTransferWizardVisible) {
+        <section class="mt-6 rounded-xl border border-primary bg-base-200 p-4">
+          <div class="mb-3 flex items-center justify-between">
+            <h2 class="mb-0! text-[1.1rem] font-bold">{{ 'sdDetails.transfer.contractNegotiation' | translate }}</h2>
+            <button class="btn btn-sm btn-ghost" type="button" (click)="closeTransferWizard()">
+              {{ 'offers.detail.revokeModalClose' | translate }}
+            </button>
+          </div>
+
+          <div class="rounded-lg border border-base-content p-3">
+            <p class="font-semibold">{{ 'sdDetails.transfer.negotiatingResource' | translate }}</p>
+            <p class="text-sm">
+              {{ 'sdDetails.transfer.negotiationId' | translate }}:
+              <span [innerText]="currentNegotiationId"></span>
+            </p>
+            <p class="text-sm">
+              {{ 'sdDetails.transfer.currentStatus' | translate }}:
+              <span [innerText]="currentNegotiationStatus"></span>
+            </p>
+            @if (isNegotiationInProgress) {
+              <div class="flex items-center gap-2 mt-2">
+                <span class="loading loading-spinner loading-sm text-primary"></span>
+                <span class="text-sm">{{ 'sdDetails.transfer.negotiationInProgress' | translate }}</span>
+              </div>
+            }
+            @if (currentNegotiationError) {
+              <div class="alert alert-error mt-3 flex flex-col items-start gap-1 text-left">
+                <span class="font-semibold" [innerText]="currentNegotiationError.title"></span>
+                <span class="text-sm break-words" [innerText]="currentNegotiationError.description"></span>
+              </div>
+            }
+            @if (isNegotiationFinalized) {
+              <div class="alert alert-success mt-3">
+                {{ 'sdDetails.transfer.negotiationFinalized' | translate }}
+              </div>
+            } @else if (isNegotiationPendingApproval) {
+              <div class="alert alert-success mt-3">
+                {{ 'sdDetails.transfer.negotiationAprovalPending' | translate }}
+              </div>
+            }
+          </div>
+
+          <div class="mt-3 flex justify-end gap-2">
+            @if (isNegotiationFinalized) {
+              <a class="btn btn-primary" routerLink="/contracts">{{
+                'sdDetails.transfer.goToContracts' | translate
+              }}</a>
+            } @else if (!isNegotiationFinalized && !isNegotiationInProgress) {
+              <a class="btn btn-primary" routerLink="/contracts">{{
+                'sdDetails.transfer.goToContracts' | translate
+              }}</a>
+            } @else {
+              <button class="btn btn-secondary" type="button" (click)="closeTransferWizard()">
+                {{ 'offers.detail.revokeModalCancel' | translate }}
+              </button>
+            }
+          </div>
+        </section>
+      }
+    </div>
+  }
+</div>

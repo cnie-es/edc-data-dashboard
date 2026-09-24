@@ -1,0 +1,17 @@
+[
+  {
+    "connectorName": "consumer",
+    "managementUrl": "https://localhost:8080/management",
+    "defaultUrl": "https://localhost:8080/api",
+    "protocolUrl": "https://localhost:8080/api/v1/dsp",
+    "xfscAdvSearchApiBaseUrl": "https://localhost:8080/xfsc-advsearch-be/v1",
+    "contractConsumptionApiBaseUrl": "https://localhost:8080/contract-consumption-api",
+    "contractConsumptionApiVersion": "v1",
+    "sdToolingApiBaseUrl": "https://localhost:8080/sdtooling-api/v2",
+    "dashboardApiBaseUrl": "https://localhost:8080/datadashboardApi",
+    "signerApiBaseUrl": "https://localhost:8080/signer",
+    "federatedCatalogEnabled": false,
+    "did": "did:web:participant-be-simpldataprovider.telefonicadev.com",
+    "dashboardMocksEnabled": true
+  }
+]

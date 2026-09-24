@@ -1,0 +1,127 @@
+<div class="flex flex-col gap-4 w-full">
+  <p class="font-semibold text-center">{{ 'contractTransfer.detailsTitle' | translate }}</p>
+
+  @if (state.templatesError) {
+    <div class="alert alert-error w-full">
+      <div>
+        <p class="font-semibold">{{ state.templatesError.title }}</p>
+        <p class="text-sm">{{ state.templatesError.description }}</p>
+      </div>
+    </div>
+  }
+
+  @if (state.schemaError) {
+    <div class="alert alert-error w-full">
+      <div>
+        <p class="font-semibold">{{ state.schemaError.title }}</p>
+        <p class="text-sm">{{ state.schemaError.description }}</p>
+      </div>
+    </div>
+  }
+
+  @if (state.sharingMethodId) {
+    <label class="form-control w-full">
+      <span class="label-text mb-1">{{ 'contractTransfer.sharingMethod' | translate }}</span>
+      <input class="input input-bordered w-full" type="text" [value]="state.sharingMethodId" disabled />
+    </label>
+
+    @if (state.isTemplatesLoading) {
+      <div class="flex items-center justify-center gap-2">
+        <span class="loading loading-spinner loading-sm text-primary"></span>
+        <span class="text-sm">{{ 'contractTransfer.loadingTemplates' | translate }}</span>
+      </div>
+    } @else {
+      <label class="form-control w-full">
+        <span class="label-text mb-1">{{ 'contractTransfer.template' | translate }}</span>
+        <select
+          class="select select-bordered w-full"
+          [value]="state.selectedTemplate"
+          (change)="onTemplateChange($event)"
+        >
+          <option value="">{{ 'contractTransfer.selectTemplate' | translate }}</option>
+          @for (option of state.templateOptions; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      </label>
+    }
+  }
+
+  @if (state.isSchemasLoading) {
+    <div class="flex items-center justify-center gap-2">
+      <span class="loading loading-spinner loading-sm text-primary"></span>
+      <span class="text-sm">{{ 'contractTransfer.loadingSchema' | translate }}</span>
+    </div>
+  } @else if (state.hasSchemaLoaded && state.hasUiSchemaLoaded && state.templateSections.length) {
+    <form [formGroup]="templateForm" class="max-h-[50vh] overflow-y-auto w-full pr-1">
+      @for (templateSection of state.templateSections; track templateSection.key) {
+        <div class="mt-2 flex flex-col gap-3">
+          @for (field of templateSection.fields; track field.controlName) {
+            <div class="flex flex-col">
+              <label class="block text-sm font-medium mb-1" [attr.for]="field.controlName">
+                <span>{{ getTemplateFieldLabel(field) }}</span>
+                @if (field.required) {
+                  <span class="ml-1 text-error">*</span>
+                }
+              </label>
+              @if (field.description) {
+                <p class="mb-1 text-xs text-base-content/60">{{ field.description }}</p>
+              }
+
+              @if (field.controlType === 'select') {
+                <select
+                  class="select select-bordered w-full"
+                  [id]="field.controlName"
+                  [formControlName]="field.controlName"
+                  [disabled]="isTemplateFieldReadonly(field)"
+                >
+                  <option value="">{{ 'contractTransfer.selectOption' | translate }}</option>
+                  @for (option of field.enumOptions; track option) {
+                    <option [value]="option">{{ field.enumOptionLabels?.[option] ?? option }}</option>
+                  }
+                </select>
+              } @else if (field.controlType === 'number') {
+                <input
+                  class="input input-bordered w-full"
+                  type="number"
+                  [id]="field.controlName"
+                  [formControlName]="field.controlName"
+                  [readonly]="isTemplateFieldReadonly(field)"
+                />
+              } @else if (field.controlType === 'checkbox') {
+                <input
+                  class="checkbox checkbox-primary"
+                  type="checkbox"
+                  [id]="field.controlName"
+                  [formControlName]="field.controlName"
+                  [disabled]="isTemplateFieldReadonly(field)"
+                />
+              } @else if (field.controlType === 'array') {
+                <input
+                  class="input input-bordered w-full"
+                  type="text"
+                  [id]="field.controlName"
+                  [formControlName]="field.controlName"
+                  [placeholder]="'contractTransfer.arrayPlaceholder' | translate"
+                  [readonly]="isTemplateFieldReadonly(field)"
+                />
+              } @else {
+                <input
+                  class="input input-bordered w-full"
+                  [type]="getTemplateFieldInputType(field)"
+                  [id]="field.controlName"
+                  [formControlName]="field.controlName"
+                  [readonly]="isTemplateFieldReadonly(field)"
+                />
+              }
+
+              @if (isTemplateFieldInvalid(field)) {
+                <p class="mt-1 text-xs text-error">{{ getTemplateFieldError(field) }}</p>
+              }
+            </div>
+          }
+        </div>
+      }
+    </form>
+  }
+</div>

@@ -1,0 +1,68 @@
+<!--
+    Copyright (c) 2025 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+
+    This program and the accompanying materials are made available under the
+    terms of the Apache License, Version 2.0 which is available at
+    https://www.apache.org/licenses/LICENSE-2.0
+
+    SPDX-License-Identifier: Apache-2.0
+
+    Contributors:
+         Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V. - initial API and implementation
+-->
+
+<div class="flex flex-col w-[min(90vw,40rem)] max-h-[70vh]">
+  <h2 class="text-lg font-bold text-gray-900 mb-4 pr-8">
+    {{ 'transferProcess.details.title' | translate }}
+  </h2>
+
+  <div class="flex flex-col gap-6 overflow-y-auto pr-1">
+    <section>
+      <h3 class="text-sm font-bold text-gray-500 mb-2">
+        {{ 'transferProcess.details.properties' | translate }}
+      </h3>
+      <lib-json-object-table
+        [object]="compactTransferProcess"
+        [excludeKeys]="['@context', 'dataDestination', '@type', 'stateTimestamp', 'state', 'privateProperties']"
+        [deleteButton]="false"
+        variant="bordered"
+        [keyHeader]="'transferProcess.details.field' | translate"
+        [valueHeader]="'transferProcess.details.value' | translate"
+      />
+    </section>
+
+    <section>
+      <h3 class="text-sm font-bold text-gray-500 mb-2">
+        {{ 'transferProcess.details.dataDestination' | translate }}
+      </h3>
+      @if (!dataDestination) {
+        <p class="text-sm text-gray-500">{{ 'transferProcess.details.noData' | translate }}</p>
+      } @else {
+        <lib-json-object-table
+          [object]="dataDestination"
+          [excludeKeys]="['@context', '@type']"
+          [deleteButton]="false"
+          variant="bordered"
+          [keyHeader]="'transferProcess.details.field' | translate"
+          [valueHeader]="'transferProcess.details.value' | translate"
+        />
+      }
+    </section>
+
+    @if (privateProperties) {
+      <section>
+        <h3 class="text-sm font-bold text-gray-500 mb-2">
+          {{ 'transferProcess.details.privateProperties' | translate }}
+        </h3>
+        <lib-json-object-table
+          [object]="privateProperties"
+          [excludeKeys]="['@context']"
+          [deleteButton]="false"
+          variant="bordered"
+          [keyHeader]="'transferProcess.details.field' | translate"
+          [valueHeader]="'transferProcess.details.value' | translate"
+        />
+      </section>
+    }
+  </div>
+</div>

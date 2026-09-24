@@ -1,0 +1,771 @@
+{
+  "common": {
+    "error": {
+      "title": "Error"
+    },
+    "errors": {
+      "generic": "Alguna cosa ha anat malament. Torna-ho a provar.",
+      "http": {
+        "sessionExpired": "La teua sessió ha caducat. Torna a iniciar sessió i torna-ho a provar.",
+        "forbidden": "No tens permís per fer aquesta acció.",
+        "unavailable": "El servei no està disponible en aquest moment. Torna-ho a provar més tard.",
+        "network": "No hem pogut contactar amb el servei. Comprova la connexió i torna-ho a provar.",
+        "server": "El servidor té problemes en aquest moment. Torna-ho a provar d'aquí a un moment.",
+        "failedWithStatus": "La sol·licitud ha fallat ({{status}})."
+      },
+      "edc": {
+        "unknown": "El connector ha retornat un error inesperat.",
+        "badRequest": "La sol·licitud no era vàlida. Comprova les dades i torna-ho a provar.",
+        "duplicate": "Aquest recurs ja existeix.",
+        "notFound": "No s'ha trobat el recurs sol·licitat.",
+        "unreachable": "No s'ha pogut contactar amb el connector.",
+        "badGateway": "La passarel·la del connector ha retornat un error."
+      }
+    }
+  },
+  "search": "Buscar",
+  "provider": "Soc proveïdor",
+  "consumer": "Soc consumidor",
+  "header": {
+    "conector": "Connector",
+    "support": "Suport",
+    "logout": "Eixir"
+  },
+  "home": {
+    "explore": {
+      "title": "Explorar i compartir",
+      "subtitle": "Connecta, consumeix i monetitza dades lingüístiques, models i altres recursos"
+    },
+    "myConnector": {
+      "title": "El meu connector",
+      "subtitle": "Crea, gestiona i supervisa els teus actius, polítiques i ofertes"
+    },
+    "buttons": {
+      "goCatalog": "Anar al catàleg",
+      "create": "Crear",
+      "view": "Veure"
+    }
+  },
+  "menu": {
+    "home": "Inici",
+    "exploreShare": "Explorar i compartir",
+    "catalog": "Catàleg d'ofertes",
+    "catalogDesc": "Explora les ofertes d'altres connectors a l'Espai de dades.",
+    "contracts": "Negociacions",
+    "contractsDesc": "Estat de les negociacions entre els propietaris de les dades.",
+    "transferHistory": "Transferències",
+    "transferHistoryDesc": "Registre dels intercanvis de productes de dades.",
+    "connector": "El meu connector",
+    "assets": "Els meus actius",
+    "assetsDesc": "Comparteix-los amb altres usuaris creant una oferta.",
+    "policies": "Les meves polítiques",
+    "policiesDesc": "Termes de llicència i polítiques de publicació.",
+    "offers": "Les meves ofertes",
+    "offersDesc": "Actius + condicions sota les quals els comparteixes",
+    "storage": "Emmagatzematge",
+    "storageDesc": "Punts finals i ubicacions de dades del connector disponibles.",
+    "xfscAdvancedSearch": "XFSC Busca avançada",
+    "xfscAdvancedSearchDesc": "La vista de busca avançada XFSC permet buscar i recuperar autodescripcions al catàleg federat, amb consultes per paraules clau i busca avançada.",
+    "sdTooling": "Eines SD",
+    "sdToolingDesc": "La vista SD Tooling ajuda els usuaris a crear actius self-description amb plantilles."
+  },
+  "catalog": {
+    "pageTitle": "Catàleg d'ofertes de l'espai de dades",
+    "offersFrom": "Ofertes de:",
+    "filters": "Filtres:",
+    "filterPlaceholder": "Busca per id d'actiu o proveïdor…",
+    "addFilters": "+ Afegir filtres",
+    "federatedEnabled": "Catàleg federat actiu",
+    "selectConnector": "Seleccionar…",
+    "connectorPickerHint": "Tria un connector configurat o sol·licita el catàleg manualment",
+    "negotiate": "Negociar",
+    "details": "Detalls",
+    "detailsAria": "Veure detalls del conjunt de dades",
+    "categoryModel": "Model",
+    "categoryCorpus": "Corpus",
+    "categoryDataset": "Conjunt de dades",
+    "categoryOther": "Recurs",
+    "searchFilterPlaceholder": "Filtrar per nom, descripció…",
+    "searchPrompt": "Utilitza Buscar per veure ofertes del catàleg.",
+    "noSearchResults": "No s'han trobat ofertes.",
+    "ownOffer": "La teua oferta",
+    "ownOfferHint": "Publicada per aquest connector. No es pot contractar; obri-la des de Les meues ofertes.",
+    "errors": {
+      "invalidCounterParty": "Adreça de contrapart no vàlida. Comprova les dades i torna-ho a provar.",
+      "requestFailed": "No s'ha pogut sol·licitar el catàleg de '{{address}}'."
+    },
+    "negotiation": {
+      "noOfferSelected": "No s'ha seleccionat cap oferta.",
+      "transferMissingContext": "No es pot iniciar la transferència: falta l'acord de contracte o l'adreça del proveïdor."
+    }
+  },
+  "negotiation": {
+    "history": "Historial de negociacions",
+    "rol": "El meu rol",
+    "status": "Estat / Data",
+    "name": "Nom de l'actiu",
+    "politic": "Política de contractació",
+    "connector": "Connector extern",
+    "transfer": "Transferència",
+    "consumer": "Soc consumidor",
+    "provider": "Soc proveïdor",
+    "search": "Buscar",
+    "disponible": " No hi ha negociacions disponibles.",
+    "assetPending": "Pendent d'actiu",
+    "transferPending": "Pendent",
+    "actions": "Accions",
+    "stateUnknown": "Estat desconegut",
+    "confirm_payment": "Confirmar pagament",
+    "reject_payment": "Rebutjar pagament",
+    "confirm": "Confirmar",
+    "reject": "Rebutjar",
+    "state": {
+      "INITIAL": "Creada, inicialitzant",
+      "REQUESTING": "Enviant la petició de negociació",
+      "REQUESTED": "Rebuda la petició de negociació",
+      "OFFERING": "Enviant l'oferta",
+      "OFFERED": "Rebuda l'oferta",
+      "ACCEPTING": "Enviant l'acceptació",
+      "ACCEPTED": "Rebuda l'acceptació",
+      "AGREEING": "Enviant l'acord",
+      "AGREED": "Rebut l'acord",
+      "VERIFYING": "En verificació (polítiques / protocol)",
+      "VERIFIED": "Verificació completada",
+      "FINALIZING": "Acord en preparació",
+      "FINALIZED": "Acord a punt",
+      "TERMINATING": "Cancel·lant negociació",
+      "TERMINATED": "Rebutjada",
+      "PAYMENT_PENDING": "Pendent de confirmació"
+    },
+    "transferMissingContext": "No es pot iniciar la transferència: falta l'acord de contracte o l'adreça del proveïdor."
+  },
+  "contractTransfer": {
+    "titleWithAsset": "Transferència — {{asset}}",
+    "titleDefault": "Transferència de dades",
+    "stepDetails": "1. Detalls de la transferència",
+    "stepProcess": "2. Procés de transferència",
+    "processTitle": "Pas del procés de transferència",
+    "processId": "ID del procés de transferència:",
+    "processStatus": "Estat actual:",
+    "processInProgress": "Procés de transferència en curs…",
+    "processFinalized": "Procés de transferència finalitzat. Podeu acabar.",
+    "cancel": "Cancel·lar",
+    "close": "Tancar",
+    "nextStep": "Pas següent",
+    "finish": "Finalitzar",
+    "loadOfferFailed": "No s'han pogut carregar els detalls de l'oferta per a la transferència.",
+    "notEligibleForTransfer": "Aquesta oferta no es pot utilitzar per a la transferència. Falten dades de registre del connector.",
+    "detailsTitle": "Detalls de la transferència",
+    "sharingMethod": "Mètode de compartició",
+    "template": "Plantilla",
+    "selectTemplate": "Seleccionar una plantilla",
+    "selectOption": "Seleccionar…",
+    "loadingTemplates": "Carregant plantilles…",
+    "loadingSchema": "Carregant esquema de plantilla…",
+    "arrayPlaceholder": "valor1, valor2, valor3"
+  },
+  "transferProcess": {
+    "list": {
+      "noTransfers": "Encara no hi ha transferències.",
+      "noSearchResults": "Cap transferència coincideix amb la busca.",
+      "loadError": "No s'ha pogut carregar l'historial de transferències."
+    },
+    "stateUnknown": "Estat desconegut",
+    "assetPending": "Pendent d'actiu",
+    "policyPending": "Pendent",
+    "connectorPending": "Pendent",
+    "columnTransfer": "Transferència",
+    "transferTypePrefix": "Tipus:",
+    "viewDetails": "Veure detalls",
+    "details": {
+      "title": "Detall de la transferència",
+      "properties": "Propietats",
+      "dataDestination": "Destinació de les dades",
+      "privateProperties": "Propietats privades",
+      "field": "Camp",
+      "value": "Valor",
+      "noData": "No hi ha dades disponibles"
+    },
+    "downloadReceivedAria": "Obrir fitxer rebut",
+    "preparedTransferAria": "Obrir detalls de la transferència (a punt per iniciar)",
+    "fileNotAvailableYet": "Encara no disponible",
+    "openFileFailed": "No s'ha pogut obrir el fitxer rebut.",
+    "pullExecute": {
+      "title": "Executar transferència Pull",
+      "description": "Configureu la sol·licitud HTTP per executar la transferència.",
+      "methodGet": "GET",
+      "methodPost": "POST",
+      "paramKey": "Paràmetre",
+      "paramValue": "Valor",
+      "addParam": "Afegir paràmetre",
+      "removeParam": "Eliminar paràmetre",
+      "postBodyLabel": "Cos JSON",
+      "postBodyPlaceholder": "{ \"key\": \"value\" }",
+      "execute": "Executar",
+      "executing": "Executant transferència…",
+      "downloading": "Descarregant…",
+      "missingTransferId": "No hi ha ID de transferència disponible.",
+      "fetchEdrFailed": "No s'ha pogut obtenir l'adreça de dades EDR.",
+      "executeFailed": "No s'ha pogut executar la transferència pull.",
+      "openAria": "Executar transferència Pull"
+    },
+    "state": {
+      "INITIAL": "Registrada",
+      "PROVISIONED": "Aprovisionada",
+      "REQUESTED": "Sol·licitada",
+      "STARTED": "En execució",
+      "COMPLETED": "Completada",
+      "SUSPENDED": "Suspesa",
+      "TERMINATED": "Finalitzada",
+      "DEPROVISIONED": "Desaprovisionada"
+    }
+  },
+  "assets": {
+    "transfer": {
+      "history": "Historial de transferències",
+      "view": "Veure",
+      "file": "Fitxer rebut",
+      "trans_disponible": " No s'han trobat transferències."
+    },
+    "table": {
+      "creationDate": "Data de creació",
+      "type": "Tipus",
+      "name": "Nom de l'actiu",
+      "description": "Descripció",
+      "details": "Detalls",
+      "view": "Veure",
+      "policy": "Nom de la política",
+      "noAssets": "Encara no hi ha actius creats."
+    },
+    "add_filter": "Afegir filtres",
+    "filters": "Filtres",
+    "myAssets": "Els meus actius: Llistat",
+    "detail": {
+      "breadcrumbCurrent": "Detall de l'actiu",
+      "backToList": "Veure llistat",
+      "assetDescription": "Descripció de l'actiu",
+      "linkedOffersAlert": "Per modificar o eliminar aquest actiu, primer has d'eliminar les ofertes vinculades.",
+      "errorInvalidId": "No s'ha indicat un identificador d'autodescripció vàlid.",
+      "errorLoadFailed": "No s'ha pogut carregar l'autodescripció de l'actiu.",
+      "relatedDocs": "Documentació relacionada",
+      "identifier": "Identificador",
+      "reference": "Referència",
+      "registrationAgency": "Agència de registre",
+      "cardIdentifier": "Identificador",
+      "fileFormatsTitle": "Format de fitxers",
+      "distribution": "Distribució",
+      "modelProperties": "Propietats del model",
+      "modelType": "Tipus de model",
+      "variantOf": "Variant de",
+      "viewModelDetails": "Veure detalls del model",
+      "provenance": "Procedència",
+      "provenanceOriginalSource": "Font original",
+      "provenanceIpHolder": "Titular de drets de propietat intel·lectual",
+      "modelFunction": "Funció del model"
+    }
+  },
+  "connectorConfig": {
+    "errors": {
+      "unhealthy": "El connector no està en bon estat.",
+      "unreachable": "No s'ha pogut contactar amb l'API predeterminada '{{defaultUrl}}'. Comprova les dades introduïdes."
+    }
+  },
+  "transfer": {
+    "deprovision": {
+      "success": "S'ha sol·licitat correctament la desprovisió del procés de transferència '{{id}}'.",
+      "failed": "Error en sol·licitar la desprovisió del procés de transferència '{{id}}'."
+    }
+  },
+  "policies": {
+    "errors": {
+      "invalidPermissionsJson": "JSON no vàlid per a permisos.",
+      "invalidProhibitionsJson": "JSON no vàlid per a prohibicions.",
+      "invalidObligationsJson": "JSON no vàlid per a obligacions.",
+      "unknown": "S'ha produït un error desconegut."
+    },
+    "createpolicy": "Crear nova política",
+    "create": {
+      "title": "Crear nova política",
+      "subtitle": "Selecciona el tipus de política que vols crear.",
+      "description": "Una política garanteix l'ús de les teves dades d'acord amb les teves regles",
+      "contractPolicy": {
+        "title": "Política de contractació",
+        "description": "Defineix les normes i obligacions d'accés i ús dels teus actius.",
+        "create": "Crear nova política de contractació",
+        "generateLds": "Generar llicència LDS"
+      },
+      "publicationPolicy": {
+        "title": "Política de publicació",
+        "description": "Defineix qui pot veure els teus actius al catàleg d'ofertes.",
+        "create": "Crear nova política de publicació"
+      }
+    },
+    "policiList": "Les meves polítiques: Llistat",
+    "nopolicies": "No hi ha polítiques per mostrar",
+    "viewPolicies": "Veure polítiques de",
+    "list": {
+      "name": "{{assetName}} · {{action}} · {{assigner}}",
+      "nameNoAssigner": "{{assetName}} · {{action}}",
+      "description": "{{action}}. {{constraint}}",
+      "pending": "Carregant…",
+      "loadError": "No s'ha pogut carregar la definició de la política",
+      "typeOther": "Altre"
+    },
+    "order": "Ordenar per",
+    "recent": "Data més recent",
+    "title": "Títol",
+    "type": "Tipus",
+    "detail": {
+      "loading": "Carregant política...",
+      "missingId": "No s'ha indicat cap política.",
+      "tabLegal": "Text de llicència legal",
+      "tabOdrl": "Format ODRL",
+      "viewOriginalLicense": "Veure llicència original",
+      "noLicenseUrl": "No hi ha URL de llicència associada a aquesta política als actius.",
+      "loadingLicense": "Carregant text de la llicència...",
+      "licenseLoadError": "No s'ha pogut carregar la llicència.",
+      "loadingOdrl": "Carregant definició ODRL...",
+      "odrlLoadError": "No s'ha pogut carregar la definició de política (ODRL).",
+      "modalTitle": "Política",
+      "modalCloseAria": "Tancar"
+    }
+  },
+  "offersL": "Les meves ofertes: Llistat",
+  "createoffer": "Crear nova oferta",
+  "active": "Actiu",
+  "cpoli": "Política de contractació",
+  "ppoli": "Política de publicació",
+  "anytype": "Qualsevol tipus",
+  "contract": "Contractació",
+  "public": "Publicació",
+  "publi": "Revisar i publicar",
+  "offers": {
+    "create": "Crear nova oferta",
+    "info": "Per motius d'arxiu i comercials, no es permet modificar les ofertes: cal eliminar-les i crear-ne de noves.",
+    "list": {
+      "noOffers": "Encara no hi ha ofertes creades.",
+      "noSearchResults": "No s'han trobat ofertes.",
+      "searchPlaceholder": "Busca per nom d'oferta…"
+    },
+    "toggle": {
+      "publicCatalog": "Mostrar totes al catàleg públic",
+      "enable": "Activar catàleg públic",
+      "disable": "Desactivar catàleg públic",
+      "tooltip": "Interruptor global de visibilitat. Si està desactivat, cap actiu serà visible al catàleg públic. Si està activat, la visibilitat depèn de l'estat individual de cada actiu."
+    },
+    "createPage": {
+      "subtitle": "Selecciona el tipus d'actiu que vols crear:",
+      "corpus": {
+        "title": "Corpus",
+        "description": "Dades textuals sense processar, conjunt de vídeos, etc.",
+        "create": "Crear Corpus"
+      },
+      "lexical": {
+        "title": "Recurs lèxic/conceptual",
+        "description": "Diccionari, llista de paraules, ontologia, etc.",
+        "create": "Crear recurs"
+      },
+      "model": {
+        "title": "Model",
+        "description": "Model lingüístic, LLM, model multimodal, etc.",
+        "create": "Crear model"
+      },
+      "service": {
+        "title": "Servei",
+        "description": "Compartició de dades via API",
+        "create": "Crear oferta amb Servei"
+      },
+      "typeUnavailableCorpus": "Actualment no es poden crear ofertes de tipus corpus.",
+      "typeUnavailableLexical": "Actualment no es poden crear ofertes de tipus recurs lèxic.",
+      "typeUnavailableModel": "Actualment no es poden crear ofertes de tipus model.",
+      "typeUnavailableApi": "Actualment no es poden crear ofertes de tipus servei.",
+      "schemaCatalogLoading": "Carregant tipus d'oferta disponibles…",
+      "backToSelection": "< Canviar tipus d'actiu"
+    },
+    "detail": {
+      "license": "Llicència",
+      "breadcrumbCurrent": "Detall de l'oferta",
+      "backToList": "< Veure llistat",
+      "publicCatalogReadonly": "Mostrar aquesta oferta també al catàleg públic",
+      "publicCatalogAria": "Visibilitat al catàleg públic",
+      "assetDescription": "Descripció de l'actiu",
+      "linguisticVarieties": "Varietats lingüístiques",
+      "region": "Regió",
+      "linguisticVariety": "Varietat lingüística",
+      "categories": "Categories",
+      "keywords": "Paraules clau",
+      "supportType": "Tipus de suport",
+      "linguisticType": "Tipus lingüístic",
+      "none": "Cap",
+      "dataProtection": "Protecció de dades",
+      "personalData": "Inclou dades personals",
+      "sensitiveData": "Inclou dades de categoria especial",
+      "anonymized": "Anonimitzat",
+      "relatedDocs": "Documentació relacionada",
+      "citation": "Text de la cita",
+      "cardContracting": "Contractació",
+      "cardPublication": "Publicació",
+      "publicationPlaceholder": "L'abast de publicació el defineixen les polítiques del teu connector.",
+      "viewPolicy": "Veure política",
+      "cardDistribution": "Distribució",
+      "byteSize": "Mida (Bytes)",
+      "packageFormat": "Format empaquetat",
+      "fileFormats": "Format de fitxers",
+      "size": "Mida",
+      "documentId": "Identificador",
+      "priceLine": "Preu: {{amount}} {{currency}}",
+      "priceLineWithVat": "Preu: {{amount}} {{currency}} (+IVA)",
+      "errorInvalidId": "Identificador d'oferta no vàlid.",
+      "errorLoadFailed": "No s'ha pogut carregar l'autodescripció de l'oferta.",
+      "delete": "Eliminar",
+      "deleteAria": "Eliminar aquesta oferta publicada",
+      "deleteConfirm": "Eliminar aquesta oferta publicada al catàleg federat? Aquesta acció no es pot desfer.",
+      "deleteFailed": "No s'ha pogut eliminar l'oferta. Torna-ho a provar o comprova els permisos.",
+      "deleteDisabledMocks": "No es pot eliminar l'oferta mentre s'utilitzin dades simulades sense connexió (mode desenvolupament). Connecta un connector real per eliminar-la.",
+      "deleteWait": "Espereu…",
+      "revokeModalTitle": "Eliminar oferta",
+      "revokeModalCancel": "Cancel·lar",
+      "revokeModalClose": "Tancar",
+      "revokeModalDismissAria": "Tancar el quadre de diàleg",
+      "alternativeTitle": "Títol alternatiu",
+      "publisher": "Editor",
+      "corpusLicense": "Llicència del corpus",
+      "additionalDetails": "Detalls addicionals",
+      "anonymizationDetails": "Detalls d'anonimització",
+      "personalDataDetails": "Detalls de dades personals",
+      "sensitiveDataDetails": "Detalls de dades sensibles",
+      "originalSourceDescription": "Descripció de la font original",
+      "classification": "Classificació",
+      "domain": "Domini",
+      "corpusSubclass": "Subclasse de corpus",
+      "lrType": "Tipus de recurs lingüístic",
+      "annotationType": "Tipus d'anotació",
+      "dataProtectionPrinciple": "Principi de protecció de dades",
+      "technicalMeasure": "Mesura tècnica / organitzativa",
+      "specificLanguages": "Llengües específiques",
+      "sourceLanguages": "Llengües font",
+      "targetLanguages": "Llengües destinació",
+      "pivotLanguages": "Llengües pivot",
+      "technicalInfo": "Informació tècnica",
+      "contact": "Contacte",
+      "sharingMethod": "Mètode de compartició",
+      "serviceAccessPoint": "Punt d'accés al servei",
+      "dataQuality": "Qualitat de les dades",
+      "encryption": "Xifratge",
+      "contractTemplateDoc": "Document de plantilla de contracte",
+      "spatialCoverage": "Cobertura espacial",
+      "temporalCoverage": "Cobertura temporal",
+      "multilingualityType": "Tipus de multilingüisme",
+      "standardsConformance": "Conformitat amb estàndards",
+      "identification": "Identificació",
+      "identifiers": "Identificadors",
+      "legalCode": "Codi legal",
+      "name": "Nom",
+      "iprHolders": "Titulars de drets de propietat intel·lectual",
+      "serviceProperties": "Propietats del servei",
+      "metadataLanguage": "Llengua de les metadades",
+      "dataProperties": "Propietats de les dades",
+      "producedBy": "Produït per",
+      "format": "Format",
+      "openApi": "OpenAPI",
+      "additionalInfo": "Informació addicional",
+      "relatedDatasets": "Conjunts de dades relacionats",
+      "targetUsers": "Usuaris destinataris",
+      "anonymizationMeasure": "Mesura d'anonimització",
+      "dataProtectionRegime": "Règim de protecció de dades",
+      "providerDataAddress": "Adreça de dades del proveïdor",
+      "dp": {
+        "yes": "Sí",
+        "no": "No",
+        "unknown": "Desconegut"
+      }
+    }
+  },
+  "sdDetails": {
+    "detail": {
+      "titleFallback": "Detall de l'autodescripció",
+      "providerLabel": "Proveïdor de l'autodescripció",
+      "selfDescription": "Autodescripció",
+      "description": "Descripció",
+      "noDescription": "No hi ha descripció disponible.",
+      "offerDetails": "Detalls de l'oferta",
+      "price": "Preu",
+      "priceType": "Tipus de preu",
+      "dataFormat": "Format de dades",
+      "providerEndpoint": "Endpoint del proveïdor",
+      "generalServiceProperties": "Propietats generals del servei",
+      "name": "Nom",
+      "offeringType": "Tipus d'oferta",
+      "serviceAccessPoint": "Punt d'accés al servei",
+      "sharingMethodId": "ID del mètode de compartició",
+      "contractTemplate": "Plantilla de contracte",
+      "document": "Document",
+      "hashAlgorithm": "Algorisme hash",
+      "hashValue": "Valor hash",
+      "templateUrl": "URL de la plantilla",
+      "dctConformsTo": "Dct: conforme a",
+      "version": "Versió",
+      "noUsagePolicy": "No hi ha política d'ús disponible.",
+      "accessPolicy": "Política d'accés",
+      "users": "Usuaris",
+      "user": "Usuari",
+      "actions": "Accions",
+      "dateConstraint": "Restricció de data",
+      "from": "Des de",
+      "to": "Fins a",
+      "usagePolicy": "Política d'ús",
+      "usageType": "Tipus d'ús",
+      "constraint": "Restricció",
+      "contractPolicyId": "ID de la política de contractació",
+      "licenseUrl": "URL de la llicència",
+      "registration": "Registre",
+      "assetId": "ID de l'actiu",
+      "contractDefinitionId": "ID de la definició del contracte",
+      "servicePolicyId": "ID de la política del servei",
+      "accessPolicyId": "ID de la política d'accés",
+      "providerInformation": "Informació del proveïdor",
+      "contact": "Contacte",
+      "providedBy": "Proveït per",
+      "signature": "Signatura",
+      "errorInvalidId": "Identificador d'autodescripció no vàlid.",
+      "errorLoadFailed": "No s'han pogut carregar els detalls de l'autodescripció."
+    },
+    "transfer": {
+      "getData": "Obtindre dades",
+      "loadingCatalogOffers": "Carregant ofertes del catàleg...",
+      "contractNegotiation": "Negociació del contracte",
+      "negotiatingResource": "S'està negociant el contracte per a aquest recurs.",
+      "negotiationId": "ID de negociació",
+      "currentStatus": "Estat actual",
+      "negotiationInProgress": "Negociació en curs...",
+      "negotiationFinalized": "Negociació finalitzada. Continua la transferència de dades des de Contractes.",
+      "negotiationAprovalPending": "La negociació s'ha completat correctament. Un cop confirmat el pagament, podràs descarregar el recurs des del panell de negociacions.",
+      "negotiationRejectedTitle": "La negociació ha estat rebutjada",
+      "negotiationRejectedNoDetail": "El proveïdor no ha indicat el motiu. Consulta els registres del connector per a més detall.",
+      "goToContracts": "Anar a Contractes"
+    }
+  },
+  "sdtooling": {
+    "offerTypeHeading": "Tipus d'oferta: {{type}}",
+    "backToOfferSelection": "Tornar a la selecció de tipus d'oferta",
+    "schemaLabel": "Esquema",
+    "selectSchema": "Seleccionar esquema",
+    "assetCreatedSuccess": "Actiu creat i publicat correctament.",
+    "assetCreatedSuccessWithId": "Actiu creat i publicat correctament: {{id}}",
+    "templateConfig": "Configuració de plantilla",
+    "resourceSharingMethod": "Mètode de compartició de recursos",
+    "selectSharingMethod": "Selecciona un mètode de compartició...",
+    "sourceTemplate": "Plantilla d'origen",
+    "selectOption": "Seleccionar...",
+    "selectUsageAssignee": "Seleccionar cessionari d'ús...",
+    "selectAction": "Seleccionar acció...",
+    "selectAttribute": "Seleccionar atribut...",
+    "reviewBeforeSubmit": "Revisar abans d'enviar",
+    "reviewIntro": "Revisa les metadades i els valors de l'enviament abans de crear l'autodescripció.",
+    "schemaColon": "Esquema:",
+    "schemaIdColon": "ID de l'esquema:",
+    "sharingMethodColon": "Mètode de compartició:",
+    "templateColon": "Plantilla:",
+    "noValuesToReview": "Encara no hi ha valors seleccionats per revisar.",
+    "createSd": "Crear SD",
+    "submitting": "Enviant...",
+    "stepSummary": "Resum",
+    "stepSummaryDesc": "Revisa i envia la teva autodescripció.",
+    "stepFillSection": "Completa {{section}}.",
+    "yes": "Sí",
+    "no": "No",
+    "usageDeletionAfter": "Eliminació després de l'ús",
+    "usageRestrictedNumber": "Nombre restringit d'usos",
+    "usageRestrictedDuration": "Durada restringida de l'ús",
+    "assetPropertiesTitle": "Propietats de l'actiu",
+    "delete": "Eliminar",
+    "usageAssignee": "Cessionari d'ús",
+    "usageType": "Tipus d'ús",
+    "numberOfUsages": "Nombre d'usos",
+    "fromDate": "Data des de",
+    "toDate": "Data fins a",
+    "action": "Acció",
+    "attribute": "Atribut",
+    "addPolicy": "Afegir política",
+    "policyFieldRequired": "Camp obligatori.",
+    "back": "Enrere",
+    "next": "Següent",
+    "saveAndContinue": "Desar i continuar",
+    "stepOf": "Pas {{current}} de {{total}}",
+    "add_item": "Afegir element",
+    "placeholder_add_val": "Escriu un valor i fes clic a Afegir",
+    "errors": {
+      "schemasLoad": "No s'han pogut carregar els esquemes de servei en aquest moment.",
+      "invalidResourceType": "Selecciona un esquema amb un tipus de recurs vàlid.",
+      "schemaFormatUnsupported": "Aquest format d'esquema encara no és compatible amb la creació de SD.",
+      "schemaContentLoad": "No s'ha pogut carregar el contingut de l'esquema.",
+      "sharingMethodsLoad": "No s'han pogut carregar els mètodes de compartició.",
+      "templatesLoad": "No s'han pogut carregar les plantilles per a aquest mètode de compartició.",
+      "templateDetailsLoad": "No s'han pogut carregar els detalls de la plantilla.",
+      "policyActionsLoad": "No s'han pogut carregar les opcions d'acció de política.",
+      "policyAttributesLoad": "No s'han pogut carregar les opcions d'atribut de política.",
+      "dynamicFormUnsupported": "Aquest esquema encara no es pot mostrar com a formulari dinàmic.",
+      "missingContext": "Falta el context d'esquema/formulari. Torna a seleccionar un esquema.",
+      "selectSharingMethodSubmit": "Selecciona un metode de comparticio.",
+      "selectTemplateSubmit": "Selecciona una plantilla.",
+      "schemaNotListed": "Aquest esquema no esta llistat per a SD Tooling i no s han proporcionat metadades valides. Obre-ho des de la creacio doffertes.",
+      "templateError": "Error de plantilla"
+    },
+    "blockReason": {
+      "selectSchema": "Selecciona un esquema per continuar.",
+      "waitSchemaDetails": "Espera que es carreguin els detalls de l'esquema.",
+      "completeSection": "Completa els camps obligatoris a \"{{section}}\" per continuar.",
+      "selectSharingMethod": "Selecciona un mètode de compartició de recursos per continuar.",
+      "selectTemplate": "Selecciona una plantilla d'origen per continuar.",
+      "waitTemplateDetails": "Espera que es carreguin els detalls de la plantilla.",
+      "completeTemplateFields": "Completa els camps de la plantilla per continuar."
+    }
+  },
+  "dynamicForm": {
+    "fieldRequired": "{{label}} és obligatori.",
+    "fieldMinLength": "{{label}} ha de tenir almenys {{min}} caràcters.",
+    "fieldMaxLength": "{{label}} ha de tenir com a màxim {{max}} caràcters.",
+    "fieldMin": "{{label}} ha de ser com a mínim {{min}}.",
+    "fieldMax": "{{label}} ha de ser com a màxim {{max}}.",
+    "fieldInvalidFormat": "{{label}} té un format no vàlid.",
+    "fieldMaxItems": "{{label}} permet com a màxim {{max}} valors.",
+    "fieldMinItems": "{{label}} requereix almenys {{min}} valors.",
+    "fieldItemMinLength": "{{label}} conté valors amb menys de {{min}} caràcters.",
+    "fieldObjectArrayRequired": "{{label}} requereix tots els camps obligatoris en cada element.",
+    "objectArrayNestedErrors": "Corregiu els camps ressaltats a continuació a {{label}}.",
+    "policyCardIncomplete": "Corregiu els camps ressaltats de les polítiques a {{label}}.",
+    "fieldInvalidUri": "{{label}} ha de ser una URL vàlida.",
+    "fieldCheck": "Comprova {{label}} i torna-ho a provar."
+  },
+  "xfsc": {
+    "simpleSearch": "Busca simple",
+    "advancedSearch": "Busca avançada",
+    "listTitle": "Llista de totes les autodescripcions disponibles",
+    "listDesc": "Aquesta és la llista d'autodescripcions segons els filtres especificats.",
+    "advancedTitle": "Busca avançada",
+    "advancedDesc": "Tria un esquema i aplica filtres per executar la busca avançada.",
+    "selectSchemaPrompt": "Selecciona un esquema i completa els filtres per executar la busca avançada.",
+    "schema": "Esquema",
+    "selectSchema": "Selecciona un esquema...",
+    "loadingOptions": "Carregant opcions de l'esquema...",
+    "loadingFields": "Carregant camps de l'esquema seleccionat...",
+    "clear": "Netejar",
+    "search": "Buscar",
+    "payloadPreview": "Vista prèvia del payload de busca",
+    "curlPreview": "Vista prèvia cURL (mode bypass)",
+    "endpoint": "Endpoint:",
+    "copyCurl": "Copiar cURL",
+    "copyPayload": "Copiar payload",
+    "arrayPlaceholder": "valor1, valor2, valor3",
+    "fieldRequired": "{{label}} és obligatori.",
+    "fieldMinLength": "{{label}} ha de tenir almenys {{min}} caràcters.",
+    "fieldMaxLength": "{{label}} ha de tenir com a màxim {{max}} caràcters.",
+    "fieldMin": "{{label}} ha de ser com a mínim {{min}}.",
+    "fieldMax": "{{label}} ha de ser com a màxim {{max}}.",
+    "fieldInvalid": "{{label}} no es valid.",
+    "fieldCheck": "Comprova {{label}} i torna-ho a provar.",
+    "copiedCurl": "cURL copiat al porta-retalls.",
+    "copiedPayload": "Payload copiat al porta-retalls.",
+    "errors": {
+      "schemaLoad": "No s'ha pogut carregar aquest esquema. Torna-ho a provar o tria'n un altre.",
+      "schemaFormatUnsupported": "Aquest format d'esquema encara no és compatible amb la busca avançada.",
+      "dynamicFormUnsupported": "Aquest esquema encara no es pot mostrar com a formulari de busca avançada.",
+      "sessionExpired": "La teua sessió ha caducat. Torna a iniciar sessió i torna-ho a provar.",
+      "forbidden": "No tens permís per executar aquesta cerca.",
+      "unavailable": "El servei de busca no està disponible en aquest moment. Torna-ho a provar més tard.",
+      "network": "No s'ha pogut contactar amb el servei de busca. Comprova la connexió i torna-ho a provar.",
+      "server": "El servidor té problemes en aquest moment. Torna-ho a provar d'aquí a un moment.",
+      "failedWithStatus": "La sol·licitud de busca ha fallat ({{status}})."
+    }
+  },
+  "storage": {
+    "table": {
+      "name": "Nom",
+      "type": "Tipus",
+      "url": "URL"
+    }
+  },
+  "app": {
+    "configError": {
+      "dialogMissing": "Falta el contenidor del diàleg del panell.",
+      "title": "Error de configuració",
+      "appConfigMissing": "Falta la configuració de l'aplicació. Cal definir els elements del menú."
+    },
+    "logout": {
+      "title": "Tancar sessió",
+      "notConfigured": "L'acció de tancar sessió encara no està configurada.",
+      "failed": "No s'ha pogut tancar la sessió. Torna-ho a provar."
+    }
+  },
+  "storageloc": "Ubicacions d'emmagatzematge disponibles",
+  "createsd": "Crear autodescripcions mitjançant passos visuals",
+  "loading": "Carregant opcions de l'esquema...",
+  "schema": "Esquema del servei",
+  "selecechema": "Seleccionar esquema",
+  "preparing": "Preparant els detalls de l'esquema seleccionat...",
+  "selecmethod": "Selecciona un mètode de compartició...",
+  "selectemp": "Selecciona una plantilla...",
+  "loadtemp": "Carregant plantilles...",
+  "loaddetail": "Carregant detalls de la plantilla...",
+  "show_items_per_page": "Mostrar {{count}} elements per pàgina",
+  "pagination": {
+    "page": "Pàgina {{page}}"
+  },
+  "policy": {
+    "access": {
+      "action": {
+        "search": "Buscar al catàleg",
+        "consume": "Consumir el recurs",
+        "restrictedConsume": "Consum restringit",
+        "unknown": "Acció d'accés desconeguda"
+      }
+    },
+    "contract": {
+      "action": {
+        "consume": "Consumir el recurs",
+        "use": "Ús del recurs",
+        "unknown": "Acció de contractació desconeguda"
+      }
+    },
+    "constraint": {
+      "validFrom": "Vàlid des de {{from}}",
+      "validTo": "Vàlid fins a {{to}}",
+      "validRange": "Vàlid del {{from}} al {{to}}",
+      "openEnded": "Sense límit de vigència"
+    }
+  },
+  "language": {
+    "es": "Espanyol",
+    "en": "Anglés",
+    "de": "Alemany",
+    "fr": "Francés",
+    "va": "Valencià"
+  },
+  "region": {
+    "ES": "Espanya",
+    "US": "Estats Units"
+  },
+  "filters": {
+    "category": {
+      "assetType": "Tipus d'actiu",
+      "visibility": "Visibilitat",
+      "price": "Preu"
+    },
+    "visibility": {
+      "all": "Tots",
+      "public": "Catàleg públic",
+      "private": "Catàleg no públic"
+    },
+    "price": {
+      "all": "Tots",
+      "free": "Gratuït",
+      "paid": "De pagament"
+    },
+    "assetType": {
+      "corpus": "Corpus",
+      "mlmodel": "Model",
+      "api": "API",
+      "lexicalconceptualresource": "Recurs lèxic-conceptual"
+    }
+  }
+}

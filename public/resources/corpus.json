@@ -1,0 +1,321 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "credentialSubject": {
+    "@context": {
+      "adms": "http://www.w3.org/ns/adms#",
+      "bcp47": "http://w3id.org/meta-share/bcp47/",
+      "cc": "http://creativecommons.org/ns#",
+      "continent": "http://publications.europa.eu/resource/authority/continent/",
+      "country": "http://publications.europa.eu/resource/authority/country/",
+      "dcat": "http://www.w3.org/ns/dcat#",
+      "dct": "http://purl.org/dc/terms/",
+      "dpv": "https://w3id.org/dpv#",
+      "edval": "http://w3id.org/gaia-x/edval#",
+      "foaf": "http://xmlns.com/foaf/0.1/",
+      "gax-validation": "http://w3id.org/gaia-x/validation#",
+      "ms": "http://w3id.org/meta-share/meta-share/",
+      "omtd": "http://w3id.org/meta-share/omtd-share/",
+      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+      "sh": "http://www.w3.org/ns/shacl#",
+      "simpl": "http://w3id.org/gaia-x/simpl#",
+      "skos": "http://www.w3.org/2004/02/skos/core#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@id": "did:web:registry.gaia-x.eu:CorpusOffering:fed1121e-e2d5-4d95-889a-0b809fb44e43",
+    "@type": "edval:CorpusOffering",
+    "dct:conformsTo": {
+      "@id": "https://simpl.example.org/schema/CorpusSchema_ES",
+      "@type": "dct:Standard",
+      "dct:description": "Esquema para ofertas tipo Corpus en el dataspace de edval",
+      "dct:hasVersion": "1.0.0",
+      "dct:schemaName": "Corpus",
+      "dct:title": "Corpus"
+    },
+    "edval:corpusAsset": {
+      "dcat:distribution": {
+        "dcat:byteSize": {
+          "@type": "xsd:integer",
+          "@value": 1979120929997
+        },
+        "dct:format": {
+          "@id": "omtd:Tei"
+        },
+        "ms:size": [
+          {
+            "ms:amount": {
+              "@type": "xsd:float",
+              "@value": "5000"
+            },
+            "ms:sizeUnit": {
+              "@id": "ms:hour1"
+            },
+            "rdf:type": {
+              "@id": "ms:Size"
+            }
+          }
+        ],
+        "rdf:type": {
+          "@id": "dcat:Distribution"
+        }
+      },
+      "dcat:keyword": [
+        {
+          "@language": "en",
+          "@value": "español"
+        },
+        {
+          "@language": "en",
+          "@value": "corpus oral"
+        },
+        {
+          "@language": "en",
+          "@value": "anotación lingüística"
+        },
+        {
+          "@language": "en",
+          "@value": "reconocimiento de voz"
+        },
+        {
+          "@language": "en",
+          "@value": "procesamiento del lenguaje natural"
+        }
+      ],
+      "dcat:version": "1.0.0",
+      "dct:conformsTo": {
+        "@id": "ms:TEI_P5"
+      },
+      "dct:description": {
+        "@language": "en",
+        "@value": "Corpus de habla oral en español, recogido y procesado dentro del proyecto Corpus Oral del Español San Millán. Reúne grabaciones de distintos hablantes que han sido transcritas, segmentadas y anotadas lingüísticamente (lematización, categoría gramatical y rasgos morfológicos) mediante un proceso que combina reconocimiento automático del habla, diarización de locutores y revisión humana. El corpus está pensado como recurso para el entrenamiento y la evaluación de sistemas de inteligencia artificial y procesamiento del lenguaje natural en español."
+      },
+      "dct:license": {
+        "adms:identifier": [
+          {
+            "adms:schemaAgency": {
+              "@language": "en",
+              "@value": "SPDX"
+            },
+            "rdf:type": {
+              "@id": "adms:Identifier"
+            },
+            "skos:notation": "CC-BY-NC-SA-4.0"
+          }
+        ],
+        "cc:legalcode": {
+          "@type": "xsd:anyURI",
+          "@value": "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode"
+        },
+        "dct:description": {
+          "@language": "en",
+          "@value": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+        },
+        "dct:title": {
+          "@language": "en",
+          "@value": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"
+        },
+        "rdf:type": {
+          "@id": "dct:LicenseDocument"
+        }
+      },
+      "dct:publisher": {
+        "foaf:name": {
+          "@language": "en",
+          "@value": "Fundación para la Transformación de La Rioja"
+        },
+        "rdf:type": {
+          "@id": "foaf:Organization"
+        }
+      },
+      "dct:spatial": {
+        "@id": "country:ESP"
+      },
+      "dct:temporal": [
+        {
+          "dcat:endDate": {
+            "@type": "xsd:date",
+            "@value": "2018-12-31"
+          },
+          "dcat:startDate": {
+            "@type": "xsd:date",
+            "@value": "2018-01-01"
+          },
+          "rdf:type": {
+            "@id": "dct:PeriodOfTime"
+          }
+        }
+      ],
+      "dct:title": {
+        "@language": "en",
+        "@value": "Corpus Oral del Español San Millán (COESM)"
+      },
+      "ms:annotationType": {
+        "@id": "omtd:PartOfSpeech"
+      },
+      "ms:anonymizationDetails": {
+        "@language": "en",
+        "@value": "Los nombres propios, topónimos y otros identificadores que pudieran aparecer en las grabaciones se detectan y sustituyen de forma automática mediante un modelo de lenguaje ajustado específicamente para esta tarea, como parte del proceso de tratamiento de cada grabación antes de su incorporación al corpus."
+      },
+      "ms:anonymized": {
+        "@id": "ms:yesA"
+      },
+      "ms:corpusSubclass": {
+        "@id": "ms:annotatedCorpus"
+      },
+      "ms:domain": {
+        "@id": "ms:LearningAndEducation"
+      },
+      "ms:iprHolder": [
+        {
+          "foaf:name": {
+            "@language": "en",
+            "@value": "Fundación para la Transformación de La Rioja"
+          },
+          "rdf:type": {
+            "@id": "foaf:Organization"
+          }
+        }
+      ],
+      "ms:language": [
+        {
+          "ms:languageCode": {
+            "@id": "bcp47:language_es"
+          },
+          "rdf:type": {
+            "@id": "ms:Language"
+          }
+        }
+      ],
+      "ms:lingualityType": {
+        "@id": "ms:monolingual"
+      },
+      "ms:lrType": {
+        "@id": "ms:corpus1"
+      },
+      "ms:mediaType": {
+        "@id": "ms:text"
+      },
+      "ms:originalSourceDescription": {
+        "@language": "en",
+        "@value": "Grabaciones de voz recogidas específicamente para este proyecto a partir de hablantes voluntarios, procesadas mediante un proceso de transcripción y anotación lingüística automática con posterior revisión humana."
+      },
+      "ms:personalDataIncluded": {
+        "@id": "ms:yesP"
+      },
+      "ms:sensitiveDataIncluded": {
+        "@id": "ms:yesS"
+      },
+      "rdf:type": {
+        "@id": "ms:Corpus"
+      }
+    },
+    "edval:isPublicOffering": {
+      "@type": "xsd:boolean",
+      "@value": true
+    },
+    "rdf:type": {
+      "@id": "edval:CorpusOffering"
+    },
+    "resourceAddress": {
+      "bucketName": "ednel.devtelefonica",
+      "objectName": "sampledata",
+      "region": "eu-west-1",
+      "type": "AmazonS3"
+    },
+    "simpl:assetProperties": {
+      "rdf:type": {
+        "@id": "simpl:AssetProperties"
+      }
+    },
+    "simpl:contractTemplate": {
+      "rdf:type": {
+        "@id": "simpl:ContractTemplate"
+      },
+      "simpl:contractTemplateDocument": "Contract Template 1",
+      "simpl:contractTemplateHashAlg": "SHA256",
+      "simpl:contractTemplateHashValue": "22275fe551e7a16f5f2c1cc10d39a534f547323d877109d98b8e8730047bc5ed",
+      "simpl:contractTemplateURL": "https://files-devsqs.telefonicadev.com/static/contract/ContractTemplate1.json"
+    },
+    "simpl:dataProperties": {
+      "rdf:type": {
+        "@id": "simpl:DataProperties"
+      },
+      "simpl:dataQuality": "a",
+      "simpl:format": "tei"
+    },
+    "simpl:edcConnector": {
+      "simpl:providerEndpointURL": "https://tls-participant-devsqs.telefonicadev.com/edc"
+    },
+    "simpl:edcRegistration": {
+      "simpl:accessPolicyId": "3045a0bf-fd0c-47db-a9fc-86ac43e6349d",
+      "simpl:assetId": "2ab99136-536b-42e0-bf73-db8cb97c9d1f",
+      "simpl:contractDefinitionId": "0e2a8722-3bdb-44bf-9816-4da23eae32c1",
+      "simpl:servicePolicyId": "7b7ceab7-f521-4c99-9bdc-eaeda2fdd2a3"
+    },
+    "simpl:generalServiceProperties": {
+      "rdf:type": {
+        "@id": "simpl:GeneralServiceProperties"
+      },
+      "simpl:description": "Corpus de habla oral en español, recogido y procesado dentro del proyecto Corpus Oral del Español San Millán. Reúne grabaciones de distintos hablantes que han sido transcritas, segmentadas y anotadas lingüísticamente (lematización, categoría gramatical y rasgos morfológicos) mediante un proceso que combina reconocimiento automático del habla, diarización de locutores y revisión humana. El corpus está pensado como recurso para el entrenamiento y la evaluación de sistemas de inteligencia artificial y procesamiento del lenguaje natural en español.",
+      "simpl:inLanguage": "es",
+      "simpl:keywords": [
+        "español",
+        "corpus oral",
+        "anotación lingüística",
+        "reconocimiento de voz",
+        "procesamiento del lenguaje natural"
+      ],
+      "simpl:name": "Corpus Oral del Español San Millán (COESM)",
+      "simpl:offeringType": "data",
+      "simpl:serviceAccessPoint": {
+        "@type": "xsd:anyURI",
+        "@value": "https://s3.eu-west-1.amazonaws.com"
+      },
+      "simpl:sharingMethodId": "AMAZON_S3",
+      "simpl:version": "1"
+    },
+    "simpl:offeringPrice": {
+      "rdf:type": {
+        "@id": "simpl:OfferingPrice"
+      },
+      "simpl:currency": "EUR",
+      "simpl:license": {
+        "@type": "xsd:anyURI",
+        "@value": "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode"
+      },
+      "simpl:price": {
+        "@type": "xsd:decimal",
+        "@value": 0
+      },
+      "simpl:priceType": "free"
+    },
+    "simpl:providerInformation": {
+      "rdf:type": {
+        "@id": "simpl:ProviderInformation"
+      },
+      "simpl:contact": "edval@edval.es",
+      "simpl:providedBy": "019e3a90-7322-7c5f-b152-5819e6ff64cc",
+      "simpl:signature": "019e3a9073227c5fb1525819e6ff64cc"
+    },
+    "simpl:servicePolicy": {
+      "rdf:type": {
+        "@id": "simpl:ServicePolicy"
+      },
+      "simpl:access-policy": "{\"profile\":\"http://www.w3.org/ns/odrl/2/odrl.jsonld\",\"target\":\"2ab99136-536b-42e0-bf73-db8cb97c9d1f\",\"assigner\":{\"uid\":\"devsqs\",\"role\":\"http://www.w3.org/ns/odrl/2/assigner\"},\"uid\":\"58f60285-8008-43b8-bb7a-3bb18ec10c99\",\"@context\":\"http://www.w3.org/ns/odrl.jsonld\",\"@type\":\"Set\",\"permission\":[{\"target\":\"2ab99136-536b-42e0-bf73-db8cb97c9d1f\",\"assignee\":{\"uid\":\"EDVAL_PARTICIPANT\",\"role\":\"http://www.w3.org/ns/odrl/2/assignee\"},\"action\":[\"http://simpl.eu/odrl/actions/consume\"],\"constraint\":[]}]}",
+      "simpl:usage-policy": "{\"profile\":\"http://www.w3.org/ns/odrl/2/odrl.jsonld\",\"target\":\"2ab99136-536b-42e0-bf73-db8cb97c9d1f\",\"assigner\":{\"uid\":\"devsqs\",\"role\":\"http://www.w3.org/ns/odrl/2/assigner\"},\"uid\":\"f4c049f5-4dfa-4274-bc55-b51c1ad3d656\",\"@context\":\"http://www.w3.org/ns/odrl.jsonld\",\"@type\":\"Set\",\"permission\":[{\"target\":\"2ab99136-536b-42e0-bf73-db8cb97c9d1f\",\"assignee\":{\"uid\":\"EDVAL_PARTICIPANT\",\"role\":\"http://www.w3.org/ns/odrl/2/assignee\"},\"action\":[\"http://www.w3.org/ns/odrl/2/use\"],\"constraint\":[{\"leftOperand\":\"http://www.w3.org/ns/odrl/2/count\",\"operator\":\"http://www.w3.org/ns/odrl/2/lteq\",\"rightOperand\":\"10\"}]}]}"
+    }
+  },
+  "issuanceDate": "2026-07-03T09:10:26.214559411Z",
+  "issuer": "did:web:did.dev.simpl-europa.eu",
+  "proof": {
+    "created": "2026-07-03T09:10:26.230152147Z",
+    "jws": "eyJhbGciOiJVbmRlZmluZWQiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..U-FkIngNjN60IaNeJHyDJykbByueLyHFxl-X1m9iuct-UCPzFbfNjQ7lxCayNxacV9kLXXnsW9fuciDj4jyjCg",
+    "proofPurpose": "assertionMethod",
+    "type": "JsonWebSignature2020",
+    "verificationMethod": "did:web:did.dev.simpl-europa.eu#gaia-x-key1"
+  },
+  "type": "VerifiableCredential"
+}

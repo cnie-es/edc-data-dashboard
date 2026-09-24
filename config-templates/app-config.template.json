@@ -1,0 +1,82 @@
+{
+  "healthCheckIntervalSeconds": 30,
+  "edcClientTimeoutMs": 1000,
+  "enableUserConfig": false,
+  "menuItems": [
+    {
+      "text": "Inicio",
+      "textKey": "menu.home",
+      "materialSymbol": "Home",
+      "routerPath": "home",
+      "divider": true,
+      "imagePath": "/assets/home-1.jpg"
+    },
+    {
+      "text": "Explorar y compartir",
+      "textKey": "menu.exploreShare",
+      "isGroupTitle": true,
+      "imagePath": ""
+    },
+    {
+      "text": "Catálogo de ofertas",
+      "textKey": "menu.catalog",
+      "materialSymbol": "star",
+      "routerPath": "catalog",
+      "viewDescription": "Explora las ofertas de otros conectores en el Espacio de datos.",
+      "descriptionKey": "menu.catalogDesc",
+      "imagePath": ""
+    },
+    {
+      "text": "Negociaciones",
+      "textKey": "menu.contracts",
+      "materialSymbol": "Tooltip_2",
+      "routerPath": "contracts",
+      "viewDescription": "Estado de las negociaciones entre los propietarios de los datos.",
+      "descriptionKey": "menu.contractsDesc",
+      "imagePath": ""
+    },
+    {
+      "text": "Transferencias",
+      "textKey": "menu.transferHistory",
+      "materialSymbol": "Sync_Alt",
+      "routerPath": "transfer-history",
+      "viewDescription": "Registro de los intercambios de productos de datos.",
+      "descriptionKey": "menu.transferHistoryDesc",
+      "imagePath": "",
+      "divider": true
+    },
+    {
+      "text": "Mi conector",
+      "textKey": "menu.connector",
+      "isGroupTitle": true,
+      "imagePath": ""
+    },
+    {
+      "text": "Mis activos",
+      "textKey": "menu.assets",
+      "materialSymbol": "Content_Paste",
+      "routerPath": "assets",
+      "viewDescription": "Compártelos con otros usuarios, creando una oferta.",
+      "descriptionKey": "menu.assetsDesc",
+      "imagePath": "/assets/home-2.jpg"
+    },
+    {
+      "text": "Mis políticas",
+      "textKey": "menu.policies",
+      "materialSymbol": "Verified_User",
+      "routerPath": "policies",
+      "viewDescription": "Términos de licencia y políticas de publicación.",
+      "descriptionKey": "menu.policiesDesc",
+      "imagePath": "/assets/home-3.jpg"
+    },
+    {
+      "text": "Mis ofertas",
+      "textKey": "menu.offers",
+      "materialSymbol": "star",
+      "routerPath": "contract-definitions",
+      "viewDescription": "Activos + condiciones bajo las cuales los compartes.",
+      "descriptionKey": "menu.offersDesc",
+      "imagePath": "/assets/home-4.jpg"
+    }
+  ]
+}

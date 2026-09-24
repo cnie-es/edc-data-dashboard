@@ -1,0 +1,41 @@
+<div class="px-4 md:px-6 pb-10">
+  <lib-contract-definitions-toolbar
+    [itsPublic]="itsPublic"
+    (goHome)="goHome()"
+    (togglePublicCatalog)="togglePublicCatalog()"
+    (createContractDefinition)="createContractDefinition()"
+  />
+
+  <lib-contract-definitions-filter-bar
+    [selectedSort]="selectedSort"
+    [appliedFilterChips]="appliedFilterChips"
+    (openFiltersModal)="openFiltersModal()"
+    (removeFilterChip)="clearSingleFilterChip($event.category, $event.value)"
+    (searchChanged)="filter($event)"
+    (sortChanged)="sortChanged($event)"
+  />
+
+  <lib-contract-definitions-filters-modal
+    [assetTypeOptions]="assetTypeOptions"
+    [visibilityOptions]="visibilityOptions"
+    [priceOptions]="priceOptions"
+    [selectedAssetTypeValues]="selectedAssetTypeDraftValues"
+    [selectedVisibility]="selectedVisibilityDraft"
+    [selectedPrice]="selectedPriceDraft"
+    (selectionChanged)="toggleFilterSelection($event)"
+    (visibilityChanged)="draftVisibilityChanged($event)"
+    (priceChanged)="draftPriceChanged($event)"
+    (apply)="applyFilters()"
+  />
+
+  <lib-contract-definitions-grid
+    [pageContractDefinitions$]="pageContractDefinitions$"
+    [contractDefinitions$]="contractDefinitions$"
+    [filteredContractDefinitions$]="filteredContractDefinitions$"
+    [fetched]="fetched"
+    [pageItemCount]="pageItemCount"
+    [isSearchActive]="currentSearchText.trim().length > 0"
+    (openDetails)="openDetails($event)"
+    (pageItemsChanged)="paginationEvent($event)"
+  />
+</div>

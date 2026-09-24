@@ -1,0 +1,14 @@
+<div class="wizard-container">
+  <div class="steps">
+    <ng-container *ngFor="let label of stepLabels; let i = index">
+      <div class="step">
+        <div class="circle" [class.completed]="current > i + 1" [class.current]="current === i + 1">
+          {{ i + 1 }}
+        </div>
+        <div class="label">{{ label }}</div>
+        <!-- Línea azul o gris detrás del círculo -->
+        <div class="line" *ngIf="i < stepLabels.length - 1"></div>
+      </div>
+    </ng-container>
+  </div>
+</div>

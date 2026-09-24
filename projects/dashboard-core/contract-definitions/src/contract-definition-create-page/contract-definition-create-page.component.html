@@ -1,0 +1,51 @@
+<section class="px-4 pb-10 md:px-6">
+  <div class="mx-auto max-w-[1240px] space-y-6">
+    <lib-create-page-header-stepper [currentStep]="currentStep" (goHome)="goHome()" (goBack)="goBack()" />
+
+    @if (currentStep === 1) {
+      <lib-create-step-asset-table
+        [rows]="filteredAssetRows"
+        [selectedAssetId]="selectedAssetId"
+        [sortDirection]="assetSortDirection"
+        (searchChanged)="applyAssetSearch($event)"
+        (toggleSort)="toggleAssetDateSort()"
+        (selectAsset)="selectAsset($event)"
+        (saveAndContinue)="saveAndContinue()"
+      />
+    } @else if (currentStep === 2) {
+      <lib-create-step-contract-policy-table
+        [rows]="filteredPolicyRows"
+        [selectedPolicyId]="selectedContractPolicyId"
+        [sortDirection]="policySortDirection"
+        (searchChanged)="applyPolicySearch($event)"
+        (toggleSort)="togglePolicyDateSort()"
+        (selectPolicy)="selectContractPolicy($event)"
+        (previous)="goPreviousStep()"
+        (saveAndContinue)="saveAndContinue()"
+      />
+    } @else if (currentStep === 3) {
+      <lib-create-step-publication-policy-table
+        [rows]="filteredPublicationPolicyRows"
+        [selectedPolicyId]="selectedPublicationPolicyId"
+        [sortDirection]="publicationPolicySortDirection"
+        (searchChanged)="applyPublicationPolicySearch($event)"
+        (toggleSort)="togglePublicationPolicyDateSort()"
+        (selectPolicy)="selectPublicationPolicy($event)"
+        (previous)="goPreviousStep()"
+        (saveAndContinue)="saveAndContinue()"
+      />
+    } @else {
+      <lib-create-step-review-publish
+        [showInPublicCatalog]="showInPublicCatalog"
+        [publishFeedbackVisible]="publishFeedbackVisible"
+        [selectedAssetRow]="selectedAssetRow"
+        [selectedContractPolicyRow]="selectedContractPolicyRow"
+        [selectedPublicationPolicyRow]="selectedPublicationPolicyRow"
+        [canPublishOffer]="canPublishOffer"
+        (togglePublicCatalog)="togglePublicCatalog()"
+        (previous)="goPreviousStep()"
+        (publish)="publishOffer()"
+      />
+    }
+  </div>
+</section>

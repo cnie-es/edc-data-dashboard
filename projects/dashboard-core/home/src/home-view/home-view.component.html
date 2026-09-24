@@ -1,0 +1,98 @@
+<div class="grid w-full gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 [&_.card]:rounded-2xl">
+  <div class="card bg-third col-span-full">
+    <div class="col-span-full text-left my-6 px-4">
+      <h2 class="text-2xl text-gray-500 font-bold mb-2">{{ 'home.explore.title' | translate }}</h2>
+      <p class="text-sm text-gray-400 font-bold">
+        {{ 'home.explore.subtitle' | translate }}
+      </p>
+    </div>
+
+    @let catalogItems = catalogItems$ | async;
+    <div class="grid w-full gap-4 grid-cols-1 md:grid-cols-1 lg:grid-cols-3 px-4">
+      @for (item of catalogItems; track item.routerPath) {
+        <!-- Catalogo de ofertas -->
+        <div class="col-span-2 card bg-base-200 bg-grey border border-border">
+          <figure class="h-52 overflow-hidden">
+            <img
+              src="/assets/home-1.jpg"
+              [alt]="item.text"
+              class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+          </figure>
+          <div class="card-body">
+            <div class="card-title">{{ item.textKey | translate }}</div>
+            <p class="text-my-text">{{ item.descriptionKey | translate }}</p>
+            <div class="card-actions justify-end mt-4">
+              <button class="btn btn-primary btn-sm px-4 py-4" (click)="navigate(item.routerPath)">
+                {{ 'home.buttons.goCatalog' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Negotiations + Transfers -->
+      <div class="flex flex-col gap-4 lg:col-span-1 self-start w-full max-w-md">
+        @for (item of operationItems$ | async; track item.routerPath) {
+          <div class="card bg-base-200 bg-grey w-full">
+            <div class="card-body">
+              <div class="flex justify-between items-center">
+                <div class="card-title">{{ item.textKey | translate }}</div>
+                <span
+                  class="material-symbols-rounded text-[1.75rem] text-primary"
+                  style="font-variation-settings: 'wght' 200"
+                >
+                  {{ item.materialSymbol }}
+                </span>
+              </div>
+
+              <p class="text-my-text">{{ item.descriptionKey | translate }}</p>
+
+              <div class="card-actions justify-end mt-4">
+                <button class="btn btn-my-grey btn-sm" (click)="navigate(item.routerPath)">
+                  <span class="material-symbols-rounded font-bold" style="font-size: 20px">arrow_right_alt</span>
+                  {{ 'home.buttons.view' | translate }} {{ item.textKey | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+    @if ((myItems$ | async)?.length) {
+      <div class="col-span-full text-left my-6 px-4">
+        <hr class="border-t border-gray-300 mb-4 mt-4" />
+        <h2 class="text-2xl text-gray-500 font-bold mb-2">{{ 'home.myConnector.title' | translate }}</h2>
+        <p class="text-sm text-gray-400 font-bold">{{ 'home.myConnector.subtitle' | translate }}</p>
+      </div>
+      <!-- SECCION Mi conector-->
+      <div class="col-span-full px-4 pb-8">
+        <div class="grid w-full gap-4 grid-cols-1 sm:grid-cols-1 lg:grid-cols-3">
+          @for (item of myItems$ | async; track item.routerPath) {
+            <div class="card border border-border">
+              <figure class="h-48 overflow-hidden">
+                <img [src]="item.imagePath" [alt]="item.text" class="w-full h-full object-cover" />
+              </figure>
+
+              <div class="card-body">
+                <div class="card-title">{{ item.textKey | translate }}</div>
+                <p class="text-my-text">{{ item.descriptionKey | translate }}</p>
+
+                <div class="card-actions justify-end mt-4">
+                  @if (item.routerPath === 'contract-definitions') {
+                    <button class="btn btn-sm" (click)="navigateToNewOffer()">
+                      {{ 'home.buttons.create' | translate }}
+                    </button>
+                  }
+                  <button class="btn bg-[#EDEEEE] btn-sm" (click)="navigate(item.routerPath)">
+                    {{ 'home.buttons.view' | translate }} {{ item.textKey | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

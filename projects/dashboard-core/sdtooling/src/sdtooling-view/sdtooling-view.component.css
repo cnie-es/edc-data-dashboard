@@ -1,0 +1,69 @@
+:host {
+  display: block;
+}
+
+.select:focus {
+  outline: none;
+}
+
+/* Continuous track from first to last circle center; circles sit on top (z-10). */
+.offer-stepper-rail {
+  --step-count: 1;
+  --step-index: 0;
+}
+
+.offer-stepper-line {
+  position: absolute;
+  top: 1rem;
+  z-index: 0;
+  height: 4px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.offer-stepper-line--track {
+  left: calc(50% / var(--step-count));
+  right: calc(50% / var(--step-count));
+  background-color: var(--app-color-neutral-lighter, #d1d5db);
+}
+
+.offer-stepper-line--progress {
+  left: calc(50% / var(--step-count));
+  width: calc((100% - (100% / var(--step-count))) * var(--step-index) / max(var(--step-count) - 1, 1));
+  background-color: var(--app-color-primary);
+  transition: width 0.35s ease;
+}
+
+.offer-stepper-nodes {
+  margin: 0;
+}
+
+.offer-step-node {
+  min-width: 0;
+}
+
+.offer-circle-stepper .offer-step-circle:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.offer-circle-stepper .offer-step-circle:not(:disabled):hover {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--app-color-primary) 25%, transparent);
+}
+
+.offer-wizard-step-active {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--app-color-primary) 35%, transparent);
+}
+
+.property-group-panel {
+  border: 1px solid var(--app-color-neutral-lighter, var(--color-border, #e5e7eb));
+  border-radius: 0;
+  padding: 1rem 1.25rem;
+  background: var(--app-color-primary-lightest, #fff);
+}
+
+@media (min-width: 768px) {
+  .property-group-panel {
+    padding: 1.25rem 1.5rem;
+  }
+}

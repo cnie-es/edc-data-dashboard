@@ -1,0 +1,17 @@
+<div class="mb-4 flex items-center gap-4">
+  <lib-filter-input
+    [focusShortcut]="['Alt', 'j']"
+    class="grow max-w-md"
+    (inputChange)="searchChanged.emit($event)"
+  ></lib-filter-input>
+  <div class="ml-auto flex items-center gap-2">
+    <span class="text-sm text-base-content/80"> {{ 'policies.order' | translate }}:</span>
+    <label class="select w-64">
+      <select [value]="selectedSort" (change)="sortChanged.emit($any($event.target).value)">
+        <option value="newest">{{ 'policies.recent' | translate }}</option>
+        <option value="title">{{ 'policies.title' | translate }}</option>
+        <option value="type">{{ 'policies.type' | translate }}</option>
+      </select>
+    </label>
+  </div>
+</div>

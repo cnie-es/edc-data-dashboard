@@ -1,0 +1,57 @@
+<!--
+    Copyright (c) 2025 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+
+    This program and the accompanying materials are made available under the
+    terms of the Apache License, Version 2.0 which is available at
+    https://www.apache.org/licenses/LICENSE-2.0
+
+    SPDX-License-Identifier: Apache-2.0
+
+    Contributors:
+         Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V. - initial API and implementation
+-->
+
+<div class="flex w-full flex-wrap items-center gap-2">
+  <div
+    class="badge badge-sm h-[calc(var(--size-field)*6)] border border-base-300 bg-base-100 text-xs font-medium text-base-content/90"
+  >
+    {{ protocol }}
+  </div>
+  @if ((stateService.edcConfigs$ | async) && (stateService.edcConfigs$ | async)!.length > 1 && !federatedCatalog) {
+    <div
+      class="tooltip-open tooltip-primary tooltip-bottom flex h-full items-center"
+      [attr.data-tip]="'catalog.connectorPickerHint' | translate"
+      [ngClass]="showSearchTooltip ? 'tooltip' : ''"
+    >
+      <select
+        class="select select-ghost select-xs rounded-lg border border-base-300 bg-base-100 text-base-content hover:border-base-content/40 focus-within:border-primary focus:outline-none"
+        (change)="getCatalog()"
+        [(ngModel)]="selectedConnector"
+        #connectorSelect
+      >
+        <option [ngValue]="undefined" disabled selected>{{ 'catalog.selectConnector' | translate }}</option>
+        @for (config of stateService.edcConfigs$ | async; track config.connectorName) {
+          @if (config !== (stateService.currentEdcConfig$ | async)) {
+            <option [ngValue]="config">{{ config.connectorName }}</option>
+          }
+        }
+      </select>
+    </div>
+  } @else if (federatedCatalog) {
+    <div
+      class="badge badge-sm badge-primary badge-outline h-[calc(var(--size-field)*6)] py-3 text-xs font-medium"
+      data-cy="catalog-federated-badge"
+    >
+      {{ 'catalog.federatedEnabled' | translate }}
+    </div>
+  }
+  <button
+    type="button"
+    class="btn btn-md shrink-0 rounded-full border border-dotted border-base-300 bg-base-100 text-base-content/85 shadow-none"
+    data-cy="catalog-request-open-form"
+    (click)="openRequestForm()"
+  >
+    <span class="material-symbols-rounded text-base!">add</span>
+    {{ 'assets.add_filter' | translate }}
+  </button>
+</div>

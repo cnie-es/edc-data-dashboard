@@ -1,0 +1,16 @@
+[
+  {
+    "connectorName": "${EDC_CONNECTOR_NAME}",
+    "managementUrl": "${EDC_MANAGEMENT_URL}",
+    "defaultUrl": "${EDC_DEFAULT_URL}",
+    "protocolUrl": "${EDC_PROTOCOL_URL}",
+    "xfscAdvSearchApiBaseUrl": "${XFSC_ADVSEARCH_BASE_URL}",
+    "contractConsumptionApiBaseUrl": "${CONTRACT_CONSUMPTION_API_BASE_URL}",
+    "contractConsumptionApiVersion": "${CONTRACT_CONSUMPTION_API_VERSION}",
+    "sdToolingApiBaseUrl": "${SDTOOLING_BASE_URL}",
+    "dashboardApiBaseUrl": "${DASHBOARD_API_BASE_URL}",
+    "federatedCatalogEnabled": ${EDC_FEDERATED_CATALOG_ENABLED},
+    "did": "${EDC_DID}",
+    "signerApiBaseUrl": "${SIGNER_BASE_URL}"
+  }
+]

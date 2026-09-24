@@ -1,0 +1,38 @@
+/*
+ * Language selector flags (1x1 only) — avoids bundling full flag-icons.min.css,
+ * which collides 4x3 and 1x1 SVGs into the same output path under ng serve.
+ */
+.dashboard-lang-flag {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+  border-radius: 0.125rem;
+}
+
+.dashboard-lang-flag-es {
+  background-image: url('../node_modules/flag-icons/flags/1x1/es.svg');
+}
+
+.dashboard-lang-flag-ca {
+  background-image: url('../node_modules/flag-icons/flags/1x1/es-ct.svg');
+}
+
+.dashboard-lang-flag-va {
+  background-image: url('./assets/flags/va.svg');
+}
+
+.dashboard-lang-flag-gl {
+  background-image: url('../node_modules/flag-icons/flags/1x1/es-ga.svg');
+}
+
+.dashboard-lang-flag-eu {
+  background-image: url('../node_modules/flag-icons/flags/1x1/es-pv.svg');
+}
+
+.dashboard-lang-flag-en {
+  background-image: url('../node_modules/flag-icons/flags/1x1/gb.svg');
+}

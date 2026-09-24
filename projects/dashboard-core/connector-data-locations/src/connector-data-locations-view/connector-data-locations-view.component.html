@@ -1,0 +1,47 @@
+<div class="px-4 md:px-6 pb-10" data-cy="connector-data-locations-page">
+  <lib-breadcrumbs [items]="breadcrumbItemsTranslated"></lib-breadcrumbs>
+
+  <h1 class="text-3xl font-semibold text-(--app-color-primary-darker) mb-3">
+    {{ 'storageloc' | translate }}
+  </h1>
+  <div class="col-span-full text-left my-6">
+    <hr class="border-t border-gray-300 mb-4 mt-4" />
+  </div>
+
+  <div class="overflow-hidden rounded-xl border border-base-300 bg-base-100" data-cy="connector-data-locations-table">
+    <div class="overflow-x-auto">
+      <table class="table w-full text-sm">
+        <thead class="text-xs uppercase tracking-wide text-base-content/60">
+          <tr>
+            <th>{{ 'storage.table.name' | translate }}</th>
+            <th>{{ 'storage.table.type' | translate }}</th>
+            <th>{{ 'storage.table.url' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (location of locations(); track location.name) {
+            <tr>
+              <td [textContent]="location.name"></td>
+              <td>
+                <div class="flex flex-wrap gap-1" data-cy="connector-data-location-types">
+                  @for (type of location.types; track type) {
+                    <span class="badge badge-soft badge-info" [textContent]="type"></span>
+                  }
+                </div>
+              </td>
+              <td>
+                <a
+                  class="link link-primary"
+                  [href]="location.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  [textContent]="location.url"
+                ></a>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

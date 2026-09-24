@@ -1,0 +1,13 @@
+<div class="flex flex-col w-[min(90vw,42rem)]">
+  <div class="flex items-start justify-between gap-4 mb-4">
+    <h2 class="text-lg font-bold text-gray-900">
+      {{ 'policies.detail.modalTitle' | translate }}
+    </h2>
+  </div>
+
+  @if (policyName()) {
+    <p class="mb-4 text-sm text-base-content/80 break-words">{{ policyName() }}</p>
+  }
+
+  <lib-policy-detail-panel [policyId]="policyId()" [licenseUrl]="licenseUrl()" [embedded]="true" />
+</div>

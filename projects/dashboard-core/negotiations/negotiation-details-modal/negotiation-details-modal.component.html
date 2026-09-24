@@ -1,0 +1,79 @@
+<div class="flex items-start justify-between gap-4 mb-6">
+  <div>
+    <h2 class="text-3xl font-semibold text-gray-900">
+      {{ assetName }}
+    </h2>
+  </div>
+</div>
+
+<div class="border rounded-2xl border-gray-300 p-5 max-h-[500px] overflow-y-auto">
+  <div class="flex items-center gap-2 mt-3 flex-wrap">
+    <span class="badge badge-blue badge-outline">
+      {{ negotiation.type }}
+    </span>
+
+    <span class="badge badge-blue badge-outline">
+      {{ negotiationStateLabel(negotiation.state) }}
+    </span>
+
+    <span class="badge badge-outline border-gray-300 text-gray-600">
+      {{ negotiation.createdAt | date: 'dd MMM yyyy' }}
+    </span>
+  </div>
+
+  <hr class="border-t border-gray-100 my-4" />
+
+  <div class="space-y-6">
+    <div>
+      <h3 class="text-xl font-semibold text-gray-900 mb-2">Descripción del activo</h3>
+
+      <p class="text-gray-700 leading-8 whitespace-pre-line">
+        {{ description }}
+      </p>
+    </div>
+
+    <hr class="border-t border-gray-100 my-4" />
+
+    <div>
+      <h3 class="text-xl font-semibold text-gray-900 mb-2">Variedades lingüísticas</h3>
+
+      <p class="text-gray-700 leading-8 whitespace-pre-line"></p>
+    </div>
+
+    <hr class="border-t border-gray-100 my-4" />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="rounded-xl border border-gray-200 p-4 bg-gray-50">
+        <div class="text-sm text-gray-500 mb-1">Estatus</div>
+
+        <div class="font-semibold text-gray-900 whitespace-normal">
+          {{ negotiationStateLabel(negotiation.state) }}
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-gray-200 p-4 bg-gray-50">
+        <div class="text-sm text-gray-500 mb-1">Tipo</div>
+
+        <div class="font-semibold text-gray-900">
+          {{ negotiation.type }}
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-gray-200 p-4 bg-gray-50">
+        <div class="text-sm text-gray-500 mb-1">Rol</div>
+
+        <div class="font-semibold text-gray-900 break-all">
+          {{ negotiation['counterPartyId'] }}
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-gray-200 p-4 bg-gray-50">
+        <div class="text-sm text-gray-500 mb-1">Protocol</div>
+
+        <div class="font-semibold text-gray-900 break-all">
+          {{ negotiation.protocol }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

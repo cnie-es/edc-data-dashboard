@@ -1,0 +1,86 @@
+<!--
+    Copyright (c) 2025 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+
+    This program and the accompanying materials are made available under the
+    terms of the Apache License, Version 2.0 which is available at
+    https://www.apache.org/licenses/LICENSE-2.0
+
+    SPDX-License-Identifier: Apache-2.0
+
+    Contributors:
+         Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V. - initial API and implementation
+-->
+
+@if (sd) {
+  <div
+    class="card grow bg-base-100 border border-(--app-color-info-lightest) rounded-none sd-card-shell"
+    [class.cursor-pointer]="showDetailsButton && detailsActionEnabled"
+    [class.sd-card-shell--active]="active"
+    role="button"
+    tabindex="0"
+    (click)="onCardClick($event)"
+    (keydown)="onCardKeydown($event)"
+  >
+    <div class="card-body gap-0">
+      <div class="mb-2 border-b border-(--app-color-neutral-lighter) pb-3">
+        <h3 class="text-xl font-medium leading-tight text-(--app-color-info-darker) truncate min-w-0">
+          {{ sd.name }}
+        </h3>
+      </div>
+
+      <p class="text-md text-(--app-color-neutral-dark) mb-3 leading-6 whitespace-pre-wrap">{{ sd.description }}</p>
+
+      <div class="flex flex-wrap items-center gap-2 mb-3 mt-2 text-xs">
+        <span
+          class="flex items-center gap-1 badge badge-ghost bg-none rounded-lg border-1.5 border-(--app-color-neutral) text-(--app-color-neutral-dark)"
+        >
+          <span class="material-symbols-rounded text-[1.3rem]!">language</span>
+          <span>{{ sd.inLanguage | uppercase }}</span>
+        </span>
+        @if (sd.offeringType) {
+          <span
+            class="badge badge-info badge-soft rounded-md font-medium bg-(--app-color-accent-bg-light) border-0 text-(--app-color-primary-dark)"
+          >
+            {{ getAssetTypeKey(sd.offeringType) | translate }}
+          </span>
+        }
+      </div>
+
+      @if (showButtons || showDetailsButton) {
+        <div class="card-actions justify-end mt-auto gap-2">
+          <div
+            class="tooltip no-animation"
+            [attr.data-tip]="showButtons || detailsActionEnabled ? 'Details' : 'Details coming soon'"
+          >
+            <button
+              class="btn btn-soft btn-md bg-(--app-color-neutral-bg) border-(--app-color-neutral-lighter) text-base-content no-animation details-cta"
+              type="button"
+              [disabled]="!(showButtons || detailsActionEnabled)"
+              [attr.aria-label]="'View details for ' + (sd.name || 'self descriptor')"
+              (click)="(showButtons || detailsActionEnabled) && detailsEvent.emit(sd)"
+            >
+              <span class="material-symbols-rounded text-lg! leading-none">info</span>
+              <span>View details</span>
+            </button>
+          </div>
+          @if (showButtons) {
+            <div class="tooltip no-animation" data-tip="Edit">
+              <button
+                class="btn btn-soft btn-warning btn-circle btn-sm no-animation"
+                type="button"
+                (click)="editEvent.emit(sd)"
+              >
+                <span class="material-symbols-rounded">edit</span>
+              </button>
+            </div>
+            <div class="tooltip no-animation" data-tip="Delete">
+              <button class="btn btn-soft btn-error btn-circle btn-sm" type="button" (click)="deleteEvent.emit(sd)">
+                <span class="material-symbols-rounded">delete</span>
+              </button>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+}

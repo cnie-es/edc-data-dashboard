@@ -1,0 +1,48 @@
+<div class="card grow bg-warning/10 border border-warning">
+  <div class="card-body">
+    <div class="card-title mb-1 flex items-center gap-2">
+      <span class="material-symbols-rounded text-3xl text-warning">payments</span>
+      <span class="truncate text-wrap text-sm">{{ agreement.contractAgreementId }}</span>
+      <span class="badge badge-warning badge-sm ml-auto shrink-0">PENDING PAYMENT</span>
+    </div>
+    <div class="ml-3 mb-3 grid grid-cols-[minmax(0,auto)_minmax(0,min-content)] gap-x-4 gap-y-1 text-sm">
+      <div class="flex items-center">
+        <span class="material-symbols-rounded mr-1 text-base">deployed_code_update</span>
+        <b><i>Asset</i></b>
+      </div>
+      <span class="truncate">{{ agreement.assetId }}</span>
+      <div class="flex items-center">
+        <span class="material-symbols-rounded mr-1 text-base">person</span>
+        <b><i>Consumer</i></b>
+      </div>
+      <span class="truncate">{{ agreement.consumerId }}</span>
+      <div class="flex items-center">
+        <span class="material-symbols-rounded mr-1 text-base">schedule</span>
+        <b><i>Pending since</i></b>
+      </div>
+      <span class="truncate">{{ agreement.pendingPaymentSince | date: 'dd.MM.yyyy - HH:mm' }}</span>
+    </div>
+    <div class="card-actions mt-auto justify-between">
+      <div class="tooltip" data-tip="Confirm payment received – releases the negotiation">
+        <button
+          class="btn btn-soft btn-success btn-sm no-animation"
+          [disabled]="isProcessing"
+          (click)="confirmEvent.emit(agreement.contractAgreementId)"
+        >
+          <span class="material-symbols-rounded">check_circle</span>
+          Confirm
+        </button>
+      </div>
+      <div class="tooltip" data-tip="Reject payment – terminates the negotiation">
+        <button
+          class="btn btn-soft btn-error btn-sm no-animation"
+          [disabled]="isProcessing"
+          (click)="rejectEvent.emit(agreement.contractAgreementId)"
+        >
+          <span class="material-symbols-rounded">cancel</span>
+          Reject
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

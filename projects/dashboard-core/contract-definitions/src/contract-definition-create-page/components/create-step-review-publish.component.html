@@ -1,0 +1,105 @@
+<section class="space-y-5">
+  <h2 class="text-xl font-semibold text-base-content">Revisar y publicar</h2>
+  <label class="flex items-center gap-2 text-sm text-base-content/85">
+    <input
+      type="checkbox"
+      class="toggle toggle-sm toggle-primary"
+      data-cy="create-step4-public-toggle"
+      [checked]="showInPublicCatalog"
+      (change)="togglePublicCatalog.emit()"
+    />
+    Mostrar esta oferta también en el catálogo público
+  </label>
+
+  @if (publishFeedbackVisible) {
+    <div
+      class="rounded-xl border border-success/40 bg-success/10 px-4 py-2 text-sm text-success-content/80"
+      data-cy="create-step4-publish-feedback"
+    >
+      Oferta preparada en modo revisión. Redirigiendo al listado...
+    </div>
+  }
+
+  <div>
+    <h3 class="mb-3 text-xl font-semibold text-base-content">Resumen</h3>
+    <div class="space-y-3">
+      <div class="grid grid-cols-[220px_1fr] rounded-xl border border-base-300 bg-base-100">
+        <div class="border-r border-base-300 px-4 py-4 font-semibold text-base-content/75">¿Qué activo se oferta?</div>
+        <div class="flex items-center gap-4 px-4 py-4">
+          <span
+            class="badge badge-info badge-soft border-0 rounded-sm"
+            [textContent]="selectedAssetRow?.typeLabel ?? '-'"
+          ></span>
+          <button
+            class="link link-primary no-underline hover:underline text-left"
+            type="button"
+            [textContent]="selectedAssetRow?.title ?? '-'"
+          ></button>
+          <span class="text-sm text-base-content/70" [textContent]="selectedAssetRow?.description ?? '-'"></span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-[220px_1fr] rounded-xl border border-base-300 bg-base-100">
+        <div class="border-r border-base-300 px-4 py-4 font-semibold text-base-content/75">¿Con qué condiciones?</div>
+        <div class="flex items-center gap-4 px-4 py-4">
+          <span
+            class="badge badge-soft border-0 rounded-sm"
+            [class.badge-info]="selectedContractPolicyRow"
+            [textContent]="selectedContractPolicyRow?.typeLabel ?? '-'"
+          ></span>
+          <button
+            class="link link-primary no-underline hover:underline text-left"
+            type="button"
+            [textContent]="selectedContractPolicyRow?.title ?? '-'"
+          ></button>
+          <span
+            class="text-sm text-base-content/70"
+            [textContent]="selectedContractPolicyRow?.description ?? '-'"
+          ></span>
+        </div>
+      </div>
+
+      <div
+        class="grid grid-cols-[220px_1fr] rounded-xl border border-base-300 bg-base-100"
+        data-cy="create-step4-summary-publication"
+      >
+        <div class="border-r border-base-300 px-4 py-4 font-semibold text-base-content/75">¿A quién se oferta?</div>
+        <div class="flex items-center gap-4 px-4 py-4">
+          <span
+            class="badge badge-primary badge-soft border-0 rounded-sm"
+            [textContent]="selectedPublicationPolicyRow?.typeLabel ?? '-'"
+          ></span>
+          <button
+            class="link link-primary no-underline hover:underline text-left"
+            type="button"
+            [textContent]="selectedPublicationPolicyRow?.title ?? '-'"
+          ></button>
+          <span
+            class="text-sm text-base-content/70"
+            [textContent]="selectedPublicationPolicyRow?.description ?? '-'"
+          ></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-end gap-3 pt-2">
+    <button
+      class="btn h-11 rounded-xl border border-base-300 bg-base-100 px-6 text-sm font-semibold text-base-content normal-case hover:bg-base-200"
+      type="button"
+      data-cy="create-step4-previous"
+      (click)="previous.emit()"
+    >
+      Paso anterior
+    </button>
+    <button
+      class="btn h-11 rounded-xl border-0 bg-primary px-6 text-sm font-semibold text-primary-content normal-case hover:bg-primary/90 disabled:bg-base-300 disabled:text-base-content/60"
+      type="button"
+      data-cy="create-step4-publish"
+      [disabled]="!canPublishOffer"
+      (click)="publish.emit()"
+    >
+      Publicar oferta
+    </button>
+  </div>
+</section>

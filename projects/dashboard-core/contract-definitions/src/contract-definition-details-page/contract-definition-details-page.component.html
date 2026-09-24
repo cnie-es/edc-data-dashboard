@@ -1,0 +1,24 @@
+<div class="mb-4 flex items-center justify-between">
+  <h1 class="text-2xl font-semibold">Detalle de oferta</h1>
+  <button type="button" class="btn btn-soft" (click)="goBack()">
+    <span class="material-symbols-rounded">arrow_back</span>
+    Volver
+  </button>
+</div>
+
+@if (offerCard$ | async; as offerCard) {
+  <div class="max-w-4xl">
+    <lib-contract-definition-card [contractDefinition]="offerCard" [showButtons]="false"></lib-contract-definition-card>
+  </div>
+  <div class="divider"></div>
+  <div class="bg-base-200 rounded-box p-4 max-w-4xl">
+    <h2 class="font-semibold mb-2">Datos tecnicos</h2>
+    <pre class="text-xs overflow-auto">{{ offerCard.contractDefinition | json }}</pre>
+  </div>
+} @else {
+  <lib-alert
+    title="Oferta no encontrada"
+    msg="No se encontro una oferta para el ID indicado."
+    type="warning"
+  ></lib-alert>
+}

@@ -1,0 +1,770 @@
+{
+  "common": {
+    "error": {
+      "title": "Erro"
+    },
+    "errors": {
+      "generic": "Algo saíu mal. Por favor, téntao de novo.",
+      "http": {
+        "sessionExpired": "A túa sesión caducou. Inicia sesión de novo e téntao outra vez.",
+        "forbidden": "Non tes permiso para realizar esta acción.",
+        "unavailable": "O servizo non está dispoñible neste momento. Téntao máis tarde.",
+        "network": "Non puidemos contactar co servizo. Comproba a túa conexión e téntao de novo.",
+        "server": "O servidor ten problemas neste momento. Téntao de novo nuns instantes.",
+        "failedWithStatus": "A solicitude fallou ({{status}})."
+      },
+      "edc": {
+        "unknown": "O conector devolveu un erro inesperado.",
+        "badRequest": "A solicitude non era válida. Comproba os datos e téntao de novo.",
+        "duplicate": "Este recurso xa existe.",
+        "notFound": "Non se atopou o recurso solicitado.",
+        "unreachable": "Non se puido contactar co conector.",
+        "badGateway": "A pasarela do conector devolveu un erro."
+      }
+    }
+  },
+  "search": "Buscar",
+  "provider": "Son provedor",
+  "consumer": "Son consumidor",
+  "header": {
+    "conector": "Conector",
+    "support": "Soporte",
+    "logout": "Saír"
+  },
+  "home": {
+    "explore": {
+      "title": "Explorar e compartir",
+      "subtitle": "Conecta, consume e monetiza datos lingüísticos, modelos e outros recursos"
+    },
+    "myConnector": {
+      "title": "O meu conector",
+      "subtitle": "Crea, xestiona e supervisa os teus activos, políticas e ofertas"
+    },
+    "buttons": {
+      "goCatalog": "Ir ao catálogo",
+      "create": "Crear",
+      "view": "Ver"
+    }
+  },
+  "menu": {
+    "home": "Inicio",
+    "exploreShare": "Explorar e compartir",
+    "catalog": "Catálogo de Ofertas",
+    "catalogDesc": "Explora as ofertas doutros conectores no Espazo de datos.",
+    "contracts": "Negociacións",
+    "contractsDesc": "Estado das negociacións entre os propietarios dos datos.",
+    "transferHistory": "Transferencias",
+    "transferHistoryDesc": "Rexistro dos intercambios de produtos de datos.",
+    "connector": "O meu conector",
+    "assets": "Os meus activos",
+    "assetsDesc": "Compárteos con outros usuarios creando unha oferta.",
+    "policies": "As miñas políticas",
+    "policiesDesc": "Termos de licenza e políticas de publicación.",
+    "offers": "As miñas ofertas",
+    "offersDesc": "Activos + condicións baixo as que os compartes",
+    "storage": "Almacenamento",
+    "storageDesc": "Puntos finais e ubicacións de datos do conector dispoñibles.",
+    "xfscAdvancedSearch": "XFSC Busca Avanzada",
+    "xfscAdvancedSearchDesc": "A vista de busca avanzada XFSC permite buscar e recuperar autodescripcións no catálogo federado, con consultas por palabras clave e busca avanzada.",
+    "sdTooling": "Ferramentas SD",
+    "sdToolingDesc": "A vista SD Tooling axuda aos usuarios a crear activos self-description con axuda de plantillas."
+  },
+  "catalog": {
+    "pageTitle": "Catálogo de ofertas do espazo de datos",
+    "offersFrom": "Ofertas de:",
+    "filters": "Filtros:",
+    "filterPlaceholder": "Buscar por id de activo ou provedor…",
+    "addFilters": "+ Engadir filtros",
+    "federatedEnabled": "Catálogo federado activo",
+    "selectConnector": "Seleccionar…",
+    "connectorPickerHint": "Escolle un conector configurado ou solicita o catálogo manualmente",
+    "negotiate": "Negociar",
+    "details": "Detalles",
+    "detailsAria": "Ver detalles do conxunto de datos",
+    "categoryModel": "Modelo",
+    "categoryCorpus": "Corpus",
+    "categoryDataset": "Conxunto de datos",
+    "categoryOther": "Recurso",
+    "searchFilterPlaceholder": "Filtrar por nome, descrición…",
+    "searchPrompt": "Usa Buscar para ver ofertas do catálogo.",
+    "noSearchResults": "Non se atoparon ofertas.",
+    "ownOffer": "A túa oferta",
+    "ownOfferHint": "Publicada por este conector. Non se pode contratar; ábrea desde As miñas ofertas.",
+    "errors": {
+      "invalidCounterParty": "Enderezo de contraparte non válido. Comproba os datos e téntao de novo.",
+      "requestFailed": "Non se puido solicitar o catálogo de '{{address}}'."
+    },
+    "negotiation": {
+      "noOfferSelected": "Non se seleccionou ningunha oferta.",
+      "transferMissingContext": "Non se pode iniciar a transferencia: falta o acordo de contrato ou a dirección do provedor."
+    }
+  },
+  "negotiation": {
+    "history": "Historial de Negociacións",
+    "rol": "O meu rol",
+    "status": "Estado / Data",
+    "name": "Nome do activo",
+    "politic": "Política de contratación",
+    "transferMissingContext": "Non se pode iniciar a transferencia: falta o acordo de contrato ou a dirección do provedor.",
+    "connector": "Conector externo",
+    "transfer": "Transferencia",
+    "consumer": "Son consumidor",
+    "provider": "Son provedor",
+    "search": "Buscar",
+    "disponible": " Non hai negociacións dispoñibles.",
+    "assetPending": "Pendente de activo",
+    "transferPending": "Pendente",
+    "actions": "Accións",
+    "stateUnknown": "Estado descoñecido",
+    "confirm_payment": "Confirmar pago",
+    "reject_payment": "Rexeitar pago",
+    "confirm": "Confirmar",
+    "reject": "Rexeitar",
+    "state": {
+      "INITIAL": "Creada, inicializando",
+      "REQUESTING": "Enviando a petición de negociación",
+      "REQUESTED": "Recibida a petición de negociación",
+      "OFFERING": "Enviando a oferta",
+      "OFFERED": "Recibida a oferta",
+      "ACCEPTING": "Enviando a aceptación",
+      "ACCEPTED": "Recibida a aceptación",
+      "AGREEING": "Enviando o acordo",
+      "AGREED": "Recibido o acordo",
+      "VERIFYING": "En verificación (políticas / protocolo)",
+      "VERIFIED": "Verificación completada",
+      "FINALIZING": "Acordo en preparación",
+      "FINALIZED": "Acordo listo",
+      "TERMINATING": "Cancelando negociación",
+      "TERMINATED": "Rexeitada",
+      "PAYMENT_PENDING": "Pendente de confirmación"
+    }
+  },
+  "contractTransfer": {
+    "titleWithAsset": "Transferencia — {{asset}}",
+    "titleDefault": "Transferencia de datos",
+    "stepDetails": "1. Detalles da transferencia",
+    "stepProcess": "2. Proceso de transferencia",
+    "processTitle": "Paso do proceso de transferencia",
+    "processId": "ID do proceso de transferencia:",
+    "processStatus": "Estado actual:",
+    "processInProgress": "Proceso de transferencia en curso…",
+    "processFinalized": "Proceso de transferencia finalizado. Pode rematar.",
+    "cancel": "Cancelar",
+    "close": "Pechar",
+    "nextStep": "Seguinte paso",
+    "finish": "Rematar",
+    "loadOfferFailed": "Non se puideron cargar os detalles da oferta para a transferencia.",
+    "notEligibleForTransfer": "Esta oferta non se pode usar para transferencia. Faltan datos de rexistro do conector.",
+    "detailsTitle": "Detalles da transferencia",
+    "sharingMethod": "Método de compartición",
+    "template": "Plantilla",
+    "selectTemplate": "Seleccionar unha plantilla",
+    "selectOption": "Seleccionar…",
+    "loadingTemplates": "Cargando plantillas…",
+    "loadingSchema": "Cargando esquema de plantilla…",
+    "arrayPlaceholder": "valor1, valor2, valor3"
+  },
+  "transferProcess": {
+    "list": {
+      "noTransfers": "Aínda non hai transferencias.",
+      "noSearchResults": "Ningunha transferencia coincide coa súa busca.",
+      "loadError": "Non foi posible cargar o historial de transferencias."
+    },
+    "stateUnknown": "Estado descoñecido",
+    "assetPending": "Pendente de activo",
+    "policyPending": "Pendente",
+    "connectorPending": "Pendente",
+    "columnTransfer": "Transferencia",
+    "transferTypePrefix": "Tipo:",
+    "viewDetails": "Ver detalles",
+    "details": {
+      "title": "Detalle da transferencia",
+      "properties": "Propiedades",
+      "dataDestination": "Destino dos datos",
+      "privateProperties": "Propiedades privadas",
+      "field": "Campo",
+      "value": "Valor",
+      "noData": "Non hai datos dispoñibles"
+    },
+    "downloadReceivedAria": "Abrir ficheiro recibido",
+    "preparedTransferAria": "Abrir detalles da transferencia (lista para iniciar)",
+    "fileNotAvailableYet": "Aínda non dispoñible",
+    "openFileFailed": "Non se puido abrir o ficheiro recibido.",
+    "pullExecute": {
+      "title": "Executar transferencia Pull",
+      "description": "Configure a solicitude HTTP para executar a transferencia.",
+      "methodGet": "GET",
+      "methodPost": "POST",
+      "paramKey": "Parámetro",
+      "paramValue": "Valor",
+      "addParam": "Engadir parámetro",
+      "removeParam": "Eliminar parámetro",
+      "postBodyLabel": "Corpo JSON",
+      "postBodyPlaceholder": "{ \"key\": \"value\" }",
+      "execute": "Executar",
+      "executing": "Executando transferencia…",
+      "downloading": "Descargando…",
+      "missingTransferId": "Non hai ID de transferencia dispoñible.",
+      "fetchEdrFailed": "Non se puido obter o enderezo de datos EDR.",
+      "executeFailed": "Non se puido executar a transferencia pull.",
+      "openAria": "Executar transferencia Pull"
+    },
+    "state": {
+      "INITIAL": "Rexistrada",
+      "PROVISIONED": "Aprovisionada",
+      "REQUESTED": "Solicitada",
+      "STARTED": "En execución",
+      "COMPLETED": "Completada",
+      "SUSPENDED": "Suspendida",
+      "TERMINATED": "Finalizada",
+      "DEPROVISIONED": "Desaprovisionada"
+    }
+  },
+  "assets": {
+    "transfer": {
+      "history": "Historial de Transferencias",
+      "view": "Ver",
+      "file": "Ficheiro recibido",
+      "trans_disponible": " Non se atoparon transferencias."
+    },
+    "table": {
+      "creationDate": "Data de creación",
+      "type": "Tipo",
+      "name": "Nome do activo",
+      "description": "Descrición",
+      "details": "Detalles",
+      "view": "Ver",
+      "policy": "Nome da política",
+      "noAssets": "Aínda non hai activos creados."
+    },
+    "add_filter": "Engadir filtros",
+    "filters": "Filtros",
+    "myAssets": "Os meus activos: Listaxe",
+    "detail": {
+      "breadcrumbCurrent": "Detalle do activo",
+      "backToList": "Ver listaxe",
+      "assetDescription": "Descrición do activo",
+      "linkedOffersAlert": "Para modificar ou eliminar este activo, debes eliminar primeiro as ofertas vinculadas.",
+      "errorInvalidId": "Non se indicou un identificador de autodescripción válido.",
+      "errorLoadFailed": "Non se puido cargar a autodescripción do activo.",
+      "relatedDocs": "Documentación relacionada",
+      "identifier": "Identificador",
+      "reference": "Referencia",
+      "registrationAgency": "Axencia de rexistro",
+      "cardIdentifier": "Identificador",
+      "fileFormatsTitle": "Formato de ficheiros",
+      "distribution": "Distribución",
+      "modelProperties": "Propiedades do modelo",
+      "modelType": "Tipo de modelo",
+      "variantOf": "Variante de",
+      "viewModelDetails": "Ver detalles do modelo",
+      "provenance": "Procedencia",
+      "provenanceOriginalSource": "Fonte orixinal",
+      "provenanceIpHolder": "Titular de Dereitos de Propiedade Intelectual",
+      "modelFunction": "Función do modelo"
+    }
+  },
+  "connectorConfig": {
+    "errors": {
+      "unhealthy": "O conector non está en bo estado.",
+      "unreachable": "Non se puido contactar coa API predeterminada '{{defaultUrl}}'. Comproba os datos introducidos."
+    }
+  },
+  "transfer": {
+    "deprovision": {
+      "success": "Solicitouse correctamente a desprovisión do proceso de transferencia '{{id}}'.",
+      "failed": "Erro ao solicitar a desprovisión do proceso de transferencia '{{id}}'."
+    }
+  },
+  "policies": {
+    "errors": {
+      "invalidPermissionsJson": "JSON non válido para permisos.",
+      "invalidProhibitionsJson": "JSON non válido para prohibicións.",
+      "invalidObligationsJson": "JSON non válido para obrigas.",
+      "unknown": "Produciuse un erro descoñecido."
+    },
+    "createpolicy": "Crear nova política",
+    "create": {
+      "title": "Crear nova política",
+      "subtitle": "Selecciona o tipo de política que queres crear.",
+      "description": "Unha política garante o uso dos teus datos de acordo coas túas regras",
+      "contractPolicy": {
+        "title": "Política de contratación",
+        "description": "Define as normas e obrigas de acceso e uso dos teus activos.",
+        "create": "Crear nova política de contratación",
+        "generateLds": "Xerar licenza LDS"
+      },
+      "publicationPolicy": {
+        "title": "Política de publicación",
+        "description": "Define quen pode ver os teus activos no catálogo de ofertas.",
+        "create": "Crear nova política de publicación"
+      }
+    },
+    "policiList": "As miñas políticas: Listaxe",
+    "nopolicies": "Non hai políticas que mostrar",
+    "viewPolicies": "Ver políticas de",
+    "list": {
+      "name": "{{assetName}} · {{action}} · {{assigner}}",
+      "nameNoAssigner": "{{assetName}} · {{action}}",
+      "description": "{{action}}. {{constraint}}",
+      "pending": "Cargando…",
+      "loadError": "Non se puido cargar a definición da política",
+      "typeOther": "Outro"
+    },
+    "order": "Ordenar por",
+    "recent": "Data máis recente",
+    "title": "Título",
+    "type": "Tipo",
+    "detail": {
+      "loading": "Cargando política...",
+      "missingId": "Non se indicou ningunha política.",
+      "tabLegal": "Texto de Licenza Legal",
+      "tabOdrl": "Formato ODRL",
+      "viewOriginalLicense": "Ver licenza orixinal",
+      "noLicenseUrl": "Non hai URL de licenza asociada a esta política nos activos.",
+      "loadingLicense": "Cargando texto da licenza...",
+      "licenseLoadError": "Non se puido cargar a licenza.",
+      "loadingOdrl": "Cargando definición ODRL...",
+      "odrlLoadError": "Non se puido cargar a definición de política (ODRL).",
+      "modalTitle": "Política",
+      "modalCloseAria": "Pechar"
+    }
+  },
+  "offersL": "As miñas ofertas: Listaxe",
+  "createoffer": "Crear nova oferta",
+  "active": "Activo",
+  "cpoli": "Política de contratación",
+  "ppoli": "Política de publicación",
+  "anytype": "Calquera tipo",
+  "contract": "Contratación",
+  "public": "Publicación",
+  "publi": "Revisar e publicar",
+  "offers": {
+    "create": "Crear nova oferta",
+    "info": "Por motivos de arquivo e comerciais, non se permite modificar as ofertas: deben eliminarse e crear novas no seu lugar.",
+    "list": {
+      "noOffers": "Aínda non hai ofertas creadas.",
+      "noSearchResults": "Non se atoparon ofertas.",
+      "searchPlaceholder": "Buscar por nome de oferta…"
+    },
+    "toggle": {
+      "publicCatalog": "Mostrar todas no catálogo público",
+      "enable": "Activar catálogo público",
+      "disable": "Desactivar catálogo público",
+      "tooltip": "Interruptor global de visibilidade. Se está desactivado, ningún activo será visible no catálogo público. Se está activado, a visibilidade depende do estado individual de cada activo."
+    },
+    "createPage": {
+      "subtitle": "Selecciona o tipo de activo que queres crear:",
+      "corpus": {
+        "title": "Corpus",
+        "description": "Datos textuais sen procesar, conxunto de vídeos, etc.",
+        "create": "Crear Corpus"
+      },
+      "lexical": {
+        "title": "Recurso léxico/conceptual",
+        "description": "Dicionario, lista de palabras, ontología, etc.",
+        "create": "Crear Recurso"
+      },
+      "model": {
+        "title": "Modelo",
+        "description": "Modelo lingüístico, LLM, modelo multimodal, etc.",
+        "create": "Crear Modelo"
+      },
+      "service": {
+        "title": "Servizo",
+        "description": "Compartición de datos vía API",
+        "create": "Crear oferta con Servizo"
+      },
+      "typeUnavailableCorpus": "Actualmente non se poden crear ofertas de tipo corpus.",
+      "typeUnavailableLexical": "Actualmente non se poden crear ofertas de tipo recurso léxico.",
+      "typeUnavailableModel": "Actualmente non se poden crear ofertas de tipo modelo.",
+      "typeUnavailableApi": "Actualmente non se poden crear ofertas de tipo servizo.",
+      "schemaCatalogLoading": "Cargando tipos de oferta dispoñibles…",
+      "backToSelection": "< Cambiar tipo de activo"
+    },
+    "detail": {
+      "license": "Licenza",
+      "breadcrumbCurrent": "Detalle da oferta",
+      "backToList": "< Ver listaxe",
+      "publicCatalogReadonly": "Mostrar esta oferta tamén no catálogo público",
+      "publicCatalogAria": "Visibilidade no catálogo público",
+      "assetDescription": "Descrición do activo",
+      "linguisticVarieties": "Variedades lingüísticas",
+      "region": "Rexión",
+      "linguisticVariety": "Variedade lingüística",
+      "categories": "Categorías",
+      "keywords": "Palabras clave",
+      "supportType": "Tipo de soporte",
+      "linguisticType": "Tipo lingüístico",
+      "none": "Ningún",
+      "dataProtection": "Protección de datos",
+      "personalData": "Inclúe datos persoais",
+      "sensitiveData": "Inclúe datos de categoría especial",
+      "anonymized": "Anonimizado",
+      "relatedDocs": "Documentación relacionada",
+      "citation": "Texto da cita",
+      "cardContracting": "Contratación",
+      "cardPublication": "Publicación",
+      "publicationPlaceholder": "O alcance de publicación defíneo as políticas do teu conector.",
+      "viewPolicy": "Ver política",
+      "cardDistribution": "Distribución",
+      "byteSize": "Tamaño (Bytes)",
+      "packageFormat": "Formato empaquetado",
+      "fileFormats": "Formato de ficheiros",
+      "size": "Tamaño",
+      "documentId": "Identificador",
+      "priceLine": "Prezo: {{amount}} {{currency}}",
+      "priceLineWithVat": "Prezo: {{amount}} {{currency}} (+IVE)",
+      "errorInvalidId": "Identificador de oferta non válido.",
+      "errorLoadFailed": "Non se puido cargar a autodescripción da oferta.",
+      "delete": "Eliminar",
+      "deleteAria": "Eliminar esta oferta publicada",
+      "deleteConfirm": "Eliminar esta oferta publicada no catálogo federado? Esta acción non se pode desfacer.",
+      "deleteFailed": "Non se puido eliminar a oferta. Téntao de novo ou comproba os permisos.",
+      "deleteDisabledMocks": "Non se pode eliminar a oferta mentres uses datos simulados sen conexión (modo desenvolvemento). Conecta un conector real para eliminala.",
+      "deleteWait": "Agarda…",
+      "revokeModalTitle": "Eliminar oferta",
+      "revokeModalCancel": "Cancelar",
+      "revokeModalClose": "Pechar",
+      "revokeModalDismissAria": "Pechar o cadro de diálogo",
+      "alternativeTitle": "Título alternativo",
+      "publisher": "Editor",
+      "corpusLicense": "Licenza do corpus",
+      "additionalDetails": "Detalles adicionais",
+      "anonymizationDetails": "Detalles de anonimización",
+      "personalDataDetails": "Detalles de datos persoais",
+      "sensitiveDataDetails": "Detalles de datos sensibles",
+      "originalSourceDescription": "Descrición da fonte orixinal",
+      "classification": "Clasificación",
+      "domain": "Dominio",
+      "corpusSubclass": "Subclase de corpus",
+      "lrType": "Tipo de recurso lingüístico",
+      "annotationType": "Tipo de anotación",
+      "dataProtectionPrinciple": "Principio de protección de datos",
+      "technicalMeasure": "Medida técnica / organizativa",
+      "specificLanguages": "Idiomas específicos",
+      "sourceLanguages": "Idiomas fonte",
+      "targetLanguages": "Idiomas destino",
+      "pivotLanguages": "Idiomas pivote",
+      "technicalInfo": "Información técnica",
+      "contact": "Contacto",
+      "sharingMethod": "Método de compartición",
+      "serviceAccessPoint": "Punto de acceso ao servizo",
+      "dataQuality": "Calidade dos datos",
+      "encryption": "Cifrado",
+      "contractTemplateDoc": "Documento de plantilla de contrato",
+      "spatialCoverage": "Cobertura espacial",
+      "temporalCoverage": "Cobertura temporal",
+      "multilingualityType": "Tipo de multilingüismo",
+      "standardsConformance": "Conformidade con estándares",
+      "identification": "Identificación",
+      "identifiers": "Identificadores",
+      "legalCode": "Código legal",
+      "name": "Nome",
+      "iprHolders": "Titulares de dereitos de propiedade intelectual",
+      "serviceProperties": "Propiedades do servizo",
+      "metadataLanguage": "Idioma dos metadatos",
+      "dataProperties": "Propiedades dos datos",
+      "producedBy": "Producido por",
+      "format": "Formato",
+      "openApi": "OpenAPI",
+      "additionalInfo": "Información adicional",
+      "relatedDatasets": "Conxuntos de datos relacionados",
+      "targetUsers": "Usuarios destinatarios",
+      "anonymizationMeasure": "Medida de anonimización",
+      "dataProtectionRegime": "Réxime de protección de datos",
+      "providerDataAddress": "Enderezo de datos do provedor",
+      "dp": {
+        "yes": "Si",
+        "no": "Non",
+        "unknown": "Descoñecido"
+      }
+    }
+  },
+  "sdDetails": {
+    "detail": {
+      "titleFallback": "Detalle da autodescrición",
+      "providerLabel": "Proveedor da autodescrición",
+      "selfDescription": "Autodescrición",
+      "description": "Descrición",
+      "noDescription": "Non hai descrición dispoñible.",
+      "offerDetails": "Detalles da oferta",
+      "price": "Prezo",
+      "priceType": "Tipo de prezo",
+      "dataFormat": "Formato de datos",
+      "providerEndpoint": "Endpoint do provedor",
+      "generalServiceProperties": "Propiedades xerais do servizo",
+      "name": "Nome",
+      "offeringType": "Tipo de oferta",
+      "serviceAccessPoint": "Punto de acceso ao servizo",
+      "sharingMethodId": "ID do método de compartición",
+      "contractTemplate": "Plantilla de contrato",
+      "document": "Documento",
+      "hashAlgorithm": "Algoritmo hash",
+      "hashValue": "Valor hash",
+      "templateUrl": "URL da plantilla",
+      "dctConformsTo": "Dct: conforme a",
+      "version": "Versión",
+      "noUsagePolicy": "Non hai política de uso dispoñible.",
+      "accessPolicy": "Política de acceso",
+      "users": "Usuarios",
+      "user": "Usuario",
+      "actions": "Accións",
+      "dateConstraint": "Restrición de data",
+      "from": "Dende",
+      "to": "Ata",
+      "usagePolicy": "Política de uso",
+      "usageType": "Tipo de uso",
+      "constraint": "Restrición",
+      "contractPolicyId": "ID da política de contratación",
+      "licenseUrl": "URL da licenza",
+      "registration": "Rexistro",
+      "assetId": "ID do activo",
+      "contractDefinitionId": "ID da definición do contrato",
+      "servicePolicyId": "ID da política do servizo",
+      "accessPolicyId": "ID da política de acceso",
+      "providerInformation": "Información do provedor",
+      "contact": "Contacto",
+      "providedBy": "Proporcionado por",
+      "signature": "Sinatura",
+      "errorInvalidId": "Identificador de autodescrición non válido.",
+      "errorLoadFailed": "Non se puideron cargar os detalles da autodescrición."
+    },
+    "transfer": {
+      "getData": "Obter datos",
+      "loadingCatalogOffers": "Cargando ofertas do catálogo...",
+      "contractNegotiation": "Negociación do contrato",
+      "negotiatingResource": "Estase negociando o contrato para este recurso.",
+      "negotiationId": "ID de negociación",
+      "currentStatus": "Estado actual",
+      "negotiationInProgress": "Negociación en curso...",
+      "negotiationFinalized": "Negociación finalizada. Continúa a transferencia de datos desde Contratos.",
+      "negotiationAprovalPending": "A negociación completouse correctamente. Unha vez confirmado o pagamento, poderás descargar o recurso desde o panel de negociacións.",
+      "negotiationRejectedTitle": "A negociación foi rexeitada",
+      "negotiationRejectedNoDetail": "O provedor non indicou o motivo. Consulta os rexistros do conector para máis detalle.",
+      "goToContracts": "Ir a Contratos"
+    }
+  },
+  "sdtooling": {
+    "offerTypeHeading": "Tipo de oferta: {{type}}",
+    "backToOfferSelection": "Volver á selección de tipo de oferta",
+    "schemaLabel": "Esquema",
+    "selectSchema": "Seleccionar esquema",
+    "assetCreatedSuccess": "Activo creado e publicado correctamente.",
+    "assetCreatedSuccessWithId": "Activo creado e publicado correctamente: {{id}}",
+    "templateConfig": "Configuración de plantilla",
+    "resourceSharingMethod": "Método de compartición de recursos",
+    "selectSharingMethod": "Selecciona un método de compartición...",
+    "sourceTemplate": "Plantilla de orixe",
+    "selectOption": "Seleccionar...",
+    "selectUsageAssignee": "Seleccionar cesionario de uso...",
+    "selectAction": "Seleccionar acción...",
+    "selectAttribute": "Seleccionar atributo...",
+    "reviewBeforeSubmit": "Revisar antes de enviar",
+    "reviewIntro": "Revisa os metadatos e valores do envío antes de crear a autodescripción.",
+    "schemaColon": "Esquema:",
+    "schemaIdColon": "ID do esquema:",
+    "sharingMethodColon": "Método de compartición:",
+    "templateColon": "Plantilla:",
+    "noValuesToReview": "Aínda non hai valores seleccionados para revisar.",
+    "createSd": "Crear SD",
+    "submitting": "Enviando...",
+    "stepSummary": "Resumo",
+    "stepSummaryDesc": "Revisa e envía a túa autodescripción.",
+    "stepFillSection": "Completa {{section}}.",
+    "yes": "Si",
+    "no": "Non",
+    "usageDeletionAfter": "Eliminación tras o uso",
+    "usageRestrictedNumber": "Número restrinxido de usos",
+    "usageRestrictedDuration": "Duración restrinxida do uso",
+    "assetPropertiesTitle": "Propiedades do activo",
+    "delete": "Eliminar",
+    "usageAssignee": "Cesionario de uso",
+    "usageType": "Tipo de uso",
+    "numberOfUsages": "Número de usos",
+    "fromDate": "Data desde",
+    "toDate": "Data ata",
+    "action": "Acción",
+    "attribute": "Atributo",
+    "addPolicy": "Engadir política",
+    "policyFieldRequired": "Campo obrigatorio.",
+    "back": "Atrás",
+    "next": "Seguinte",
+    "saveAndContinue": "Gardar e continuar",
+    "stepOf": "Paso {{current}} de {{total}}",
+    "add_item": "Engadir elemento",
+    "placeholder_add_val": "Escribe un valor e fai clic en Engadir",
+    "errors": {
+      "schemasLoad": "Non se puideron cargar os esquemas de servizo neste momento.",
+      "invalidResourceType": "Selecciona un esquema cun tipo de recurso válido.",
+      "schemaFormatUnsupported": "Este formato de esquema aínda non é compatible coa creación de SD.",
+      "schemaContentLoad": "Non se puido cargar o contido do esquema.",
+      "sharingMethodsLoad": "Non se puideron cargar os métodos de compartición.",
+      "templatesLoad": "Non se puideron cargar as plantillas para este método de compartición.",
+      "templateDetailsLoad": "Non se puideron cargar os detalles da plantilla.",
+      "policyActionsLoad": "Non se puideron cargar as opcións de acción de política.",
+      "policyAttributesLoad": "Non se puideron cargar as opcións de atributo de política.",
+      "dynamicFormUnsupported": "Este esquema aínda non se pode mostrar como formulario dinámico.",
+      "missingContext": "Falta o contexto de esquema/formulario. Volve seleccionar un esquema.",
+      "selectSharingMethodSubmit": "Selecciona un metodo de comparticion.",
+      "selectTemplateSubmit": "Selecciona un modelo.",
+      "schemaNotListed": "Este esquema non esta listado para SD Tooling e non se proporcionaron metadatos validos. Abreo desde a creacion de ofertas.",
+      "templateError": "Erro de plantilla"
+    },
+    "blockReason": {
+      "selectSchema": "Selecciona un esquema para continuar.",
+      "waitSchemaDetails": "Agarda a que se carguen os detalles do esquema.",
+      "completeSection": "Completa os campos obrigatorios en \"{{section}}\" para continuar.",
+      "selectSharingMethod": "Selecciona un método de compartición de recursos para continuar.",
+      "selectTemplate": "Selecciona unha plantilla de orixe para continuar.",
+      "waitTemplateDetails": "Agarda a que se carguen os detalles da plantilla.",
+      "completeTemplateFields": "Completa os campos da plantilla para continuar."
+    }
+  },
+  "dynamicForm": {
+    "fieldRequired": "{{label}} é obrigatorio.",
+    "fieldMinLength": "{{label}} debe ter polo menos {{min}} caracteres.",
+    "fieldMaxLength": "{{label}} debe ter como máximo {{max}} caracteres.",
+    "fieldMin": "{{label}} debe ser polo menos {{min}}.",
+    "fieldMax": "{{label}} debe ser como máximo {{max}}.",
+    "fieldInvalidFormat": "{{label}} ten un formato non válido.",
+    "fieldMaxItems": "{{label}} permite como máximo {{max}} valores.",
+    "fieldMinItems": "{{label}} require polo menos {{min}} valores.",
+    "fieldItemMinLength": "{{label}} contén valores con menos de {{min}} caracteres.",
+    "fieldObjectArrayRequired": "{{label}} require todos os campos obrigatorios en cada elemento.",
+    "objectArrayNestedErrors": "Corrixa os campos resaltados abaixo en {{label}}.",
+    "policyCardIncomplete": "Corrixa os campos resaltados das políticas en {{label}}.",
+    "fieldInvalidUri": "{{label}} debe ser un URL válido.",
+    "fieldCheck": "Comproba {{label}} e inténtao de novo."
+  },
+  "xfsc": {
+    "simpleSearch": "Busca simple",
+    "advancedSearch": "Busca avanzada",
+    "listTitle": "Lista de todas as autodescripcións dispoñibles",
+    "listDesc": "Esta é a lista de autodescripcións segundo os filtros especificados.",
+    "advancedTitle": "Busca avanzada",
+    "advancedDesc": "Escolle un esquema e aplica filtros para executar a busca avanzada.",
+    "selectSchemaPrompt": "Selecciona un esquema e completa os filtros para executar a busca avanzada.",
+    "schema": "Esquema",
+    "selectSchema": "Selecciona un esquema...",
+    "loadingOptions": "Cargando opcións do esquema...",
+    "loadingFields": "Cargando campos do esquema seleccionado...",
+    "clear": "Limpar",
+    "search": "Buscar",
+    "payloadPreview": "Vista previa do payload de busca",
+    "curlPreview": "Vista previa cURL (modo bypass)",
+    "endpoint": "Endpoint:",
+    "copyCurl": "Copiar cURL",
+    "copyPayload": "Copiar payload",
+    "arrayPlaceholder": "valor1, valor2, valor3",
+    "fieldRequired": "{{label}} é obrigatorio.",
+    "fieldMinLength": "{{label}} debe ter polo menos {{min}} caracteres.",
+    "fieldMaxLength": "{{label}} debe ter como máximo {{max}} caracteres.",
+    "fieldMin": "{{label}} debe ser polo menos {{min}}.",
+    "fieldMax": "{{label}} debe ser como máximo {{max}}.",
+    "fieldInvalid": "{{label}} non e valido.",
+    "fieldCheck": "Comproba {{label}} e intentalo de novo.",
+    "copiedCurl": "cURL copiado ao portapapeis.",
+    "copiedPayload": "Payload copiado ao portapapeis.",
+    "errors": {
+      "schemaLoad": "Non se puido cargar este esquema. Téntao de novo ou escolle outro.",
+      "schemaFormatUnsupported": "Este formato de esquema aínda non é compatible coa busca avanzada.",
+      "dynamicFormUnsupported": "Este esquema aínda non se pode mostrar como formulario de busca avanzada.",
+      "sessionExpired": "A túa sesión caducou. Volve iniciar sesión e téntao de novo.",
+      "forbidden": "Non tes permiso para executar esta busca.",
+      "unavailable": "O servizo de busca non está dispoñible neste momento. Téntao máis tarde.",
+      "network": "Non se puido contactar co servizo de busca. Comproba a túa conexión e téntao de novo.",
+      "server": "O servidor ten problemas neste momento. Téntao de novo nuns intres.",
+      "failedWithStatus": "A solicitude de busca fallou ({{status}})."
+    },
+    "language": {
+      "es": "Castelán",
+      "en": "Inglés",
+      "de": "Alemán",
+      "fr": "Francés"
+    },
+    "region": {
+      "ES": "España",
+      "US": "Estados Unidos"
+    }
+  },
+  "storage": {
+    "table": {
+      "name": "Nome",
+      "type": "Tipo",
+      "url": "URL"
+    }
+  },
+  "app": {
+    "configError": {
+      "dialogMissing": "Falta o contedor do diálogo do panel.",
+      "title": "Erro de configuración",
+      "appConfigMissing": "Falta a configuración da aplicación. Deben definirse os elementos do menú."
+    },
+    "logout": {
+      "title": "Pechar sesión",
+      "notConfigured": "A acción de pechar sesión aínda non está configurada.",
+      "failed": "Non se puido pechar a sesión. Téntao de novo."
+    }
+  },
+  "storageloc": "Ubicacións de almacenamento dispoñibles",
+  "createsd": "Crear autodescripcións mediante pasos visuais",
+  "loading": "Cargando opcións do esquema...",
+  "schema": "Esquema do servizo",
+  "selecechema": "Seleccionar esquema",
+  "preparing": "Preparando os detalles do esquema seleccionado...",
+  "selecmethod": "Selecciona un método de compartición...",
+  "selectemp": "Selecciona unha plantilla...",
+  "loadtemp": "Cargando plantillas...",
+  "loaddetail": "Cargando detalles da plantilla...",
+  "show_items_per_page": "Mostrar {{count}} elementos por páxina",
+  "pagination": {
+    "page": "Páxina {{page}}"
+  },
+  "policy": {
+    "access": {
+      "action": {
+        "search": "Buscar no catálogo",
+        "consume": "Consumir o recurso",
+        "restrictedConsume": "Consumo restrinxido",
+        "unknown": "Acción de acceso descoñecida"
+      }
+    },
+    "contract": {
+      "action": {
+        "consume": "Consumir o recurso",
+        "use": "Uso do recurso",
+        "unknown": "Acción de contratación descoñecida"
+      }
+    },
+    "constraint": {
+      "validFrom": "Válido desde {{from}}",
+      "validTo": "Válido ata {{to}}",
+      "validRange": "Válido do {{from}} ao {{to}}",
+      "openEnded": "Sen límite de vixencia"
+    }
+  },
+  "filters": {
+    "category": {
+      "assetType": "Tipo de activo",
+      "visibility": "Visibilidade",
+      "price": "Prezo"
+    },
+    "visibility": {
+      "all": "Todos",
+      "public": "Catálogo público",
+      "private": "Catálogo non público"
+    },
+    "price": {
+      "all": "Todos",
+      "free": "Gratuíto",
+      "paid": "De pago"
+    },
+    "assetType": {
+      "corpus": "Corpus",
+      "mlmodel": "Modelo",
+      "api": "API",
+      "lexicalconceptualresource": "Recurso léxico-conceptual"
+    }
+  }
+}

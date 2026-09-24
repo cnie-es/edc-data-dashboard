@@ -1,0 +1,41 @@
+.offer-card-title-skeleton {
+  min-height: 1.75rem;
+}
+
+.offer-card-description-skeleton {
+  min-height: 4.25rem;
+}
+
+.offer-card-policy-skeleton {
+  min-height: 2.75rem;
+}
+
+.offer-card-provider-text,
+.offer-card-policy-text {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.offer-card-description-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  max-height: 4.5rem;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.offer-card-policy-text {
+  display: inline;
+}
+
+.offer-card-license-text {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.offer-card-keyword-pill {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}

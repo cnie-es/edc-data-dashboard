@@ -1,0 +1,127 @@
+<div
+  class="flex flex-col gap-4 md:col-span-2"
+  [class.pl-3]="depth > 0"
+  [class.border-l]="depth > 0"
+  [class.border-border]="depth > 0"
+>
+  @for (subsection of displaySubsections; track subsection.key) {
+    @if (subsection.label) {
+      <h5 class="text-sm font-semibold" [innerText]="subsection.label"></h5>
+    }
+    <div class="grid gap-3 md:grid-cols-2">
+      @for (itemField of subsection.fields; track itemField.key) {
+        @if (isScalarObjectArrayItemField(itemField)) {
+          <div>
+            <label class="block text-sm font-medium mb-1">
+              <span [innerText]="itemField.label"></span>
+              @if (itemField.required) {
+                <span class="ml-1 text-error">*</span>
+              }
+            </label>
+            @if (itemField.description) {
+              <p class="mb-1 text-xs text-my-text" [innerText]="itemField.description"></p>
+            }
+
+            @if (getScalarEnumOptions(asScalarField(itemField)).length > 0) {
+              <select
+                class="select select-bordered w-full"
+                [class.select-error]="showErrors && hasItemFieldError(asScalarField(itemField))"
+                [ngModel]="row[itemField.key] ?? ''"
+                (ngModelChange)="onScalarChange(itemField.key, $event)"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                <option [ngValue]="">{{ 'sdtooling.selectOption' | translate }}</option>
+                @for (option of getScalarEnumOptions(asScalarField(itemField)); track option) {
+                  <option [ngValue]="option" [textContent]="itemField.enumOptionLabels?.[option] ?? option"></option>
+                }
+              </select>
+            } @else if (itemField.type === 'boolean') {
+              <input
+                class="checkbox checkbox-primary"
+                type="checkbox"
+                [checked]="row[itemField.key] === true"
+                (change)="onScalarChange(itemField.key, $any($event.target).checked)"
+              />
+            } @else if (itemField.type === 'number' || itemField.type === 'integer') {
+              <input
+                class="input input-bordered w-full"
+                [class.input-error]="showErrors && hasItemFieldError(asScalarField(itemField))"
+                type="number"
+                [value]="row[itemField.key] ?? ''"
+                (change)="onScalarChange(itemField.key, $any($event.target).value)"
+              />
+            } @else {
+              <input
+                class="input input-bordered w-full"
+                [class.input-error]="showErrors && hasItemFieldError(asScalarField(itemField))"
+                type="text"
+                [value]="row[itemField.key] ?? ''"
+                (change)="onScalarChange(itemField.key, $any($event.target).value)"
+              />
+            }
+            @if (showErrors && hasItemFieldError(asScalarField(itemField))) {
+              <p class="mt-1 text-xs text-error" [innerText]="getItemFieldErrorMessage(asScalarField(itemField))"></p>
+            }
+          </div>
+        } @else if (isObjectGroupArrayItemField(itemField)) {
+          <div class="md:col-span-2 space-y-2">
+            <h5 class="text-sm font-semibold" [innerText]="itemField.label"></h5>
+            <lib-sdtooling-object-array-item-fields
+              [itemFields]="itemField.fields"
+              [row]="getGroupRow(itemField)"
+              [depth]="depth + 1"
+              [showErrors]="showErrors"
+              [rowIndex]="rowIndex"
+              [errorPathPrefix]="buildFieldPath(itemField.key)"
+              [nestedFieldErrors]="nestedFieldErrors"
+              (rowChange)="onGroupRowChange(itemField.key, $event.row)"
+            />
+          </div>
+        } @else if (isObjectArrayArrayItemField(itemField)) {
+          <div class="md:col-span-2 space-y-3">
+            <h5 class="text-sm font-semibold" [innerText]="itemField.label"></h5>
+            @if (showErrors && hasNestedArrayFieldError(asObjectArrayField(itemField))) {
+              <p
+                class="text-xs text-error"
+                [innerText]="getNestedArrayFieldErrorMessage(asObjectArrayField(itemField))"
+              ></p>
+            }
+            @for (nestedItem of getNestedItems(asObjectArrayField(itemField)); track $index; let nestedIndex = $index) {
+              <div class="bg-base-200/40 border border-border rounded-lg p-3 space-y-3">
+                <div class="flex items-center justify-between">
+                  <h6 class="text-sm font-medium" [innerText]="itemField.label + ' ' + (nestedIndex + 1)"></h6>
+                  <button
+                    class="btn btn-xs btn-outline btn-error"
+                    type="button"
+                    (click)="onNestedRemove(asObjectArrayField(itemField), nestedIndex)"
+                    [disabled]="!canRemoveNested(asObjectArrayField(itemField))"
+                  >
+                    <span [textContent]="'sdtooling.delete' | translate"></span>
+                  </button>
+                </div>
+                <lib-sdtooling-object-array-item-fields
+                  [itemFields]="asObjectArrayField(itemField).itemFields"
+                  [row]="nestedItem"
+                  [depth]="depth + 1"
+                  [showErrors]="showErrors"
+                  [rowIndex]="rowIndex"
+                  [errorPathPrefix]="buildNestedItemPath(itemField.key, nestedIndex)"
+                  [nestedFieldErrors]="nestedFieldErrors"
+                  (rowChange)="onNestedRowReplace(asObjectArrayField(itemField), nestedIndex, $event.row)"
+                />
+              </div>
+            }
+            <button
+              class="btn btn-xs btn-outline"
+              type="button"
+              [disabled]="hasReachedNestedMax(asObjectArrayField(itemField))"
+              (click)="onNestedAdd(asObjectArrayField(itemField))"
+            >
+              {{ 'sdtooling.add_item' | translate }}
+            </button>
+          </div>
+        }
+      }
+    </div>
+  }
+</div>

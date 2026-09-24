@@ -1,0 +1,56 @@
+<lib-breadcrumbs [items]="breadcrumbItemsTranslated"></lib-breadcrumbs>
+
+<div class="mb-3 flex items-center justify-between gap-4">
+  <h1 class="text-3xl font-semibold text-(--app-color-primary-darker)">
+    {{ 'offersL' | translate }}
+  </h1>
+
+  <div class="flex items-center gap-3">
+    <!-- <label class="flex items-center gap-3 text-sm text-base-content/90">
+      <button
+        class="relative h-7 w-14 rounded-full border border-base-content/60 bg-transparent p-0.5 transition-colors"
+        type="button"
+        data-cy="toggle-public-catalog"
+        [attr.aria-checked]="itsPublic"
+        [attr.aria-label]="itsPublic ? ('offers.toggle.disable' | translate) : ('offers.toggle.enable' | translate)"
+        role="switch"
+        (click)="togglePublicCatalog.emit()"
+      >
+        <span
+          class="pointer-events-none absolute left-0.5 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full border border-base-content/90 bg-black text-[11px] leading-none text-white transition-transform"
+          [class.translate-x-0]="!itsPublic"
+          [class.translate-x-7]="itsPublic"
+        >
+          <span class="material-symbols-rounded text-[11px]! leading-none">
+            {{ itsPublic ? 'check' : 'close' }}
+          </span>
+        </span>
+      </button>
+
+      {{ 'offers.toggle.publicCatalog' | translate }}
+    </label> -->
+
+    <!-- <span class="tooltip tooltip-left" [attr.data-tip]="'offers.toggle.tooltip' | translate">
+      <span class="material-symbols-rounded cursor-help text-sm opacity-75">help</span>
+    </span> -->
+
+    <div class="h-6 w-px bg-base-300 mx-1"></div>
+
+    <button
+      class="btn rounded-sm px-4 bg-primary border-(--app-color-accent) text-white hover:bg-[#121a80] hover:border-[#121a80]"
+      type="button"
+      (click)="createContractDefinition.emit()"
+    >
+      {{ 'offers.create' | translate }}
+    </button>
+  </div>
+</div>
+
+<div class="col-span-full text-left my-6">
+  <hr class="border-t border-gray-300 mb-4 mt-4" />
+</div>
+
+<div class="mb-4 border border-base-300 bg-base-100 px-4 py-2 text-sm">
+  <span class="material-symbols-rounded align-middle text-base! mr-1 opacity-75">info</span>
+  {{ 'offers.info' | translate }}
+</div>

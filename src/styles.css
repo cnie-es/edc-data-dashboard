@@ -1,0 +1,293 @@
+/*
+ *  Copyright (c) 2025 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+ *
+ *  This program and the accompanying materials are made available under the
+ *  terms of the Apache License, Version 2.0 which is available at
+ *  https://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  SPDX-License-Identifier: Apache-2.0
+ *
+ *  Contributors:
+ *       Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V. - initial API and implementation
+ *
+ */
+
+@import 'tailwindcss';
+/* La hoja de material-symbols NO se importa aqui: va como entrada propia en
+   los `styles` de angular.json.
+
+   Con el @import, Tailwind 4 inlinea el fichero del paquete en este y reescribe
+   su `url("./material-symbols-rounded.woff2")` a
+   `../node_modules/material-symbols/material-symbols-rounded.woff2`, valido
+   respecto a src/. Pero el webpack del component testing de Cypress resuelve esa
+   url desde el directorio del fichero ORIGINAL (node_modules/material-symbols/),
+   donde `../node_modules/...` no existe, y el build muere con:
+
+     Can't resolve '../node_modules/material-symbols/material-symbols-rounded.woff2'
+       in '/workspace/source/node_modules/material-symbols'
+
+   Como entrada independiente no hay nada que inlinear: la url se queda en
+   `./material-symbols-rounded.woff2` y ambos bundlers la resuelven contra el
+   directorio del paquete. Va la primera para que el `.material-symbols-rounded`
+   de mas abajo siga pisando al del paquete.
+   El .woff2 son 5 MB: se referencia desde node_modules, no se copia al repo. */
+
+@source '../projects/dashboard-core/**/*.html';
+@source '../src/app/**/*.{html,ts}';
+@plugin 'daisyui' {
+  themes:
+    light,
+    dark,
+    dim --prefersdark,
+    aqua,
+    nord,
+    synthwave,
+    forest,
+    dracula,
+    night,
+    coffee,
+    emerald --default;
+}
+
+@plugin "daisyui/theme" {
+  name: 'light';
+
+  /* Figma family tokens: branding */
+  --app-color-branding-darker: #081638;
+  --app-color-branding: #141048;
+  --app-color-branding-light: #081462;
+
+  /* Figma family tokens: primary */
+  --app-color-primary-darker: #081462;
+  --app-color-primary-dark: #003ba1;
+  --app-color-primary: #1557b5;
+  --app-color-primary-light: #478be9;
+  --app-color-primary-lighter: #a3d8ff;
+  --app-color-primary-lightest: #ffffff;
+  --app-color-primary-bg: #cdf1ff;
+  --app-color-primary-bg-light: #d8f4ff;
+
+  /* Figma family tokens: info */
+  --app-color-info-darker: #1c2a3f;
+  --app-color-info-dark: #5f7182;
+  --app-color-info: #6f8598;
+  --app-color-info-light: #a7bacc;
+  --app-color-info-lighter: #bfcdd8;
+  --app-color-info-lightest: #d3e2eb;
+  --app-color-info-bg: #ecf1f6;
+  --app-color-info-bg-light: #f7f9fc;
+
+  /* Figma family tokens: accent */
+  --app-color-accent-darker: #081462;
+  --app-color-accent-dark: #003ba1;
+  --app-color-accent: #1557b5;
+  --app-color-accent-light: #428de8;
+  --app-color-accent-lighter: #a3d8ff;
+  --app-color-accent-lightest: #ffffff;
+  --app-color-accent-bg: #cdf1ff;
+  --app-color-accent-bg-light: #d8f4ff;
+
+  /* Figma family tokens: success */
+  --app-color-success-darker: #1f4f39;
+  --app-color-success-dark: #1b7c52;
+  --app-color-success: #2d8c5d;
+  --app-color-success-light: #7ab997;
+  --app-color-success-lighter: #9bc9b0;
+  --app-color-success-lightest: #b8d4c4;
+  --app-color-success-bg: #d4e7db;
+  --app-color-success-bg-light: #e2ede6;
+
+  /* Figma family tokens: warning */
+  --app-color-warning-darker: #4a3624;
+  --app-color-warning-dark: #9d5f00;
+  --app-color-warning: #9f5d00;
+  --app-color-warning-light: #e5a65a;
+  --app-color-warning-lighter: #f0d1a9;
+  --app-color-warning-lightest: #f7e6d3;
+  --app-color-warning-bg: #fff1e0;
+  --app-color-warning-bg-light: #fdf6ef;
+
+  /* Figma family tokens: danger */
+  --app-color-danger-darker: #81181f;
+  --app-color-danger-dark: #be1526;
+  --app-color-danger: #cb2f3d;
+  --app-color-danger-light: #df8f88;
+  --app-color-danger-lighter: #efb8b7;
+  --app-color-danger-lightest: #f8d9d7;
+  --app-color-danger-bg: #f8e4e2;
+  --app-color-danger-bg-light: #fff1f1;
+
+  /* Figma family tokens: neutral */
+  --app-color-neutral-darker: #1c202c;
+  --app-color-neutral-dark: #60646c;
+  --app-color-neutral: #808390;
+  --app-color-neutral-light: #b9bbc6;
+  --app-color-neutral-lighter: #dcded6;
+  --app-color-neutral-bg: #ededec;
+  --app-color-neutral-bg-light: #f9f9fb;
+
+  /* Base aliases mapped to Figma tokens */
+  --color-primary: var(--app-color-branding);
+  --color-secondary: var(--app-color-primary);
+  --color-surface: var(--app-color-primary-lightest);
+  --color-text-muted: var(--app-color-neutral-light);
+  --color-neutral-subtle: var(--app-color-neutral-lighter);
+  --color-accent-soft: var(--app-color-primary-bg);
+  --color-border-subtle: var(--app-color-neutral-lighter);
+
+  /* Compatibility aliases (legacy names) */
+  --color-third: var(--app-color-primary-lightest);
+  --color-my-text: var(--app-color-neutral-light);
+  --color-my-grey: var(--app-color-neutral-lighter);
+  --color-light-blue: var(--app-color-primary-bg);
+  --color-border: var(--app-color-neutral-lighter);
+
+  --color-info: #3abff8;
+  --color-success: #36d399;
+  --color-warning: #fbbd23;
+  --color-error: #f87272;
+}
+
+html,
+body,
+button,
+input,
+textarea,
+select,
+h1,
+h2,
+p,
+div {
+  font-family: 'Inter', sans-serif;
+}
+
+.material-symbols-rounded {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 200;
+}
+
+.menu-active {
+  background-color: #eef2ff;
+  border-left: 3px solid var(--app-color-primary);
+  color: var(--app-color-primary);
+}
+
+.btn {
+  box-shadow: none !important;
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+* {
+  scrollbar-width: thin !important;
+}
+
+*::-webkit-scrollbar * {
+  width: 3px !important;
+}
+
+.right-border {
+  border-right: 1px solid #dcdcdc;
+}
+
+.badge-success {
+  background-color: #d1f0de;
+  color: #1b7c52;
+  font-weight: 600;
+  border: none;
+}
+
+.badge-blue {
+  background-color: #dbf4ff;
+  color: #0038a1;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+}
+
+.badge-error {
+  background-color: #f7c8c8;
+  color: #9b1b1b;
+  font-weight: 600;
+  border: none;
+}
+
+.badge-neutral {
+  background-color: #e0e0e0;
+  color: #4a4a4a;
+  font-weight: 600;
+  border: none;
+}
+
+.icon-container {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-contrat {
+  background-color: #5c6f80;
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+}
+
+.badge-publi {
+  background-color: #1557b5;
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+}
+
+.badge-other {
+  background-color: #c4cadb;
+  color: #322f2f;
+  font-weight: 600;
+  border: none;
+}
+
+.radio-tab-selected {
+  background-color: black !important;
+  color: white;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 12px;
+}
+
+table th:nth-child(2),
+table td:nth-child(2),
+table th:nth-child(4),
+table td:nth-child(4) {
+  border-right: 1px solid #e5e7eb;
+}
+
+table thead th {
+  background-color: #f9fafb;
+  font-weight: 600;
+}
+
+.stepper {
+  --progress: 0%;
+}
+
+.stepper::before {
+  background: linear-gradient(to right, #1d4ed8 var(--progress), #d1d5db var(--progress));
+}

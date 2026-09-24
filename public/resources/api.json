@@ -1,0 +1,150 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "credentialSubject": {
+    "@context": {
+      "dcat": "http://www.w3.org/ns/dcat#",
+      "dct": "http://purl.org/dc/terms/",
+      "edval": "http://w3id.org/gaia-x/edval#",
+      "gax-validation": "http://w3id.org/gaia-x/validation#",
+      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+      "sh": "http://www.w3.org/ns/shacl#",
+      "simpl": "http://w3id.org/gaia-x/simpl#",
+      "skos": "http://www.w3.org/2004/02/skos/core#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@id": "did:web:registry.gaia-x.eu:ApiOffering:23577ba5-7b92-4a9a-a9b4-51928ecceac5",
+    "@type": "edval:ApiOffering",
+    "dct:conformsTo": {
+      "@id": "https://simpl.example.org/schema/ApiSchema_ES",
+      "@type": "dct:Standard",
+      "dct:description": "Esquema para ofertas de tipo API REST en el dataspace de edval",
+      "dct:hasVersion": "1.0.0",
+      "dct:schemaName": "API REST",
+      "dct:title": "API REST"
+    },
+    "edval:apiAsset": {
+      "dcat:keyword": [
+        {
+          "@language": "en",
+          "@value": "API"
+        }
+      ],
+      "dcat:version": "1.0",
+      "dct:description": {
+        "@language": "en",
+        "@value": "API 3"
+      },
+      "dct:title": {
+        "@language": "en",
+        "@value": "API 3"
+      },
+      "rdf:type": {
+        "@id": "edval:RestApiService"
+      }
+    },
+    "edval:isPublicOffering": {
+      "@type": "xsd:boolean",
+      "@value": true
+    },
+    "rdf:type": {
+      "@id": "edval:ApiOffering"
+    },
+    "resourceAddress": {
+      "baseUrl": "https://y083jn2h7a.execute-api.eu-west-1.amazonaws.com",
+      "name": "ENDPOINT",
+      "proxyBody": "true",
+      "proxyMethod": "true",
+      "proxyPath": "true",
+      "proxyQueryParams": "true",
+      "type": "HttpData"
+    },
+    "simpl:assetProperties": {
+      "rdf:type": {
+        "@id": "simpl:AssetProperties"
+      }
+    },
+    "simpl:contractTemplate": {
+      "rdf:type": {
+        "@id": "simpl:ContractTemplate"
+      },
+      "simpl:contractTemplateDocument": "Contract Template 1",
+      "simpl:contractTemplateHashAlg": "SHA256",
+      "simpl:contractTemplateHashValue": "22275fe551e7a16f5f2c1cc10d39a534f547323d877109d98b8e8730047bc5ed",
+      "simpl:contractTemplateURL": "https://files-devsqs.telefonicadev.com/static/contract/ContractTemplate1.json"
+    },
+    "simpl:dataProperties": {
+      "rdf:type": {
+        "@id": "simpl:DataProperties"
+      },
+      "simpl:format": "JSON"
+    },
+    "simpl:edcConnector": {
+      "simpl:providerEndpointURL": "https://tls-participant-devsqs.telefonicadev.com/edc"
+    },
+    "simpl:edcRegistration": {
+      "simpl:accessPolicyId": "495ff5d2-2b85-463a-a3d3-15af5b101d58",
+      "simpl:assetId": "181473eb-183e-409b-b802-9e23658b53e1",
+      "simpl:contractDefinitionId": "e4a58ba1-d432-4d02-ad7d-9916c8bb1e93",
+      "simpl:servicePolicyId": "e405f14a-a815-4b77-a244-7931ca3b4451"
+    },
+    "simpl:generalServiceProperties": {
+      "rdf:type": {
+        "@id": "simpl:GeneralServiceProperties"
+      },
+      "simpl:description": "API 3",
+      "simpl:inLanguage": "es",
+      "simpl:name": "API 3",
+      "simpl:offeringType": "data",
+      "simpl:serviceAccessPoint": {
+        "@type": "xsd:anyURI",
+        "@value": "HTTP://TEST.COM"
+      },
+      "simpl:sharingMethodId": "REST_API",
+      "simpl:version": "1"
+    },
+    "simpl:offeringPrice": {
+      "rdf:type": {
+        "@id": "simpl:OfferingPrice"
+      },
+      "simpl:currency": "EUR",
+      "simpl:license": {
+        "@type": "xsd:anyURI",
+        "@value": "http://license.com"
+      },
+      "simpl:price": {
+        "@type": "xsd:decimal",
+        "@value": 0
+      },
+      "simpl:priceType": "free"
+    },
+    "simpl:providerInformation": {
+      "rdf:type": {
+        "@id": "simpl:ProviderInformation"
+      },
+      "simpl:contact": "test@test.com",
+      "simpl:providedBy": "019e3a90-7322-7c5f-b152-5819e6ff64cc",
+      "simpl:signature": "signature"
+    },
+    "simpl:servicePolicy": {
+      "rdf:type": {
+        "@id": "simpl:ServicePolicy"
+      },
+      "simpl:access-policy": "{\"profile\":\"http://www.w3.org/ns/odrl/2/odrl.jsonld\",\"target\":\"181473eb-183e-409b-b802-9e23658b53e1\",\"assigner\":{\"uid\":\"devsqs\",\"role\":\"http://www.w3.org/ns/odrl/2/assigner\"},\"uid\":\"a4ebf026-a5fe-4217-9ec6-adad1758ba4e\",\"@context\":\"http://www.w3.org/ns/odrl.jsonld\",\"@type\":\"Set\",\"permission\":[{\"target\":\"181473eb-183e-409b-b802-9e23658b53e1\",\"assignee\":{\"uid\":\"EDVAL_PARTICIPANT\",\"role\":\"http://www.w3.org/ns/odrl/2/assignee\"},\"action\":[\"http://simpl.eu/odrl/actions/consume\"],\"constraint\":[]}]}",
+      "simpl:usage-policy": "{\"profile\":\"http://www.w3.org/ns/odrl/2/odrl.jsonld\",\"target\":\"181473eb-183e-409b-b802-9e23658b53e1\",\"assigner\":{\"uid\":\"devsqs\",\"role\":\"http://www.w3.org/ns/odrl/2/assigner\"},\"uid\":\"c649ab4f-2ca6-4424-a1d1-ac0ff6c717ae\",\"@context\":\"http://www.w3.org/ns/odrl.jsonld\",\"@type\":\"Set\",\"permission\":[{\"target\":\"181473eb-183e-409b-b802-9e23658b53e1\",\"assignee\":{\"uid\":\"EDVAL_PARTICIPANT\",\"role\":\"http://www.w3.org/ns/odrl/2/assignee\"},\"action\":[\"http://www.w3.org/ns/odrl/2/use\"],\"constraint\":[{\"leftOperand\":\"http://www.w3.org/ns/odrl/2/dateTime\",\"operator\":\"http://www.w3.org/ns/odrl/2/gteq\",\"rightOperand\":\"2026-06-01T15:30:00Z\"},{\"leftOperand\":\"http://www.w3.org/ns/odrl/2/dateTime\",\"operator\":\"http://www.w3.org/ns/odrl/2/lteq\",\"rightOperand\":\"2026-06-28T15:30:00Z\"}]}]}"
+    }
+  },
+  "issuanceDate": "2026-06-04T13:33:02.554097963Z",
+  "issuer": "did:web:did.dev.simpl-europa.eu",
+  "proof": {
+    "created": "2026-06-04T13:33:02.574457688Z",
+    "jws": "eyJhbGciOiJVbmRlZmluZWQiLCJiNjQiOmZhbHNlLCJjcml0IjpbImI2NCJdfQ..0kipks5neYEu5MoKMxZigehgENsWMNW_e_5fXJx-x2FOg0s4lcrpAvgm1zcnQTEBMIfoztxpZ2foZb7UjLG7AQ",
+    "proofPurpose": "assertionMethod",
+    "type": "JsonWebSignature2020",
+    "verificationMethod": "did:web:did.dev.simpl-europa.eu#gaia-x-key1"
+  },
+  "type": "VerifiableCredential"
+}

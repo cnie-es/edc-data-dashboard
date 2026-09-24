@@ -1,0 +1,164 @@
+<div
+  class="fixed z-9999 top-20 left-[50%] -translate-x-1/2 flex flex-col justify-start items-center [&_.alert]:mb-6 [&_.alert]:shadow-2xl"
+>
+  <ng-template #dashboardAlert></ng-template>
+</div>
+
+<dialog class="modal z-50" id="dashboard-dialog">
+  <div
+    class="modal-box w-auto min-w-[min(90vw,24rem)] max-w-[90vw] max-h-[95vh] p-12 overflow-y-auto flex flex-col items-stretch"
+  >
+    <form method="dialog">
+      <button class="btn absolute right-3 border-none top-3 bg-white">✕</button>
+    </form>
+    <ng-template #dashboardModal></ng-template>
+  </div>
+</dialog>
+
+<div
+  class="box-border flex h-screen w-screen max-h-screen max-w-screen flex-col border-t-2 border-(--app-color-primary) bg-base-100"
+>
+  @if (!(isManualTokenLogin$ | async)) {
+    <div class="navbar min-h-fit w-full bg-white py-6 px-6 text-neutral-content">
+      <div class="navbar-start min-w-0 gap-8">
+        <img
+          src="/assets/header.png"
+          alt="Proyecto Valle de la Lengua"
+          class="h-[48px] w-auto object-contain max-lg:h-10"
+        />
+        <div class="h-8 w-0.5 bg-[#616366]"></div>
+        <div class="flex items-center gap-1 text-2xl font-medium">
+          <span class="text-[#616366]">{{ 'header.conector' | translate }}</span>
+        </div>
+      </div>
+      <div class="navbar-end gap-3 pr-1.5">
+        <div class="dropdown dropdown-end">
+          <div
+            tabindex="0"
+            role="button"
+            class="btn btn-ghost text-black normal-case"
+            [attr.aria-label]="labelFor(currentLang)"
+          >
+            <span class="flex items-center gap-2">
+              <span [class]="flagClassFor(currentLang)" aria-hidden="true"></span>
+              <span>{{ labelFor(currentLang) }}</span>
+              <span class="material-symbols-rounded">keyboard_arrow_down</span>
+            </span>
+          </div>
+
+          <ul
+            tabindex="0"
+            class="dropdown-content menu z-10 mt-2 w-44 bg-base-100 p-2 text-[#1f2431] shadow rounded-box"
+          >
+            @for (option of langOptions; track option.code) {
+              <li>
+                <button
+                  type="button"
+                  (click)="changeLang(option.code)"
+                  class="btn btn-ghost btn-sm justify-start gap-2 normal-case text-[#1f2431] hover:bg-[#f2f4fa] hover:text-[#1f2431]"
+                >
+                  <span [class]="option.flagClass" aria-hidden="true"></span>
+                  <span class="font-medium">{{ option.label }}</span>
+                </button>
+              </li>
+            }
+          </ul>
+        </div>
+        <div class="dropdown dropdown-end">
+          <div
+            tabindex="0"
+            role="button"
+            class="btn btn-ghost h-9 min-h-9 px-2.5 border-none bg-transparent text-[#1f2431] text-[14px] font-medium normal-case hover:bg-[#f2f4fa] hover:text-[#1f2431]"
+          >
+            <span>{{ 'header.support' | translate }}</span>
+            <span class="material-symbols-rounded text-[20px] leading-none translate-y-px">keyboard_arrow_down</span>
+          </div>
+          <ul
+            tabindex="0"
+            class="dropdown-content menu z-1 mt-1 w-40 rounded-box bg-base-100 p-2 text-base-content shadow-xl"
+          >
+            <li>
+              <button type="button" class="btn btn-ghost btn-sm justify-start normal-case" (click)="logOut()">
+                {{ 'header.logout' | translate }}
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="h-10 w-10 rounded-full bg-[#5f6676] text-white text-[14px] font-semibold grid place-items-center">
+          {{ userInitials }}
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="box-border flex flex-auto overflow-auto gap-4 bg-gray-100 p-4">
+    @if (!(isManualTokenLogin$ | async) && (stateService.appConfig$ | async)?.menuItems?.length) {
+      <div class="box-border pl-4 pr-2 flex">
+        <ul
+          class="menu flex-col w-64 bg-third text-primary border-r border-(--app-color-neutral-lighter) [&_li>a]:px-4 sticky h-fit rounded-2xl bg-white shadow-sm"
+        >
+          @for (item of (stateService.appConfig$ | async)?.menuItems; track item) {
+            @if (item.isGroupTitle) {
+              <li class="px-4 py-1 text-xs font-semibold text-gray-500">
+                {{ item.textKey | translate }}
+              </li>
+            } @else {
+              <button
+                class="btn btn-lg btn-ghost group justify-between w-full shadow-none hover:bg-gray-200 border-none px-0"
+                routerLink="{{ item.routerPath }}"
+                routerLinkActive="bg-gray-200 menu-active"
+                #rla="routerLinkActive"
+              >
+                <div class="flex items-center gap-3 pl-4">
+                  <div class="w-7 h-7 flex items-center justify-center">
+                    <span
+                      class="material-symbols-rounded text-[1.75rem] text-gray-600 group-hover:text-secondary"
+                      [ngClass]="rla.isActive ? 'text-secondary' : ''"
+                      style="
+                        font-variation-settings:
+                          'FILL' 1,
+                          'wght' 400;
+                      "
+                    >
+                      {{ item.materialSymbol }}
+                    </span>
+                  </div>
+
+                  @if (stateService.isMenuOpen$ | async) {
+                    <span
+                      class="text-sm font-normal text-gray-600 group-hover:text-secondary group-hover:underline"
+                      [ngClass]="rla.isActive ? 'text-secondary' : ''"
+                    >
+                      {{ item.textKey | translate }}
+                    </span>
+                  }
+                </div>
+
+                @if (rla.isActive) {
+                  <span class="material-symbols-rounded text-3xl pr-0 text-secondary"> keyboard_arrow_right </span>
+                }
+              </button>
+              @if (item.divider) {
+                <div
+                  class="divider after:bg-neutral-content before:bg-neutral-content after:opacity-15 before:opacity-15 my-0 px-2"
+                ></div>
+              }
+            }
+          }
+        </ul>
+      </div>
+    }
+    <div
+      id="router-content"
+      class="box-border h-full w-full max-w-[1300px] overflow-auto"
+      [ngClass]="
+        (isManualTokenLogin$ | async)
+          ? 'bg-gray-100'
+          : 'rounded-2xl bg-white p-4 shadow-sm ' +
+            (((stateService.appConfig$ | async)?.menuItems?.length ?? 0) > 1 ? '' : 'pl-0')
+      "
+    >
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

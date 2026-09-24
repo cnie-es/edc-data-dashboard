@@ -1,0 +1,13 @@
+.sd-card-shell.cursor-pointer:hover {
+  box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+}
+
+.sd-card-shell--active {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+.details-cta:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

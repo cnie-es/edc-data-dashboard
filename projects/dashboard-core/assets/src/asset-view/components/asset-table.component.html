@@ -1,0 +1,54 @@
+<div class="overflow-x-auto">
+  <table class="table w-full">
+    <thead class="bg-gray-50">
+      <tr>
+        <th>{{ 'assets.table.creationDate' | translate }}</th>
+        <th>{{ 'assets.table.type' | translate }}</th>
+        <th>{{ 'assets.table.name' | translate }}</th>
+        <th>{{ 'assets.table.description' | translate }}</th>
+        <th>{{ 'assets.table.details' | translate }}</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (row of pageRows$ | async; track row.id) {
+        <tr>
+          <td>{{ row.creationDate }}</td>
+
+          <td>
+            <span class="badge-blue px-2 py-1 rounded-lg">{{ formatType(row.type) }}</span>
+          </td>
+
+          <td class="font-bold">{{ row.assetName }}</td>
+
+          <td>{{ row.description }}</td>
+
+          <td>
+            <button class="btn btn-sm" (click)="openDetails.emit(row)">
+              {{ 'assets.table.view' | translate }}
+            </button>
+          </td>
+        </tr>
+      }
+
+      @if ((rows$ | async)?.length === 0) {
+        @if (!fetched) {
+          <lib-list-loading-state variant="table" [colspan]="5" [fetched]="fetched" />
+        } @else {
+          <lib-list-loading-state variant="table" [colspan]="5" [fetched]="true">
+            <p class="text-sm text-base-content/80">{{ 'assets.table.noAssets' | translate }}</p>
+          </lib-list-loading-state>
+        }
+      }
+    </tbody>
+  </table>
+</div>
+
+<div class="mt-4 flex items-center justify-end">
+  <lib-pagination
+    [items]="filteredRows$ | async"
+    [pageItemCount]="pageItemCount"
+    (pageItems)="pageItemsChanged.emit($event)"
+    class="shrink-0"
+  ></lib-pagination>
+</div>

@@ -1,0 +1,121 @@
+<div class="flex flex-col w-[min(90vw,28rem)] max-w-xl h-[min(70vh,32rem)] min-h-[20rem] overflow-hidden">
+  <div class="shrink-0">
+    <h1 class="text-xl font-semibold text-center mb-2">
+      {{ 'transferProcess.pullExecute.title' | translate }}
+    </h1>
+    <p class="text-center text-sm opacity-75 mb-6">
+      {{ 'transferProcess.pullExecute.description' | translate }}
+    </p>
+  </div>
+
+  @if (!downloadRunning) {
+    <div class="join w-full mb-4 shrink-0">
+      <button
+        type="button"
+        class="btn join-item flex-1"
+        [class.btn-primary]="httpMethod === 'GET'"
+        [class.btn-outline]="httpMethod !== 'GET'"
+        [disabled]="executing"
+        (click)="setMethod('GET')"
+      >
+        {{ 'transferProcess.pullExecute.methodGet' | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn join-item flex-1"
+        [class.btn-primary]="httpMethod === 'POST'"
+        [class.btn-outline]="httpMethod !== 'POST'"
+        [disabled]="executing"
+        (click)="setMethod('POST')"
+      >
+        {{ 'transferProcess.pullExecute.methodPost' | translate }}
+      </button>
+    </div>
+
+    <div class="flex-1 min-h-0 overflow-y-auto overscroll-contain mb-4">
+      @if (httpMethod === 'GET') {
+        <div class="space-y-3 pr-1">
+          @for (param of queryParams; track $index) {
+            <div class="flex flex-wrap items-end gap-2">
+              <label class="form-control flex-1 min-w-[8rem]">
+                <span class="label-text text-xs">{{ 'transferProcess.pullExecute.paramKey' | translate }}</span>
+                <input
+                  type="text"
+                  class="input input-bordered input-sm w-full"
+                  [(ngModel)]="param.key"
+                  [name]="'paramKey' + $index"
+                  [disabled]="executing"
+                />
+              </label>
+              <label class="form-control flex-1 min-w-[8rem]">
+                <span class="label-text text-xs">{{ 'transferProcess.pullExecute.paramValue' | translate }}</span>
+                <input
+                  type="text"
+                  class="input input-bordered input-sm w-full"
+                  [(ngModel)]="param.value"
+                  [name]="'paramValue' + $index"
+                  [disabled]="executing"
+                />
+              </label>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline btn-error shrink-0"
+                (click)="removeQueryParam($index)"
+                [disabled]="executing"
+                [attr.aria-label]="'transferProcess.pullExecute.removeParam' | translate"
+              >
+                <span class="material-symbols-rounded text-base">remove</span>
+              </button>
+            </div>
+          }
+          <button type="button" class="btn btn-sm btn-outline" (click)="addQueryParam()" [disabled]="executing">
+            <span class="material-symbols-rounded text-base">add</span>
+            {{ 'transferProcess.pullExecute.addParam' | translate }}
+          </button>
+        </div>
+      } @else {
+        <label class="form-control h-full">
+          <span class="label-text text-sm mb-1">{{ 'transferProcess.pullExecute.postBodyLabel' | translate }}</span>
+          <textarea
+            class="textarea textarea-bordered font-mono text-sm w-full min-h-32 max-h-full resize-y"
+            [(ngModel)]="postBody"
+            name="postBody"
+            [disabled]="executing"
+            [placeholder]="'transferProcess.pullExecute.postBodyPlaceholder' | translate"
+          ></textarea>
+        </label>
+      }
+    </div>
+  }
+
+  @if (downloadRunning) {
+    <div class="flex flex-col items-center mb-4 w-full shrink-0">
+      <div class="text-xl mb-3">
+        @if (progress > 0) {
+          {{ progress }} %
+        } @else {
+          {{ 'transferProcess.pullExecute.downloading' | translate }}
+        }
+      </div>
+      <progress
+        class="progress w-full"
+        [attr.value]="progress > 0 ? progress : ''"
+        max="100"
+        [ngClass]="error ? 'progress-error' : 'progress-success'"
+      ></progress>
+    </div>
+  }
+
+  <button type="button" class="btn btn-primary w-full shrink-0" (click)="executeTransfer()" [disabled]="executing">
+    @if (executing && !downloadRunning) {
+      <span class="loading loading-spinner loading-sm"></span>
+      {{ 'transferProcess.pullExecute.executing' | translate }}
+    } @else if (downloadRunning) {
+      <span class="loading loading-spinner loading-sm"></span>
+      {{ 'transferProcess.pullExecute.downloading' | translate }}
+    } @else {
+      <span class="material-symbols-rounded">download</span>
+      {{ 'transferProcess.pullExecute.execute' | translate }}
+    }
+  </button>
+</div>

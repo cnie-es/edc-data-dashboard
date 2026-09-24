@@ -1,0 +1,9 @@
+# Node dependencies (already installed inside the container)
+node_modules
+
+# Editor & OS-specific files
+.vscode
+.idea
+
+# Git-related files
+.git

@@ -1,0 +1,768 @@
+{
+  "common": {
+    "error": {
+      "title": "Errorea"
+    },
+    "errors": {
+      "generic": "Zerbait gaizki joan da. Saiatu berriro.",
+      "http": {
+        "sessionExpired": "Zure saioa iraungi da. Hasi saioa berriro eta saiatu berriro.",
+        "forbidden": "Ez duzu ekintza hau egiteko baimenik.",
+        "unavailable": "Zerbitzua ez dago erabilgarri une honetan. Saiatu berriro geroago.",
+        "network": "Ezin izan dugu zerbitzura konektatu. Egiaztatu konexioa eta saiatu berriro.",
+        "server": "Zerbitzariak arazoak ditu une honetan. Saiatu berriro une batean.",
+        "failedWithStatus": "Eskaerak huts egin du ({{status}})."
+      },
+      "edc": {
+        "unknown": "Konektoreak ustekabeko errore bat itzuli du.",
+        "badRequest": "Eskaera baliogabea zen. Egiaztatu datuak eta saiatu berriro.",
+        "duplicate": "Baliabide hau dagoeneko existitzen da.",
+        "notFound": "Eskatutako baliabidea ez da aurkitu.",
+        "unreachable": "Ezin izan da konektorearekin harremanetan jarri.",
+        "badGateway": "Konektorearen atebideak errore bat itzuli du."
+      }
+    }
+  },
+  "search": "Bilatu",
+  "provider": "Hornitzaile naiz",
+  "consumer": "Kontsumitzaile naiz",
+  "header": {
+    "conector": "Konektorea",
+    "support": "Laguntza",
+    "logout": "Irten"
+  },
+  "home": {
+    "explore": {
+      "title": "Arakatu eta partekatu",
+      "subtitle": "Konektatu, kontsumitu eta monetizatu datu linguistikoak, modeloak eta beste baliabideak"
+    },
+    "myConnector": {
+      "title": "Nire konektorea",
+      "subtitle": "Sortu, kudeatu eta gainbegiratu zure aktiboak, politika eta eskaintzak"
+    },
+    "buttons": {
+      "goCatalog": "Joan katalogora",
+      "create": "Sortu",
+      "view": "Ikusi"
+    }
+  },
+  "menu": {
+    "home": "Hasiera",
+    "exploreShare": "Arakatu eta partekatu",
+    "catalog": "Eskaintzen katalogoa",
+    "catalogDesc": "Arakatu beste konektoreen eskaintzak datu espazioan.",
+    "contracts": "Negoziazioak",
+    "contractsDesc": "Datuen jabeen arteko negoziazioen egoera.",
+    "transferHistory": "Transferentziak",
+    "transferHistoryDesc": "Datu produktuen trukeen erregistroa.",
+    "connector": "Nire konektorea",
+    "assets": "Nire aktiboak",
+    "assetsDesc": "Partekatu beste erabiltzaileekin eskaintza bat sortuz.",
+    "policies": "Nire politikak",
+    "policiesDesc": "Lizentzia baldintzak eta argitalpen politikak.",
+    "offers": "Nire eskaintzak",
+    "offersDesc": "Aktiboak + partekatzen dituzun baldintzak",
+    "storage": "Biltegiratzea",
+    "storageDesc": "Konektorearen datu amaierako puntu eta kokapen erabilgarriak.",
+    "xfscAdvancedSearch": "XFSC Bilaketa aurreratua",
+    "xfscAdvancedSearchDesc": "XFSC bilaketa aurreratuaren ikuspegiak autodeskripzioak bilatu eta berreskuratzea ahalbidetzen du katalogo federatuan, gako-hitz bilaketak eta bilaketa aurreratuarekin.",
+    "sdTooling": "SD tresnak",
+    "sdToolingDesc": "SD Tooling ikuspegiak erabiltzaileei laguntzen die self-description aktiboak sortzen plantillekin."
+  },
+  "catalog": {
+    "pageTitle": "Datu espazioko eskaintzen katalogoa",
+    "offersFrom": "Eskaintzak:",
+    "filters": "Iragazkiak:",
+    "filterPlaceholder": "Bilatu aktiboaren id edo hornitzailearen arabera…",
+    "addFilters": "+ Gehitu iragazkiak",
+    "federatedEnabled": "Katalogo federatua aktibo",
+    "selectConnector": "Hautatu…",
+    "connectorPickerHint": "Aukeratu konektore konfiguratua edo eskatu katalogoa eskuz",
+    "negotiate": "Negoziatu",
+    "details": "Xehetasunak",
+    "detailsAria": "Ikusi datu multzoaren xehetasunak",
+    "categoryModel": "Modeloa",
+    "categoryCorpus": "Corpus",
+    "categoryDataset": "Datu multzoa",
+    "categoryOther": "Baliabidea",
+    "searchFilterPlaceholder": "Iragazi izenaren, deskribapenaren arabera…",
+    "searchPrompt": "Erabili Bilatu katalogoko eskaintzak ikusteko.",
+    "noSearchResults": "Ez da eskaintzarik aurkitu.",
+    "ownOffer": "Zure eskaintza",
+    "ownOfferHint": "Konektore honek argitaratua. Ezin da kontratatu; ireki Nire eskaintzak ataletik.",
+    "errors": {
+      "invalidCounterParty": "Kontraparte helbide baliogabea. Egiaztatu datuak eta saiatu berriro.",
+      "requestFailed": "Ezin izan da '{{address}}' katalogoa eskatu."
+    },
+    "negotiation": {
+      "noOfferSelected": "Ez da eskaintzarik hautatu."
+    }
+  },
+  "negotiation": {
+    "history": "Negoziazioen historiala",
+    "rol": "Nire rola",
+    "status": "Egoera / Data",
+    "name": "Aktiboaren izena",
+    "politic": "Kontratazio politika",
+    "connector": "Kanpoko konektorea",
+    "transfer": "Transferentzia",
+    "consumer": "Kontsumitzaile naiz",
+    "provider": "Hornitzaile naiz",
+    "search": "Bilatu",
+    "disponible": " Ez dago negoziaziorik eskuragarri.",
+    "assetPending": "Aktiboa zain",
+    "transferPending": "Zain",
+    "actions": "Ekintzak",
+    "stateUnknown": "Egoera ezezaguna",
+    "confirm_payment": "Ordainketa berretsi",
+    "reject_payment": "Ordainketa ukatu",
+    "confirm": "Berretsi",
+    "reject": "Ukatu",
+    "state": {
+      "INITIAL": "Sortua, hasieratzen",
+      "REQUESTING": "Negoziazio eskaera bidaltzen",
+      "REQUESTED": "Negoziazio eskaera jasota",
+      "OFFERING": "Eskaintza bidaltzen",
+      "OFFERED": "Eskaintza jasota",
+      "ACCEPTING": "Onarpena bidaltzen",
+      "ACCEPTED": "Onarpena jasota",
+      "AGREEING": "Akordioa bidaltzen",
+      "AGREED": "Akordioa jasota",
+      "VERIFYING": "Egiaztapenean (politikak / protokoloa)",
+      "VERIFIED": "Egiaztapena osatuta",
+      "FINALIZING": "Akordioa prestatzen",
+      "FINALIZED": "Akordioa prest",
+      "TERMINATING": "Negoziazioa bertan behera uzten",
+      "TERMINATED": "Baztertua",
+      "PAYMENT_PENDING": "Konfirmazioaren zain"
+    }
+  },
+  "contractTransfer": {
+    "titleWithAsset": "Transferentzia — {{asset}}",
+    "titleDefault": "Datu-transferentzia",
+    "stepDetails": "1. Transferentziaren xehetasunak",
+    "stepProcess": "2. Transferentzia-prozesua",
+    "processTitle": "Transferentzia-prozesuaren urratsa",
+    "processId": "Transferentzia-prozesuaren IDa:",
+    "processStatus": "Egoera unekoa:",
+    "processInProgress": "Transferentzia-prozesua abian…",
+    "processFinalized": "Transferentzia-prozesua amaitu da. Amaitu dezakezu.",
+    "cancel": "Utzi",
+    "close": "Itxi",
+    "nextStep": "Hurrengo urratsa",
+    "finish": "Amaitu",
+    "loadOfferFailed": "Ezin izan dira eskaintzaren xehetasunak kargatu transferentziarako.",
+    "notEligibleForTransfer": "Eskaintza hau ezin da transferentziarako erabili. Konexio-erregistro-datuak falta dira.",
+    "detailsTitle": "Transferentziaren xehetasunak",
+    "sharingMethod": "Partekatzeko metodoa",
+    "template": "Txantiloia",
+    "selectTemplate": "Hautatu txantiloi bat",
+    "selectOption": "Hautatu…",
+    "loadingTemplates": "Txantiloiak kargatzen…",
+    "loadingSchema": "Txantiloiaren eskema kargatzen…",
+    "arrayPlaceholder": "balio1, balio2, balio3"
+  },
+  "transferProcess": {
+    "list": {
+      "noTransfers": "Oraindik ez dago transferentziarik.",
+      "noSearchResults": "Ez da bat etorri zure bilaketarekin transferentziarik.",
+      "loadError": "Ezin izan da transferentzia-historia kargatu."
+    },
+    "stateUnknown": "Egoera ezezaguna",
+    "assetPending": "Aktiboa zain",
+    "policyPending": "Zain",
+    "connectorPending": "Zain",
+    "columnTransfer": "Transferentzia",
+    "transferTypePrefix": "Mota:",
+    "viewDetails": "Ikusi xehetasunak",
+    "details": {
+      "title": "Transferentziaren xehetasuna",
+      "properties": "Propietateak",
+      "dataDestination": "Datuen helmuga",
+      "privateProperties": "Propietate pribatuak",
+      "field": "Eremua",
+      "value": "Balioa",
+      "noData": "Ez dago daturik eskuragarri"
+    },
+    "downloadReceivedAria": "Ireki jasotako fitxategia",
+    "preparedTransferAria": "Ireki transferentziaren xehetasunak (abian jartzeko prest)",
+    "fileNotAvailableYet": "Oraindik ez dago eskuragarri",
+    "openFileFailed": "Ezin izan da jasotako fitxategia ireki.",
+    "pullExecute": {
+      "title": "Pull transferentzia exekutatu",
+      "description": "Konfiguratu HTTP eskaera transferentzia exekutatzeko.",
+      "methodGet": "GET",
+      "methodPost": "POST",
+      "paramKey": "Parametroa",
+      "paramValue": "Balioa",
+      "addParam": "Parametroa gehitu",
+      "removeParam": "Parametroa kendu",
+      "postBodyLabel": "JSON gorputza",
+      "postBodyPlaceholder": "{ \"key\": \"value\" }",
+      "execute": "Exekutatu",
+      "executing": "Transferentzia exekutatzen…",
+      "downloading": "Deskargatzen…",
+      "missingTransferId": "Ez dago transferentzia ID-rik eskuragarri.",
+      "fetchEdrFailed": "Ezin izan da EDR datu helbidea eskuratu.",
+      "executeFailed": "Ezin izan da pull transferentzia exekutatu.",
+      "openAria": "Pull transferentzia exekutatu"
+    },
+    "state": {
+      "INITIAL": "Erregistratua",
+      "PROVISIONED": "Hornitua",
+      "REQUESTED": "Eskatua",
+      "STARTED": "Abian",
+      "COMPLETED": "Osatua",
+      "SUSPENDED": "Etenda",
+      "TERMINATED": "Amaitua",
+      "DEPROVISIONED": "Deshornitua"
+    }
+  },
+  "assets": {
+    "transfer": {
+      "history": "Transferentzien historiala",
+      "view": "Ikusi",
+      "file": "Jasotako fitxategia",
+      "trans_disponible": " Ez da transferentziarik aurkitu."
+    },
+    "table": {
+      "creationDate": "Sortze data",
+      "type": "Mota",
+      "name": "Aktiboaren izena",
+      "description": "Deskribapena",
+      "details": "Xehetasunak",
+      "view": "Ikusi",
+      "policy": "Politikaren izena",
+      "noAssets": "Oraindik ez dago aktiborik sortuta."
+    },
+    "add_filter": "Gehitu iragazkiak",
+    "filters": "Iragazkiak",
+    "myAssets": "Nire aktiboak: Zerrenda",
+    "detail": {
+      "breadcrumbCurrent": "Aktiboaren xehetasuna",
+      "backToList": "Ikusi zerrenda",
+      "assetDescription": "Aktiboaren deskribapena",
+      "linkedOffersAlert": "Aktibo hau aldatu edo ezabatzeko, lehenik lotutako eskaintzak ezabatu behar dituzu.",
+      "errorInvalidId": "Ez da autodeskripzio identifikatzaile baliodunik adierazi.",
+      "errorLoadFailed": "Ezin izan da aktiboaren autodeskripzioa kargatu.",
+      "relatedDocs": "Lotutako dokumentazioa",
+      "identifier": "Identifikatzailea",
+      "reference": "Erreferentzia",
+      "registrationAgency": "Erregistro agentzia",
+      "cardIdentifier": "Identifikatzailea",
+      "fileFormatsTitle": "Fitxategi formatua",
+      "distribution": "Banaketa",
+      "modelProperties": "Modeloaren propietateak",
+      "modelType": "Modelo mota",
+      "variantOf": "Honen aldaera:",
+      "viewModelDetails": "Ikusi modeloaren xehetasunak",
+      "provenance": "Jatorria",
+      "provenanceOriginalSource": "Jatorrizko iturria",
+      "provenanceIpHolder": "Jabetza intelektualaren titularra",
+      "modelFunction": "Modeloaren funtzioa"
+    }
+  },
+  "connectorConfig": {
+    "errors": {
+      "unhealthy": "Konektorea ez dago osasuntsu.",
+      "unreachable": "Ezin izan da '{{defaultUrl}}' API lehenetsira iritsi. Egiaztatu sarrerak."
+    }
+  },
+  "transfer": {
+    "deprovision": {
+      "success": "'{{id}}' transferentzia prozesuaren desprovisionamendua ongi eskatu da.",
+      "failed": "'{{id}}' transferentzia prozesuaren desprovisionamendua eskatzeak huts egin du."
+    }
+  },
+  "policies": {
+    "errors": {
+      "invalidPermissionsJson": "Baimenentzako JSON baliogabea.",
+      "invalidProhibitionsJson": "Debekuentzako JSON baliogabea.",
+      "invalidObligationsJson": "Betekuntzentzako JSON baliogabea.",
+      "unknown": "Errore ezezagun bat gertatu da."
+    },
+    "createpolicy": "Sortu politika berria",
+    "create": {
+      "title": "Sortu politika berria",
+      "subtitle": "Hautatu sortu nahi duzun politika mota.",
+      "description": "Politika batek zure datuen erabilera zure arauen arabera bermatzen du",
+      "contractPolicy": {
+        "title": "Kontratazio politika",
+        "description": "Zehaztu zure aktiboen sarbide eta erabilera arauak eta betebeharrak.",
+        "create": "Sortu kontratazio politika berria",
+        "generateLds": "Sortu LDS lizentzia"
+      },
+      "publicationPolicy": {
+        "title": "Argitalpen politika",
+        "description": "Zehaztu nork ikus dezakeen zure aktiboak eskaintzen katalogoan.",
+        "create": "Sortu argitalpen politika berria"
+      }
+    },
+    "policiList": "Nire politikak: Zerrenda",
+    "nopolicies": "Ez dago erakusteko politikarik",
+    "viewPolicies": "Ikusi honen politikak:",
+    "list": {
+      "name": "{{assetName}} · {{action}} · {{assigner}}",
+      "nameNoAssigner": "{{assetName}} · {{action}}",
+      "description": "{{action}}. {{constraint}}",
+      "pending": "Kargatzen…",
+      "loadError": "Ezin izan da politika definitu kargatu",
+      "typeOther": "Beste bat"
+    },
+    "order": "Ordenatu",
+    "recent": "Data berriena",
+    "title": "Izenburua",
+    "type": "Mota",
+    "detail": {
+      "loading": "Politika kargatzen...",
+      "missingId": "Ez da politikarik adierazi.",
+      "tabLegal": "Lizentzia legalaren testua",
+      "tabOdrl": "ODRL formatua",
+      "viewOriginalLicense": "Ikusi jatorrizko lizentzia",
+      "noLicenseUrl": "Ez dago lizentziaren URLrik politika honi lotuta aktiboetan.",
+      "loadingLicense": "Lizentziaren testua kargatzen...",
+      "licenseLoadError": "Ezin izan da lizentzia kargatu.",
+      "loadingOdrl": "ODRL definizioa kargatzen...",
+      "odrlLoadError": "Ezin izan da politika definizioa (ODRL) kargatu.",
+      "modalTitle": "Politika",
+      "modalCloseAria": "Itxi"
+    }
+  },
+  "offersL": "Nire eskaintzak: Zerrenda",
+  "createoffer": "Sortu eskaintza berria",
+  "active": "Aktiboa",
+  "cpoli": "Kontratazio politika",
+  "ppoli": "Argitalpen politika",
+  "anytype": "Edozein mota",
+  "contract": "Kontratazioa",
+  "public": "Argitalpena",
+  "publi": "Berrikusi eta argitaratu",
+  "offers": {
+    "create": "Sortu eskaintza berria",
+    "info": "Artxibo eta merkataritza arrazoiengatik, ez da onartzen eskaintzak aldatzea: ezabatu eta berriak sortu behar dira.",
+    "list": {
+      "noOffers": "Oraindik ez dago eskaintzarik sortuta.",
+      "noSearchResults": "Ez da eskaintzarik aurkitu.",
+      "searchPlaceholder": "Bilatu eskaintzaren izenaren arabera…"
+    },
+    "toggle": {
+      "publicCatalog": "Erakutsi guztiak katalogo publikoan",
+      "enable": "Aktibatu katalogo publikoa",
+      "disable": "Desaktibatu katalogo publikoa",
+      "tooltip": "Ikusgarritasunaren etengailu orokorra. Desaktibatuta badago, ez da aktiborik ikusiko katalogo publikoan. Aktibatuta badago, ikusgarritasuna aktibo bakoitzaren egoeraren araberakoa da."
+    },
+    "createPage": {
+      "subtitle": "Hautatu sortu nahi duzun aktibo mota:",
+      "corpus": {
+        "title": "Corpus",
+        "description": "Prozesatu gabeko testu datuak, bideo multzoa, etab.",
+        "create": "Sortu Corpus"
+      },
+      "lexical": {
+        "title": "Lekiko/kontzeptual baliabidea",
+        "description": "Hiztegia, hitz zerrenda, ontologia, etab.",
+        "create": "Sortu baliabidea"
+      },
+      "model": {
+        "title": "Modeloa",
+        "description": "Modelo linguistikoa, LLM, modelo multimodala, etab.",
+        "create": "Sortu modeloa"
+      },
+      "service": {
+        "title": "Zerbitzua",
+        "description": "Datuen partekatzea API bidez",
+        "create": "Sortu eskaintza Zerbitzuarekin"
+      },
+      "typeUnavailableCorpus": "Une honetan ezin dira corpus motako eskaintzak sortu.",
+      "typeUnavailableLexical": "Une honetan ezin dira lekiko baliabide motako eskaintzak sortu.",
+      "typeUnavailableModel": "Une honetan ezin dira modelo motako eskaintzak sortu.",
+      "typeUnavailableApi": "Une honetan ezin dira zerbitzu motako eskaintzak sortu.",
+      "schemaCatalogLoading": "Eskaintza mota erabilgarriak kargatzen…",
+      "backToSelection": "< Aldatu aktibo mota"
+    },
+    "detail": {
+      "license": "Lizentzia",
+      "breadcrumbCurrent": "Eskaintzaren xehetasuna",
+      "backToList": "< Ikusi zerrenda",
+      "publicCatalogReadonly": "Erakutsi eskaintza hau katalogo publikoan ere",
+      "publicCatalogAria": "Ikusgarritasuna katalogo publikoan",
+      "assetDescription": "Aktiboaren deskribapena",
+      "linguisticVarieties": "Hizkuntza aldaerak",
+      "region": "Eskualdea",
+      "linguisticVariety": "Hizkuntza aldaera",
+      "categories": "Kategoriak",
+      "keywords": "Gako-hitzak",
+      "supportType": "Euskarri mota",
+      "linguisticType": "Hizkuntza mota",
+      "none": "Bat ere ez",
+      "dataProtection": "Datu babesa",
+      "personalData": "Datu pertsonalak barne hartzen ditu",
+      "sensitiveData": "Kategoria bereziko datuak barne hartzen ditu",
+      "anonymized": "Anonimizatua",
+      "relatedDocs": "Lotutako dokumentazioa",
+      "citation": "Aipamen testua",
+      "cardContracting": "Kontratazioa",
+      "cardPublication": "Argitalpena",
+      "publicationPlaceholder": "Argitalpen esparrua zure konektorearen politikek zehazten dute.",
+      "viewPolicy": "Ikusi politika",
+      "cardDistribution": "Banaketa",
+      "byteSize": "Tamaina (byte)",
+      "packageFormat": "Pakete formatua",
+      "fileFormats": "Fitxategi formatua",
+      "size": "Tamaina",
+      "documentId": "Identifikatzailea",
+      "priceLine": "Prezioa: {{amount}} {{currency}}",
+      "priceLineWithVat": "Prezioa: {{amount}} {{currency}} (+BEZ)",
+      "errorInvalidId": "Eskaintza identifikatzaile baliogabea.",
+      "errorLoadFailed": "Ezin izan da eskaintzaren autodeskripzioa kargatu.",
+      "delete": "Ezabatu",
+      "deleteAria": "Ezabatu katalogo federatuan argitaratutako eskaintza hau",
+      "deleteConfirm": "Ezabatu katalogo federatuan argitaratutako eskaintza hau? Ekintza hau ezin da desegin.",
+      "deleteFailed": "Ezin izan da eskaintza ezabatu. Saiatu berriro edo egiaztatu baimenak.",
+      "deleteDisabledMocks": "Ezin da eskaintza ezabatu konexiorik gabeko datu simulatuak erabiltzen ari zaren bitartean (garapen modua). Konektore erreala konektatu ezabatzeko.",
+      "deleteWait": "Itxaron…",
+      "revokeModalTitle": "Ezabatu eskaintza",
+      "revokeModalCancel": "Utzi",
+      "revokeModalClose": "Itxi",
+      "revokeModalDismissAria": "Itxi elkarrizketa-koadroa",
+      "alternativeTitle": "Titulu alternatiboa",
+      "publisher": "Argitaratzailea",
+      "corpusLicense": "Corpusaren lizentzia",
+      "additionalDetails": "Xehetasun gehigarriak",
+      "anonymizationDetails": "Anonimizazioaren xehetasunak",
+      "personalDataDetails": "Datu pertsonalen xehetasunak",
+      "sensitiveDataDetails": "Datu sentikorren xehetasunak",
+      "originalSourceDescription": "Jatorrizko iturriaren deskribapena",
+      "classification": "Sailkapena",
+      "domain": "Domeinua",
+      "corpusSubclass": "Corpusaren azpiklasea",
+      "lrType": "Baliabide linguistiko mota",
+      "annotationType": "Anotazio mota",
+      "dataProtectionPrinciple": "Datuen babesaren printzipioa",
+      "technicalMeasure": "Neurri teknikoa / antolatzailea",
+      "specificLanguages": "Hizkuntza espezifikoak",
+      "sourceLanguages": "Iturriko hizkuntzak",
+      "targetLanguages": "Helburuko hizkuntzak",
+      "pivotLanguages": "Pibot-hizkuntzak",
+      "technicalInfo": "Informazio teknikoa",
+      "contact": "Kontaktua",
+      "sharingMethod": "Partekatze metodoa",
+      "serviceAccessPoint": "Zerbitzurako sarbide puntua",
+      "dataQuality": "Datuen kalitatea",
+      "encryption": "Zifratzea",
+      "contractTemplateDoc": "Kontratu txantiloiaren dokumentua",
+      "spatialCoverage": "Espazio-estaldura",
+      "temporalCoverage": "Denbora-estaldura",
+      "multilingualityType": "Hizkuntza-aniztasun mota",
+      "standardsConformance": "Estandarren betetzea",
+      "identification": "Identifikazioa",
+      "identifiers": "Identifikatzaileak",
+      "legalCode": "Kode legala",
+      "name": "Izena",
+      "iprHolders": "Jabetza intelektualaren titularrak",
+      "serviceProperties": "Zerbitzuaren propietateak",
+      "metadataLanguage": "Metadatuen hizkuntza",
+      "dataProperties": "Datuen propietateak",
+      "producedBy": "Honek ekoitzia",
+      "format": "Formatua",
+      "openApi": "OpenAPI",
+      "additionalInfo": "Informazio gehigarria",
+      "relatedDatasets": "Lotutako datu-multzoak",
+      "targetUsers": "Helburuko erabiltzaileak",
+      "anonymizationMeasure": "Anonimizazio-neurria",
+      "dataProtectionRegime": "Datuen babes-erregimena",
+      "providerDataAddress": "Hornitzailearen datu-helbidea",
+      "dp": {
+        "yes": "Bai",
+        "no": "Ez",
+        "unknown": "Ezezaguna"
+      }
+    }
+  },
+  "sdDetails": {
+    "detail": {
+      "titleFallback": "Autodeskripzioaren xehetasuna",
+      "providerLabel": "Autodeskripzioaren hornitzailea",
+      "selfDescription": "Autodeskripzioa",
+      "description": "Deskribapena",
+      "noDescription": "Ez dago deskribapenik eskuragarri.",
+      "offerDetails": "Eskaintzaren xehetasunak",
+      "price": "Prezioa",
+      "priceType": "Prezio mota",
+      "dataFormat": "Datu formatua",
+      "providerEndpoint": "Hornitzailearen endpoint-a",
+      "generalServiceProperties": "Zerbitzuaren propietate orokorrak",
+      "name": "Izena",
+      "offeringType": "Eskaintza mota",
+      "serviceAccessPoint": "Zerbitzurako sarbide puntua",
+      "sharingMethodId": "Partekatze metodoaren IDa",
+      "contractTemplate": "Kontratu txantiloia",
+      "document": "Dokumentua",
+      "hashAlgorithm": "Hash algoritmoa",
+      "hashValue": "Hash balioa",
+      "templateUrl": "Txantiloiaren URLa",
+      "dctConformsTo": "Dct: honi jarraitzen dio",
+      "version": "Bertsioa",
+      "noUsagePolicy": "Ez dago erabilera politikarik eskuragarri.",
+      "accessPolicy": "Sarbide politika",
+      "users": "Erabiltzaileak",
+      "user": "Erabiltzailea",
+      "actions": "Ekintzak",
+      "dateConstraint": "Dataren murrizketa",
+      "from": "Tik",
+      "to": "Hona",
+      "usagePolicy": "Erabilera politika",
+      "usageType": "Erabilera mota",
+      "constraint": "Murrizketa",
+      "contractPolicyId": "Kontratazio politikaren IDa",
+      "licenseUrl": "Lizentziaren URLa",
+      "registration": "Erregistroa",
+      "assetId": "Aktiboaren IDa",
+      "contractDefinitionId": "Kontratu definizioaren IDa",
+      "servicePolicyId": "Zerbitzu politikaren IDa",
+      "accessPolicyId": "Sarbide politikaren IDa",
+      "providerInformation": "Hornitzailearen informazioa",
+      "contact": "Kontaktua",
+      "providedBy": "Honek hornitua:",
+      "signature": "Sinadura",
+      "errorInvalidId": "Autodeskripzio identifikatzaile baliogabea.",
+      "errorLoadFailed": "Ezin izan dira autodeskripzioaren xehetasunak kargatu."
+    },
+    "transfer": {
+      "getData": "Lortu datuak",
+      "loadingCatalogOffers": "Katalogoko eskaintzak kargatzen...",
+      "contractNegotiation": "Kontratu negoziazioa",
+      "negotiatingResource": "Kontratua negoziatzen ari da baliabide honetarako.",
+      "negotiationId": "Negoziazioaren IDa",
+      "currentStatus": "Uneko egoera",
+      "negotiationInProgress": "Negoziazioa abian...",
+      "negotiationFinalized": "Negoziazioa amaituta. Jarraitu datu transferentziarekin Kontratuak atalean.",
+      "negotiationAprovalPending": "Negoziazioa behar bezala amaitu da. Ordainketa berretsi ondoren, deskarga eskuragarri egongo da negoziazio-panelean.",
+      "negotiationRejectedTitle": "Negoziazioa ezetsi da",
+      "negotiationRejectedNoDetail": "Hornitzaileak ez du arrazoirik eman. Begiratu konektorearen erregistroak xehetasun gehiagorako.",
+      "goToContracts": "Joan Kontratuak atalera"
+    }
+  },
+  "sdtooling": {
+    "offerTypeHeading": "Eskaintza mota: {{type}}",
+    "backToOfferSelection": "Itzuli eskaintza mota hautaketara",
+    "schemaLabel": "Esquema",
+    "selectSchema": "Hautatu esquema",
+    "assetCreatedSuccess": "Aktiboa ongi sortu eta argitaratu da.",
+    "assetCreatedSuccessWithId": "Aktiboa ongi sortu eta argitaratu da: {{id}}",
+    "templateConfig": "Plantilla konfigurazioa",
+    "resourceSharingMethod": "Baliabide partekatzeko metodoa",
+    "selectSharingMethod": "Hautatu partekatzeko metodo bat...",
+    "sourceTemplate": "Jatorrizko plantilla",
+    "selectOption": "Hautatu...",
+    "selectUsageAssignee": "Hautatu erabileraren hartzailea...",
+    "selectAction": "Hautatu ekintza...",
+    "selectAttribute": "Hautatu atributua...",
+    "reviewBeforeSubmit": "Berrikusi bidali aurretik",
+    "reviewIntro": "Berrikusi metadatuak eta bidalketaren balioak autodeskripzioa sortu aurretik.",
+    "schemaColon": "Esquema:",
+    "schemaIdColon": "Esquemaren ID:",
+    "sharingMethodColon": "Partekatzeko metodoa:",
+    "templateColon": "Plantilla:",
+    "noValuesToReview": "Oraindik ez dago berrikusteko hautatutako baliorik.",
+    "createSd": "Sortu SD",
+    "submitting": "Bidaltzen...",
+    "stepSummary": "Laburpena",
+    "stepSummaryDesc": "Berrikusi eta bidali zure autodeskripzioa.",
+    "stepFillSection": "Osatu {{section}}.",
+    "yes": "Bai",
+    "no": "Ez",
+    "usageDeletionAfter": "Erabili ondoren ezabatzea",
+    "usageRestrictedNumber": "Erabilera kopuru mugatua",
+    "usageRestrictedDuration": "Erabilera iraupen mugatua",
+    "assetPropertiesTitle": "Aktiboaren propietateak",
+    "delete": "Ezabatu",
+    "usageAssignee": "Erabileraren hartzailea",
+    "usageType": "Erabilera mota",
+    "numberOfUsages": "Erabilera kopurua",
+    "fromDate": "Hasiera data",
+    "toDate": "Amaiera data",
+    "action": "Ekintza",
+    "attribute": "Atributua",
+    "addPolicy": "Gehitu politika",
+    "policyFieldRequired": "Nahitaezko eremua.",
+    "back": "Atzera",
+    "next": "Hurrengoa",
+    "saveAndContinue": "Gorde eta jarraitu",
+    "stepOf": "{{current}}. urratsa {{total}}tik",
+    "add_item": "Gehitu elementua",
+    "placeholder_add_val": "Idatzi balio bat eta gehitun egin klik ",
+    "errors": {
+      "schemasLoad": "Ezin izan dira zerbitzu eshemak une honetan kargatu.",
+      "invalidResourceType": "Hautatu baliabide mota balioduna duen esquema.",
+      "schemaFormatUnsupported": "Esquema formatu hau oraindik ez da bateragarria SD sortzearekin.",
+      "schemaContentLoad": "Ezin izan da esquemaren edukia kargatu.",
+      "sharingMethodsLoad": "Ezin izan dira partekatzeko metodoak kargatu.",
+      "templatesLoad": "Ezin izan dira plantillak kargatu partekatzeko metodo honetarako.",
+      "templateDetailsLoad": "Ezin izan dira plantillaren xehetasunak kargatu.",
+      "policyActionsLoad": "Ezin izan dira politika ekintza aukerak kargatu.",
+      "policyAttributesLoad": "Ezin izan dira politika atributu aukerak kargatu.",
+      "dynamicFormUnsupported": "Esquema hau oraindik ezin da dinamiko gisa erakutsi.",
+      "missingContext": "Esquema/formulario testuingurua falta da. Hautatu berriro esquema bat.",
+      "selectSharingMethodSubmit": "Hautatu partekatzeko metodo bat.",
+      "selectTemplateSubmit": "Hautatu txantiloi bat.",
+      "schemaNotListed": "Esquema hau ez dago SD Tooling-en zerrendatuta eta ez dira metadatu baliodunak eman. Ireki eskaintza sortzetik.",
+      "templateError": "Plantilla errorea"
+    },
+    "blockReason": {
+      "selectSchema": "Hautatu esquema bat jarraitzeko.",
+      "waitSchemaDetails": "Itxaron esquemaren xehetasunak kargatzen diren bitartean.",
+      "completeSection": "Osatu \"{{section}}\" ataleko beharrezko eremuak jarraitzeko.",
+      "selectSharingMethod": "Hautatu baliabide partekatzeko metodoa jarraitzeko.",
+      "selectTemplate": "Hautatu jatorrizko plantilla jarraitzeko.",
+      "waitTemplateDetails": "Itxaron plantillaren xehetasunak kargatzen diren bitartean.",
+      "completeTemplateFields": "Osatu plantillaren eremuak jarraitzeko."
+    }
+  },
+  "dynamicForm": {
+    "fieldRequired": "{{label}} beharrezkoa da.",
+    "fieldMinLength": "{{label}} gutxienez {{min}} karaktere izan behar ditu.",
+    "fieldMaxLength": "{{label}} gehienez {{max}} karaktere izan behar ditu.",
+    "fieldMin": "{{label}} gutxienez {{min}} izan behar da.",
+    "fieldMax": "{{label}} gehienez {{max}} izan behar da.",
+    "fieldInvalidFormat": "{{label}} formatu baliogabea du.",
+    "fieldMaxItems": "{{label}} gehienez {{max}} balio onartzen ditu.",
+    "fieldMinItems": "{{label}} gutxienez {{min}} balio behar ditu.",
+    "fieldItemMinLength": "{{label}} {{min}} karaktere baino motzagoak diren balioak ditu.",
+    "fieldObjectArrayRequired": "{{label}} elementu bakoitzeko derrigorrezko eremu guztiak behar ditu.",
+    "objectArrayNestedErrors": "Konpondu azpian nabarmendutako eremuak {{label}} atalean.",
+    "policyCardIncomplete": "Konpondu {{label}} ataleko politiketan nabarmendutako eremuak.",
+    "fieldInvalidUri": "{{label}} URL baliozko bat izan behar da.",
+    "fieldCheck": "Egiaztatu {{label}} eta saiatu berriro."
+  },
+  "xfsc": {
+    "simpleSearch": "Bilaketa sinplea",
+    "advancedSearch": "Bilaketa aurreratua",
+    "listTitle": "Eskuragarri dauden autodeskripzio guztien zerrenda",
+    "listDesc": "Hau da zehaztutako iragazkien arabera autodeskripzioen zerrenda.",
+    "advancedTitle": "Bilaketa aurreratua",
+    "advancedDesc": "Aukeratu esquema bat eta aplikatu iragazkiak bilaketa aurreratua exekutatzeko.",
+    "selectSchemaPrompt": "Hautatu esquema bat eta osatu iragazkiak bilaketa aurreratua exekutatzeko.",
+    "schema": "Esquema",
+    "selectSchema": "Hautatu esquema bat...",
+    "loadingOptions": "Esquemaren aukerak kargatzen...",
+    "loadingFields": "Hautatutako esquemaren eremuak kargatzen...",
+    "clear": "Garbitu",
+    "search": "Bilatu",
+    "payloadPreview": "Bilaketaren payload aurrebista",
+    "curlPreview": "cURL aurrebista (bypass modua)",
+    "endpoint": "Endpoint:",
+    "copyCurl": "Kopiatu cURL",
+    "copyPayload": "Kopiatu payload",
+    "arrayPlaceholder": "balio1, balio2, balio3",
+    "fieldRequired": "{{label}} beharrezkoa da.",
+    "fieldMinLength": "{{label}} gutxienez {{min}} karaktere izan behar ditu.",
+    "fieldMaxLength": "{{label}} gehienez {{max}} karaktere izan behar ditu.",
+    "fieldMin": "{{label}} gutxienez {{min}} izan behar da.",
+    "fieldMax": "{{label}} gehienez {{max}} izan behar da.",
+    "fieldInvalid": "{{label}} baliogabea da.",
+    "fieldCheck": "Egiaztatu {{label}} eta saiatu berriro.",
+    "copiedCurl": "cURL arbelera kopiatu da.",
+    "copiedPayload": "Payload arbelera kopiatu da.",
+    "errors": {
+      "schemaLoad": "Ezin izan da esquema hau kargatu. Saiatu berriro edo aukeratu beste bat.",
+      "schemaFormatUnsupported": "Esquema formatu hau oraindik ez da bateragarria bilaketa aurreratuarekin.",
+      "dynamicFormUnsupported": "Esquema hau oraindik ezin da bilaketa aurreratu formulario gisa erakutsi.",
+      "sessionExpired": "Zure saioa iraungi da. Hasi saioa berriro eta saiatu berriro.",
+      "forbidden": "Ez duzu baimenik bilaketa hau exekutatzeko.",
+      "unavailable": "Bilaketa zerbitzua ez dago eskuragarri une honetan. Saiatu geroago.",
+      "network": "Ezin izan da bilaketa zerbitzuarekin harremanetan jarri. Egiaztatu konexioa eta saiatu berriro.",
+      "server": "Zerbitzariak arazoak ditu une honetan. Saiatu berriro une batean.",
+      "failedWithStatus": "Bilaketa eskaerak huts egin du ({{status}})."
+    }
+  },
+  "storage": {
+    "table": {
+      "name": "Izena",
+      "type": "Mota",
+      "url": "URL"
+    }
+  },
+  "app": {
+    "configError": {
+      "dialogMissing": "Panelaren elkarrizketa edukiontzia falta da.",
+      "title": "Konfigurazio errorea",
+      "appConfigMissing": "Aplikazioaren konfigurazioa falta da. Menu elementuak definitu behar dira."
+    },
+    "logout": {
+      "title": "Itxi saioa",
+      "notConfigured": "Saioa ixteko ekintza oraindik ez dago konfiguratuta.",
+      "failed": "Ezin izan da saioa itxi. Saiatu berriro."
+    }
+  },
+  "storageloc": "Biltegiratze kokapen erabilgarriak",
+  "createsd": "Sortu autodeskripzioak urrats bisualekin",
+  "loading": "Esquemaren aukerak kargatzen...",
+  "schema": "Zerbitzu esquema",
+  "selecechema": "Hautatu esquema",
+  "preparing": "Hautatutako esquemaren xehetasunak prestatzen...",
+  "selecmethod": "Hautatu partekatzeko metodo bat...",
+  "selectemp": "Hautatu plantilla bat...",
+  "loadtemp": "Plantillak kargatzen...",
+  "loaddetail": "Plantillaren xehetasunak kargatzen...",
+  "show_items_per_page": "Erakutsi {{count}} elementu orrialdeko",
+  "pagination": {
+    "page": "Orria {{page}}"
+  },
+  "policy": {
+    "access": {
+      "action": {
+        "search": "Katalogoan bilatu",
+        "consume": "Baliabidea kontsumitu",
+        "restrictedConsume": "Kontsumo mugatua",
+        "unknown": "Sarbide ekintza ezezaguna"
+      }
+    },
+    "contract": {
+      "action": {
+        "consume": "Baliabidea kontsumitu",
+        "use": "Baliabidearen erabilera",
+        "unknown": "Kontratazio ekintza ezezaguna"
+      }
+    },
+    "constraint": {
+      "validFrom": "{{from}}tik baliozkoa",
+      "validTo": "{{to}}ra arte baliozkoa",
+      "validRange": "{{from}}tik {{to}}ra baliozkoa",
+      "openEnded": "Indarraldi mugarik gabe"
+    }
+  },
+  "language": {
+    "es": "Gaztelania",
+    "en": "Ingelesa",
+    "de": "Alemana",
+    "fr": "Frantzesa"
+  },
+  "region": {
+    "ES": "Espainia",
+    "US": "Estatu Batuak"
+  },
+  "filters": {
+    "category": {
+      "assetType": "Aktibo mota",
+      "visibility": "Ikusgarritasuna",
+      "price": "Prezioa"
+    },
+    "visibility": {
+      "all": "Denak",
+      "public": "Katalogo publikoa",
+      "private": "Katalogo ez-publikoa"
+    },
+    "price": {
+      "all": "Denak",
+      "free": "Doan",
+      "paid": "Ordainpekoa"
+    },
+    "assetType": {
+      "corpus": "Corpus",
+      "mlmodel": "Modeloa",
+      "api": "API",
+      "lexicalconceptualresource": "Hiztegi-kontzeptual baliabidea"
+    }
+  }
+}

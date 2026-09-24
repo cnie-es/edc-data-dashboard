@@ -1,0 +1,63 @@
+<lib-corpus-self-description-detail-layout
+  [vm]="vm"
+  [loading]="loading"
+  [errorMessageKey]="errorMessageKey"
+  [breadcrumbItemsTranslated]="breadcrumbItemsTranslated"
+  backRoute="/contract-definitions"
+  backLabelKey="offers.detail.backToList"
+  layoutMode="offer"
+  [listDateDisplay]="listPublishedAtDisplay"
+  [hasLinkedOffers]="false"
+  [showDeleteOffer]="canRevokeOffer()"
+  [deleteOfferDisabled]="deleteOfferDisabled"
+  [contractPolicyId]="contractPolicyId()"
+  [contractPolicyName]="contractPolicyName()"
+  [contractPolicyNameLoading]="contractPolicyNameLoading()"
+  [publicationPolicyId]="publicationPolicyId()"
+  [publicationPolicyName]="publicationPolicyName()"
+  [publicationPolicyNameLoading]="publicationPolicyNameLoading()"
+  (deleteOffer)="openRevokeConfirmDialog()"
+  (viewPolicy)="openPolicyModal()"
+  (viewPublicationPolicy)="openPublicationPolicyModal()"
+/>
+
+<dialog #revokeConfirmDialog class="modal z-50" data-cy="offer-revoke-confirm-dialog">
+  <div class="modal-box relative max-w-md">
+    <form method="dialog">
+      <button
+        type="submit"
+        class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+        [attr.aria-label]="'offers.detail.revokeModalDismissAria' | translate"
+      >
+        ✕
+      </button>
+    </form>
+    <h3 class="font-bold text-lg pr-8">{{ 'offers.detail.revokeModalTitle' | translate }}</h3>
+    <p class="py-3 text-base-content/90">{{ 'offers.detail.deleteConfirm' | translate }}</p>
+    @if (useContractMocks()) {
+      <p class="text-sm text-base-content/70 mb-4" role="status">
+        {{ 'offers.detail.deleteDisabledMocks' | translate }}
+      </p>
+      <div class="modal-action mt-0">
+        <button type="button" class="btn btn-primary" (click)="closeRevokeConfirmDialog()">
+          {{ 'offers.detail.revokeModalClose' | translate }}
+        </button>
+      </div>
+    } @else {
+      <div class="modal-action mt-0">
+        <button type="button" class="btn" (click)="closeRevokeConfirmDialog()">
+          {{ 'offers.detail.revokeModalCancel' | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-error"
+          [disabled]="deleteInProgress"
+          data-cy="offer-revoke-confirm-submit"
+          (click)="executeRevokeConfirmed()"
+        >
+          {{ 'offers.detail.delete' | translate }}
+        </button>
+      </div>
+    }
+  </div>
+</dialog>

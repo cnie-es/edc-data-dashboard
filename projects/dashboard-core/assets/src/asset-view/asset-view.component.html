@@ -1,0 +1,32 @@
+<!--
+    Copyright (c) 2025 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+
+    This program and the accompanying materials are made available under the
+    terms of the Apache License, Version 2.0 which is available at
+    https://www.apache.org/licenses/LICENSE-2.0
+
+    SPDX-License-Identifier: Apache-2.0
+
+    Contributors:
+         Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V. - initial API and implementation
+-->
+
+<div class="px-4 md:px-6 pb-10">
+  <lib-asset-toolbar />
+
+  <lib-asset-filter-bar
+    [selectedSort]="selectedSort"
+    (searchChanged)="filter($event)"
+    (sortChanged)="sortChanged($event)"
+  />
+
+  <lib-asset-table
+    [pageRows$]="pageRows$"
+    [rows$]="rows$"
+    [filteredRows$]="filteredRows$"
+    [fetched]="fetched"
+    [pageItemCount]="pageItemCount"
+    (openDetails)="openDetails($event)"
+    (pageItemsChanged)="paginationEvent($event)"
+  />
+</div>

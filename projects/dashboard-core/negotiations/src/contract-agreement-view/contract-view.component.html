@@ -1,0 +1,156 @@
+<div class="px-4 md:px-6 pb-10" data-cy="contract-history-page">
+  <lib-breadcrumbs [items]="breadcrumbItemsTranslated"></lib-breadcrumbs>
+
+  <h1 class="text-3xl font-semibold text-(--app-color-primary-darker) mb-3">
+    {{ 'negotiation.history' | translate }}
+  </h1>
+
+  <div class="col-span-full text-left my-6">
+    <hr class="border-t border-gray-300 mb-4 mt-4" />
+  </div>
+
+  @let filtered = filteredRows$ | async;
+
+  <div class="mb-4 flex flex-wrap items-center gap-4">
+    <lib-filter-input
+      [focusShortcut]="['Alt', 'j']"
+      class="min-w-0 grow max-w-md"
+      (inputChange)="onSearchInput($event)"
+    ></lib-filter-input>
+  </div>
+
+  <div class="overflow-x-auto h-full">
+    <table class="table w-full">
+      <thead class="bg-gray-50">
+        <tr>
+          <th>{{ 'negotiation.rol' | translate }}</th>
+          <th>{{ 'negotiation.status' | translate }}</th>
+          <th>{{ 'negotiation.name' | translate }}</th>
+          <th>{{ 'negotiation.connector' | translate }}</th>
+          <th>{{ actionsColumnLabelKey() | translate }}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <ng-container *ngIf="pageRows$ | async as rows">
+          <tr *ngFor="let row of rows; trackBy: trackById" class="hover:bg-base-200/40 transition">
+            <td class="font-semibold text-gray-700">
+              {{ roleLabel(row) }}
+            </td>
+
+            <td class="max-w-xs align-top">
+              <span
+                class="px-2 py-1 rounded-lg text-sm font-semibold inline-block whitespace-normal"
+                [ngClass]="statusBadgeClass(row)"
+              >
+                {{ negotiationStateLabel(row, !isFinalized(row) && !isTerminated(row)) }}
+              </span>
+
+              <div class="text-xs text-gray-500 mt-1 whitespace-normal">
+                {{ row.createdAt | date: 'dd/MM/yyyy' }}
+              </div>
+            </td>
+
+            <td>
+              @if (isAssetNamePending(row)) {
+                <span class="skeleton block h-4 w-48 max-w-full rounded" aria-hidden="true"></span>
+                <span class="sr-only">{{ 'negotiation.assetPending' | translate }}</span>
+              } @else if (canOpenAssetSelfDescription(row)) {
+                <button
+                  type="button"
+                  class="btn btn-link btn-sm px-0 min-h-0 h-auto text-secondary font-semibold"
+                  (click)="openAssetSelfDescription(row, $event)"
+                >
+                  {{ row.displayName }}
+                </button>
+              } @else {
+                <span class="font-semibold text-gray-700">{{ row.displayName }}</span>
+              }
+            </td>
+
+            <td class="text-gray-600">
+              {{ providerLabel(row) }}
+            </td>
+
+            @if (showsPaymentActions(row)) {
+              @let pending = pendingPaymentFor(row);
+              <td class="text-center" (click)="$event.stopPropagation()">
+                @if (pending) {
+                  <div class="flex items-center justify-center gap-4">
+                    <!-- Botón Confirmar -->
+                    <div class="tooltip" [attr.data-tip]="'negotiation.confirm_payment' | translate">
+                      <button
+                        class="flex items-center justify-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                        [disabled]="processingPaymentIds.has(row.negotiationId)"
+                        (click)="confirmPayment(row, $event)"
+                      >
+                        <span class="material-symbols-rounded text-xl">done</span>
+                        {{ 'negotiation.confirm' | translate }}
+                      </button>
+                    </div>
+
+                    <!-- Botón Rechazar -->
+                    <div class="tooltip" [attr.data-tip]="'negotiation.reject_payment' | translate">
+                      <button
+                        class="flex items-center justify-center gap-1.5 rounded-lg bg-red-600 px-4 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                        [disabled]="processingPaymentIds.has(row.negotiationId)"
+                        (click)="rejectPayment(row, $event)"
+                      >
+                        <span class="material-symbols-rounded text-xl">close</span>
+                        {{ 'negotiation.reject' | translate }}
+                      </button>
+                    </div>
+                  </div>
+                } @else {
+                  <span class="text-gray-400">-</span>
+                }
+              </td>
+            } @else {
+              <td class="text-center" (click)="$event.stopPropagation()">
+                @if (isFinalized(row) && isConsumer(row)) {
+                  <button
+                    class="btn btn-sm btn-square bg-base-100 border border-gray-400 shadow-none hover:bg-gray-100"
+                    (click)="openTransferForRow(row, $event)"
+                    aria-label="Transfer"
+                  >
+                    <span class="material-symbols-rounded text-gray-700"> download </span>
+                  </button>
+                } @else if (isFinalized(row)) {
+                  <span class="text-gray-400">-</span>
+                } @else if (isTerminated(row)) {
+                  <span class="text-gray-400">-</span>
+                } @else {
+                  <span class="text-gray-500">{{ 'negotiation.transferPending' | translate }}</span>
+                }
+              </td>
+            }
+          </tr>
+
+          @if (rows.length === 0) {
+            @if (!initialized) {
+              <lib-list-loading-state variant="table" [colspan]="tableColspan" [fetched]="false" />
+            } @else {
+              <lib-list-loading-state variant="table" [colspan]="tableColspan" [fetched]="true">
+                {{ 'negotiation.disponible' | translate }}
+              </lib-list-loading-state>
+            }
+          }
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+
+  @if (filtered && filtered.length > 0) {
+    <div class="shrink-0">
+      <div class="divider mt-6 mb-1"></div>
+      <div class="flex flex-wrap items-center justify-end gap-3">
+        <lib-pagination
+          [items]="filtered"
+          [pageItemCount]="pageItemCount"
+          (pageItems)="paginationEvent($event)"
+          class="shrink-0 rounded-2xl bg-base-300 [&_button:hover]:bg-base-100 [&_.join>button]:first:rounded-l-2xl [&_.join>button]:last:rounded-r-2xl"
+        ></lib-pagination>
+      </div>
+    </div>
+  }
+</div>

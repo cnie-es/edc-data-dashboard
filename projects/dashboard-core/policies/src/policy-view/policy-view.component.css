@@ -1,0 +1,41 @@
+.policy-list-table {
+  table-layout: fixed;
+}
+
+.policy-col-date {
+  width: 11%;
+}
+
+.policy-col-type {
+  width: 12%;
+}
+
+.policy-col-name {
+  width: 28%;
+}
+
+.policy-col-description {
+  width: 38%;
+}
+
+.policy-col-actions {
+  width: 11%;
+}
+
+.policy-list-name-cell,
+.policy-list-description-cell {
+  vertical-align: middle;
+}
+
+.policy-list-name-cell {
+  min-height: 1.25rem;
+}
+
+.policy-list-description-cell {
+  min-height: 2.75rem;
+}
+
+.policy-list-cell-text {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}

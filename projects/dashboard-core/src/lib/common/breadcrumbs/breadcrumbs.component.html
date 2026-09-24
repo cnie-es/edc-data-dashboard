@@ -1,0 +1,22 @@
+<nav class="breadcrumbs mb-2 text-sm">
+  <ul>
+    @for (item of items; track item.label; let isLast = $last) {
+      <li>
+        @if (!isLast) {
+          <button
+            class="link link-hover font-normal text-(--app-color-neutral-darker)"
+            type="button"
+            (click)="onItemSelected(item)"
+          >
+            {{ item.label }}
+          </button>
+        } @else {
+          <span
+            class="font-bold hover:no-underline hover:cursor-default text-(--app-color-neutral-darker)"
+            [textContent]="item.label"
+          ></span>
+        }
+      </li>
+    }
+  </ul>
+</nav>

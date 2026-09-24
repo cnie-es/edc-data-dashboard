@@ -1,0 +1,10 @@
+{
+  "url": "https://keycloak.example.com",
+  "realm": "example-realm",
+  "clientId": "data-dashboard",
+  "authMode": "manual-token",
+  "initOptions": {
+    "onLoad": "login-required",
+    "checkLoginIframe": false
+  }
+}

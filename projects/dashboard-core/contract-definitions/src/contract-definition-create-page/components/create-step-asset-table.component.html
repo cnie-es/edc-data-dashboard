@@ -1,0 +1,102 @@
+<section class="space-y-4">
+  <div>
+    <h2 class="text-xl font-semibold text-base-content">Selección de activo</h2>
+    <p class="mt-1 text-sm text-base-content/65">
+      Selecciona uno de los activos disponibles para comenzar la creación de la oferta.
+    </p>
+  </div>
+
+  <div class="rounded-xl border border-info/25 bg-info/5 p-4 text-sm text-base-content/75">
+    Por motivos de seguridad, la visibilidad en el catálogo público se gestionará en el siguiente paso.
+  </div>
+
+  <lib-contract-definitions-filter-bar
+    [selectedSort]="'newest'"
+    [appliedFilterChips]="appliedFilterChips"
+    [showSearchAndSort]="false"
+    (openFiltersModal)="openFiltersModal()"
+    (removeFilterChip)="clearSingleFilterChip($event.category, $event.value)"
+  />
+
+  <div class="max-w-[360px]" data-cy="create-asset-search">
+    <lib-filter-input (inputChange)="searchChanged.emit($event)" />
+  </div>
+
+  <lib-contract-definitions-filters-modal
+    [assetTypeOptions]="assetTypeOptions"
+    [visibilityOptions]="visibilityOptions"
+    [priceOptions]="priceOptions"
+    [selectedAssetTypeValues]="selectedAssetTypeDraftValues"
+    [selectedVisibility]="selectedVisibilityDraft"
+    [selectedPrice]="selectedPriceDraft"
+    (selectionChanged)="toggleFilterSelection($event)"
+    (visibilityChanged)="draftVisibilityChanged($event)"
+    (priceChanged)="draftPriceChanged($event)"
+    (apply)="applyFilters()"
+  />
+
+  <div class="overflow-hidden rounded-2xl border border-base-300 bg-base-100" data-cy="create-asset-table">
+    <div class="overflow-x-auto">
+      <table class="table w-full text-sm">
+        <thead class="text-xs uppercase tracking-wide text-base-content/60">
+          <tr>
+            <th>
+              <button class="btn btn-ghost btn-xs px-0 normal-case" type="button" (click)="toggleSort.emit()">
+                <span [textContent]="'Fecha creación ' + (sortDirection === 'desc' ? '↓' : '↑')"></span>
+              </button>
+            </th>
+            <th>Tipo</th>
+            <th>Activo</th>
+            <th>Descripción</th>
+            <th class="text-center">Selecciona</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (asset of rows; track asset.id) {
+            <tr [attr.data-cy]="'create-asset-row-' + asset.id">
+              <td class="font-medium text-base-content/75" [textContent]="asset.createdAt"></td>
+              <td class="text-base-content/70" [textContent]="asset.typeLabel"></td>
+              <td>
+                <button
+                  class="link link-primary text-left no-underline hover:underline"
+                  type="button"
+                  [textContent]="asset.title"
+                ></button>
+              </td>
+              <td class="max-w-[460px] text-base-content/70" [textContent]="asset.description"></td>
+              <td class="text-center">
+                <input
+                  type="radio"
+                  name="asset-selection"
+                  class="radio radio-primary radio-sm"
+                  [attr.data-cy]="'create-asset-radio-' + asset.id"
+                  [checked]="selectedAssetId === asset.id"
+                  (change)="selectAsset.emit(asset.id)"
+                />
+              </td>
+            </tr>
+          }
+          @if (rows.length === 0) {
+            <tr>
+              <td colspan="5" class="py-8 text-center text-sm text-base-content/60">
+                No hay activos disponibles con los filtros actuales.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="flex justify-end pt-2">
+    <button
+      data-cy="create-save-continue"
+      class="btn h-11 rounded-xl border-0 bg-primary px-6 text-sm font-semibold text-primary-content normal-case hover:bg-primary/90 disabled:bg-base-300 disabled:text-base-content/60"
+      type="button"
+      [disabled]="!selectedAssetId"
+      (click)="saveAndContinue.emit()"
+    >
+      Guardar y continuar
+    </button>
+  </div>
+</section>

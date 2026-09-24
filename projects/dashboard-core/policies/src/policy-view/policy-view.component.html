@@ -1,0 +1,149 @@
+<div class="px-4 md:px-6 pb-10">
+  <lib-breadcrumbs [items]="breadcrumbItemsTranslated"></lib-breadcrumbs>
+
+  <div class="flex items-center justify-between">
+    <h1 class="text-3xl font-semibold text-(--app-color-primary-darker)">{{ 'policies.policiList' | translate }}</h1>
+
+    <!--<button class="btn btn-lg btn-primary text-white !text-sm border-none" (click)="createPolicy()">
+      {{ 'policies.createpolicy' | translate }}
+    </button> -->
+  </div>
+
+  <hr class="my-6 border-gray-300" />
+
+  <!-- TOOLBAR -->
+  <div class="mb-4 flex flex-wrap items-center gap-4 pb-4">
+    <!-- SEARCH GROUP -->
+    <div class="flex items-center gap-2 grow max-w-md min-w-0">
+      <lib-filter-input class="w-full" (inputChange)="filter($event)"></lib-filter-input>
+    </div>
+
+    <!-- FILTRO DERECHA -->
+    <div class="flex shrink-0 items-center gap-2 md:ml-auto">
+      <span class="text-sm text-info-darker font-bold"> {{ 'policies.viewPolicies' | translate }}: </span>
+
+      <div class="inline-flex rounded-md border border-gray-300 overflow-hidden bg-white">
+        <button
+          type="button"
+          class="px-4 py-2 text-sm font-semibold transition cursor-pointer"
+          [ngClass]="filterType() === 'all' ? 'bg-black text-white' : 'bg-white text-gray-700 hover:bg-gray-100'"
+          (click)="filterType.set('all'); applyTypeFilter()"
+        >
+          {{ 'anytype' | translate }}
+        </button>
+
+        <button
+          type="button"
+          class="px-4 py-2 text-sm font-semibold transition border-l cursor-pointer"
+          [ngClass]="
+            filterType() === 'Contratación' ? 'bg-black text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
+          "
+          (click)="filterType.set('Contratación'); applyTypeFilter()"
+        >
+          {{ 'contract' | translate }}
+        </button>
+
+        <button
+          type="button"
+          class="px-4 py-2 text-sm font-semibold transition border-l cursor-pointer"
+          [ngClass]="
+            filterType() === 'Publicación' ? 'bg-black text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
+          "
+          (click)="filterType.set('Publicación'); applyTypeFilter()"
+        >
+          {{ 'public' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLA -->
+  <div class="overflow-x-auto">
+    <table class="table policy-list-table w-full">
+      <colgroup>
+        <col class="policy-col-date" />
+        <col class="policy-col-type" />
+        <col class="policy-col-name" />
+        <col class="policy-col-description" />
+        <col class="policy-col-actions" />
+      </colgroup>
+      <thead class="bg-gray-50">
+        <tr>
+          <th>{{ 'assets.table.creationDate' | translate }}</th>
+          <th>{{ 'assets.table.type' | translate }}</th>
+          <th>{{ 'assets.table.policy' | translate }}</th>
+          <th>{{ 'assets.table.description' | translate }}</th>
+          <th>{{ 'assets.table.details' | translate }}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (policy of pagePolicies$ | async; track policy.id) {
+          <tr>
+            <td>{{ policy.date }}</td>
+
+            <td>
+              @if (policy.type === 'Contratación') {
+                <span class="badge-contrat px-2 py-1 rounded-lg">
+                  {{ 'contract' | translate }}
+                </span>
+              } @else if (policy.type === 'Publicación') {
+                <span class="badge-publi px-2 py-1 rounded-lg">
+                  {{ 'public' | translate }}
+                </span>
+              } @else {
+                <span class="badge-other px-2 py-1 rounded-lg">
+                  {{ 'policies.list.typeOther' | translate }}
+                </span>
+              }
+            </td>
+
+            <td class="policy-list-name-cell">
+              @if (policy.enrichmentStatus === 'idle' || policy.enrichmentStatus === 'loading') {
+                <div class="skeleton h-4 w-full rounded" aria-hidden="true"></div>
+                <span class="sr-only">{{ 'policies.list.pending' | translate }}</span>
+              } @else {
+                <span class="policy-list-cell-text">{{ policy.name }}</span>
+              }
+            </td>
+            <td class="policy-list-description-cell">
+              @if (policy.enrichmentStatus === 'idle' || policy.enrichmentStatus === 'loading') {
+                <div class="flex flex-col gap-1.5" aria-hidden="true">
+                  <div class="skeleton h-4 w-full rounded"></div>
+                  <div class="skeleton h-4 w-full rounded"></div>
+                </div>
+                <span class="sr-only">{{ 'policies.list.pending' | translate }}</span>
+              } @else {
+                <span class="policy-list-cell-text">{{ policy.description }}</span>
+              }
+            </td>
+
+            <td>
+              <button class="btn btn-sm" (click)="goToDetail(policy)">{{ 'assets.table.view' | translate }}</button>
+            </td>
+          </tr>
+        }
+
+        @if ((filteredPolicies$ | async)?.length === 0 && (filteredPolicies$ | async)) {
+          <tr>
+            <td colspan="5" class="text-center py-8 text-gray-500">{{ 'policies.nopolicies' | translate }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PAGINACIÓN -->
+  @if ((filteredPolicies$ | async)?.length) {
+    <div class="relative z-10 pb-6">
+      <div class="flex flex-row flex-nowrap mb-6 mt-4 justify-end">
+        <lib-pagination
+          [items]="filteredPolicies$ | async"
+          [pageItemCount]="pageItemCount"
+          (pageItems)="paginationEvent($event)"
+          class="rounded-2xl [&_button:hover]:bg-base-100 [&_.join>button]:first:rounded-l-2xl [&_.join>button]:last:rounded-r-2xl"
+        ></lib-pagination>
+      </div>
+    </div>
+  }
+</div>

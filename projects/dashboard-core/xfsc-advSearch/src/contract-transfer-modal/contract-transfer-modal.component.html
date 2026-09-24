@@ -1,0 +1,90 @@
+<div class="contract-transfer-modal flex flex-col items-center w-full max-w-xl">
+  <h1 class="text-xl font-semibold text-center mb-2 w-full">
+    {{ modalTitle }}
+  </h1>
+
+  @if (loading) {
+    <div class="flex justify-center items-center py-10 w-full">
+      <span class="loading loading-bars loading-lg text-primary"></span>
+    </div>
+  } @else if (errorMessage) {
+    <div class="alert alert-error mb-4 w-full">
+      <span>{{ errorMessage }}</span>
+    </div>
+    <button class="btn btn-secondary w-full" type="button" (click)="cancel()">
+      {{ 'contractTransfer.close' | translate }}
+    </button>
+  } @else if (wizardReady) {
+    <div class="w-full flex flex-col gap-4">
+      <ol class="flex list-none flex-col gap-2 p-0 text-sm text-center w-full sm:flex-row sm:justify-center sm:gap-4">
+        <li
+          class="opacity-65"
+          [class.opacity-100]="transferStep === 'transferDetails'"
+          [class.font-bold]="transferStep === 'transferDetails'"
+        >
+          {{ 'contractTransfer.stepDetails' | translate }}
+        </li>
+        <li
+          class="opacity-65"
+          [class.opacity-100]="transferStep === 'transferProcess'"
+          [class.font-bold]="transferStep === 'transferProcess'"
+        >
+          {{ 'contractTransfer.stepProcess' | translate }}
+        </li>
+      </ol>
+
+      <div class="w-full">
+        @if (transferStep === 'transferDetails') {
+          <lib-sd-transfer-resource-sharing />
+        }
+
+        @if (transferStep === 'transferProcess') {
+          <div class="flex flex-col gap-3 w-full">
+            <p class="font-semibold text-center">{{ 'contractTransfer.processTitle' | translate }}</p>
+            <p class="text-sm">
+              {{ 'contractTransfer.processId' | translate }}
+              <span>{{ currentTransferProcessId }}</span>
+            </p>
+            <p class="text-sm">
+              {{ 'contractTransfer.processStatus' | translate }}
+              <span>{{ currentTransferProcessStatus }}</span>
+            </p>
+            @if (isTransferProcessInProgress) {
+              <div class="flex items-center justify-center gap-2">
+                <span class="loading loading-spinner loading-sm text-primary"></span>
+                <span class="text-sm">{{ 'contractTransfer.processInProgress' | translate }}</span>
+              </div>
+            }
+            @if (currentTransferProcessError) {
+              <div class="alert alert-error">
+                <span class="font-semibold">{{ currentTransferProcessError.title }}</span>
+                <span>{{ currentTransferProcessError.description }}</span>
+              </div>
+            }
+            @if (canGoNextTransferStep) {
+              <div class="alert alert-success">{{ 'contractTransfer.processFinalized' | translate }}</div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="flex flex-col gap-2 w-full sm:flex-row">
+        <button class="btn btn-secondary flex-1" type="button" (click)="cancel()">
+          {{ 'contractTransfer.cancel' | translate }}
+        </button>
+        <button
+          class="btn btn-primary flex-1"
+          type="button"
+          (click)="goNextTransferStep()"
+          [disabled]="!canGoNextTransferStep"
+        >
+          {{
+            transferStep === 'transferProcess'
+              ? ('contractTransfer.finish' | translate)
+              : ('contractTransfer.nextStep' | translate)
+          }}
+        </button>
+      </div>
+    </div>
+  }
+</div>

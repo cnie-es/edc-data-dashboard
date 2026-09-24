@@ -1,0 +1,21 @@
+<!--
+    Copyright (c) 2025 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+
+    This program and the accompanying materials are made available under the
+    terms of the Apache License, Version 2.0 which is available at
+    https://www.apache.org/licenses/LICENSE-2.0
+
+    SPDX-License-Identifier: Apache-2.0
+
+    Contributors:
+         Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V. - initial API and implementation
+-->
+
+<div class="w-full">
+  <label
+    class="input h-10 text-sm border border-(--app-color-neutral-lighter) focus-within:border-(--app-color-neutral-lighter) focus-within:outline-none flex w-full items-center gap-2 rounded-md bg-base-100 shadow-none"
+  >
+    <span class="material-symbols-rounded text-base-content/45 text-base!">search</span>
+    <input #filterInput type="text" class="grow" [placeholder]="placeholder ?? ''" (input)="onChange($event)" />
+  </label>
+</div>

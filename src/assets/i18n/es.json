@@ -1,0 +1,769 @@
+{
+  "common": {
+    "error": {
+      "title": "Error"
+    },
+    "errors": {
+      "generic": "Algo salió mal. Por favor, inténtalo de nuevo.",
+      "http": {
+        "sessionExpired": "Tu sesión ha caducado. Inicia sesión de nuevo e inténtalo otra vez.",
+        "forbidden": "No tienes permiso para realizar esta acción.",
+        "unavailable": "El servicio no está disponible en este momento. Inténtalo más tarde.",
+        "network": "No pudimos contactar con el servicio. Comprueba tu conexión e inténtalo de nuevo.",
+        "server": "El servidor tiene problemas en este momento. Inténtalo de nuevo en un momento.",
+        "failedWithStatus": "La solicitud falló ({{status}})."
+      },
+      "edc": {
+        "unknown": "El conector devolvió un error inesperado.",
+        "badRequest": "La solicitud no era válida. Comprueba los datos e inténtalo de nuevo.",
+        "duplicate": "Este recurso ya existe.",
+        "notFound": "No se encontró el recurso solicitado.",
+        "unreachable": "No se pudo contactar con el conector.",
+        "badGateway": "La puerta de enlace del conector devolvió un error."
+      }
+    }
+  },
+  "search": "Buscar",
+  "provider": "Soy proveedor",
+  "consumer": "Soy consumidor",
+  "header": {
+    "conector": "Conector",
+    "support": "Soporte",
+    "logout": "Salir"
+  },
+  "home": {
+    "explore": {
+      "title": "Explorar y compartir",
+      "subtitle": "Conecta, consume y rentabiliza datos lingüísticos, modelos y otros recursos"
+    },
+    "myConnector": {
+      "title": "Mi conector",
+      "subtitle": "Crea, gestiona y supervisa tus activos, políticas y ofertas"
+    },
+    "buttons": {
+      "goCatalog": "Ir al catálogo",
+      "create": "Crear",
+      "view": "Ver"
+    }
+  },
+  "menu": {
+    "home": "Inicio",
+    "exploreShare": "Explorar y compartir",
+    "catalog": "Catálogo de Ofertas",
+    "catalogDesc": "Explora las ofertas de otros conectores en el Espacio de datos.",
+    "contracts": "Negociaciones",
+    "contractsDesc": "Estado de las negociaciones entre los propietarios de los datos.",
+    "transferHistory": "Transferencias",
+    "transferHistoryDesc": "Registro de los intercambios de productos de datos.",
+    "connector": "Mi conector",
+    "assets": "Mis activos",
+    "assetsDesc": "Compártelos con otros usuarios, creando una oferta.",
+    "policies": "Mis políticas",
+    "policiesDesc": "Términos de licencia y políticas de publicación.",
+    "offers": "Mis ofertas",
+    "offersDesc": "Activos + condiciones bajo las cuales los compartes",
+    "storage": "Almacenamiento",
+    "storageDesc": "Puntos finales y ubicaciones de datos del conector disponibles.",
+    "xfscAdvancedSearch": "XFSC Búsqueda Avanzada",
+    "xfscAdvancedSearchDesc": "La vista de búsqueda avanzada XFSC permite buscar y recuperar autodescripciones en el catálogo federado, con consultas por palabras clave y búsqueda avanzada.",
+    "sdTooling": "Herramientas SD",
+    "sdToolingDesc": "La vista SD Tooling ayuda a los usuarios a crear activos self-description con ayuda de plantillas."
+  },
+  "catalog": {
+    "pageTitle": "Catálogo de ofertas del espacio de datos",
+    "offersFrom": "Ofertas de:",
+    "filters": "Filtros:",
+    "filterPlaceholder": "Buscar por id de activo o proveedor…",
+    "addFilters": "+ Añadir filtros",
+    "federatedEnabled": "Catálogo federado activo",
+    "selectConnector": "Seleccionar…",
+    "connectorPickerHint": "Elige un conector configurado o solicita el catálogo manualmente",
+    "negotiate": "Negociar",
+    "details": "Detalles",
+    "detailsAria": "Ver detalles del conjunto de datos",
+    "categoryModel": "Modelo",
+    "categoryCorpus": "Corpus",
+    "categoryDataset": "Conjunto de datos",
+    "categoryOther": "Recurso",
+    "searchFilterPlaceholder": "Filtrar por nombre, descripción…",
+    "searchPrompt": "Usa Buscar para ver ofertas del catálogo.",
+    "noSearchResults": "No se han encontrado ofertas.",
+    "ownOffer": "Tu oferta",
+    "ownOfferHint": "Publicada por este conector. No se puede contratar; ábrela desde Mis ofertas.",
+    "errors": {
+      "invalidCounterParty": "Dirección de contraparte no válida. Comprueba los datos e inténtalo de nuevo.",
+      "requestFailed": "No se pudo solicitar el catálogo de '{{address}}'."
+    },
+    "negotiation": {
+      "noOfferSelected": "No se ha seleccionado ninguna oferta."
+    }
+  },
+  "negotiation": {
+    "history": "Historial de Negociaciones",
+    "rol": "Mi rol",
+    "status": "Estatus / Fecha",
+    "name": "Nombre del activo",
+    "politic": "Política de contratación",
+    "connector": "Conector externo",
+    "transfer": "Transferencia",
+    "consumer": "Soy consumidor",
+    "provider": "Soy proveedor",
+    "search": "Buscar",
+    "disponible": " No hay negociaciones disponibles.",
+    "assetPending": "Pendiente de activo",
+    "transferPending": "Pendiente",
+    "actions": "Acciones",
+    "transferMissingContext": "No se puede iniciar la transferencia: falta el acuerdo de contrato o la dirección del proveedor.",
+    "stateUnknown": "Estado desconocido",
+    "confirm_payment": "Confirmar pago",
+    "reject_payment": "Rechazar pago",
+    "confirm": "Confirmar",
+    "reject": "Rechazar",
+    "state": {
+      "INITIAL": "Creada, inicializando",
+      "REQUESTING": "Enviando la petición de negociación",
+      "REQUESTED": "Recibida la petición de negociación",
+      "OFFERING": "Enviando la oferta",
+      "OFFERED": "Recibida la oferta",
+      "ACCEPTING": "Enviando la aceptación",
+      "ACCEPTED": "Recibida la aceptación",
+      "AGREEING": "Enviando el acuerdo",
+      "AGREED": "Recibido el acuerdo",
+      "VERIFYING": "En verificación (políticas / protocolo)",
+      "VERIFIED": "Verificación completada",
+      "FINALIZING": "Acuerdo en preparación",
+      "FINALIZED": "Acuerdo listo",
+      "TERMINATING": "Cancelando negociación",
+      "TERMINATED": "Rechazada",
+      "PAYMENT_PENDING": "Pendiente de confirmacion"
+    }
+  },
+  "contractTransfer": {
+    "titleWithAsset": "Transferencia — {{asset}}",
+    "titleDefault": "Transferencia de datos",
+    "stepDetails": "1. Detalles de la transferencia",
+    "stepProcess": "2. Proceso de transferencia",
+    "processTitle": "Paso del proceso de transferencia",
+    "processId": "ID del proceso de transferencia:",
+    "processStatus": "Estado actual:",
+    "processInProgress": "Proceso de transferencia en curso…",
+    "processFinalized": "Proceso de transferencia finalizado. Puede terminar.",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "nextStep": "Siguiente paso",
+    "finish": "Finalizar",
+    "loadOfferFailed": "No se pudieron cargar los detalles de la oferta para la transferencia.",
+    "notEligibleForTransfer": "Esta oferta no puede usarse para transferencia. Faltan datos de registro del conector.",
+    "detailsTitle": "Detalles de la transferencia",
+    "sharingMethod": "Método de compartición",
+    "template": "Plantilla",
+    "selectTemplate": "Seleccionar una plantilla",
+    "selectOption": "Seleccionar…",
+    "loadingTemplates": "Cargando plantillas…",
+    "loadingSchema": "Cargando esquema de plantilla…",
+    "arrayPlaceholder": "valor1, valor2, valor3"
+  },
+  "transferProcess": {
+    "list": {
+      "noTransfers": "Aún no hay transferencias.",
+      "noSearchResults": "Ninguna transferencia coincide con su búsqueda.",
+      "loadError": "No se pudo cargar el historial de transferencias."
+    },
+    "stateUnknown": "Estado desconocido",
+    "assetPending": "Pendiente de activo",
+    "policyPending": "Pendiente",
+    "connectorPending": "Pendiente",
+    "columnTransfer": "Transferencia",
+    "transferTypePrefix": "Tipo:",
+    "viewDetails": "Ver detalles",
+    "details": {
+      "title": "Detalle de la transferencia",
+      "properties": "Propiedades",
+      "dataDestination": "Destino de los datos",
+      "privateProperties": "Propiedades privadas",
+      "field": "Campo",
+      "value": "Valor",
+      "noData": "No hay datos disponibles"
+    },
+    "downloadReceivedAria": "Abrir archivo recibido",
+    "preparedTransferAria": "Abrir detalles de la transferencia (lista para iniciar)",
+    "fileNotAvailableYet": "Aún no disponible",
+    "openFileFailed": "No se pudo abrir el archivo recibido.",
+    "pullExecute": {
+      "title": "Ejecutar transferencia Pull",
+      "description": "Configure la solicitud HTTP para ejecutar la transferencia.",
+      "methodGet": "GET",
+      "methodPost": "POST",
+      "paramKey": "Parámetro",
+      "paramValue": "Valor",
+      "addParam": "Añadir parámetro",
+      "removeParam": "Eliminar parámetro",
+      "postBodyLabel": "Cuerpo JSON",
+      "postBodyPlaceholder": "{ \"key\": \"value\" }",
+      "execute": "Ejecutar",
+      "executing": "Ejecutando transferencia…",
+      "downloading": "Descargando…",
+      "missingTransferId": "No hay ID de transferencia disponible.",
+      "fetchEdrFailed": "No se pudo obtener la dirección de datos EDR.",
+      "executeFailed": "No se pudo ejecutar la transferencia pull.",
+      "openAria": "Ejecutar transferencia Pull"
+    },
+    "state": {
+      "INITIAL": "Registrada",
+      "PROVISIONED": "Aprovisionada",
+      "REQUESTED": "Solicitada",
+      "STARTED": "En ejecución",
+      "COMPLETED": "Completada",
+      "SUSPENDED": "Suspendida",
+      "TERMINATED": "Terminada",
+      "DEPROVISIONED": "Desaprovisionada"
+    }
+  },
+  "assets": {
+    "transfer": {
+      "history": "Historial de transferencias",
+      "view": "Ver",
+      "file": "Archivo recibido",
+      "trans_disponible": " No se han encontrado transferencias."
+    },
+    "table": {
+      "creationDate": "Fecha creación",
+      "type": "Tipo",
+      "name": "Nombre del activo",
+      "description": "Descripción",
+      "details": "Detalles",
+      "view": "Ver",
+      "policy": "Nombre de la política",
+      "noAssets": "No hay activos creados aún."
+    },
+    "add_filter": "Añadir filtros",
+    "filters": "Filtros",
+    "myAssets": "Mis activos: Listado",
+    "detail": {
+      "breadcrumbCurrent": "Detalle activo",
+      "backToList": "Ver listado",
+      "assetDescription": "Descripción del activo",
+      "linkedOffersAlert": "Para modificar o eliminar este activo, debes eliminar primero sus ofertas vinculadas.",
+      "errorInvalidId": "No se ha indicado un identificador de autodescripción válido.",
+      "errorLoadFailed": "No se pudo cargar la autodescripción del activo.",
+      "relatedDocs": "Documentación relacionada",
+      "identifier": "Identificador",
+      "reference": "Referencia",
+      "registrationAgency": "Agencia de registro",
+      "cardIdentifier": "Identificador",
+      "fileFormatsTitle": "Formato ficheros",
+      "distribution": "Distribución",
+      "modelProperties": "Propiedades del modelo",
+      "modelType": "Tipo de modelo",
+      "variantOf": "Variante de",
+      "viewModelDetails": "Ver detalles del modelo",
+      "provenance": "Procedencia",
+      "provenanceOriginalSource": "Fuente original",
+      "provenanceIpHolder": "Titular de Derechos de Propiedad Intelectual",
+      "modelFunction": "Función del modelo"
+    }
+  },
+  "connectorConfig": {
+    "errors": {
+      "unhealthy": "El conector no está en buen estado.",
+      "unreachable": "No se pudo contactar con la API predeterminada '{{defaultUrl}}'. Comprueba los datos introducidos."
+    }
+  },
+  "transfer": {
+    "deprovision": {
+      "success": "Se solicitó correctamente la desprovisión del proceso de transferencia '{{id}}'.",
+      "failed": "Error al solicitar la desprovisión del proceso de transferencia '{{id}}'."
+    }
+  },
+  "policies": {
+    "errors": {
+      "invalidPermissionsJson": "JSON no válido para permisos.",
+      "invalidProhibitionsJson": "JSON no válido para prohibiciones.",
+      "invalidObligationsJson": "JSON no válido para obligaciones.",
+      "unknown": "Se produjo un error desconocido."
+    },
+    "createpolicy": "Crear nueva política",
+    "create": {
+      "title": "Crear nueva política",
+      "subtitle": "Selecciona el tipo de política que quieres crear.",
+      "description": "Una política garantiza el uso de tus datos de acuerdo con tus reglas",
+      "contractPolicy": {
+        "title": "Política de contratación",
+        "description": "Define las normas y obligaciones de acceso y uso de tus activos.",
+        "create": "Crear nueva política de contratación",
+        "generateLds": "Generar licencia LDS"
+      },
+      "publicationPolicy": {
+        "title": "Política de publicación",
+        "description": "Define quién puede ver tus activos en el catálogo de ofertas.",
+        "create": "Crear nueva política de publicación"
+      }
+    },
+    "policiList": "Mis políticas: Listado",
+    "nopolicies": "No hay políticas que mostrar",
+    "viewPolicies": "Ver políticas de",
+    "list": {
+      "name": "{{assetName}} · {{action}} · {{assigner}}",
+      "nameNoAssigner": "{{assetName}} · {{action}}",
+      "description": "{{action}}. {{constraint}}",
+      "pending": "Cargando…",
+      "loadError": "No se pudo cargar la definición de la política",
+      "typeOther": "Otro"
+    },
+    "order": "Ordenar por",
+    "recent": "Fecha más reciente",
+    "title": "Título",
+    "type": "Tipo",
+    "detail": {
+      "loading": "Cargando política...",
+      "missingId": "No se ha indicado una política.",
+      "tabLegal": "Texto de Licencia Legal",
+      "tabOdrl": "Formato ODRL",
+      "viewOriginalLicense": "Ver licencia original",
+      "noLicenseUrl": "No hay URL de licencia asociada a esta política en los activos.",
+      "loadingLicense": "Cargando texto de la licencia...",
+      "licenseLoadError": "No se ha podido cargar la licencia.",
+      "loadingOdrl": "Cargando definición ODRL...",
+      "odrlLoadError": "No se ha podido cargar la definición de política (ODRL).",
+      "modalTitle": "Política",
+      "modalCloseAria": "Cerrar"
+    }
+  },
+  "offersL": "Mis ofertas: Listado",
+  "createoffer": "Crear nueva oferta",
+  "active": "Activo",
+  "cpoli": "Política de contratación",
+  "ppoli": "Política de publicación",
+  "anytype": "Cualquier tipo",
+  "contract": "Contratación",
+  "public": "Publicación",
+  "publi": "Revisar y publicar",
+  "offers": {
+    "create": "Crear nueva oferta",
+    "info": "Por motivos de archivo y comerciales, no se permite modificar las ofertas: se deben eliminar y crear nuevas en su lugar.",
+    "list": {
+      "noOffers": "No hay ofertas creadas aún.",
+      "noSearchResults": "No se han encontrado ofertas.",
+      "searchPlaceholder": "Buscar por nombre de oferta…"
+    },
+    "toggle": {
+      "publicCatalog": "Mostrar todas en el catálogo público",
+      "enable": "Activar catálogo público",
+      "disable": "Desactivar catálogo público",
+      "tooltip": "Interruptor global de visibilidad. Si está desactivado, ningún activo será visible en el catálogo público. Si está activado, la visibilidad depende del estado individual de cada activo."
+    },
+    "createPage": {
+      "subtitle": "Selecciona el tipo de activo que quieres crear:",
+      "corpus": {
+        "title": "Corpus",
+        "description": "Datos textuales sin procesar, conjunto de vídeos, etc.",
+        "create": "Crear Corpus"
+      },
+      "lexical": {
+        "title": "Recurso léxico/conceptual",
+        "description": "Diccionario, lista de palabras, ontología, etc.",
+        "create": "Crear Recurso"
+      },
+      "model": {
+        "title": "Modelo",
+        "description": "Modelo lingüístico, LLM, modelo multimodal, etc.",
+        "create": "Crear Modelo"
+      },
+      "service": {
+        "title": "Servicio",
+        "description": "Compartición de datos via API",
+        "create": "Crear oferta con Servicio"
+      },
+      "typeUnavailableCorpus": "No se pueden crear ofertas de tipo corpus actualmente.",
+      "typeUnavailableLexical": "No se pueden crear ofertas de tipo recurso léxico actualmente.",
+      "typeUnavailableModel": "No se pueden crear ofertas de tipo modelo actualmente.",
+      "typeUnavailableApi": "No se pueden crear ofertas de tipo servicio actualmente.",
+      "schemaCatalogLoading": "Cargando tipos de oferta disponibles…",
+      "backToSelection": "< Cambiar tipo de activo"
+    },
+    "detail": {
+      "license": "Licencia",
+      "breadcrumbCurrent": "Detalle oferta",
+      "backToList": "Ver listado",
+      "publicCatalogReadonly": "Mostrar esta oferta también en el catálogo público",
+      "publicCatalogAria": "Visibilidad en catálogo público",
+      "assetDescription": "Descripción del activo",
+      "linguisticVarieties": "Variedades lingüísticas",
+      "region": "Región",
+      "linguisticVariety": "Variedad lingüística",
+      "categories": "Categorías",
+      "keywords": "Palabras clave",
+      "supportType": "Tipo de soporte",
+      "linguisticType": "Tipo lingüístico",
+      "none": "Ninguno",
+      "dataProtection": "Protección de datos",
+      "personalData": "Incluye datos personales",
+      "sensitiveData": "Incluye datos de categoría especial",
+      "anonymized": "Anonimizado",
+      "relatedDocs": "Documentación relacionada",
+      "citation": "Texto de la cita",
+      "cardContracting": "Contratación",
+      "cardPublication": "Publicación",
+      "publicationPlaceholder": "El alcance de publicación lo definen las políticas de su conector.",
+      "viewPolicy": "Ver política",
+      "cardDistribution": "Distribución",
+      "byteSize": "Tamaño (Bytes)",
+      "packageFormat": "Formato empaquetado",
+      "fileFormats": "Formato ficheros",
+      "size": "Tamaño",
+      "documentId": "Identificador",
+      "priceLine": "Precio: {{amount}} {{currency}}",
+      "priceLineWithVat": "Precio: {{amount}} {{currency}} (+IVA)",
+      "errorInvalidId": "Identificador de oferta no válido.",
+      "errorLoadFailed": "No se pudo cargar la autodescripción de la oferta.",
+      "delete": "Eliminar",
+      "deleteAria": "Eliminar esta oferta publicada",
+      "deleteConfirm": "¿Eliminar esta oferta publicada en el catálogo federado? Esta acción no se puede deshacer.",
+      "deleteFailed": "No se pudo eliminar la oferta. Inténtelo de nuevo o compruebe sus permisos.",
+      "deleteDisabledMocks": "No se puede eliminar la oferta mientras use datos simulados sin conexión (modo desarrollo). Conecte un conector real para eliminarla.",
+      "deleteWait": "Espere…",
+      "revokeModalTitle": "Eliminar oferta",
+      "revokeModalCancel": "Cancelar",
+      "revokeModalClose": "Cerrar",
+      "revokeModalDismissAria": "Cerrar cuadro de diálogo",
+      "alternativeTitle": "Título alternativo",
+      "publisher": "Editor",
+      "corpusLicense": "Licencia del corpus",
+      "additionalDetails": "Detalles adicionales",
+      "anonymizationDetails": "Detalles de anonimización",
+      "personalDataDetails": "Detalles de datos personales",
+      "sensitiveDataDetails": "Detalles de datos sensibles",
+      "originalSourceDescription": "Descripción de la fuente original",
+      "classification": "Clasificación",
+      "domain": "Dominio",
+      "corpusSubclass": "Subclase de corpus",
+      "lrType": "Tipo de recurso lingüístico",
+      "annotationType": "Tipo de anotación",
+      "dataProtectionPrinciple": "Principio de protección de datos",
+      "technicalMeasure": "Medida técnica / organizativa",
+      "specificLanguages": "Idiomas específicos",
+      "sourceLanguages": "Idiomas fuente",
+      "targetLanguages": "Idiomas destino",
+      "pivotLanguages": "Idiomas pivote",
+      "technicalInfo": "Información técnica",
+      "contact": "Contacto",
+      "sharingMethod": "Método de compartición",
+      "serviceAccessPoint": "Punto de acceso al servicio",
+      "dataQuality": "Calidad de los datos",
+      "encryption": "Cifrado",
+      "contractTemplateDoc": "Documento de plantilla de contrato",
+      "spatialCoverage": "Cobertura espacial",
+      "temporalCoverage": "Cobertura temporal",
+      "multilingualityType": "Tipo de multilingüismo",
+      "standardsConformance": "Conformidad con estándares",
+      "identification": "Identificación",
+      "identifiers": "Identificadores",
+      "legalCode": "Código legal",
+      "name": "Nombre",
+      "iprHolders": "Titulares de derechos de propiedad intelectual",
+      "serviceProperties": "Propiedades del servicio",
+      "metadataLanguage": "Idioma de los metadatos",
+      "dataProperties": "Propiedades de los datos",
+      "producedBy": "Producido por",
+      "format": "Formato",
+      "openApi": "OpenAPI",
+      "additionalInfo": "Información adicional",
+      "relatedDatasets": "Conjuntos de datos relacionados",
+      "targetUsers": "Usuarios destinatarios",
+      "anonymizationMeasure": "Medida de anonimización",
+      "dataProtectionRegime": "Régimen de protección de datos",
+      "providerDataAddress": "Dirección de datos del proveedor",
+      "dp": {
+        "yes": "Sí",
+        "no": "No",
+        "unknown": "Desconocido"
+      }
+    }
+  },
+  "sdDetails": {
+    "detail": {
+      "titleFallback": "Detalle de autodescripcion",
+      "providerLabel": "Proveedor de la autodescripcion",
+      "selfDescription": "Autodescripcion",
+      "description": "Descripcion",
+      "noDescription": "No hay descripcion disponible.",
+      "offerDetails": "Detalles de la oferta",
+      "price": "Precio",
+      "priceType": "Tipo de precio",
+      "dataFormat": "Formato de datos",
+      "providerEndpoint": "Endpoint del proveedor",
+      "generalServiceProperties": "Propiedades generales del servicio",
+      "name": "Nombre",
+      "offeringType": "Tipo de oferta",
+      "serviceAccessPoint": "Punto de acceso al servicio",
+      "sharingMethodId": "Id del metodo de comparticion",
+      "contractTemplate": "Plantilla de contrato",
+      "document": "Documento",
+      "hashAlgorithm": "Algoritmo hash",
+      "hashValue": "Valor hash",
+      "templateUrl": "URL de la plantilla",
+      "dctConformsTo": "Dct: conforme a",
+      "version": "Version",
+      "noUsagePolicy": "No hay politica de uso disponible.",
+      "accessPolicy": "Politica de acceso",
+      "users": "Usuarios",
+      "user": "Usuario",
+      "actions": "Acciones",
+      "dateConstraint": "Restriccion de fecha",
+      "from": "Desde",
+      "to": "Hasta",
+      "usagePolicy": "Politica de uso",
+      "usageType": "Tipo de uso",
+      "constraint": "Restriccion",
+      "contractPolicyId": "Id de politica de contratacion",
+      "licenseUrl": "URL de licencia",
+      "registration": "Registro",
+      "assetId": "Id del activo",
+      "contractDefinitionId": "Id de definicion de contrato",
+      "servicePolicyId": "Id de politica de servicio",
+      "accessPolicyId": "Id de politica de acceso",
+      "providerInformation": "Informacion del proveedor",
+      "contact": "Contacto",
+      "providedBy": "Proporcionado por",
+      "signature": "Firma",
+      "errorInvalidId": "Identificador de autodescripcion no valido.",
+      "errorLoadFailed": "No se pudieron cargar los detalles de la autodescripcion."
+    },
+    "transfer": {
+      "getData": "Obtener datos",
+      "loadingCatalogOffers": "Cargando ofertas del catalogo...",
+      "contractNegotiation": "Negociacion de contrato",
+      "negotiatingResource": "Se esta negociando el contrato para este recurso.",
+      "negotiationId": "ID de negociacion",
+      "currentStatus": "Estado actual",
+      "negotiationInProgress": "Negociacion en curso...",
+      "negotiationFinalized": "Negociacion finalizada. Continua la transferencia de datos desde Contratos.",
+      "negotiationAprovalPending": "La negociación se ha completado correctamente. Una vez confirmado el pago, podrás descargar el recurso desde el panel de negociaciones.",
+      "negotiationRejectedTitle": "La negociación ha sido rechazada",
+      "negotiationRejectedNoDetail": "El proveedor no ha indicado el motivo. Consulta los registros del conector para más detalle.",
+      "goToContracts": "Ir a Contratos"
+    }
+  },
+  "sdtooling": {
+    "offerTypeHeading": "Tipo de oferta: {{type}}",
+    "backToOfferSelection": "Volver a la selección de tipo de oferta",
+    "schemaLabel": "Esquema",
+    "selectSchema": "Seleccionar esquema",
+    "assetCreatedSuccess": "Activo creado y publicado correctamente.",
+    "assetCreatedSuccessWithId": "Activo creado y publicado correctamente: {{id}}",
+    "templateConfig": "Configuración de plantilla",
+    "resourceSharingMethod": "Método de compartición de recursos",
+    "selectSharingMethod": "Selecciona un método de compartición...",
+    "sourceTemplate": "Plantilla de origen",
+    "selectOption": "Seleccionar...",
+    "selectUsageAssignee": "Seleccionar cesionario de uso...",
+    "selectAction": "Seleccionar acción...",
+    "selectAttribute": "Seleccionar atributo...",
+    "reviewBeforeSubmit": "Revisar antes de enviar",
+    "reviewIntro": "Revisa los metadatos y valores del envío antes de crear la autodescripción.",
+    "schemaColon": "Esquema:",
+    "schemaIdColon": "ID del esquema:",
+    "sharingMethodColon": "Método de compartición:",
+    "templateColon": "Plantilla:",
+    "noValuesToReview": "Aún no hay valores seleccionados para revisar.",
+    "createSd": "Crear SD",
+    "submitting": "Enviando...",
+    "stepSummary": "Resumen",
+    "stepSummaryDesc": "Revisa y envía tu autodescripción.",
+    "stepFillSection": "Completa {{section}}.",
+    "yes": "Sí",
+    "no": "No",
+    "usageDeletionAfter": "Eliminación tras el uso",
+    "usageRestrictedNumber": "Número restringido de usos",
+    "usageRestrictedDuration": "Duración restringida del uso",
+    "assetPropertiesTitle": "Propiedades del activo",
+    "delete": "Eliminar",
+    "usageAssignee": "Cesionario de uso",
+    "usageType": "Tipo de uso",
+    "numberOfUsages": "Número de usos",
+    "fromDate": "Fecha desde",
+    "toDate": "Fecha hasta",
+    "action": "Acción",
+    "attribute": "Atributo",
+    "addPolicy": "Añadir política",
+    "policyFieldRequired": "Campo obligatorio.",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "saveAndContinue": "Guardar y continuar",
+    "stepOf": "Paso {{current}} de {{total}}",
+    "add_item": "Añadir item",
+    "placeholder_add_val": "Escribe un valor y haz clic en Añadir",
+    "errors": {
+      "schemasLoad": "No se pudieron cargar los esquemas de servicio en este momento.",
+      "invalidResourceType": "Selecciona un esquema con un tipo de recurso válido.",
+      "schemaFormatUnsupported": "Este formato de esquema no es compatible con la creación de SD todavía.",
+      "schemaContentLoad": "No se pudo cargar el contenido del esquema.",
+      "sharingMethodsLoad": "No se pudieron cargar los métodos de compartición.",
+      "templatesLoad": "No se pudieron cargar las plantillas para este método de compartición.",
+      "templateDetailsLoad": "No se pudieron cargar los detalles de la plantilla.",
+      "policyActionsLoad": "No se pudieron cargar las opciones de acción de política.",
+      "policyAttributesLoad": "No se pudieron cargar las opciones de atributo de política.",
+      "dynamicFormUnsupported": "Este esquema aún no se puede mostrar como formulario dinámico.",
+      "missingContext": "Falta el contexto de esquema/formulario. Vuelve a seleccionar un esquema.",
+      "selectSharingMethodSubmit": "Selecciona un método de compartición.",
+      "selectTemplateSubmit": "Selecciona una plantilla.",
+      "schemaNotListed": "Este esquema no está listado para SD Tooling y no se proporcionaron metadatos válidos. Ábrelo desde la creación de ofertas.",
+      "templateError": "Error de plantilla"
+    },
+    "blockReason": {
+      "selectSchema": "Selecciona un esquema para continuar.",
+      "waitSchemaDetails": "Espera a que se carguen los detalles del esquema.",
+      "completeSection": "Completa los campos obligatorios en \"{{section}}\" para continuar.",
+      "selectSharingMethod": "Selecciona un método de compartición de recursos para continuar.",
+      "selectTemplate": "Selecciona una plantilla de origen para continuar.",
+      "waitTemplateDetails": "Espera a que se carguen los detalles de la plantilla.",
+      "completeTemplateFields": "Completa los campos de la plantilla para continuar."
+    }
+  },
+  "dynamicForm": {
+    "fieldRequired": "{{label}} es obligatorio.",
+    "fieldMinLength": "{{label}} debe tener al menos {{min}} caracteres.",
+    "fieldMaxLength": "{{label}} debe tener como máximo {{max}} caracteres.",
+    "fieldMin": "{{label}} debe ser al menos {{min}}.",
+    "fieldMax": "{{label}} debe ser como máximo {{max}}.",
+    "fieldInvalidFormat": "{{label}} tiene un formato no válido.",
+    "fieldMaxItems": "{{label}} permite como máximo {{max}} valores.",
+    "fieldMinItems": "{{label}} requiere al menos {{min}} valores.",
+    "fieldItemMinLength": "{{label}} contiene valores con menos de {{min}} caracteres.",
+    "fieldObjectArrayRequired": "{{label}} requiere todos los campos obligatorios en cada elemento.",
+    "objectArrayNestedErrors": "Corrija los campos resaltados abajo en {{label}}.",
+    "policyCardIncomplete": "Corrija los campos resaltados de las políticas en {{label}}.",
+    "fieldInvalidUri": "{{label}} debe ser una URL válida.",
+    "fieldCheck": "Comprueba {{label}} e inténtalo de nuevo."
+  },
+  "xfsc": {
+    "simpleSearch": "Búsqueda simple",
+    "advancedSearch": "Búsqueda avanzada",
+    "listTitle": "Lista de todas las autodescripciones disponibles",
+    "listDesc": "Esta es la lista de autodescripciones según los filtros especificados.",
+    "advancedTitle": "Búsqueda avanzada",
+    "advancedDesc": "Elige un esquema y aplica filtros para ejecutar la búsqueda avanzada.",
+    "selectSchemaPrompt": "Selecciona un esquema y completa los filtros para ejecutar la búsqueda avanzada.",
+    "schema": "Esquema",
+    "selectSchema": "Selecciona un esquema...",
+    "loadingOptions": "Cargando opciones del esquema...",
+    "loadingFields": "Cargando campos del esquema seleccionado...",
+    "clear": "Limpiar",
+    "search": "Buscar",
+    "payloadPreview": "Vista previa del payload de búsqueda",
+    "curlPreview": "Vista previa cURL (modo bypass)",
+    "endpoint": "Endpoint:",
+    "copyCurl": "Copiar cURL",
+    "copyPayload": "Copiar payload",
+    "arrayPlaceholder": "valor1, valor2, valor3",
+    "fieldRequired": "{{label}} es obligatorio.",
+    "fieldMinLength": "{{label}} debe tener al menos {{min}} caracteres.",
+    "fieldMaxLength": "{{label}} debe tener como máximo {{max}} caracteres.",
+    "fieldMin": "{{label}} debe ser al menos {{min}}.",
+    "fieldMax": "{{label}} debe ser como máximo {{max}}.",
+    "fieldInvalid": "{{label}} no es válido.",
+    "fieldCheck": "Comprueba {{label}} e inténtalo de nuevo.",
+    "copiedCurl": "cURL copiado al portapapeles.",
+    "copiedPayload": "Payload copiado al portapapeles.",
+    "errors": {
+      "schemaLoad": "No se pudo cargar este esquema. Inténtalo de nuevo o elige otro.",
+      "schemaFormatUnsupported": "Este formato de esquema no es compatible con la búsqueda avanzada todavía.",
+      "dynamicFormUnsupported": "Este esquema aún no se puede mostrar como formulario de búsqueda avanzada.",
+      "sessionExpired": "Tu sesión ha caducado. Vuelve a iniciar sesión e inténtalo de nuevo.",
+      "forbidden": "No tienes permiso para ejecutar esta búsqueda.",
+      "unavailable": "El servicio de búsqueda no está disponible en este momento. Inténtalo más tarde.",
+      "network": "No se pudo contactar con el servicio de búsqueda. Comprueba tu conexión e inténtalo de nuevo.",
+      "server": "El servidor tiene problemas en este momento. Inténtalo de nuevo en un momento.",
+      "failedWithStatus": "La solicitud de búsqueda falló ({{status}})."
+    }
+  },
+  "storage": {
+    "table": {
+      "name": "Nombre",
+      "type": "Tipo",
+      "url": "URL"
+    }
+  },
+  "app": {
+    "configError": {
+      "dialogMissing": "Falta el contenedor del diálogo del panel.",
+      "title": "Error de configuración",
+      "appConfigMissing": "Falta la configuración de la aplicación. Deben definirse los elementos del menú."
+    },
+    "logout": {
+      "title": "Cerrar sesión",
+      "notConfigured": "La acción de cerrar sesión aún no está configurada.",
+      "failed": "No se pudo cerrar sesión. Inténtalo de nuevo."
+    }
+  },
+  "storageloc": "Ubicaciones de almacenamiento disponibles",
+  "createsd": "Crear auto-descripciones mediante pasos visuales",
+  "loading": "Cargando opciones del esquema...",
+  "schema": "Esquema del servicio",
+  "selecechema": "Seleccionar esquema",
+  "preparing": "Preparando los detalles del esquema seleccionado...",
+  "selecmethod": "Selecciona un método de compartición...",
+  "selectemp": "Selecciona una plantilla...",
+  "loadtemp": "Cargando plantillas...",
+  "loaddetail": "Cargando detalles de la plantilla...",
+  "show_items_per_page": "Mostrar {{count}} elementos por página",
+  "pagination": {
+    "page": "Página {{page}}"
+  },
+  "policy": {
+    "access": {
+      "action": {
+        "search": "Buscar en catálogo",
+        "consume": "Consumir el recurso",
+        "restrictedConsume": "Consumo restringido",
+        "unknown": "Acción de acceso desconocida"
+      }
+    },
+    "contract": {
+      "action": {
+        "consume": "Consumir el recurso",
+        "use": "Uso del recurso",
+        "unknown": "Acción de contratación desconocida"
+      }
+    },
+    "constraint": {
+      "validFrom": "Válido desde {{from}}",
+      "validTo": "Válido hasta {{to}}",
+      "validRange": "Válida del {{from}} al {{to}}",
+      "openEnded": "Sin límite de vigencia"
+    }
+  },
+  "language": {
+    "es": "Español",
+    "en": "Inglés",
+    "de": "Alemán",
+    "fr": "Francés"
+  },
+  "region": {
+    "ES": "España",
+    "US": "Estados Unidos"
+  },
+  "filters": {
+    "category": {
+      "assetType": "Tipo de activo",
+      "visibility": "Visibilidad",
+      "price": "Precio"
+    },
+    "visibility": {
+      "all": "Todos",
+      "public": "Catálogo público",
+      "private": "Catálogo no público"
+    },
+    "price": {
+      "all": "Todos",
+      "free": "Gratis",
+      "paid": "De pago"
+    },
+    "assetType": {
+      "corpus": "Corpus",
+      "mlmodel": "Modelo",
+      "api": "API",
+      "lexicalconceptualresource": "Recurso léxico-conceptual"
+    }
+  }
+}

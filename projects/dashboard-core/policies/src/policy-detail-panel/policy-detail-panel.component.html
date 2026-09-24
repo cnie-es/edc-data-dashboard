@@ -1,0 +1,56 @@
+<div class="tabs mb-4 border-b">
+  <button
+    type="button"
+    class="tab tab-bordered"
+    [class.tab-active]="activeTab() === 'legal'"
+    [class.font-bold]="activeTab() === 'legal'"
+    (click)="setTab('legal')"
+  >
+    {{ 'policies.detail.tabLegal' | translate }}
+  </button>
+
+  <button
+    type="button"
+    class="tab tab-bordered"
+    [class.tab-active]="activeTab() === 'odrl'"
+    [class.font-bold]="activeTab() === 'odrl'"
+    (click)="setTab('odrl')"
+  >
+    {{ 'policies.detail.tabOdrl' | translate }}
+  </button>
+</div>
+
+<div
+  class="border rounded-lg p-4 bg-base-100 overflow-auto"
+  [class.min-h-[24rem]]="!embedded()"
+  [class.max-h-[70vh]]="!embedded()"
+  [class.max-h-[60vh]]="embedded()"
+>
+  @if (activeTab() === 'legal') {
+    <div class="space-y-2 text-sm">
+      @if (!licenseUrl()) {
+        <p class="text-gray-600">{{ 'policies.detail.noLicenseUrl' | translate }}</p>
+      } @else if (licenseLoading()) {
+        <p class="text-gray-600">{{ 'policies.detail.loadingLicense' | translate }}</p>
+      } @else if (licenseLoadFailed()) {
+        <p class="text-error" role="alert">{{ 'policies.detail.licenseLoadError' | translate }}</p>
+      } @else if (licenseText(); as text) {
+        <pre class="mx-auto max-w-3xl w-full whitespace-pre-wrap font-sans text-sm leading-relaxed text-left">{{
+          text
+        }}</pre>
+      }
+    </div>
+  } @else {
+    <div class="space-y-2 text-sm">
+      @if (!policyId()) {
+        <p class="text-gray-600">{{ 'policies.detail.missingId' | translate }}</p>
+      } @else if (odrlLoading()) {
+        <p class="text-gray-600">{{ 'policies.detail.loadingOdrl' | translate }}</p>
+      } @else if (odrlLoadFailed()) {
+        <p class="text-error" role="alert">{{ 'policies.detail.odrlLoadError' | translate }}</p>
+      } @else if (odrlJson(); as json) {
+        <pre class="mx-auto max-w-3xl w-full whitespace-pre-wrap text-xs font-mono text-left">{{ json }}</pre>
+      }
+    </div>
+  }
+</div>

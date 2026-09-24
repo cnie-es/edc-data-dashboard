@@ -1,0 +1,25 @@
+[
+  {
+    "@id": "offer-detail-asset-01",
+    "@type": "Asset",
+    "accessPolicyId": "test-policy1",
+    "contractPolicyId": "test-policy2",
+    "properties": {
+      "name": "Offer detail e2e asset",
+      "id": "offer-detail-asset-01",
+      "offer.offer_name": "ABSITA dataset1",
+      "offer.offerID": "mock-corpus-offering-001",
+      "offer.isPublic": "true",
+      "offer.isFree": "true",
+      "assetType": "ms:Corpus",
+      "assetDescription": "E2E asset for Mis ofertas offer detail.",
+      "createdAt": "2026-01-15T10:00:00.000Z"
+    },
+    "dataAddress": {
+      "@type": "DataAddress",
+      "type": "HttpData",
+      "name": "Offer detail asset",
+      "baseUrl": "https://httpbin.org/get"
+    }
+  }
+]

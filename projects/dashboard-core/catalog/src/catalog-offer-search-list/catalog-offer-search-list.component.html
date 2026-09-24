@@ -1,0 +1,62 @@
+<div class="mb-4 flex flex-wrap items-center gap-4">
+  <div class="flex min-w-0 grow max-w-md items-center gap-2">
+    <lib-filter-input
+      [placeholder]="'catalog.searchFilterPlaceholder' | translate"
+      [focusShortcut]="['Alt', 'j']"
+      class="w-full"
+      (inputChange)="updateSimpleQuery($event)"
+      (keydown.enter)="executeSimpleSearch(); $event.preventDefault()"
+    ></lib-filter-input>
+    <button
+      class="btn btn-md shrink-0 rounded-md border border-base-300 bg-base-100 text-base-content/85 shadow-none flex items-center gap-1"
+      type="button"
+      (click)="executeSimpleSearch()"
+    >
+      <span class="material-symbols-rounded text-base!">search</span>
+      {{ 'search' | translate }}
+    </button>
+  </div>
+</div>
+
+@if (errorMessage) {
+  <div class="alert alert-error mb-4">
+    <span [innerText]="errorMessage"></span>
+  </div>
+}
+
+<div id="card-list-container" class="grid w-full gap-4 grid-cols-1 md:grid-cols-2">
+  @for (offerCard of pageCards; track offerCard.offerSelfDescriptionId || $index) {
+    <lib-contract-definition-card
+      class="block w-full max-w-2xl mx-auto shadow-xl rounded-2xl [&_>.card]:h-full"
+      [contractDefinition]="offerCard"
+      [showButtons]="true"
+      [isOwnOffer]="isOwnOffer(offerCard)"
+      (openDetailsEvent)="openDetails($event)"
+    ></lib-contract-definition-card>
+  }
+  @if (searchSummaries.length === 0) {
+    <lib-list-loading-state variant="grid" [fetched]="!loading">
+      @if (!hasCompletedSearch) {
+        <p class="text-sm text-base-content/80">{{ 'catalog.searchPrompt' | translate }}</p>
+      } @else {
+        <p class="text-sm text-base-content/80">{{ 'catalog.noSearchResults' | translate }}</p>
+      }
+    </lib-list-loading-state>
+  }
+</div>
+
+@if (searchSummaries.length > 0) {
+  <div class="divider mt-6 mb-1"></div>
+
+  <div class="flex justify-end items-center gap-3">
+    <lib-pagination
+      [totalItems]="totalCount"
+      [externalCurrentPage]="currentPageIndex"
+      [pageItemCount]="pageSize"
+      (pageChange)="onPageChange($event)"
+      class="shrink-0"
+      [class.pointer-events-none]="loading"
+      [class.opacity-50]="loading"
+    ></lib-pagination>
+  </div>
+}

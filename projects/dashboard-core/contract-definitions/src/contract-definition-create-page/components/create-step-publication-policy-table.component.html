@@ -1,0 +1,90 @@
+<section class="space-y-4">
+  <div>
+    <h2 class="text-xl font-semibold text-base-content">Política de publicación</h2>
+    <p class="mt-1 text-sm text-base-content/70">
+      Revisa y selecciona quién podrá ver esta oferta dentro del catálogo interno de los conectores.
+    </p>
+  </div>
+
+  <div class="max-w-[360px]" data-cy="create-publication-policy-search">
+    <lib-filter-input (inputChange)="searchChanged.emit($event)" />
+  </div>
+
+  <div class="overflow-hidden rounded-2xl border border-base-300 bg-base-100" data-cy="create-publication-policy-table">
+    <div class="overflow-x-auto">
+      <table class="table w-full text-sm">
+        <thead class="text-xs uppercase tracking-wide text-base-content/60">
+          <tr>
+            <th>
+              <button class="btn btn-ghost btn-xs px-0 normal-case" type="button" (click)="toggleSort.emit()">
+                <span [textContent]="'Fecha creación ' + (sortDirection === 'desc' ? '↓' : '↑')"></span>
+              </button>
+            </th>
+            <th>Tipo</th>
+            <th>Política</th>
+            <th>Descripción</th>
+            <th class="text-center">Selecciona</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (policy of rows; track policy.id) {
+            <tr [attr.data-cy]="'create-publication-policy-row-' + policy.id">
+              <td class="font-medium text-base-content/75" [textContent]="policy.createdAt"></td>
+              <td>
+                <span
+                  class="badge badge-primary badge-soft border-0 rounded-sm"
+                  [textContent]="policy.typeLabel"
+                ></span>
+              </td>
+              <td>
+                <button
+                  class="link link-primary text-left no-underline hover:underline"
+                  type="button"
+                  [textContent]="policy.title"
+                ></button>
+              </td>
+              <td class="max-w-[460px] text-base-content/70" [textContent]="policy.description"></td>
+              <td class="text-center">
+                <input
+                  type="radio"
+                  name="publication-policy-selection"
+                  class="radio radio-primary radio-sm"
+                  [attr.data-cy]="'create-publication-policy-radio-' + policy.id"
+                  [checked]="selectedPolicyId === policy.id"
+                  (change)="selectPolicy.emit(policy.id)"
+                />
+              </td>
+            </tr>
+          }
+          @if (rows.length === 0) {
+            <tr>
+              <td colspan="5" class="py-8 text-center text-sm text-base-content/60">
+                No hay políticas de publicación disponibles con los filtros actuales.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="flex justify-end gap-3 pt-2">
+    <button
+      class="btn h-11 rounded-xl border border-base-300 bg-base-100 px-6 text-sm font-semibold text-base-content normal-case hover:bg-base-200"
+      type="button"
+      data-cy="create-step3-previous"
+      (click)="previous.emit()"
+    >
+      Paso anterior
+    </button>
+    <button
+      data-cy="create-step3-save-continue"
+      class="btn h-11 rounded-xl border-0 bg-primary px-6 text-sm font-semibold text-primary-content normal-case hover:bg-primary/90 disabled:bg-base-300 disabled:text-base-content/60"
+      type="button"
+      [disabled]="!selectedPolicyId"
+      (click)="saveAndContinue.emit()"
+    >
+      Guardar y continuar
+    </button>
+  </div>
+</section>

@@ -1,0 +1,169 @@
+<div class="card grow bg-base-100 border border-(--app-color-info-lightest) rounded-none">
+  <div class="card-body gap-0">
+    @if (isPolicyPending()) {
+      <div class="offer-card-skeleton" aria-hidden="true">
+        <div class="mb-0.5 flex items-center gap-1">
+          <span class="material-symbols-rounded shrink-0 text-sm! text-(--app-color-info-darker)">stacks</span>
+          <span class="skeleton block h-4 min-w-0 grow rounded"></span>
+        </div>
+
+        <div class="offer-card-title-skeleton mb-2 border-b border-(--app-color-neutral-lighter) pb-3 pt-1">
+          <span class="skeleton block h-7 w-4/5 max-w-md rounded"></span>
+        </div>
+
+        <div class="mb-3 mt-2 flex flex-wrap items-center gap-2">
+          <span class="skeleton h-6 w-20 rounded-md"></span>
+          <span class="skeleton h-6 w-24 rounded-md"></span>
+          <span class="skeleton h-6 w-28 rounded-lg"></span>
+        </div>
+
+        <div class="offer-card-description-skeleton mb-3 flex flex-col gap-1.5">
+          <span class="skeleton block h-4 w-full rounded"></span>
+          <span class="skeleton block h-4 w-full rounded"></span>
+          <span class="skeleton block h-4 w-3/5 rounded"></span>
+        </div>
+
+        <div class="mb-3 border border-(--app-color-neutral-lighter) bg-base-100 px-3 py-2">
+          <span class="font-semibold text-md">{{ 'offers.detail.license' | translate }}: </span>
+          <span class="offer-card-policy-skeleton mt-1 block">
+            <span class="flex flex-col gap-1.5">
+              <span class="skeleton block h-4 w-full rounded"></span>
+              <span class="skeleton block h-4 w-full rounded"></span>
+            </span>
+          </span>
+        </div>
+
+        @if (showButtons) {
+          <div class="card-actions mt-auto flex items-center justify-between">
+            <span class="skeleton h-6 w-32 rounded"></span>
+            <span class="skeleton h-10 w-28 rounded-xl"></span>
+          </div>
+        } @else {
+          <div class="mt-auto">
+            <span class="skeleton block h-6 w-32 rounded"></span>
+          </div>
+        }
+      </div>
+      <span class="sr-only">{{ 'policies.list.pending' | translate }}</span>
+    } @else {
+      <div class="mb-0.5 text-sm text-(--app-color-info-darker) flex items-center gap-1">
+        <span class="material-symbols-rounded shrink-0 text-sm!">stacks</span>
+        <span
+          class="min-w-0 grow offer-card-provider-text"
+          [textContent]="resolvedProvider || contractDefinition.providerLabel"
+        ></span>
+      </div>
+
+      <div class="mb-2 border-b border-(--app-color-neutral-lighter) pb-3">
+        <h3 class="text-xl font-medium leading-tight text-(--app-color-info-darker)">{{ contractDefinition.title }}</h3>
+      </div>
+
+      <div class="flex items-center gap-2 mb-3 mt-2 text-xs">
+        <span
+          class="badge badge-info badge-soft rounded-md font-medium bg-(--app-color-accent-bg-light) border-0 text-(--app-color-primary-dark)"
+          [textContent]="getAssetTypeKey(contractDefinition.subtitle) | translate"
+        >
+        </span>
+        <span
+          class="text-md text-(--app-color-neutral) font-semibold border border-(--app-color-neutral-lighter) rounded-md px-2 py-1"
+          [textContent]="formatPublishedDate(contractDefinition.publishedAt)"
+        ></span>
+        <span
+          class="flex items-center gap-1 badge badge-ghost bg-none rounded-lg border-1.5 border-(--app-color-neutral) text-(--app-color-neutral-dark)"
+        >
+          <span class="material-symbols-rounded text-[1.3rem]!">visibility</span>
+          <span class="text-(--app-color-neutral-dark)" [textContent]="contractDefinition.statusBadge"></span>
+        </span>
+        @if (isOwnOffer) {
+          <span
+            data-cy="offer-own-badge"
+            class="flex items-center gap-1 badge badge-ghost rounded-md border-0 bg-(--app-color-neutral-bg) font-medium text-(--app-color-neutral-dark)"
+            [title]="'catalog.ownOfferHint' | translate"
+          >
+            <span class="material-symbols-rounded text-[1.1rem]!">person</span>
+            <span>{{ 'catalog.ownOffer' | translate }}</span>
+          </span>
+        }
+      </div>
+
+      <p
+        class="text-md text-(--app-color-neutral-dark) mb-3 leading-6 offer-card-description-text"
+        [textContent]="contractDefinition.description"
+      ></p>
+
+      @if (contractDefinition.keywords.length) {
+        <div class="mb-3 flex flex-wrap gap-1.5">
+          @for (keyword of contractDefinition.keywords; track keyword) {
+            <span
+              class="offer-card-keyword-pill inline-flex items-center rounded-full bg-(--app-color-neutral-bg) px-2.5 py-0.5 text-xs font-medium text-(--app-color-neutral-dark)"
+              [textContent]="keyword"
+            ></span>
+          }
+        </div>
+      }
+
+      @if (contractDefinition.license.title || contractDefinition.license.spdx || contractDefinition.license.url) {
+        <div class="border border-(--app-color-neutral-lighter) bg-base-100 px-3 py-2 mb-3">
+          <span class="font-semibold text-md">{{ 'offers.detail.license' | translate }} :</span>
+
+          @if (contractDefinition.license.title) {
+            <div
+              class="text-md text-(--app-color-neutral-darker) offer-card-license-text"
+              [textContent]="contractDefinition.license.title"
+            ></div>
+          }
+          @if (contractDefinition.license.url) {
+            <a
+              class="offer-card-license-text block text-md text-(--app-color-primary-dark) underline"
+              [href]="contractDefinition.license.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              >{{ contractDefinition.license.url }}</a
+            >
+          }
+          @if (contractDefinition.license.spdx) {
+            <div class="mt-0.5 text-sm text-(--app-color-neutral)">
+              <span class="font-medium">SPDX:</span>
+              <span [textContent]="contractDefinition.license.spdx"></span>
+            </div>
+          }
+        </div>
+      }
+
+      @if (showButtons) {
+        <div class="card-actions justify-between items-center mt-auto">
+          <div class="text-(--app-color-success-dark) font-semibold text-lg flex items-center">
+            <span class="material-symbols-rounded align-middle text-base! mr-1">euro_symbol</span>
+            <span>{{
+              'offers.detail.priceLine' | translate: { amount: contractDefinition.priceLabel, currency: '' }
+            }}</span>
+          </div>
+
+          @if (!isOwnOffer) {
+            <button
+              type="button"
+              data-cy="offer-view-details"
+              class="btn btn-soft btn-md bg-(--app-color-neutral-bg) border-(--app-color-neutral-lighter) text-base-content"
+              [disabled]="disableOpenDetails || !contractDefinition.offerSelfDescriptionId"
+              (click)="openDetailsEvent.emit(contractDefinition)"
+            >
+              {{ 'catalog.details' | translate }}
+            </button>
+          }
+        </div>
+        @if (isOwnOffer) {
+          <p data-cy="offer-own-hint" class="mt-2 text-sm font-medium text-(--app-color-danger-dark)">
+            {{ 'catalog.ownOfferHint' | translate }}
+          </p>
+        }
+      } @else {
+        <div class="mt-auto flex items-center gap-2 text-(--app-color-success-dark) font-semibold text-lg">
+          <span class="material-symbols-rounded align-middle text-base! mr-1">euro_symbol</span>
+          <span>{{
+            'offers.detail.priceLine' | translate: { amount: contractDefinition.priceLabel, currency: '' }
+          }}</span>
+        </div>
+      }
+    }
+  </div>
+</div>

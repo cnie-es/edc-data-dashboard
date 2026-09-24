@@ -1,0 +1,80 @@
+<!--
+    Copyright (c) 2025 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+
+    This program and the accompanying materials are made available under the
+    terms of the Apache License, Version 2.0 which is available at
+    https://www.apache.org/licenses/LICENSE-2.0
+
+    SPDX-License-Identifier: Apache-2.0
+
+    Contributors:
+         Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V. - initial API and implementation
+-->
+
+@if (keys.length > 0) {
+  @if (variant === 'bordered') {
+    <table class="w-full border-collapse border border-gray-200 text-sm">
+      <thead>
+        <tr>
+          <th class="border border-gray-200 px-3 py-2 text-left font-semibold text-(--app-color-primary-dark)">
+            {{ keyHeader }}
+          </th>
+          <th class="border border-gray-200 px-3 py-2 text-left font-semibold text-(--app-color-primary-dark)">
+            {{ valueHeader }}
+          </th>
+          @if (deleteButton) {
+            <th class="border border-gray-200 px-3 py-2"></th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (key of keys; track key) {
+          <tr>
+            <td class="border border-gray-200 px-3 py-2 text-gray-900">{{ key }}</td>
+            <td class="border border-gray-200 px-3 py-2 font-semibold text-gray-900">
+              {{ formatValue(object[key]) }}
+            </td>
+            @if (deleteButton) {
+              <td class="border border-gray-200 px-3 py-2">
+                <div class="tooltip" data-tip="Delete">
+                  <button type="button" class="btn btn-xs btn-circle btn-error" (click)="delete.emit(key)">
+                    <span class="h-4 w-4 !text-[1rem] material-symbols-rounded">delete_forever</span>
+                  </button>
+                </div>
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>{{ keyHeader }}</th>
+          <th>{{ valueHeader }}</th>
+          @if (deleteButton) {
+            <th></th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (key of keys; track key) {
+          <tr>
+            <td>{{ key }}</td>
+            <td>{{ object[key] | json }}</td>
+            @if (deleteButton) {
+              <td>
+                <div class="tooltip" data-tip="Delete">
+                  <button type="button" class="btn btn-xs btn-circle btn-error" (click)="delete.emit(key)">
+                    <span class="h-4 w-4 !text-[1rem] material-symbols-rounded">delete_forever</span>
+                  </button>
+                </div>
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+}

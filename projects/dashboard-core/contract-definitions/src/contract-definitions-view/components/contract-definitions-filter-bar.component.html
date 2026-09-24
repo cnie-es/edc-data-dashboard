@@ -1,0 +1,52 @@
+<div class="mb-3 bg-base-200 px-3 py-2 flex items-center gap-2">
+  <span class="text-sm text-base-content/80"> {{ 'assets.filters' | translate }}:</span>
+  <button
+    class="btn btn-md rounded-full border border-dotted border-base-300 bg-base-100 text-base-content/85 shadow-none"
+    type="button"
+    data-cy="open-filters-modal"
+    (click)="openFiltersModal.emit()"
+  >
+    <span class="material-symbols-rounded text-base!">add</span>
+    {{ 'assets.add_filter' | translate }}
+  </button>
+  @if (appliedFilterChips.length > 0) {
+    <div class="flex flex-wrap items-center gap-2" data-cy="applied-filter-chips">
+      @for (chip of appliedFilterChips; track chip.category + '-' + chip.value) {
+        <span class="badge badge-primary badge-outline gap-1 py-3 pr-1">
+          <span class="font-semibold text-primary/80" [textContent]="chip.categoryLabel + ': '"></span>
+          <span class="text-base-content" [textContent]="' ' + chip.label"></span>
+          <button
+            class="inline-flex h-3 w-3 cursor-pointer items-center justify-center rounded-full p-0 text-[10px] leading-none text-base-content/65 hover:text-base-content"
+            type="button"
+            data-cy="remove-filter-chip"
+            aria-label="Eliminar filtro"
+            (click)="removeFilterChip.emit(chip)"
+          >
+            ×
+          </button>
+        </span>
+      }
+    </div>
+  }
+</div>
+
+@if (showSearchAndSort) {
+  <div class="mb-4 flex flex-wrap items-center gap-4">
+    <lib-filter-input
+      [focusShortcut]="['Alt', 'j']"
+      class="min-w-0 grow max-w-md"
+      [placeholder]="'offers.list.searchPlaceholder' | translate"
+      (inputChange)="searchChanged.emit($event)"
+    ></lib-filter-input>
+    <div class="flex shrink-0 items-center gap-2 md:ml-auto">
+      <span class="text-sm text-base-content/80"> {{ 'policies.order' | translate }}: </span>
+      <label class="select w-64">
+        <select [value]="selectedSort" (change)="sortChanged.emit($any($event.target).value)">
+          <option value="newest">{{ 'policies.recent' | translate }}</option>
+          <option value="title">{{ 'policies.title' | translate }}</option>
+          <option value="type">{{ 'policies.type' | translate }}</option>
+        </select>
+      </label>
+    </div>
+  </div>
+}

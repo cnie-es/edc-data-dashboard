@@ -1,0 +1,83 @@
+<div class="col-span-full px-4 pb-8">
+  @if (errorMessageKey) {
+    <lib-alert
+      [title]="'common.error.title' | translate"
+      [msg]="errorMessageKey | translate: errorParams"
+      type="error"
+      class="mb-4"
+      (closeEvent)="errorMessageKey = undefined; errorParams = undefined"
+    ></lib-alert>
+  }
+
+  <lib-breadcrumbs [items]="breadcrumbItemsTranslated"></lib-breadcrumbs>
+
+  <h1 class="text-primary font-bold text-[20px]">
+    {{ 'policies.create.title' | translate }}
+  </h1>
+
+  <div class="col-span-full text-left my-6">
+    <hr class="border-t border-gray-300 mb-4 mt-4" />
+  </div>
+
+  <h2 class="text-[16px]">
+    {{ 'policies.create.subtitle' | translate }}
+  </h2>
+
+  <p class="text-[14px]">
+    {{ 'policies.create.description' | translate }}
+  </p>
+
+  <div class="flex items-center justify-between mt-6">
+    <div class="grid w-[120%] gap-4 grid-cols-1 md:grid-cols-3">
+      <!-- CARD 1 -->
+      <div class="card border border-border">
+        <figure>
+          <img src="/assets/activos.png" alt="ss" class="w-full object-cover h-[150px]" />
+        </figure>
+
+        <div class="card-body">
+          <div class="card-title">
+            {{ 'policies.create.contractPolicy.title' | translate }}
+          </div>
+
+          <p class="text-my-text">
+            {{ 'policies.create.contractPolicy.description' | translate }}
+          </p>
+
+          <div class="card-actions flex justify-end space-x-2 mt-4">
+            <button class="btn btn-gray btn-sm" [routerLink]="['/policies/create/contratacion']">
+              {{ 'policies.create.contractPolicy.create' | translate }}
+            </button>
+
+            <button class="btn btn-gray btn-sm" [routerLink]="['/policies/create/lds']">
+              {{ 'policies.create.contractPolicy.generateLds' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="card border border-border w-[300px]">
+        <figure>
+          <img src="/assets/activos.png" alt="ss" class="w-full object-cover h-[150px]" />
+        </figure>
+
+        <div class="card-body">
+          <div class="card-title">
+            {{ 'policies.create.publicationPolicy.title' | translate }}
+          </div>
+
+          <p class="text-my-text">
+            {{ 'policies.create.publicationPolicy.description' | translate }}
+          </p>
+
+          <div class="card-actions justify-end mt-4">
+            <button class="btn btn-gray btn-sm" [routerLink]="['/policies/create/publicacion']">
+              {{ 'policies.create.publicationPolicy.create' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

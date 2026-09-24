@@ -1,0 +1,37 @@
+{
+  "@id": "mock-corpus-offering-001",
+  "edval:corpusAsset": {
+    "dcat:distribution": {
+      "dcat:byteSize": { "@type": "xsd:integer", "@value": 3 },
+      "dcat:packageFormat": { "@id": "omtd:zip" },
+      "dct:format": { "@id": "omtd:pdf" },
+      "ms:size": {
+        "ms:amount": { "@type": "xsd:float", "@value": "2" },
+        "ms:sizeUnit": { "@id": "ms:seconds" }
+      }
+    },
+    "dcat:keyword": [{ "@language": "es", "@value": "aaa" }],
+    "dcat:version": "1.0.0",
+    "dct:description": { "@language": "en", "@value": "aaa" },
+    "dct:title": { "@language": "en", "@value": "ABSITA dataset1" },
+    "ms:anonymized": { "@id": "ms:noA" },
+    "ms:lingualityType": { "@id": "ms:monolingual" },
+    "ms:mediaType": { "@id": "ms:image" },
+    "ms:personalDataIncluded": { "@id": "ms:noP" },
+    "ms:sensitiveDataIncluded": { "@id": "ms:noA" }
+  },
+  "edval:isPublicOffering": { "@type": "xsd:boolean", "@value": true },
+  "simpl:generalServiceProperties": {
+    "simpl:name": "ABSITA dataset1",
+    "simpl:description": "aaa",
+    "simpl:offeringType": "data"
+  },
+  "simpl:offeringPrice": {
+    "simpl:currency": "BGN",
+    "simpl:price": { "@type": "xsd:decimal", "@value": 0 },
+    "simpl:priceType": "free"
+  },
+  "simpl:providerInformation": {
+    "simpl:providedBy": "mock-provider"
+  }
+}

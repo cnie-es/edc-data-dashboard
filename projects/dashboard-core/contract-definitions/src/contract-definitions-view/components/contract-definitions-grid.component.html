@@ -1,0 +1,33 @@
+<div class="grid w-full gap-4 grid-cols-1 md:grid-cols-2">
+  @for (contractDefinition of pageContractDefinitions$ | async; track contractDefinition.id || $index) {
+    <lib-contract-definition-card
+      class="block w-full max-w-2xl mx-auto shadow-xl rounded-2xl [&_>.card]:h-full"
+      [contractDefinition]="contractDefinition"
+      [showButtons]="true"
+      [disableOpenDetails]="disableOpenDetails"
+      (openDetailsEvent)="openDetails.emit($event)"
+    ></lib-contract-definition-card>
+  }
+  @if ((contractDefinitions$ | async)?.length === 0) {
+    <lib-list-loading-state variant="grid" [fetched]="fetched">
+      <p class="text-sm text-base-content/80">
+        @if (isSearchActive) {
+          {{ 'offers.list.noSearchResults' | translate }}
+        } @else {
+          {{ 'offers.list.noOffers' | translate }}
+        }
+      </p>
+    </lib-list-loading-state>
+  }
+</div>
+
+<div class="divider mt-6 mb-1"></div>
+
+<div class="flex justify-end items-center gap-3">
+  <lib-pagination
+    [items]="filteredContractDefinitions$ | async"
+    [pageItemCount]="pageItemCount"
+    (pageItems)="pageItemsChanged.emit($event)"
+    class="shrink-0"
+  ></lib-pagination>
+</div>

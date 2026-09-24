@@ -1,0 +1,101 @@
+<dialog #filtersDialog class="modal" data-cy="contract-filters-modal">
+  <div class="modal-box max-w-225 max-h-[70vh] p-0 overflow-hidden flex flex-col rounded-2xl">
+    <form method="dialog">
+      <button
+        class="btn btn-sm btn-circle btn-ghost absolute right-3 top-3"
+        [attr.aria-label]="'offers.detail.revokeModalClose' | translate"
+      >
+        ✕
+      </button>
+    </form>
+    <div class="px-6 py-5">
+      <h3 class="text-xl font-semibold text-(--app-color-neutral-darker)">{{ 'catalog.addFilters' | translate }}</h3>
+    </div>
+    <div class="px-6 overflow-y-auto flex-1 min-h-0 border border-(--app-color-neutral-light) mx-6">
+      <div class="p-4 space-y-5">
+        <div class="border-b border-(--app-color-neutral-bg) pb-4">
+          <h4 class="text-lg text-(--app-color-accent-dark) mb-2">{{ 'assets.table.type' | translate }}</h4>
+          <div class="flex flex-wrap gap-x-4 gap-y-3" data-cy="asset-type-options-list">
+            @for (option of assetTypeOptions; track option.value) {
+              <label class="label cursor-pointer justify-start gap-2 p-0 text-base-content/90">
+                <input
+                  type="checkbox"
+                  class="checkbox checkbox-md"
+                  [checked]="isAssetTypeSelected(option.value)"
+                  (change)="
+                    selectionChanged.emit({
+                      category: 'assetType',
+                      value: option.value,
+                      checked: $any($event.target).checked,
+                    })
+                  "
+                />
+                <span class="text-(--app-color-neutral-darker)">
+                  {{ option.label | translate }} ({{ option.count }})
+                </span>
+              </label>
+            }
+            @if (assetTypeOptions.length === 0) {
+              <p class="text-sm text-base-content/60">{{ 'offers.createPage.schemaCatalogLoading' | translate }}</p>
+            }
+          </div>
+        </div>
+
+        <div class="border-b border-(--app-color-neutral-bg) pb-4">
+          <h4 class="text-lg text-(--app-color-accent-dark) mb-2">
+            {{ 'offers.detail.publicCatalogReadonly' | translate }}
+          </h4>
+          <div class="flex flex-col gap-2" data-cy="visibility-options-list">
+            @for (option of visibilityOptions; track option.value) {
+              <label class="label cursor-pointer justify-start gap-2 p-0 text-base-content/90">
+                <input
+                  type="radio"
+                  name="visibility-filter"
+                  class="radio radio-md"
+                  [value]="option.value"
+                  [checked]="selectedVisibility === option.value"
+                  (change)="onVisibilityChange(option.value)"
+                />
+                <span class="text-(--app-color-neutral-darker)">{{ option.label | translate }}</span>
+              </label>
+            }
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-lg text-(--app-color-accent-dark) mb-2">
+            {{ 'offers.detail.priceLine' | translate: { amount: '', currency: '' } }}
+          </h4>
+          <div class="flex flex-col gap-2" data-cy="price-options-list">
+            @for (option of priceOptions; track option.value) {
+              <label class="label cursor-pointer justify-start gap-2 p-0 text-base-content/90">
+                <input
+                  type="radio"
+                  name="price-filter"
+                  class="radio radio-md"
+                  [value]="option.value"
+                  [checked]="selectedPrice === option.value"
+                  (change)="onPriceChange(option.value)"
+                />
+                <span class="text-(--app-color-neutral-darker)">{{ option.label | translate }}</span>
+              </label>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="px-6 py-4 flex justify-end gap-3">
+      <button class="btn" type="button" data-cy="cancel-filters-modal" (click)="close()">
+        {{ 'offers.detail.revokeModalCancel' | translate }}
+      </button>
+      <button
+        class="btn bg-(--app-color-primary) hover:bg-(--app-color-primary-darker) text-(--app-color-primary-lightest)"
+        type="button"
+        data-cy="apply-filters-modal"
+        (click)="apply.emit()"
+      >
+        {{ 'catalog.addFilters' | translate }}
+      </button>
+    </div>
+  </div>
+</dialog>

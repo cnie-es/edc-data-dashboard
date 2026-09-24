@@ -1,0 +1,35 @@
+@if (variant === 'table') {
+  @if (!fetched) {
+    <tr>
+      <td [attr.colspan]="colspan" class="text-center py-8">
+        <span class="loading loading-bars loading-lg opacity-75 text-primary"></span>
+      </td>
+    </tr>
+  } @else if (error) {
+    <tr>
+      <td [attr.colspan]="colspan" class="text-center py-8 text-base-content/80">
+        <ng-content select="[listLoadingError]"></ng-content>
+      </td>
+    </tr>
+  } @else {
+    <tr>
+      <td [attr.colspan]="colspan" class="text-center py-8 text-base-content/80">
+        <ng-content></ng-content>
+      </td>
+    </tr>
+  }
+} @else {
+  @if (!fetched) {
+    <div class="flex justify-center py-8" [class.col-span-full]="variant === 'grid'" [class.py-6]="variant === 'grid'">
+      <span class="loading loading-bars loading-lg opacity-75 text-primary"></span>
+    </div>
+  } @else if (error) {
+    <div class="mt-3" [class.col-span-full]="variant === 'grid'">
+      <ng-content select="[listLoadingError]"></ng-content>
+    </div>
+  } @else {
+    <div class="mt-3" [class.col-span-full]="variant === 'grid'">
+      <ng-content></ng-content>
+    </div>
+  }
+}

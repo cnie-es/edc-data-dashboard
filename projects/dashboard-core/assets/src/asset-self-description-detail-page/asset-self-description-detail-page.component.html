@@ -1,0 +1,19 @@
+@if (invalidRoute) {
+  <div class="alert alert-warning" role="alert">
+    {{ 'assets.detail.errorInvalidId' | translate }}
+  </div>
+} @else if (selfDescriptionId) {
+  <lib-corpus-self-description-detail-view
+    [xfsc]="xfsc"
+    [selfDescriptionId]="selfDescriptionId"
+    [edcAssetId]="edcAssetIdFromList"
+    [edcAsset]="edcAssetFromList"
+    [listDateDisplay]="listDateDisplay"
+    [breadcrumbItemsTranslated]="breadcrumbItemsTranslated"
+    backRoute="/assets"
+    backLabelKey="assets.detail.backToList"
+    layoutMode="asset"
+    [showDeleteOffer]="false"
+    [deleteOfferDisabled]="true"
+  />
+}

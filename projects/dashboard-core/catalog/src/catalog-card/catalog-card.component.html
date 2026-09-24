@@ -1,0 +1,69 @@
+<!--
+    Copyright (c) 2025 Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.
+
+    This program and the accompanying materials are made available under the
+    terms of the Apache License, Version 2.0 which is available at
+    https://www.apache.org/licenses/LICENSE-2.0
+
+    SPDX-License-Identifier: Apache-2.0
+
+    Contributors:
+         Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V. - initial API and implementation
+-->
+
+@if (catalogDataset) {
+  <article class="catalog-card flex h-full min-h-[12rem] flex-col rounded-2xl border border-base-300 bg-base-100 p-5">
+    <div class="catalog-card__source mb-3 flex min-w-0 items-center gap-2 text-xs text-(--app-color-info-dark)">
+      <span class="material-symbols-rounded shrink-0 text-lg text-(--app-color-info)">layers</span>
+      <span class="truncate" [attr.title]="sourceLine">{{ sourceLine }}</span>
+    </div>
+
+    <h2
+      class="catalog-card__title mb-3 break-words text-xl font-semibold leading-snug text-(--app-color-primary-darker)"
+    >
+      {{ name }}
+    </h2>
+
+    <div class="mb-3 flex flex-wrap gap-2">
+      <span
+        class="rounded-full bg-(--app-color-primary-bg-light) px-2.5 py-0.5 text-xs font-medium text-(--app-color-primary-darker)"
+      >
+        {{ categoryKey | translate }}
+      </span>
+      @if (dateLabel) {
+        <span
+          class="rounded-full border border-gray-200 bg-white px-2.5 py-0.5 text-xs font-medium text-(--app-color-neutral-darker)"
+        >
+          {{ dateLabel }}
+        </span>
+      }
+    </div>
+
+    <p class="catalog-card__description mb-4 flex-1 text-sm leading-relaxed text-(--app-color-info-dark)">
+      {{ description }}
+    </p>
+
+    @if (showButtons) {
+      <div class="mt-auto flex items-center justify-between gap-2 border-t border-gray-100 pt-4">
+        <button
+          type="button"
+          class="btn btn-sm shrink-0 border-0 bg-(--app-color-primary) font-medium text-white hover:bg-(--app-color-primary-dark)"
+          data-cy="catalog-negotiate"
+          (click)="negotiateEvent.emit(catalogDataset)"
+        >
+          <span class="material-symbols-rounded text-lg">handshake</span>
+          {{ 'catalog.negotiate' | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-circle btn-ghost btn-sm shrink-0 border border-gray-200 text-(--app-color-primary-darker)"
+          [attr.aria-label]="'catalog.detailsAria' | translate"
+          data-cy="catalog-details"
+          (click)="detailsEvent.emit(catalogDataset)"
+        >
+          <span class="material-symbols-rounded">info</span>
+        </button>
+      </div>
+    }
+  </article>
+}

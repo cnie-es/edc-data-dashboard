@@ -1,0 +1,28 @@
+<div style="max-width: 80vw; scrollbar-width: none !important" class="h-full overflow-auto">
+  <div class="mb-5 mt-15 ml-7">
+    <button
+      class="mb-5 mr-10 p-5 rounded-xl bg-base-300"
+      [class.active]="activeViewMode === 'simple-search'"
+      (click)="changeView('simple-search')"
+    >
+      {{ 'xfsc.simpleSearch' | translate }}
+    </button>
+    <button
+      class="mb-5 p-5 rounded-xl bg-base-300"
+      [class.active]="activeViewMode === 'advanced-search'"
+      (click)="changeView('advanced-search')"
+    >
+      {{ 'xfsc.advancedSearch' | translate }}
+    </button>
+  </div>
+  @if (activeViewMode === 'simple-search') {
+    <h1 class="text-3xl">{{ 'xfsc.listTitle' | translate }}</h1>
+    <p class="p-5 text">{{ 'xfsc.listDesc' | translate }}</p>
+    <lib-sd-list></lib-sd-list>
+  }
+  @if (activeViewMode === 'advanced-search') {
+    <h1 class="text-3xl">{{ 'xfsc.advancedTitle' | translate }}</h1>
+    <p class="p-5 text">{{ 'xfsc.advancedDesc' | translate }}</p>
+    <lib-adv-search></lib-adv-search>
+  }
+</div>

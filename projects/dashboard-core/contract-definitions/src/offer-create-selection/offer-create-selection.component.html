@@ -1,0 +1,131 @@
+<div class="col-span-full px-4 pb-8">
+  <lib-breadcrumbs [items]="breadcrumbItemsTranslated"></lib-breadcrumbs>
+
+  <h1 class="text-primary font-bold text-[20px]">
+    {{ 'offers.create' | translate }}
+  </h1>
+
+  <div class="col-span-full text-left my-6">
+    <hr class="border-t border-gray-300 mb-4 mt-4" />
+  </div>
+
+  <h2 class="text-[16px]">
+    {{ 'offers.createPage.subtitle' | translate }}
+  </h2>
+
+  @if (catalogLoading) {
+    <p class="text-my-text mt-4">{{ 'offers.createPage.schemaCatalogLoading' | translate }}</p>
+  }
+
+  <div class="flex items-center justify-between mt-6">
+    <div class="grid w-full gap-4 grid-cols-1 md:grid-cols-2">
+      <!-- CARD 1: Corpus -->
+      <div class="card border border-border">
+        <figure>
+          <img
+            src="/assets/home-1.jpg"
+            [alt]="'offers.createPage.corpus.title' | translate"
+            class="w-full object-cover h-[150px]"
+          />
+        </figure>
+
+        <div class="card-body">
+          <div class="card-title">
+            {{ 'offers.createPage.corpus.title' | translate }}
+          </div>
+
+          <p class="text-my-text">
+            {{ 'offers.createPage.corpus.description' | translate }}
+          </p>
+
+          <div class="card-actions justify-end mt-4">
+            <button type="button" class="btn btn-gray btn-sm" (click)="onOfferTypeClick('corpus')">
+              {{ 'offers.createPage.corpus.create' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: Recurso léxico/conceptual -->
+      <div class="card border border-border">
+        <figure>
+          <img
+            src="/assets/home-3.jpg"
+            [alt]="'offers.createPage.lexical.title' | translate"
+            class="w-full object-cover h-[150px]"
+          />
+        </figure>
+
+        <div class="card-body">
+          <div class="card-title">
+            {{ 'offers.createPage.lexical.title' | translate }}
+          </div>
+
+          <p class="text-my-text">
+            {{ 'offers.createPage.lexical.description' | translate }}
+          </p>
+
+          <div class="card-actions justify-end mt-4">
+            <button type="button" class="btn btn-gray btn-sm" (click)="onOfferTypeClick('lcr')">
+              {{ 'offers.createPage.lexical.create' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3: Modelo -->
+      <div class="card border border-border">
+        <figure>
+          <img
+            src="/assets/home-4.jpg"
+            [alt]="'offers.createPage.model.title' | translate"
+            class="w-full object-cover h-[150px]"
+          />
+        </figure>
+
+        <div class="card-body">
+          <div class="card-title">
+            {{ 'offers.createPage.model.title' | translate }}
+          </div>
+
+          <p class="text-my-text">
+            {{ 'offers.createPage.model.description' | translate }}
+          </p>
+
+          <div class="card-actions justify-end mt-4">
+            <button type="button" class="btn btn-gray btn-sm" (click)="onOfferTypeClick('model')">
+              {{ 'offers.createPage.model.create' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4: Servicio -->
+      <div class="card border border-border">
+        <figure>
+          <img
+            src="/assets/home-service.jpg"
+            [alt]="'offers.createPage.service.title' | translate"
+            class="w-full object-cover h-[150px]"
+          />
+        </figure>
+
+        <div class="card-body">
+          <div class="card-title">
+            {{ 'offers.createPage.service.title' | translate }}
+          </div>
+
+          <p class="text-my-text">
+            {{ 'offers.createPage.service.description' | translate }}
+          </p>
+
+          <div class="card-actions justify-end mt-4">
+            <button type="button" class="btn btn-gray btn-sm" (click)="onOfferTypeClick('api')">
+              {{ 'offers.createPage.service.create' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

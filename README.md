@@ -4,7 +4,7 @@
 > This repository is **not** the original Eclipse EDC Data Dashboard. It is a derivative work based
 > on [eclipse-edc/DataDashboard](https://github.com/eclipse-edc/DataDashboard) at commit
 > `4921ba3`, extensively modified by the EDNEL-RIOJA project team for CNIE-ES between
-> **2026-02-20 and 2026-09-16**. Released as `v1.0.2-edval` under the **Apache License 2.0**, the
+> **2026-02-20 and 2026-09-16**. Released as `v1.0.5-edval` under the **Apache License 2.0**, the
 > same licence as the original work. Which files were changed, added or removed, and when:
 > [NOTICE.EDNEL.md](NOTICE.EDNEL.md).
 

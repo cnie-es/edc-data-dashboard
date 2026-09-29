@@ -7,20 +7,7 @@ This file will not cover changes about documentation, code clean-up, samples, or
 (respectively milestone), the core features are highlighted. Relevant changes to existing implementations can be found
 in the detailed section referring to by linking pull requests or issues.
 
-## v1.0.2-edval (2026-09-24)
-
-> Sin cambios funcionales respecto a `v1.0.4-edval`. Solo cambia el numero de version.
-
-### Changed (2026-09-24)
-
-- **Numero de version**: se publica como `v1.0.2-edval`, que esta libre en git y en Harbor. No se
-  reutiliza `v1.0.4-edval` porque es el tag que consume `participant-hybrid`, ni `v1.0.3-edval`,
-  que es el que consumen `consumer_simpl` y `data-provider-simpl`. Los tres declaran
-  `pullPolicy: Always`, asi que publicar sobre cualquiera de ellos haria que un pod reiniciado se
-  trajese la imagen nueva sin que nadie lo decidiera.
-- El periodo de modificacion del aviso no cambia: no se ha tocado codigo.
-
-## v1.0.4-edval (2026-09-16)
+## v1.0.5-edval (2026-09-16)
 
 > Derivative work by the **EDNEL-RIOJA** project team for **CNIE-ES**, based on the Eclipse EDC
 > Data Dashboard at commit `4921ba3`. Modified between **2026-02-20 and 2026-09-16**, licensed

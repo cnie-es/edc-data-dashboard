@@ -26,7 +26,7 @@ changed, removed or renamed, and summarise what it added.
 |---|---|
 | Modified by | EDNEL-RIOJA project team, for CNIE-ES |
 | Public repository of this derivative work | https://github.com/cnie-es/edc-data-dashboard |
-| Version of this derivative work | `v1.0.2-edval` |
+| Version of this derivative work | `v1.0.5-edval` |
 | Dates of modification | **2026-02-20 to 2026-09-16** |
 
 The modifications are licensed under the **Apache License 2.0**, the same licence as the original

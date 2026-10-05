@@ -1,0 +1,117 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "data-dashboard.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "data-dashboard.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "data-dashboard.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "data-dashboard.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
+          env:
+            - name: RUNTIME_CONFIG_INJECTION
+              value: {{ .Values.config.runtimeConfigInjection | quote }}
+            - name: AUTH_MODE
+              value: {{ .Values.config.authMode | quote }}
+            # Keycloak
+            - name: KEYCLOAK_URL
+              value: {{ .Values.config.keycloak.url | quote }}
+            - name: KEYCLOAK_REALM
+              value: {{ .Values.config.keycloak.realm | quote }}
+            - name: KEYCLOAK_CLIENT_ID
+              value: {{ .Values.config.keycloak.clientId | quote }}
+            - name: KEYCLOAK_ON_LOAD
+              value: {{ .Values.config.keycloak.onLoad | quote }}
+            - name: KEYCLOAK_CHECK_LOGIN_IFRAME
+              value: {{ .Values.config.keycloak.checkLoginIframe | quote }}
+            # EDC connector
+            - name: EDC_CONNECTOR_NAME
+              value: {{ .Values.config.edc.connectorName | quote }}
+            - name: EDC_MANAGEMENT_URL
+              value: {{ .Values.config.edc.managementUrl | quote }}
+            - name: EDC_DEFAULT_URL
+              value: {{ .Values.config.edc.defaultUrl | quote }}
+            - name: EDC_PROTOCOL_URL
+              value: {{ .Values.config.edc.protocolUrl | quote }}
+            - name: XFSC_ADVSEARCH_BASE_URL
+              value: {{ .Values.config.edc.xfscAdvSearchBaseUrl | quote }}
+            - name: DASHBOARD_API_BASE_URL
+              value: {{ .Values.config.edc.dashboardApiBaseUrl | quote }}
+            - name: CONTRACT_CONSUMPTION_API_BASE_URL
+              value: {{ .Values.config.edc.contractConsumptionApiBaseUrl | quote }}
+            - name: CONTRACT_CONSUMPTION_API_VERSION
+              value: {{ .Values.config.edc.contractConsumptionApiVersion | quote }}
+            - name: SDTOOLING_BASE_URL
+              value: {{ .Values.config.edc.sdToolingBaseUrl | quote }}
+            - name: EDC_FEDERATED_CATALOG_ENABLED
+              value: {{ .Values.config.edc.federatedCatalogEnabled | quote }}
+            - name: EDC_DID
+              value: {{ .Values.config.edc.did | quote }}
+            - name: SIGNER_BASE_URL
+              value: {{ .Values.config.edc.signerApiBaseUrl | quote }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

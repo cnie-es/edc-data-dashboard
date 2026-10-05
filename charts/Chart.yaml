@@ -1,0 +1,14 @@
+apiVersion: v2
+name: data-dashboard
+description: Helm chart for the Eclipse EDC DataDashboard application
+type: application
+version: 0.1.0
+appVersion: "0.3.0"
+keywords:
+  - edc
+  - eclipse-dataspace-components
+  - data-dashboard
+sources:
+  - https://github.com/eclipse-edc/DataDashboard
+maintainers:
+  - name: ednel-rioja

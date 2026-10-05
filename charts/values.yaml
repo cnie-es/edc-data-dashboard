@@ -1,0 +1,98 @@
+# Default values for data-dashboard.
+# Override these per environment with -f my-values.yaml or --set key=value.
+
+replicaCount: 1
+
+image:
+  repository: ghcr.io/cnie-es/datadashboard
+  pullPolicy: IfNotPresent
+  # Overrides the image tag. Defaults to the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+#  runAsNonRoot: true
+#  runAsUser: 101
+
+securityContext: {}
+#  allowPrivilegeEscalation: false
+#  capabilities:
+#    drop: [ALL]
+#  readOnlyRootFilesystem: true
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  className: "apisix"
+  annotations: {}
+    # k8s.apisix.apache.org/sslredirect: "true"
+  hosts:
+    - host: data-dashboard.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  # - secretName: data-dashboard-tls
+  #   hosts:
+  #     - data-dashboard.local
+
+resources: {}
+#  requests:
+#    cpu: 50m
+#    memory: 64Mi
+#  limits:
+#    cpu: 200m
+#    memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# ──────────────────────────────────────────────────
+# Application runtime configuration
+# Maps 1-to-1 with env vars consumed by docker-entrypoint.sh
+# ──────────────────────────────────────────────────
+config:
+  # Set to false to skip config-file generation and use the files
+  # baked into the image at /app/config/
+  runtimeConfigInjection: true
+
+  # Auth mode: bypass | keycloak | manual-token
+  authMode: bypass
+
+  keycloak:
+    url: "https://keycloak.invalid"
+    realm: "development"
+    clientId: "data-dashboard"
+    # onLoad: login-required | check-sso
+    onLoad: "login-required"
+    checkLoginIframe: false
+
+  edc:
+    connectorName: "consumer"
+    managementUrl: "https://localhost:8080/management"
+    defaultUrl: "https://localhost:8080/api"
+    protocolUrl: "https://localhost:8080/api/v1/dsp"
+    xfscAdvSearchBaseUrl: "https://localhost:8080/xfsc-advsearch-be/v1"
+    dashboardApiBaseUrl: "https://localhost:8080/datadashboardApi"
+    contractConsumptionApiBaseUrl: "https://localhost:8080/contract-consumption-api"
+    contractConsumptionApiVersion: "v1"
+    sdToolingBaseUrl: "https://localhost:8080/sdtooling-api/v2"
+    federatedCatalogEnabled: false
+    did: "did:web:https://localhost:8080/"
+    signerApiBaseUrl: "/signer"

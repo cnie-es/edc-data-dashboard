@@ -25,7 +25,7 @@ ARG IMAGE_CREATED="1970-01-01T00:00:00Z"
 # every key below is re-declared explicitly so none of that third-party metadata survives here.
 LABEL org.opencontainers.image.title="EDC Data Dashboard (CNIE-ES fork)" \
       org.opencontainers.image.description="Modified version of the Eclipse EDC Data Dashboard (upstream eclipse-edc/DataDashboard at 4921ba3), modified by the EDNEL-RIOJA project team for CNIE-ES between 2026-02-20 and 2026-09-16. See /licenses/NOTICE.EDNEL.md." \
-      org.opencontainers.image.version="v1.0.12-edval" \
+      org.opencontainers.image.version="v1.0.13-edval" \
       org.opencontainers.image.vendor="CNIE-ES" \
       org.opencontainers.image.licenses="Apache-2.0" \
       org.opencontainers.image.source="https://github.com/cnie-es/edc-data-dashboard" \

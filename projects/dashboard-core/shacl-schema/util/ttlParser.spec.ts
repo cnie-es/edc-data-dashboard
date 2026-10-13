@@ -1,5 +1,7 @@
 import { parseTtlToSchema } from './ttlParser';
 import { buildDynamicSectionsFromSchema, createDynamicFormGroup } from '../render/dynamic-schema-form.factory';
+import { validateArrayToken } from '../render/dynamic-schema-form.validators';
+import { ITEM_PATTERN_HINT_KEY } from '../schema/derived-constraints';
 
 describe('ttlParser complex node arrays', () => {
   const ttl = `
@@ -228,5 +230,74 @@ gax:CorpusShape a sh:NodeShape ;
         select: 'SELECT $this WHERE { $this ms:lingualityType ms:monolingual . }',
       },
     ]);
+  });
+});
+
+describe('ttlParser derived constraints', () => {
+  // As in CorpusSchema_ES.ttl: the backend fills the hidden simpl:keywords from dcat:keyword on publish,
+  // and only simpl:keywords declares the pattern and length limits.
+  const ttl = `
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix gax-validation: <http://w3id.org/gaia-x/validation#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix simpl: <http://w3id.org/gaia-x/simpl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+gax-validation:OfferingShape a sh:NodeShape ;
+    sh:property [ sh:path simpl:general ; sh:node gax-validation:GeneralShape ; sh:minCount 1 ; sh:maxCount 1 ],
+        [ sh:path simpl:asset ; sh:node gax-validation:AssetShape ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:targetClass simpl:Offering .
+
+gax-validation:GeneralShape a sh:NodeShape ;
+    sh:property [ sh:path simpl:name ; sh:datatype xsd:string ],
+        [ simpl:configure ( "hiddenInFrontend" "useForAdvancedSearch" ) ;
+            sh:path simpl:keywords ;
+            sh:datatype xsd:string ;
+            sh:maxCount 16 ;
+            sh:minLength 1 ;
+            sh:maxLength 50 ;
+            sh:pattern "^(.|\\s)*[a-zA-Z]+(.|\\s)*$" ] ;
+    sh:targetClass simpl:General .
+
+gax-validation:AssetShape a sh:NodeShape ;
+    sh:property [ sh:path dcat:keyword ; sh:datatype rdf:langString ; sh:minCount 1 ; sh:maxCount 10 ] ;
+    sh:targetClass simpl:Asset .
+`;
+
+  const keywordField = async () => {
+    const parsed = await parseTtlToSchema(ttl, 'sdCreation');
+    const sections = buildDynamicSectionsFromSchema({ root: parsed.root });
+    return { parsed, field: sections.flatMap(section => section.fields).find(f => f.key === 'dcat:keyword') };
+  };
+
+  it('adds the hidden simpl:keywords item constraints to dcat:keyword', async () => {
+    const { field } = await keywordField();
+
+    expect(field?.schema['items']).toEqual(
+      jasmine.objectContaining({
+        pattern: '^(.|\s)*[a-zA-Z]+(.|\s)*$',
+        minLength: 1,
+        maxLength: 50,
+        [ITEM_PATTERN_HINT_KEY]: 'sdtooling.keywordPatternHint',
+      }),
+    );
+  });
+
+  it('rejects keywords without letters and accepts the rest', async () => {
+    const { field } = await keywordField();
+    const schema = field?.schema ?? {};
+
+    expect(validateArrayToken(schema, '333')).toEqual(jasmine.objectContaining({ pattern: jasmine.anything() }));
+    expect(validateArrayToken(schema, 'a'.repeat(51))).toEqual(
+      jasmine.objectContaining({ maxlength: jasmine.anything() }),
+    );
+    expect(validateArrayToken(schema, 'corpus 2024')).toBeNull();
+  });
+
+  it('does not expose the hidden property in the parsed schema', async () => {
+    const { parsed } = await keywordField();
+
+    expect(JSON.stringify(parsed.root)).not.toContain('simpl:keywords');
   });
 });

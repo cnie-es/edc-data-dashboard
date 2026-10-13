@@ -149,6 +149,14 @@ export class CorpusSelfDescriptionDetailLayoutComponent {
     // Si no coincide, devolvemos el título original (sin traducir) como fallback
     return title;
   }
+  formatMediaType(value?: string): string {
+    return this.display.mediaType(value);
+  }
+
+  formatLingualityType(value?: string): string {
+    return this.display.lingualityType(value);
+  }
+
   formatFileFormat(value?: string): string {
     return this.formatDisplayLabel(value);
   }

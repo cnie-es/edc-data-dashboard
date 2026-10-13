@@ -11,57 +11,62 @@
     <div class="grid gap-3 md:grid-cols-2">
       @for (itemField of subsection.fields; track itemField.key) {
         @if (isScalarObjectArrayItemField(itemField)) {
-          <div>
+          <!-- Subgrid rows (label / description / control) keep controls aligned across columns. -->
+          <div class="grid grid-rows-subgrid row-span-3 gap-y-0">
             <label class="block text-sm font-medium mb-1">
               <span [innerText]="itemField.label"></span>
               @if (itemField.required) {
                 <span class="ml-1 text-error">*</span>
               }
             </label>
-            @if (itemField.description) {
-              <p class="mb-1 text-xs text-my-text" [innerText]="itemField.description"></p>
-            }
+            <div>
+              @if (itemField.description) {
+                <p class="mb-1 text-xs text-my-text" [innerText]="itemField.description"></p>
+              }
+            </div>
 
-            @if (getScalarEnumOptions(asScalarField(itemField)).length > 0) {
-              <select
-                class="select select-bordered w-full"
-                [class.select-error]="showErrors && hasItemFieldError(asScalarField(itemField))"
-                [ngModel]="row[itemField.key] ?? ''"
-                (ngModelChange)="onScalarChange(itemField.key, $event)"
-                [ngModelOptions]="{ standalone: true }"
-              >
-                <option [ngValue]="">{{ 'sdtooling.selectOption' | translate }}</option>
-                @for (option of getScalarEnumOptions(asScalarField(itemField)); track option) {
-                  <option [ngValue]="option" [textContent]="itemField.enumOptionLabels?.[option] ?? option"></option>
-                }
-              </select>
-            } @else if (itemField.type === 'boolean') {
-              <input
-                class="checkbox checkbox-primary"
-                type="checkbox"
-                [checked]="row[itemField.key] === true"
-                (change)="onScalarChange(itemField.key, $any($event.target).checked)"
-              />
-            } @else if (itemField.type === 'number' || itemField.type === 'integer') {
-              <input
-                class="input input-bordered w-full"
-                [class.input-error]="showErrors && hasItemFieldError(asScalarField(itemField))"
-                type="number"
-                [value]="row[itemField.key] ?? ''"
-                (change)="onScalarChange(itemField.key, $any($event.target).value)"
-              />
-            } @else {
-              <input
-                class="input input-bordered w-full"
-                [class.input-error]="showErrors && hasItemFieldError(asScalarField(itemField))"
-                type="text"
-                [value]="row[itemField.key] ?? ''"
-                (change)="onScalarChange(itemField.key, $any($event.target).value)"
-              />
-            }
-            @if (showErrors && hasItemFieldError(asScalarField(itemField))) {
-              <p class="mt-1 text-xs text-error" [innerText]="getItemFieldErrorMessage(asScalarField(itemField))"></p>
-            }
+            <div>
+              @if (getScalarEnumOptions(asScalarField(itemField)).length > 0) {
+                <select
+                  class="select select-bordered w-full"
+                  [class.select-error]="showErrors && hasItemFieldError(asScalarField(itemField))"
+                  [ngModel]="row[itemField.key] ?? ''"
+                  (ngModelChange)="onScalarChange(itemField.key, $event)"
+                  [ngModelOptions]="{ standalone: true }"
+                >
+                  <option [ngValue]="">{{ 'sdtooling.selectOption' | translate }}</option>
+                  @for (option of getScalarEnumOptions(asScalarField(itemField)); track option) {
+                    <option [ngValue]="option" [textContent]="itemField.enumOptionLabels?.[option] ?? option"></option>
+                  }
+                </select>
+              } @else if (itemField.type === 'boolean') {
+                <input
+                  class="checkbox checkbox-primary"
+                  type="checkbox"
+                  [checked]="row[itemField.key] === true"
+                  (change)="onScalarChange(itemField.key, $any($event.target).checked)"
+                />
+              } @else if (itemField.type === 'number' || itemField.type === 'integer') {
+                <input
+                  class="input input-bordered w-full"
+                  [class.input-error]="showErrors && hasItemFieldError(asScalarField(itemField))"
+                  type="number"
+                  [value]="row[itemField.key] ?? ''"
+                  (change)="onScalarChange(itemField.key, $any($event.target).value)"
+                />
+              } @else {
+                <input
+                  class="input input-bordered w-full"
+                  [class.input-error]="showErrors && hasItemFieldError(asScalarField(itemField))"
+                  type="text"
+                  [value]="row[itemField.key] ?? ''"
+                  (change)="onScalarChange(itemField.key, $any($event.target).value)"
+                />
+              }
+              @if (showErrors && hasItemFieldError(asScalarField(itemField))) {
+                <p class="mt-1 text-xs text-error" [innerText]="getItemFieldErrorMessage(asScalarField(itemField))"></p>
+              }
+            </div>
           </div>
         } @else if (isObjectGroupArrayItemField(itemField)) {
           <div class="md:col-span-2 space-y-2">

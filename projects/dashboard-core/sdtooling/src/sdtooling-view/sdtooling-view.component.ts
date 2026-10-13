@@ -2,6 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, DestroyRef, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import type { ValidationErrors } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter, firstValueFrom, take } from 'rxjs';
 import {
@@ -12,6 +13,7 @@ import {
   ModalAndAlertService,
   OFFER_CREATION_PENDING_SCHEMA_STORAGE_KEY,
   offerCreateUnavailableToastKey,
+  parseOfferCreateSchemaId,
   remapOfferCreateSchemaId,
   resolveDashboardLang,
   SdMatchedAssetsWarmupService,
@@ -24,7 +26,9 @@ import {
   hasPolicyCardFieldError,
   isAccessPolicyField,
   isUsagePolicyField,
+  ITEM_PATTERN_HINT_KEY,
   resolveDynamicFieldError,
+  validateArrayToken,
 } from '@eclipse-edc/dashboard-core/shacl-schema';
 import type {
   DynamicField,
@@ -53,6 +57,7 @@ import {
   updatePolicyCardValue,
 } from './form-state/sdtooling-view.form-state';
 import { applyArrayTokensToControl, applyControlValue } from './form-state/sdtooling-form-control.mutations';
+import { restoreFormValues, type SdtoolingFormSnapshot } from './form-state/sdtooling-form-snapshot';
 import { SdtoolingObjectArrayItemFieldsComponent } from './form-state/sdtooling-object-array-item-fields.component';
 import {
   addObjectArrayItemForField,
@@ -79,6 +84,14 @@ import {
   getTemplateFieldLabel,
   isTemplateFieldReadonly,
 } from './template/sdtooling-template-ui-schema';
+import { resolveEnumOptionLabel } from './schema/sdtooling-enum-labels';
+import { filterSharingMethodsForOfferKind } from './template/sdtooling-sharing-method-filter';
+import {
+  IDENTITY_ATTRIBUTE_I18N_NAMESPACE,
+  POLICY_ACTION_I18N_NAMESPACE,
+  localizePolicyOptions,
+} from './schema/sdtooling-policy-option-labels';
+import { translateTemplateFieldText } from './template/sdtooling-template-field-i18n';
 import { buildReviewSummarySections } from './wizard/sdtooling-review-summary.builder';
 import { getDisplaySubsections } from './wizard/sdtooling-section-display';
 import { buildWizardSteps, getActiveSectionAtStep, isSummaryStepIndex } from './wizard/sdtooling-wizard.steps';
@@ -162,9 +175,9 @@ export class SdToolingViewComponent {
   dynamicForm = new FormGroup({});
   sections: DynamicSection[] = [];
   arrayDraftByControl: Record<string, string> = {};
+  arrayDraftErrorByControl: Record<string, ValidationErrors> = {};
   policyActionOptions: PolicySelectOption[] = [];
   policyAttributeOptions: PolicySelectOption[] = [];
-  usageTypeOptions: PolicySelectOption[] = [];
   policyActionsResult?: SdPolicyOptionsResult;
   policyAttributesResult?: SdPolicyOptionsResult;
 
@@ -180,14 +193,11 @@ export class SdToolingViewComponent {
   private currentFormSchema?: ExtendedJsonSchema4;
   private currentSchemaPrefixes: Record<string, string> = {};
   private schemaRequestId = 0;
+  /** Values to put back while the language variant of the current schema loads (see syncOfferSchemaToLang). */
+  private pendingRestore?: SdtoolingFormSnapshot;
 
   constructor() {
     (window as unknown as { debugDynamicForm: FormGroup }).debugDynamicForm = this.dynamicForm;
-    this.usageTypeOptions = [
-      { label: this.translate.instant('sdtooling.usageDeletionAfter'), value: USAGE_TYPE_DELETION_AFTER_USAGE },
-      { label: this.translate.instant('sdtooling.usageRestrictedNumber'), value: USAGE_TYPE_RESTRICTED_NUMBER },
-      { label: this.translate.instant('sdtooling.usageRestrictedDuration'), value: USAGE_TYPE_RESTRICTED_DURATION },
-    ];
 
     this.service
       .allSchemas()
@@ -266,9 +276,10 @@ export class SdToolingViewComponent {
     return index <= this.currentStepIndex;
   }
 
-  onSchemaSelected(): void {
+  onSchemaSelected(restore?: SdtoolingFormSnapshot): void {
     const requestId = ++this.schemaRequestId;
     this.resetFormState();
+    this.pendingRestore = restore;
 
     if (!this.selectedSchema) {
       this.selectedSchemaOption = undefined;
@@ -379,18 +390,31 @@ export class SdToolingViewComponent {
     return selected?.label ?? this.selectedTemplateId;
   }
 
+  /**
+   * Template schemas have no title, so their section label is the translated "asset properties" title captured
+   * when the template loaded; re-resolve it so the summary follows a language change.
+   */
+  private getTemplateSectionsForSummary(): DynamicSection[] {
+    if (typeof this.templateSchemaResult?.schema['title'] === 'string') {
+      return this.templateSections;
+    }
+    const title = this.translate.instant('sdtooling.assetPropertiesTitle');
+    return this.templateSections.map(section => ({ ...section, label: title }));
+  }
+
   getReviewSummarySections() {
     return buildReviewSummarySections({
       sections: this.sections,
       dynamicForm: this.dynamicForm,
-      templateSections: this.templateSections,
+      templateSections: this.getTemplateSectionsForSummary(),
       templateForm: this.templateForm,
-      policyActionOptions: this.policyActionOptions,
-      policyAttributeOptions: this.policyAttributeOptions,
-      usageTypeOptions: this.usageTypeOptions,
+      policyActionOptions: this.getPolicyActionOptions(),
+      policyAttributeOptions: this.getPolicyAttributeOptions(),
+      usageTypeOptions: this.getUsageTypeOptions(),
       yesLabel: this.translate.instant('sdtooling.yes'),
       noLabel: this.translate.instant('sdtooling.no'),
       resolveTemplateFieldLabel: field => this.getTemplateFieldLabel(field),
+      resolveEnumOptionLabel: (field, option) => this.getEnumOptionLabel(field, option),
     });
   }
 
@@ -405,7 +429,16 @@ export class SdToolingViewComponent {
   }
 
   getFieldError(field: DynamicField): string {
-    return resolveDynamicFieldError(field, this.dynamicForm.get(field.controlName)?.errors ?? null, this.translate);
+    return this.resolveFieldError(field, this.dynamicForm.get(field.controlName)?.errors ?? null);
+  }
+
+  /** Like resolveDynamicFieldError, but explains a failed item pattern when the schema provides a hint for it. */
+  private resolveFieldError(field: DynamicField, errors: ValidationErrors | null): string {
+    const hintKey = (field.schema['items'] as Record<string, unknown> | undefined)?.[ITEM_PATTERN_HINT_KEY];
+    if (errors?.['pattern'] && typeof hintKey === 'string') {
+      return this.translate.instant(hintKey, { label: field.label });
+    }
+    return resolveDynamicFieldError(field, errors, this.translate);
   }
 
   onDynamicFieldValueChange(field: DynamicField, value: unknown): void {
@@ -470,7 +503,11 @@ export class SdToolingViewComponent {
   }
 
   getTemplateFieldError(field: DynamicField): string {
-    return resolveDynamicFieldError(field, this.templateForm.get(field.controlName)?.errors ?? null, this.translate);
+    return resolveDynamicFieldError(
+      { ...field, label: this.getTemplateFieldLabel(field) },
+      this.templateForm.get(field.controlName)?.errors ?? null,
+      this.translate,
+    );
   }
 
   isPolicyCardField(field: DynamicField): boolean {
@@ -531,6 +568,27 @@ export class SdToolingViewComponent {
     return hasPolicyCardFieldError(this.dynamicForm.get(field.controlName)?.errors ?? null, index, key);
   }
 
+  // Resolved on every render (not cached at construction) so the labels follow a language change.
+  getUsageTypeOptions(): PolicySelectOption[] {
+    return [
+      { label: this.translate.instant('sdtooling.usageDeletionAfter'), value: USAGE_TYPE_DELETION_AFTER_USAGE },
+      { label: this.translate.instant('sdtooling.usageRestrictedNumber'), value: USAGE_TYPE_RESTRICTED_NUMBER },
+      { label: this.translate.instant('sdtooling.usageRestrictedDuration'), value: USAGE_TYPE_RESTRICTED_DURATION },
+    ];
+  }
+
+  getPolicyActionOptions(): PolicySelectOption[] {
+    return localizePolicyOptions(this.policyActionOptions, POLICY_ACTION_I18N_NAMESPACE, this.translate);
+  }
+
+  getPolicyAttributeOptions(): PolicySelectOption[] {
+    return localizePolicyOptions(this.policyAttributeOptions, IDENTITY_ATTRIBUTE_I18N_NAMESPACE, this.translate);
+  }
+
+  getEnumOptionLabel(field: DynamicField, option: string): string {
+    return resolveEnumOptionLabel(field, option, this.translate);
+  }
+
   getArrayTokens(field: DynamicField): string[] {
     return parseArrayTokens(this.dynamicForm.get(field.controlName)?.value);
   }
@@ -541,10 +599,23 @@ export class SdToolingViewComponent {
 
   setArrayDraft(field: DynamicField, value: string): void {
     this.arrayDraftByControl[field.controlName] = value;
+    delete this.arrayDraftErrorByControl[field.controlName];
+  }
+
+  getArrayDraftError(field: DynamicField): string {
+    // Kept as validation errors and resolved on render so the message follows a language change.
+    const errors = this.arrayDraftErrorByControl[field.controlName];
+    return errors ? this.resolveFieldError(field, errors) : '';
   }
 
   addArrayToken(field: DynamicField): void {
     if (this.isDynamicFieldDisabled(field) || this.hasReachedArrayMax(field)) {
+      return;
+    }
+    const draft = this.getArrayDraft(field).trim();
+    const draftErrors = draft ? validateArrayToken(field.schema, draft) : null;
+    if (draftErrors) {
+      this.arrayDraftErrorByControl[field.controlName] = draftErrors;
       return;
     }
     const rawValue = this.dynamicForm.get(field.controlName)?.value;
@@ -709,6 +780,7 @@ export class SdToolingViewComponent {
   }
 
   onSharingMethodChanged(): void {
+    this.pendingRestore = undefined;
     this.templateError = '';
     this.selectedTemplateId = '';
     this.lastLoadedTemplateId = '';
@@ -722,6 +794,7 @@ export class SdToolingViewComponent {
   }
 
   onTemplateChanged(): void {
+    this.pendingRestore = undefined;
     this.templateError = '';
     if (!this.selectedTemplateId) {
       this.clearTemplateDetails();
@@ -744,7 +817,19 @@ export class SdToolingViewComponent {
   }
 
   getTemplateFieldLabel(field: DynamicField): string {
-    return getTemplateFieldLabel(field, this.templateUiControlsByFieldKey);
+    return (
+      translateTemplateFieldText(field, 'label', this.translate) ??
+      getTemplateFieldLabel(field, this.templateUiControlsByFieldKey)
+    );
+  }
+
+  getTemplateFieldDescription(field: DynamicField): string {
+    // Only translate descriptions the template actually has: the same field key may carry one in some
+    // templates and none in others.
+    if (!field.description) {
+      return '';
+    }
+    return translateTemplateFieldText(field, 'description', this.translate) ?? field.description;
   }
 
   isTemplateFieldReadonly(field: DynamicField): boolean {
@@ -951,6 +1036,7 @@ export class SdToolingViewComponent {
           this.dynamicForm = outcome.form;
           this.detailsError = '';
           this.loadingSchemaDetails = false;
+          this.restorePendingDynamicForm();
           // Dentro de loadSchemaContent, después de this.sections = outcome.sections; this.dynamicForm = outcome.form;
           this.sections.forEach(section => {
             section.fields.forEach(field => {
@@ -977,12 +1063,16 @@ export class SdToolingViewComponent {
             return;
           }
           this.sharingMethodsResult = result;
-          this.sharingMethodOptions = this.orchestrator.mapSharingMethodOptions(result);
+          this.sharingMethodOptions = filterSharingMethodsForOfferKind(
+            this.orchestrator.mapSharingMethodOptions(result),
+            parseOfferCreateSchemaId(this.selectedSchema)?.kind,
+          );
           this.templateError = '';
           this.selectedSharingMethod = '';
           this.selectedTemplateId = '';
           this.templateOptions = [];
           this.clearTemplateDetails();
+          this.restorePendingSharingMethod(requestId);
         },
         error: () => {
           this.detailsError = this.detailsError || this.translate.instant('sdtooling.errors.sharingMethodsLoad');
@@ -1003,6 +1093,7 @@ export class SdToolingViewComponent {
           this.templateOptions = this.orchestrator.mapTemplateOptions(result);
           this.selectedTemplateId = '';
           this.loadingTemplates = false;
+          this.restorePendingTemplate(requestId);
         },
         error: () => {
           if (typeof requestId === 'number' && !this.isCurrentRequest(requestId)) {
@@ -1034,6 +1125,7 @@ export class SdToolingViewComponent {
           this.templateForm = loaded.templateForm;
           this.templateUiControlsByFieldKey = loaded.templateUiControlsByFieldKey;
           this.loadingTemplateDetails = false;
+          this.restorePendingTemplateValues();
         },
         error: () => {
           if (typeof requestId === 'number' && !this.isCurrentRequest(requestId)) {
@@ -1129,8 +1221,67 @@ export class SdToolingViewComponent {
       queryParamsHandling: 'merge',
       replaceUrl: true,
     });
+    const snapshot = this.captureFormSnapshot();
     this.selectedSchema = remap.nextSchemaId;
-    this.onSchemaSelected();
+    this.onSchemaSelected(snapshot);
+  }
+
+  private captureFormSnapshot(): SdtoolingFormSnapshot {
+    return {
+      dynamicValues: this.dynamicForm.getRawValue() as Record<string, unknown>,
+      arrayDrafts: { ...this.arrayDraftByControl },
+      stepIndex: this.currentStepIndex,
+      sharingMethod: this.selectedSharingMethod,
+      templateId: this.selectedTemplateId,
+      templateValues: this.templateForm.getRawValue() as Record<string, unknown>,
+    };
+  }
+
+  private restorePendingDynamicForm(): void {
+    const pending = this.pendingRestore;
+    if (!pending) {
+      return;
+    }
+    restoreFormValues(this.dynamicForm, this.sections, pending.dynamicValues);
+    this.arrayDraftByControl = { ...pending.arrayDrafts };
+    this.enforceKnownSparqlUiConstraints();
+    this.currentStepIndex = Math.max(0, Math.min(pending.stepIndex, this.steps.length - 1));
+  }
+
+  private restorePendingSharingMethod(requestId: number): void {
+    const sharingMethod = this.pendingRestore?.sharingMethod;
+    const offeringType = this.sharingMethodsResult?.offeringType;
+    if (!sharingMethod || !offeringType) {
+      return;
+    }
+    if (!this.sharingMethodOptions.some(option => option.value === sharingMethod)) {
+      return;
+    }
+    this.selectedSharingMethod = sharingMethod;
+    // Passing the request id marks this load as part of the restore (see restorePendingTemplate).
+    this.loadTemplatesForSharingMethod(sharingMethod, offeringType, requestId);
+  }
+
+  private restorePendingTemplate(requestId?: number): void {
+    const templateId = this.pendingRestore?.templateId;
+    if (typeof requestId !== 'number' || !templateId) {
+      return;
+    }
+    if (!this.templateOptions.some(option => option.value === templateId)) {
+      return;
+    }
+    this.selectedTemplateId = templateId;
+    this.lastLoadedTemplateId = templateId;
+    this.loadTemplateDetails(templateId, requestId);
+  }
+
+  private restorePendingTemplateValues(): void {
+    const pending = this.pendingRestore;
+    if (!pending?.templateId || pending.templateId !== this.selectedTemplateId) {
+      return;
+    }
+    restoreFormValues(this.templateForm, this.templateSections, pending.templateValues);
+    this.pendingRestore = undefined;
   }
 
   private applyPendingSchemaSelectionFromRoute(): void {

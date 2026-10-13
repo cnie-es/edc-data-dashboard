@@ -545,6 +545,46 @@
     }
   },
   "sdtooling": {
+    "keywordPatternHint": "Cada paraula clau ha de contenir almenys una lletra (no pot ser només números o símbols).",
+    "templateFields": {
+      "type": { "label": "Tipus d'origen", "description": "Tipus d'adreça del recurs." },
+      "name": { "label": "Nom del recurs", "description": "Nom llegible del recurs." },
+      "baseUrl": { "label": "URL base", "description": "URL base de la font de dades o de l'API REST del proveïdor." },
+      "proxyPath": { "label": "Reenviar la ruta", "description": "Indica si es reenvia la ruta de la petició." },
+      "proxyQueryParams": { "label": "Reenviar paràmetres de consulta", "description": "Reenvia els paràmetres de consulta (sempre activat per a API REST)." },
+      "proxyBody": { "label": "Reenviar el cos de la petició", "description": "Reenvia el cos de la petició (sempre activat per a API REST)." },
+      "proxyMethod": { "label": "Reenviar el mètode HTTP", "description": "Reenvia el mètode HTTP (sempre activat per a API REST)." },
+      "endpointOverride": { "label": "Endpoint personalitzat", "description": "Endpoint d'S3. Només per a serveis compatibles amb S3 (MinIO/Weka); a AWS, deixa'l buit." },
+      "region": { "label": "Regió" },
+      "bucketName": { "label": "Nom del bucket", "description": "El nom del bucket ha de tenir entre 3 i 63 caràcters i estar en minúscules." },
+      "objectName": { "label": "Nom de l'objecte", "description": "Nom de l'objecte dins del bucket (entre 1 i 1024 caràcters)." },
+      "endpoint": { "label": "URL de l'endpoint", "description": "URL de l'endpoint del servidor S3 (AWS o compatible, com MinIO)." },
+      "sourcePath": { "label": "Ruta d'origen" },
+      "accessKeyId": { "label": "ID de clau d'accés" },
+      "secretAccessKey": { "label": "Clau d'accés secreta" },
+      "assetType": { "label": "Tipus d'actiu", "description": "Etiqueta per filtrar les cerques." },
+      "codeLocation": { "label": "Ubicació del codi", "description": "Ubicació del repositori de codi que conté la definició del flux de treball." },
+      "repositoryName": { "label": "Nom del repositori", "description": "Nom del repositori, dins de la ubicació del codi, on es defineix el flux de treball." },
+      "jobName": { "label": "ID del flux de treball", "description": "Nom del flux de treball (job) de Dagster associat al recurs." },
+      "yamlConfiguration": { "label": "Configuració del flux de treball", "description": "Configuració YAML amb els paràmetres d'execució del flux de treball." },
+      "topic": { "label": "Topic", "description": "Topic de Kafka del qual es consumeixen els missatges." },
+      "bootstrapServers": { "label": "Servidors d'arrencada (bootstrap)", "description": "Llista d'endpoints dels servidors d'arrencada de Kafka, separats per comes." },
+      "saslMechanism": { "label": "Mecanisme SASL", "description": "Mecanisme SASL utilitzat per a l'autenticació." },
+      "securityProtocol": { "label": "Protocol de seguretat", "description": "Protocol de seguretat de la connexió amb Kafka." },
+      "pollDuration": { "label": "Interval de sondeig (ms)", "description": "Interval de sondeig en mil·lisegons. Opcional; p. ex., 10000 per a 10 segons." },
+      "groupPrefix": { "label": "Prefix del grup", "description": "Prefix del grup de consumidors de Kafka." },
+      "tokenUrl": { "label": "URL del testimoni", "description": "Endpoint del testimoni OAuth per a l'autenticació amb Kafka." },
+      "revokeUrl": { "label": "URL de revocació", "description": "Endpoint de revocació del testimoni OAuth." },
+      "edeliveryTriggerAPI": { "label": "URL de l'API d'activació d'eDelivery", "description": "URL de l'endpoint de l'API d'activació d'eDelivery." },
+      "appDataIdentifier": { "label": "Identificador de dades de l'aplicació", "description": "Identificador de dades de l'aplicació per a eDelivery." },
+      "storage": { "label": "URL de l'emmagatzematge" },
+      "blobName": { "label": "Nom del fitxer", "description": "Nom del blob del fitxer." },
+      "accessKey": { "label": "Clau d'accés" },
+      "secretKey": { "label": "Clau secreta" },
+      "keyName": { "label": "Nom de la clau" },
+      "provisioningAPI": { "label": "API d'aprovisionament", "description": "URL de l'endpoint de l'API d'aprovisionament." },
+      "deploymentScriptId": { "label": "ID de l'script de desplegament", "description": "ID de l'script de desplegament." }
+    },
     "offerTypeHeading": "Tipus d'oferta: {{type}}",
     "backToOfferSelection": "Tornar a la selecció de tipus d'oferta",
     "schemaLabel": "Esquema",
@@ -766,5 +806,72 @@
       "api": "API",
       "lexicalconceptualresource": "Recurs lèxic-conceptual"
     }
+  },
+  "mediaType": {
+    "audio": "Àudio",
+    "image": "Imatge",
+    "text": "Text",
+    "textNumerical": "Text numèric",
+    "video": "Vídeo"
+  },
+  "lingualityType": {
+    "bilingual": "Bilingüe",
+    "bilingualized": "Bilingüitzat",
+    "monolingual": "Monolingüe",
+    "multilingual": "Multilingüe"
+  },
+  "technicalOrganisationalMeasure": {
+    "accessControlsAuthenticationMechanisms": "Controls d'accés i mecanismes d'autenticació",
+    "dataBackupAndRecoveryProcedures": "Procediments de còpia de seguretat i recuperació de dades",
+    "dataBreachNotificationMechanisms": "Mecanismes de notificació de violacions de dades",
+    "dataRetentionAndDeletionPolicies": "Polítiques de conservació i supressió de dades",
+    "encryptionOfPersonalData": "Xifratge de dades personals",
+    "incidentResponseAndManagementProcedures": "Procediments de resposta i gestió d'incidents",
+    "networkAndCommunicationSecurity": "Seguretat de xarxes i comunicacions",
+    "physicalSecurityMeasuresForPremisesAndEquipment": "Mesures de seguretat física d'instal·lacions i equips",
+    "pseudonymisationOfPersonalData": "Pseudonimització de dades personals",
+    "staffTrainingOnDataProtectionAndSecurityAwareness": "Formació del personal en protecció de dades i conscienciació en seguretat"
+  },
+  "dataProtectionPrinciple": {
+    "accuracy": "Exactitud",
+    "alignmentDataRights": "Respecte dels drets dels interessats",
+    "dataMinimisation": "Minimització de dades",
+    "integrityConfidentiality": "Integritat i confidencialitat",
+    "lawfulnessFairnessTransparency": "Licitud, lleialtat i transparència",
+    "purposeLimitation": "Limitació de la finalitat",
+    "storageLimitation": "Limitació del termini de conservació"
+  },
+  "priceType": {
+    "free": "Gratuït",
+    "commercial": "Comercial"
+  },
+  "policyAction": {
+    "SEARCH": "Cercar",
+    "CONSUME": "Consumir",
+    "RESTRICTED_CONSUME": "Consum restringit"
+  },
+  "identityAttribute": {
+    "CONSUMER": "Consumidor",
+    "DATA_PROVIDER": "Proveïdor de dades",
+    "APP_PROVIDER": "Proveïdor d'aplicacions",
+    "INFRA_PROVIDER": "Proveïdor d'infraestructura",
+    "DATA_PROVIDER_PUBLISHER": "Publicador del proveïdor de dades",
+    "APP_PROVIDER_PUBLISHER": "Publicador del proveïdor d'aplicacions",
+    "INFRA_PROVIDER_PUBLISHER": "Publicador del proveïdor d'infraestructura",
+    "EDNEL_PARTICIPANT": "Participant",
+    "DATA_SEARCHER": "Cercador de dades"
+  },
+  "language": {
+    "es": "Espanyol",
+    "en": "Anglés",
+    "de": "Alemany",
+    "fr": "Francés",
+    "ca": "Català",
+    "gl": "Gallec",
+    "eu": "Basc"
+  },
+  "region": {
+    "ES": "Espanya",
+    "US": "Estats Units"
   }
 }

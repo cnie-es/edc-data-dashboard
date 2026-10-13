@@ -3,6 +3,7 @@ export * from './util/uri-utils';
 export * from './schema/handlers';
 export * from './schema/matchers';
 export * from './schema/types';
+export * from './schema/derived-constraints';
 export * from './render/dynamic-field-errors.util';
 export * from './render/dynamic-schema-form.validators';
 export * from './render/dynamic-schema-form.factory';

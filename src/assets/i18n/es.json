@@ -545,6 +545,46 @@
     }
   },
   "sdtooling": {
+    "keywordPatternHint": "Cada palabra clave debe contener al menos una letra (no puede ser solo números o símbolos).",
+    "templateFields": {
+      "type": { "label": "Tipo de origen", "description": "Tipo de dirección del recurso." },
+      "name": { "label": "Nombre del recurso", "description": "Nombre legible del recurso." },
+      "baseUrl": { "label": "URL base", "description": "URL base de la fuente de datos o de la API REST del proveedor." },
+      "proxyPath": { "label": "Reenviar la ruta", "description": "Indica si se reenvía la ruta de la petición." },
+      "proxyQueryParams": { "label": "Reenviar parámetros de consulta", "description": "Reenvía los parámetros de consulta (siempre activado para API REST)." },
+      "proxyBody": { "label": "Reenviar el cuerpo de la petición", "description": "Reenvía el cuerpo de la petición (siempre activado para API REST)." },
+      "proxyMethod": { "label": "Reenviar el método HTTP", "description": "Reenvía el método HTTP (siempre activado para API REST)." },
+      "endpointOverride": { "label": "Endpoint personalizado", "description": "Endpoint de S3. Solo para servicios compatibles con S3 (MinIO/Weka); en AWS, déjalo vacío." },
+      "region": { "label": "Región" },
+      "bucketName": { "label": "Nombre del bucket", "description": "El nombre del bucket debe tener entre 3 y 63 caracteres y estar en minúsculas." },
+      "objectName": { "label": "Nombre del objeto", "description": "Nombre del objeto dentro del bucket (entre 1 y 1024 caracteres)." },
+      "endpoint": { "label": "URL del endpoint", "description": "URL del endpoint del servidor S3 (AWS o compatible, como MinIO)." },
+      "sourcePath": { "label": "Ruta de origen" },
+      "accessKeyId": { "label": "ID de clave de acceso" },
+      "secretAccessKey": { "label": "Clave de acceso secreta" },
+      "assetType": { "label": "Tipo de activo", "description": "Etiqueta para filtrar las búsquedas." },
+      "codeLocation": { "label": "Ubicación del código", "description": "Ubicación del repositorio de código que contiene la definición del flujo de trabajo." },
+      "repositoryName": { "label": "Nombre del repositorio", "description": "Nombre del repositorio, dentro de la ubicación del código, donde se define el flujo de trabajo." },
+      "jobName": { "label": "ID del flujo de trabajo", "description": "Nombre del flujo de trabajo (job) de Dagster asociado al recurso." },
+      "yamlConfiguration": { "label": "Configuración del flujo de trabajo", "description": "Configuración YAML con los parámetros de ejecución del flujo de trabajo." },
+      "topic": { "label": "Topic", "description": "Topic de Kafka del que se consumen los mensajes." },
+      "bootstrapServers": { "label": "Servidores de arranque (bootstrap)", "description": "Lista de endpoints de los servidores de arranque de Kafka, separados por comas." },
+      "saslMechanism": { "label": "Mecanismo SASL", "description": "Mecanismo SASL usado para la autenticación." },
+      "securityProtocol": { "label": "Protocolo de seguridad", "description": "Protocolo de seguridad de la conexión con Kafka." },
+      "pollDuration": { "label": "Intervalo de sondeo (ms)", "description": "Intervalo de sondeo en milisegundos. Opcional; p. ej., 10000 para 10 segundos." },
+      "groupPrefix": { "label": "Prefijo del grupo", "description": "Prefijo del grupo de consumidores de Kafka." },
+      "tokenUrl": { "label": "URL del token", "description": "Endpoint del token OAuth para la autenticación con Kafka." },
+      "revokeUrl": { "label": "URL de revocación", "description": "Endpoint de revocación del token OAuth." },
+      "edeliveryTriggerAPI": { "label": "URL de la API de activación de eDelivery", "description": "URL del endpoint de la API de activación de eDelivery." },
+      "appDataIdentifier": { "label": "Identificador de datos de la aplicación", "description": "Identificador de datos de la aplicación para eDelivery." },
+      "storage": { "label": "URL del almacenamiento" },
+      "blobName": { "label": "Nombre del fichero", "description": "Nombre del blob del fichero." },
+      "accessKey": { "label": "Clave de acceso" },
+      "secretKey": { "label": "Clave secreta" },
+      "keyName": { "label": "Nombre de la clave" },
+      "provisioningAPI": { "label": "API de aprovisionamiento", "description": "URL del endpoint de la API de aprovisionamiento." },
+      "deploymentScriptId": { "label": "ID del script de despliegue", "description": "ID del script de despliegue." }
+    },
     "offerTypeHeading": "Tipo de oferta: {{type}}",
     "backToOfferSelection": "Volver a la selección de tipo de oferta",
     "schemaLabel": "Esquema",
@@ -734,6 +774,9 @@
     }
   },
   "language": {
+    "ca": "Catalán",
+    "gl": "Gallego",
+    "eu": "Euskera",
     "es": "Español",
     "en": "Inglés",
     "de": "Alemán",
@@ -765,5 +808,59 @@
       "api": "API",
       "lexicalconceptualresource": "Recurso léxico-conceptual"
     }
+  },
+  "mediaType": {
+    "audio": "Audio",
+    "image": "Imagen",
+    "text": "Texto",
+    "textNumerical": "Texto numérico",
+    "video": "Vídeo"
+  },
+  "lingualityType": {
+    "bilingual": "Bilingüe",
+    "bilingualized": "Bilingüizado",
+    "monolingual": "Monolingüe",
+    "multilingual": "Multilingüe"
+  },
+  "technicalOrganisationalMeasure": {
+    "accessControlsAuthenticationMechanisms": "Controles de acceso y mecanismos de autenticación",
+    "dataBackupAndRecoveryProcedures": "Procedimientos de copia de seguridad y recuperación de datos",
+    "dataBreachNotificationMechanisms": "Mecanismos de notificación de violaciones de datos",
+    "dataRetentionAndDeletionPolicies": "Políticas de conservación y supresión de datos",
+    "encryptionOfPersonalData": "Cifrado de datos personales",
+    "incidentResponseAndManagementProcedures": "Procedimientos de respuesta y gestión de incidentes",
+    "networkAndCommunicationSecurity": "Seguridad de redes y comunicaciones",
+    "physicalSecurityMeasuresForPremisesAndEquipment": "Medidas de seguridad física de instalaciones y equipos",
+    "pseudonymisationOfPersonalData": "Seudonimización de datos personales",
+    "staffTrainingOnDataProtectionAndSecurityAwareness": "Formación del personal en protección de datos y concienciación sobre seguridad"
+  },
+  "dataProtectionPrinciple": {
+    "accuracy": "Exactitud",
+    "alignmentDataRights": "Respeto de los derechos de los interesados",
+    "dataMinimisation": "Minimización de datos",
+    "integrityConfidentiality": "Integridad y confidencialidad",
+    "lawfulnessFairnessTransparency": "Licitud, lealtad y transparencia",
+    "purposeLimitation": "Limitación de la finalidad",
+    "storageLimitation": "Limitación del plazo de conservación"
+  },
+  "priceType": {
+    "free": "Gratuito",
+    "commercial": "Comercial"
+  },
+  "policyAction": {
+    "SEARCH": "Buscar",
+    "CONSUME": "Consumir",
+    "RESTRICTED_CONSUME": "Consumo restringido"
+  },
+  "identityAttribute": {
+    "CONSUMER": "Consumidor",
+    "DATA_PROVIDER": "Proveedor de datos",
+    "APP_PROVIDER": "Proveedor de aplicaciones",
+    "INFRA_PROVIDER": "Proveedor de infraestructura",
+    "DATA_PROVIDER_PUBLISHER": "Publicador del proveedor de datos",
+    "APP_PROVIDER_PUBLISHER": "Publicador del proveedor de aplicaciones",
+    "INFRA_PROVIDER_PUBLISHER": "Publicador del proveedor de infraestructura",
+    "EDNEL_PARTICIPANT": "Participante",
+    "DATA_SEARCHER": "Buscador de datos"
   }
 }

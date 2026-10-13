@@ -33,6 +33,18 @@ export class SdDisplayMapper {
     return this.t(`region.${code}`, code);
   }
 
+  /** ms:MediaTypeTaxonomy value (`ms:audio` or `audio`) translated via `mediaType.*`. */
+  mediaType(raw?: string): string {
+    const code = raw ? stripCuriePrefix(raw) : '';
+    return this.t(`mediaType.${code}`, code);
+  }
+
+  /** ms:LingualityTypeTaxonomy value (`ms:monolingual` or `monolingual`) translated via `lingualityType.*`. */
+  lingualityType(raw?: string): string {
+    const code = raw ? stripCuriePrefix(raw) : '';
+    return this.t(`lingualityType.${code}`, code);
+  }
+
   languageWithRegion(langRaw?: string, regionRaw?: string): string {
     const lang = this.language(langRaw);
     const region = this.region(regionRaw);

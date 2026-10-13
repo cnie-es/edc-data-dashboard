@@ -35,6 +35,7 @@ export interface ReviewSummaryContext {
   yesLabel: string;
   noLabel: string;
   resolveTemplateFieldLabel: (field: DynamicField) => string;
+  resolveEnumOptionLabel?: (field: DynamicField, option: string) => string;
 }
 
 const resolveOptionLabel = (value: string, options: PolicySelectOption[]): string => {
@@ -150,6 +151,15 @@ const resolveReviewSummaryValues = (field: DynamicField, value: unknown, ctx: Re
   if (isPolicyCardField(field)) {
     const cards = getPolicyCardsValue(value, createEmptyPolicyCard);
     return cards.map(card => formatPolicyCardSummary(field, card, ctx)).filter(summary => summary.length > 0);
+  }
+
+  if ((field.controlType === 'select' || field.controlType === 'select-multiple') && ctx.resolveEnumOptionLabel) {
+    const resolveLabel = ctx.resolveEnumOptionLabel;
+    const options = Array.isArray(value) ? value : [value];
+    return options
+      .map(option => (typeof option === 'string' ? option.trim() : String(option)))
+      .filter(option => option.length > 0)
+      .map(option => resolveLabel(field, option));
   }
 
   if (field.controlType === 'checkbox') {

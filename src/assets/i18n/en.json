@@ -544,6 +544,46 @@
     }
   },
   "sdtooling": {
+    "keywordPatternHint": "Each keyword must contain at least one letter (it cannot be only numbers or symbols).",
+    "templateFields": {
+      "type": { "label": "Source type", "description": "Resource address type." },
+      "name": { "label": "Resource name", "description": "Human-readable name for the asset." },
+      "baseUrl": { "label": "Base URL", "description": "Base URL of the provider's data source or REST API." },
+      "proxyPath": { "label": "Forward request path", "description": "Whether the request path is forwarded." },
+      "proxyQueryParams": { "label": "Forward query parameters", "description": "Forwards the query parameters (always enabled for REST API)." },
+      "proxyBody": { "label": "Forward request body", "description": "Forwards the request body (always enabled for REST API)." },
+      "proxyMethod": { "label": "Forward HTTP method", "description": "Forwards the HTTP method (always enabled for REST API)." },
+      "endpointOverride": { "label": "Endpoint override", "description": "S3 endpoint. Only for S3-compatible services (MinIO/Weka); leave it empty for AWS." },
+      "region": { "label": "Region" },
+      "bucketName": { "label": "Bucket name", "description": "The bucket name must be between 3 and 63 characters long and lowercase." },
+      "objectName": { "label": "Object name", "description": "Name of the object within the bucket (1 to 1024 characters)." },
+      "endpoint": { "label": "Endpoint URL", "description": "Endpoint URL of the S3 server (AWS or compatible, such as MinIO)." },
+      "sourcePath": { "label": "Source path" },
+      "accessKeyId": { "label": "Access key ID" },
+      "secretAccessKey": { "label": "Secret access key" },
+      "assetType": { "label": "Asset type", "description": "Tag used to filter searches." },
+      "codeLocation": { "label": "Code location", "description": "Location of the code repository containing the workflow/job definition." },
+      "repositoryName": { "label": "Repository name", "description": "Repository name within the code location where the workflow/job is defined." },
+      "jobName": { "label": "Workflow ID", "description": "Name of the Dagster workflow/job associated with the resource." },
+      "yamlConfiguration": { "label": "Workflow configuration", "description": "YAML configuration describing the workflow execution parameters." },
+      "topic": { "label": "Topic", "description": "Kafka topic to consume from." },
+      "bootstrapServers": { "label": "Bootstrap servers", "description": "Comma-separated list of Kafka bootstrap server endpoints." },
+      "saslMechanism": { "label": "SASL mechanism", "description": "SASL mechanism used for authentication." },
+      "securityProtocol": { "label": "Security protocol", "description": "Security protocol for the Kafka connection." },
+      "pollDuration": { "label": "Poll interval (ms)", "description": "Polling interval in milliseconds. Optional; e.g. 10000 for 10 seconds." },
+      "groupPrefix": { "label": "Group prefix", "description": "Prefix for the Kafka consumer group." },
+      "tokenUrl": { "label": "Token URL", "description": "OAuth token endpoint for Kafka authentication." },
+      "revokeUrl": { "label": "Revoke URL", "description": "OAuth token revocation endpoint." },
+      "edeliveryTriggerAPI": { "label": "eDelivery trigger API URL", "description": "eDelivery trigger API endpoint URL." },
+      "appDataIdentifier": { "label": "Application data identifier", "description": "Application data identifier for eDelivery." },
+      "storage": { "label": "Storage URL" },
+      "blobName": { "label": "File name", "description": "Name of the file blob." },
+      "accessKey": { "label": "Access key" },
+      "secretKey": { "label": "Secret key" },
+      "keyName": { "label": "Key name" },
+      "provisioningAPI": { "label": "Provisioning API", "description": "URL of the provisioning API endpoint." },
+      "deploymentScriptId": { "label": "Deployment script ID", "description": "ID of the deployment script." }
+    },
     "offerTypeHeading": "Offer type: {{type}}",
     "backToOfferSelection": "Back to offer type selection",
     "schemaLabel": "Schema",
@@ -733,6 +773,9 @@
     }
   },
   "language": {
+    "ca": "Catalan",
+    "gl": "Galician",
+    "eu": "Basque",
     "es": "Spanish",
     "en": "English",
     "de": "German",
@@ -764,5 +807,59 @@
       "api": "API",
       "lexicalconceptualresource": "Lexical-conceptual resource"
     }
+  },
+  "mediaType": {
+    "audio": "Audio",
+    "image": "Image",
+    "text": "Text",
+    "textNumerical": "Numerical text",
+    "video": "Video"
+  },
+  "lingualityType": {
+    "bilingual": "Bilingual",
+    "bilingualized": "Bilingualized",
+    "monolingual": "Monolingual",
+    "multilingual": "Multilingual"
+  },
+  "technicalOrganisationalMeasure": {
+    "accessControlsAuthenticationMechanisms": "Access controls and authentication mechanisms",
+    "dataBackupAndRecoveryProcedures": "Data backup and recovery procedures",
+    "dataBreachNotificationMechanisms": "Data breach notification mechanisms",
+    "dataRetentionAndDeletionPolicies": "Data retention and deletion policies",
+    "encryptionOfPersonalData": "Encryption of personal data",
+    "incidentResponseAndManagementProcedures": "Incident response and management procedures",
+    "networkAndCommunicationSecurity": "Network and communication security",
+    "physicalSecurityMeasuresForPremisesAndEquipment": "Physical security measures for premises and equipment",
+    "pseudonymisationOfPersonalData": "Pseudonymisation of personal data",
+    "staffTrainingOnDataProtectionAndSecurityAwareness": "Staff training on data protection and security awareness"
+  },
+  "dataProtectionPrinciple": {
+    "accuracy": "Accuracy",
+    "alignmentDataRights": "Alignment with data subject rights",
+    "dataMinimisation": "Data minimisation",
+    "integrityConfidentiality": "Integrity and confidentiality",
+    "lawfulnessFairnessTransparency": "Lawfulness, fairness and transparency",
+    "purposeLimitation": "Purpose limitation",
+    "storageLimitation": "Storage limitation"
+  },
+  "priceType": {
+    "free": "Free",
+    "commercial": "Commercial"
+  },
+  "policyAction": {
+    "SEARCH": "Search",
+    "CONSUME": "Consume",
+    "RESTRICTED_CONSUME": "Restricted consume"
+  },
+  "identityAttribute": {
+    "CONSUMER": "Consumer",
+    "DATA_PROVIDER": "Data provider",
+    "APP_PROVIDER": "Application provider",
+    "INFRA_PROVIDER": "Infrastructure provider",
+    "DATA_PROVIDER_PUBLISHER": "Data provider publisher",
+    "APP_PROVIDER_PUBLISHER": "Application provider publisher",
+    "INFRA_PROVIDER_PUBLISHER": "Infrastructure provider publisher",
+    "EDNEL_PARTICIPANT": "Participant",
+    "DATA_SEARCHER": "Data searcher"
   }
 }

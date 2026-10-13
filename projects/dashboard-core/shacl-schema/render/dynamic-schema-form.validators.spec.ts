@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 import type { DynamicField, DynamicObjectArrayItemField } from './dynamic-schema-form.types';
-import { createFieldValidators, validateObjectArrayRow } from './dynamic-schema-form.validators';
+import { createFieldValidators, validateArrayToken, validateObjectArrayRow } from './dynamic-schema-form.validators';
 
 describe('dynamic-schema-form.validators nested object-array', () => {
   const amountField: DynamicObjectArrayItemField = {
@@ -157,5 +157,50 @@ describe('dynamic-schema-form.validators nested object-array', () => {
 
     expect(control.valid).toBeTrue();
     expect(control.errors).toBeNull();
+  });
+
+  describe('token array fields', () => {
+    // Mirrors simpl:keywords in corpus.ttl: pattern at property level, lengths under items.
+    const keywordsSchema = {
+      type: 'array',
+      maxItems: 16,
+      pattern: '^(.|\s)*[a-zA-Z]+(.|\s)*$',
+      items: { type: 'string', minLength: 1, maxLength: 50 },
+    };
+    const keywordsField: DynamicField = {
+      key: 'simpl:keywords',
+      controlName: 'simpl_keywords',
+      label: 'Keywords',
+      description: '',
+      type: 'array',
+      controlType: 'array',
+      enumOptions: [],
+      required: true,
+      schema: keywordsSchema,
+    };
+
+    it('rejects a single token that does not match the pattern', () => {
+      expect(validateArrayToken(keywordsSchema, '123')).toEqual(
+        jasmine.objectContaining({ pattern: jasmine.anything() }),
+      );
+      expect(validateArrayToken(keywordsSchema, 'datos 2024')).toBeNull();
+    });
+
+    it('rejects a token longer than the item maxLength', () => {
+      expect(validateArrayToken(keywordsSchema, 'a'.repeat(51))).toEqual(
+        jasmine.objectContaining({ maxlength: jasmine.anything() }),
+      );
+    });
+
+    it('validates each joined token instead of the whole control value', () => {
+      const control = new FormControl<string>('');
+      control.setValidators(createFieldValidators(keywordsField));
+
+      control.setValue('datos, 123');
+      expect(control.errors).toEqual(jasmine.objectContaining({ pattern: jasmine.anything() }));
+
+      control.setValue('datos, corpus');
+      expect(control.errors).toBeNull();
+    });
   });
 });

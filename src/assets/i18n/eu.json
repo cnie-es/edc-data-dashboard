@@ -544,6 +544,46 @@
     }
   },
   "sdtooling": {
+    "keywordPatternHint": "Gako-hitz bakoitzak letra bat izan behar du gutxienez (ezin da zenbakiak edo ikurrak soilik izan).",
+    "templateFields": {
+      "type": { "label": "Jatorri mota", "description": "Baliabidearen helbide mota." },
+      "name": { "label": "Baliabidearen izena", "description": "Baliabidearen izen irakurgarria." },
+      "baseUrl": { "label": "Oinarrizko URLa", "description": "Hornitzailearen datu-iturriaren edo REST APIaren oinarrizko URLa." },
+      "proxyPath": { "label": "Bidea birbidali", "description": "Eskaeraren bidea birbidaltzen den adierazten du." },
+      "proxyQueryParams": { "label": "Kontsulta-parametroak birbidali", "description": "Kontsulta-parametroak birbidaltzen ditu (beti aktibatuta REST APIetan)." },
+      "proxyBody": { "label": "Eskaeraren gorputza birbidali", "description": "Eskaeraren gorputza birbidaltzen du (beti aktibatuta REST APIetan)." },
+      "proxyMethod": { "label": "HTTP metodoa birbidali", "description": "HTTP metodoa birbidaltzen du (beti aktibatuta REST APIetan)." },
+      "endpointOverride": { "label": "Endpoint pertsonalizatua", "description": "S3 endpointa. S3rekin bateragarriak diren zerbitzuetarako soilik (MinIO/Weka); AWSn, utzi hutsik." },
+      "region": { "label": "Eskualdea" },
+      "bucketName": { "label": "Bucket-aren izena", "description": "Bucket-aren izenak 3 eta 63 karaktere artean izan behar ditu, minuskulaz." },
+      "objectName": { "label": "Objektuaren izena", "description": "Objektuaren izena bucket-aren barruan (1 eta 1024 karaktere artean)." },
+      "endpoint": { "label": "Endpointaren URLa", "description": "S3 zerbitzariaren endpointaren URLa (AWS edo bateragarria, MinIO adibidez)." },
+      "sourcePath": { "label": "Jatorriko bidea" },
+      "accessKeyId": { "label": "Sarbide-gakoaren IDa" },
+      "secretAccessKey": { "label": "Sarbide-gako sekretua" },
+      "assetType": { "label": "Aktibo mota", "description": "Bilaketak iragazteko etiketa." },
+      "codeLocation": { "label": "Kodearen kokapena", "description": "Lan-fluxuaren definizioa duen kode-biltegiaren kokapena." },
+      "repositoryName": { "label": "Biltegiaren izena", "description": "Lan-fluxua definitzen den biltegiaren izena, kodearen kokapenaren barruan." },
+      "jobName": { "label": "Lan-fluxuaren IDa", "description": "Baliabideari lotutako Dagster lan-fluxuaren (job) izena." },
+      "yamlConfiguration": { "label": "Lan-fluxuaren konfigurazioa", "description": "Lan-fluxuaren exekuzio-parametroak deskribatzen dituen YAML konfigurazioa." },
+      "topic": { "label": "Topic-a", "description": "Mezuak kontsumitzeko Kafka topic-a." },
+      "bootstrapServers": { "label": "Abiarazte-zerbitzariak (bootstrap)", "description": "Kafka abiarazte-zerbitzarien endpointen zerrenda, komaz bereizita." },
+      "saslMechanism": { "label": "SASL mekanismoa", "description": "Autentifikaziorako erabiltzen den SASL mekanismoa." },
+      "securityProtocol": { "label": "Segurtasun-protokoloa", "description": "Kafka konexioaren segurtasun-protokoloa." },
+      "pollDuration": { "label": "Galdeketa-tartea (ms)", "description": "Galdeketa-tartea milisegundotan. Aukerakoa; adib., 10000 10 segundorako." },
+      "groupPrefix": { "label": "Taldearen aurrizkia", "description": "Kafka kontsumitzaile-taldearen aurrizkia." },
+      "tokenUrl": { "label": "Tokenaren URLa", "description": "Kafka autentifikaziorako OAuth tokenaren endpointa." },
+      "revokeUrl": { "label": "Ezeztapen-URLa", "description": "OAuth tokena ezeztatzeko endpointa." },
+      "edeliveryTriggerAPI": { "label": "eDelivery aktibatzeko APIaren URLa", "description": "eDelivery aktibatzeko APIaren endpointaren URLa." },
+      "appDataIdentifier": { "label": "Aplikazioaren datu-identifikatzailea", "description": "eDeliveryrako aplikazioaren datu-identifikatzailea." },
+      "storage": { "label": "Biltegiratzearen URLa" },
+      "blobName": { "label": "Fitxategiaren izena", "description": "Fitxategiaren blob-aren izena." },
+      "accessKey": { "label": "Sarbide-gakoa" },
+      "secretKey": { "label": "Gako sekretua" },
+      "keyName": { "label": "Gakoaren izena" },
+      "provisioningAPI": { "label": "Hornikuntza-APIa", "description": "Hornikuntza-APIaren endpointaren URLa." },
+      "deploymentScriptId": { "label": "Hedapen-scriptaren IDa", "description": "Hedapen-scriptaren IDa." }
+    },
     "offerTypeHeading": "Eskaintza mota: {{type}}",
     "backToOfferSelection": "Itzuli eskaintza mota hautaketara",
     "schemaLabel": "Esquema",
@@ -733,6 +773,9 @@
     }
   },
   "language": {
+    "ca": "Katalana",
+    "gl": "Galiziera",
+    "eu": "Euskara",
     "es": "Gaztelania",
     "en": "Ingelesa",
     "de": "Alemana",
@@ -764,5 +807,59 @@
       "api": "API",
       "lexicalconceptualresource": "Hiztegi-kontzeptual baliabidea"
     }
+  },
+  "mediaType": {
+    "audio": "Audioa",
+    "image": "Irudia",
+    "text": "Testua",
+    "textNumerical": "Zenbakizko testua",
+    "video": "Bideoa"
+  },
+  "lingualityType": {
+    "bilingual": "Elebiduna",
+    "bilingualized": "Elebiduntua",
+    "monolingual": "Elebakarra",
+    "multilingual": "Eleaniztuna"
+  },
+  "technicalOrganisationalMeasure": {
+    "accessControlsAuthenticationMechanisms": "Sarbide-kontrolak eta autentifikazio-mekanismoak",
+    "dataBackupAndRecoveryProcedures": "Datuen babeskopia eta berreskuratze-prozedurak",
+    "dataBreachNotificationMechanisms": "Datu-urraketen jakinarazpen-mekanismoak",
+    "dataRetentionAndDeletionPolicies": "Datuak gordetzeko eta ezabatzeko politikak",
+    "encryptionOfPersonalData": "Datu pertsonalen zifratzea",
+    "incidentResponseAndManagementProcedures": "Gorabeherei erantzuteko eta kudeatzeko prozedurak",
+    "networkAndCommunicationSecurity": "Sareen eta komunikazioen segurtasuna",
+    "physicalSecurityMeasuresForPremisesAndEquipment": "Instalazio eta ekipoen segurtasun fisikoko neurriak",
+    "pseudonymisationOfPersonalData": "Datu pertsonalen seudonimizazioa",
+    "staffTrainingOnDataProtectionAndSecurityAwareness": "Langileen prestakuntza datuen babesean eta segurtasunaren kontzientziazioan"
+  },
+  "dataProtectionPrinciple": {
+    "accuracy": "Zehaztasuna",
+    "alignmentDataRights": "Interesdunen eskubideekiko lerrokatzea",
+    "dataMinimisation": "Datuak minimizatzea",
+    "integrityConfidentiality": "Osotasuna eta konfidentzialtasuna",
+    "lawfulnessFairnessTransparency": "Zilegitasuna, leialtasuna eta gardentasuna",
+    "purposeLimitation": "Helburua mugatzea",
+    "storageLimitation": "Kontserbazio-epea mugatzea"
+  },
+  "priceType": {
+    "free": "Doakoa",
+    "commercial": "Komertziala"
+  },
+  "policyAction": {
+    "SEARCH": "Bilatu",
+    "CONSUME": "Kontsumitu",
+    "RESTRICTED_CONSUME": "Kontsumo mugatua"
+  },
+  "identityAttribute": {
+    "CONSUMER": "Kontsumitzailea",
+    "DATA_PROVIDER": "Datu-hornitzailea",
+    "APP_PROVIDER": "Aplikazio-hornitzailea",
+    "INFRA_PROVIDER": "Azpiegitura-hornitzailea",
+    "DATA_PROVIDER_PUBLISHER": "Datu-hornitzailearen argitaratzailea",
+    "APP_PROVIDER_PUBLISHER": "Aplikazio-hornitzailearen argitaratzailea",
+    "INFRA_PROVIDER_PUBLISHER": "Azpiegitura-hornitzailearen argitaratzailea",
+    "EDNEL_PARTICIPANT": "Partaidea",
+    "DATA_SEARCHER": "Datu-bilatzailea"
   }
 }

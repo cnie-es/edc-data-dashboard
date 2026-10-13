@@ -43,9 +43,12 @@ export const createFieldValidators = (field: DynamicField): ValidatorFn[] => {
     return validators;
   }
 
-  validators.push(...createScalarValidators(field.schema, field.required, field.type));
-
   if (field.type === 'array') {
+    // Length/pattern constraints apply to each token, never to the joined control value
+    // ("a, 123" would satisfy a "contains a letter" pattern even though "123" does not).
+    if (field.required) {
+      validators.push(Validators.required);
+    }
     const minItems = asNumber(field.schema['minItems']);
     if (minItems !== undefined) {
       validators.push(minItemsValidator(minItems));
@@ -54,13 +57,36 @@ export const createFieldValidators = (field: DynamicField): ValidatorFn[] => {
     if (maxItems !== undefined) {
       validators.push(maxItemsValidator(maxItems));
     }
-    const items = asRecord(field.schema['items']);
-    const itemMinLength = asNumber(items?.['minLength']);
-    if (itemMinLength !== undefined) {
-      validators.push(itemMinLengthValidator(itemMinLength));
+    validators.push(arrayItemsValidator(field.schema));
+    return validators;
+  }
+
+  validators.push(...createScalarValidators(field.schema, field.required, field.type));
+  return validators;
+};
+
+/**
+ * Per-token schema of a token-array field. The TTL parser stores sh:minLength/sh:maxLength
+ * under `items` but sh:pattern at the property level, so both locations are merged here.
+ */
+export const getArrayItemSchema = (fieldSchema: Record<string, unknown>): Record<string, unknown> => {
+  const items = asRecord(fieldSchema['items']) ?? {};
+  const itemSchema: Record<string, unknown> = { ...items };
+  for (const key of ['pattern', 'minLength', 'maxLength'] as const) {
+    if (itemSchema[key] === undefined && fieldSchema[key] !== undefined) {
+      itemSchema[key] = fieldSchema[key];
     }
   }
-  return validators;
+  return itemSchema;
+};
+
+export const validateArrayToken = (fieldSchema: Record<string, unknown>, token: string): ValidationErrors | null => {
+  const itemSchema = getArrayItemSchema(fieldSchema);
+  const errors = validateScalarValue(itemSchema, false, 'string', token);
+  if (errors?.['minlength']) {
+    return { itemMinLength: { min: asNumber(itemSchema['minLength']) } };
+  }
+  return errors;
 };
 
 export const createScalarValidators = (
@@ -276,10 +302,15 @@ const minObjectItemsValidator = (min: number): ValidatorFn => {
   };
 };
 
-const itemMinLengthValidator = (min: number): ValidatorFn => {
+const arrayItemsValidator = (fieldSchema: Record<string, unknown>): ValidatorFn => {
   return (control: AbstractControl): ValidationErrors | null => {
-    const values = toArrayValues(control.value);
-    return values.some(item => item.length < min) ? { itemMinLength: { min } } : null;
+    for (const token of toArrayValues(control.value)) {
+      const errors = validateArrayToken(fieldSchema, token);
+      if (errors) {
+        return errors;
+      }
+    }
+    return null;
   };
 };
 

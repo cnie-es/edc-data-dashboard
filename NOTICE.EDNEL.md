@@ -27,7 +27,7 @@ changed, removed or renamed, and summarise what it added.
 | Modified by | EDNEL-RIOJA project team, for CNIE-ES |
 | Public repository of this derivative work | https://github.com/cnie-es/edc-data-dashboard |
 | Version of this derivative work | `v1.0.5-edval` |
-| Dates of modification | **2026-02-20 to 2026-09-16** |
+| Dates of modification | **2026-02-20 to 2026-10-13** |
 
 The modifications are licensed under the **Apache License 2.0**, the same licence as the original
 work. Neither the Eclipse Foundation nor the original contributors endorse this fork; "Eclipse" and
@@ -38,8 +38,8 @@ container images (`ghcr.io/cnie-es/datadashboard`) are built from it.
 
 ### Scale of the change
 
-This is an extensive derivative work, not a patch: 291 commits between the baseline and this
-release, touching 511 files. The bulk of it is a new `projects/dashboard-core` library that did not
+This is an extensive derivative work, not a patch: 298 commits between the baseline and this
+release, touching 522 files. The bulk of it is a new `projects/dashboard-core` library that did not
 exist upstream, with modules for `assets`, `catalog`, `connector-data-locations`,
 `contract-definitions`, `home`, `negotiations`, `policies`, `sdtooling`, `shacl-schema`,
 `transfer` and `xfsc-advSearch`, plus the dashboard shell in `src/app` that consumes it. Alongside
@@ -49,13 +49,13 @@ deployment configuration of the EDNEL dataspace.
 
 ### Files added
 
-393 files, of which 330 are the new `projects/dashboard-core` library. These are new works of this
+404 files, of which 341 are the new `projects/dashboard-core` library. These are new works of this
 fork rather than modifications of the original, so they are summarised by location rather than
 listed one by one; the exhaustive list is in the diff command at the end of this file.
 
 | Location | Files |
 |---|---|
-| `projects/dashboard-core` | 330 |
+| `projects/dashboard-core` | 341 |
 | `src/app` | 24 |
 | `public/assets` | 10 |
 | `src/assets` | 7 |
@@ -73,9 +73,9 @@ Every file of the original work that this fork changed, with the dates on which 
 |---|---|
 | `.dockerignore` | 2026-05-19 |
 | `.github/workflows/verify.yaml` | 2026-02-20 |
-| `CHANGELOG.md` | 2026-09-11, 2026-09-15, 2026-09-16 |
-| `Dockerfile` | 2026-05-19, 2026-09-11, 2026-09-15, 2026-09-16 |
-| `README.md` | 2026-05-29, 2026-09-11, 2026-09-15, 2026-09-16 |
+| `CHANGELOG.md` | 2026-09-11, 2026-09-15, 2026-09-16, 2026-10-13 |
+| `Dockerfile` | 2026-05-19, 2026-09-11, 2026-09-15, 2026-09-16, 2026-10-13 |
+| `README.md` | 2026-05-29, 2026-09-11, 2026-09-15, 2026-09-16, 2026-10-13 |
 | `angular.json` | 2026-05-19,2026-06-03 2026-06-18 |
 | `cypress/e2e/asset-view.cy.ts` | 2026-05-29 |
 | `cypress/e2e/contract-definition-view.cy.ts` | 2026-05-19,2026-05-20 2026-06-04 |

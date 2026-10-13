@@ -40,6 +40,7 @@ import {
   isSimplConfigureQuad,
 } from '../schema/matchers';
 import type { ShaclPropertyGroupMeta, SimplSDSchemaUIVariant } from '../schema/types';
+import { applyDerivedConstraints } from '../schema/derived-constraints';
 import { buildPropertyGroupCatalog } from './property-group-catalog';
 import { getShapePropertyNameWithoutPath, toCompactURI } from './uri-utils';
 
@@ -416,6 +417,9 @@ const buildSchemaFromQuads = (
 
   deleteChildNodes(root);
   deleteNodesWithEmptyProperties(root);
+  if (schemaUIType === 'sdCreation') {
+    applyDerivedConstraints(root, quads, prefixes);
+  }
   if (schemaUIType === 'advancedSearch') {
     deleteAllRequiredProperties(root);
   }

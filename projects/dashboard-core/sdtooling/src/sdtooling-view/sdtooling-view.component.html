@@ -164,8 +164,8 @@
                             <span class="ml-1 text-error">*</span>
                           }
                         </label>
-                        @if (field.description) {
-                          <p class="mb-1 text-xs text-my-text" [innerText]="field.description"></p>
+                        @if (getTemplateFieldDescription(field)) {
+                          <p class="mb-1 text-xs text-my-text" [innerText]="getTemplateFieldDescription(field)"></p>
                         }
 
                         @if (field.controlType === 'select') {
@@ -181,7 +181,7 @@
                             @for (option of field.enumOptions; track option) {
                               <option
                                 [ngValue]="option"
-                                [innerText]="field.enumOptionLabels?.[option] ?? option"
+                                [innerText]="getEnumOptionLabel(field, option)"
                               ></option>
                             }
                           </select>
@@ -200,7 +200,7 @@
                                     onMultiSelectOptionChange(field, option, $any($event.target).checked, templateForm)
                                   "
                                 />
-                                <span [innerText]="field.enumOptionLabels?.[option] ?? option"></span>
+                                <span [innerText]="getEnumOptionLabel(field, option)"></span>
                               </label>
                             }
                           </div>
@@ -273,7 +273,7 @@
                       >
                         <option [ngValue]="">{{ 'sdtooling.selectOption' | translate }}</option>
                         @for (option of getFieldEnumOptions(field); track option) {
-                          <option [ngValue]="option" [innerText]="field.enumOptionLabels?.[option] ?? option"></option>
+                          <option [ngValue]="option" [innerText]="getEnumOptionLabel(field, option)"></option>
                         }
                       </select>
                     } @else if (isSelectMultipleField(field)) {
@@ -291,7 +291,7 @@
                                 onMultiSelectOptionChange(field, option, $any($event.target).checked, dynamicForm)
                               "
                             />
-                            <span [innerText]="field.enumOptionLabels?.[option] ?? option"></span>
+                            <span [innerText]="getEnumOptionLabel(field, option)"></span>
                           </label>
                         }
                       </div>
@@ -352,6 +352,7 @@
                         <div class="flex gap-2">
                           <input
                             class="input input-bordered w-full"
+                            [class.input-error]="getArrayDraftError(field)"
                             type="text"
                             [id]="field.controlName + '_draft'"
                             [value]="getArrayDraft(field)"
@@ -371,6 +372,9 @@
                             {{ 'sdtooling.add_item' | translate }}
                           </button>
                         </div>
+                        @if (getArrayDraftError(field)) {
+                          <p class="text-xs text-error" [innerText]="getArrayDraftError(field)"></p>
+                        }
 
                         @if (getArrayTokens(field).length) {
                           <div class="flex flex-wrap gap-2">
@@ -423,7 +427,7 @@
                                     [ngModelOptions]="{ standalone: true }"
                                   >
                                     <option [ngValue]="">{{ 'sdtooling.selectUsageAssignee' | translate }}</option>
-                                    @for (option of policyAttributeOptions; track option.value) {
+                                    @for (option of getPolicyAttributeOptions(); track option.value) {
                                       <option [ngValue]="option.value" [innerText]="option.label"></option>
                                     }
                                   </select>
@@ -448,7 +452,7 @@
                                     (ngModelChange)="onPolicyCardValueChange(field, $index, 'usageType', $event)"
                                     [ngModelOptions]="{ standalone: true }"
                                   >
-                                    @for (option of usageTypeOptions; track option.value) {
+                                    @for (option of getUsageTypeOptions(); track option.value) {
                                       <option [ngValue]="option.value" [innerText]="option.label"></option>
                                     }
                                   </select>
@@ -547,7 +551,7 @@
                                     [ngModelOptions]="{ standalone: true }"
                                   >
                                     <option [ngValue]="">{{ 'sdtooling.selectAction' | translate }}</option>
-                                    @for (option of policyActionOptions; track option.value) {
+                                    @for (option of getPolicyActionOptions(); track option.value) {
                                       <option [ngValue]="option.value" [innerText]="option.label"></option>
                                     }
                                   </select>
@@ -573,7 +577,7 @@
                                     [ngModelOptions]="{ standalone: true }"
                                   >
                                     <option [ngValue]="">{{ 'sdtooling.selectAttribute' | translate }}</option>
-                                    @for (option of policyAttributeOptions; track option.value) {
+                                    @for (option of getPolicyAttributeOptions(); track option.value) {
                                       <option [ngValue]="option.value" [innerText]="option.label"></option>
                                     }
                                   </select>

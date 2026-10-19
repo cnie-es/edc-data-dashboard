@@ -1,0 +1,54 @@
+@if (policies().length) {
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-cy="offer-service-policies">
+    @for (policy of policies(); track policy.variant) {
+      <div class="rounded-lg border border-gray-200 p-4" [attr.data-cy]="'offer-service-policy-' + policy.variant">
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-rounded" [class]="policy.iconClass">{{ policy.icon }}</span>
+            <span class="font-semibold">{{ policy.titleKey | translate }}</span>
+          </div>
+          <button
+            type="button"
+            class="btn btn-outline btn-xs"
+            [attr.data-cy]="'offer-service-policy-odrl-' + policy.variant"
+            (click)="openOdrl(policy)"
+          >
+            <span class="material-symbols-rounded text-sm!">data_object</span>
+            {{ 'policies.detail.viewOdrl' | translate }}
+          </button>
+        </div>
+
+        @if (policy.policy; as odrl) {
+          <lib-odrl-policy-summary [policy]="odrl" [variant]="policy.variant" />
+        } @else {
+          <p class="text-sm text-gray-600">{{ 'policies.detail.summaryEmpty' | translate }}</p>
+        }
+      </div>
+    }
+  </div>
+}
+
+<dialog #odrlDialog class="modal z-50" data-cy="offer-service-policy-odrl-dialog" (close)="selectedPolicy.set(null)">
+  <div class="modal-box max-w-3xl">
+    <button
+      type="button"
+      class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+      [attr.aria-label]="'policies.detail.modalCloseAria' | translate"
+      (click)="closeOdrl()"
+    >
+      ✕
+    </button>
+    @if (selectedPolicy(); as selected) {
+      <h3 class="font-bold text-lg pr-8 mb-3">
+        {{ selected.titleKey | translate }} · {{ 'policies.detail.tabOdrl' | translate }}
+      </h3>
+      <pre
+        class="max-h-[60vh] overflow-auto whitespace-pre-wrap break-all rounded-md bg-base-200 p-3 text-xs font-mono text-left"
+        >{{ selected.odrlText }}</pre
+      >
+    }
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button type="submit" [attr.aria-label]="'policies.detail.modalCloseAria' | translate">close</button>
+  </form>
+</dialog>

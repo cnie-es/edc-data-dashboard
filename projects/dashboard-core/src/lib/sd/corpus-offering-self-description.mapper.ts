@@ -259,19 +259,6 @@ export interface CorpusLicenseVm {
   description: string;
 }
 
-export interface AccessPolicyRow {
-  user: string;
-  actions: string;
-  from: string;
-  to: string;
-}
-
-export interface UsagePolicyRow {
-  user: string;
-  usageType: string;
-  constraint: string;
-}
-
 // ============================================================================
 // 2. SUBSECCIONES DE `corpusAsset` (ms:Corpus / CorpusShape)
 //    Cada interfaz corresponde a un `sh:PropertyGroup` del TTL.
@@ -408,8 +395,6 @@ export interface ServicePolicySection {
   accessPolicyRaw: string;
   usagePolicyRaw: string;
   dataProtectionRegime: string;
-  accessPolicyRows: AccessPolicyRow[];
-  usagePolicyRows: UsagePolicyRow[];
 }
 
 /** `simpl:contractTemplate` (sh:order 9). */
@@ -524,9 +509,6 @@ export interface OfferSelfDescriptionDetailViewModel {
   dataQuality: string;
   encryption: string;
   contractTemplateDoc: string;
-
-  accessPolicyRows: AccessPolicyRow[];
-  usagePolicyRows: UsagePolicyRow[];
 
   /** Acceso estructurado y escalable a todas las secciones/subsecciones (ver §3). */
   sections: OfferSelfDescriptionSections;
@@ -828,17 +810,26 @@ function mapOfferingPriceSection(subject: Record<string, unknown>): OfferingPric
   };
 }
 
-/** `simpl:servicePolicy` (sh:order 8), incluyendo el parseo de las políticas ODRL embebidas como JSON string. */
+/** ODRL de `simpl:access-policy` / `simpl:usage-policy`: normalmente un JSON string, a veces el objeto ya parseado. */
+function toPolicyJson(value: unknown): string {
+  if (typeof value === 'string') {
+    return value.trim();
+  }
+  if (value && typeof value === 'object') {
+    return JSON.stringify(value);
+  }
+  return '';
+}
+
+/** `simpl:servicePolicy` (sh:order 8); las políticas ODRL se conservan en bruto (las pinta `lib-offer-service-policies`). */
 function mapServicePolicySection(subject: Record<string, unknown>): ServicePolicySection {
   const servicePolicy = asRecord(subject['simpl:servicePolicy']) ?? {};
-  const accessPolicyRaw = toDisplayString(servicePolicy['simpl:access-policy'], '');
-  const usagePolicyRaw = toDisplayString(servicePolicy['simpl:usage-policy'], '');
+  const accessPolicyRaw = toPolicyJson(servicePolicy['simpl:access-policy']);
+  const usagePolicyRaw = toPolicyJson(servicePolicy['simpl:usage-policy']);
   return {
     accessPolicyRaw,
     usagePolicyRaw,
     dataProtectionRegime: toDisplayString(servicePolicy['simpl:dataProtectionRegime'], NA),
-    accessPolicyRows: parseAccessPolicyRows(accessPolicyRaw),
-    usagePolicyRows: parseUsagePolicyRows(usagePolicyRaw),
   };
 }
 
@@ -986,51 +977,6 @@ function readIssuanceDateIso(json: Record<string, unknown>): string {
 // 9. PARSEO DE POLÍTICAS ODRL (simpl:access-policy / simpl:usage-policy)
 // ============================================================================
 
-function getFirstPermission(policy: Record<string, unknown>): Record<string, unknown> | undefined {
-  const permissions = policy['permission'];
-  if (!Array.isArray(permissions) || permissions.length === 0) {
-    return undefined;
-  }
-  return asRecord(permissions[0]);
-}
-
-function isDateConstraint(value: unknown, operatorFragment: string): boolean {
-  const record = asRecord(value);
-  const leftOperand = toDisplayString(record?.['leftOperand'], '');
-  const operator = toDisplayString(record?.['operator'], '');
-  return leftOperand.includes('/dateTime') && operator.includes(operatorFragment);
-}
-
-function humanizeAction(action: string): string {
-  if (action === 'http://simpl.eu/odrl/actions/consume') return 'Consume';
-  if (action === 'http://www.w3.org/ns/odrl/2/use') return 'Restricted number of usages';
-  return action;
-}
-
-function toArrayAsString(value: unknown, humanize = false): string {
-  if (Array.isArray(value)) {
-    const mapped = value.map(item => {
-      const raw = toDisplayString(item);
-      return humanize ? humanizeAction(raw) : raw;
-    });
-    return mapped.join(', ') || 'N/A';
-  }
-  const raw = toDisplayString(value);
-  return humanize ? humanizeAction(raw) : raw;
-}
-
-function formatDateToSpanish(value: string): string {
-  if (!value || value === 'N/A') return 'N/A';
-  const parsed = new Date(value);
-  if (Number.isNaN(parsed.getTime())) return value;
-  return new Intl.DateTimeFormat('es-ES', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    timeZone: 'UTC',
-  }).format(parsed);
-}
-
 /** Extrae `assigner.uid` (participante que publica la política ODRL) de un `simpl:access-policy`/`simpl:usage-policy` JSON string. */
 function parseAssignerUid(policyRaw: string): string {
   if (!policyRaw) return '';
@@ -1040,54 +986,6 @@ function parseAssignerUid(policyRaw: string): string {
     return toDisplayString(assigner?.['uid'], '');
   } catch {
     return '';
-  }
-}
-
-function parseAccessPolicyRows(accessPolicyRaw: string): AccessPolicyRow[] {
-  if (!accessPolicyRaw) return [];
-  try {
-    const parsed = JSON.parse(accessPolicyRaw) as Record<string, unknown>;
-    const permission = getFirstPermission(parsed);
-    const assignee = asRecord(permission?.['assignee']);
-    const constraints = Array.isArray(permission?.['constraint']) ? (permission?.['constraint'] as unknown[]) : [];
-    const dateFrom = constraints.find(item => isDateConstraint(item, 'gteq'));
-    const dateTo = constraints.find(item => isDateConstraint(item, 'lteq'));
-
-    return [
-      {
-        user: toDisplayString(assignee?.['uid']),
-        actions: toArrayAsString(permission?.['action'], true),
-        from: formatDateToSpanish(toDisplayString(asRecord(dateFrom)?.['rightOperand'])),
-        to: formatDateToSpanish(toDisplayString(asRecord(dateTo)?.['rightOperand'])),
-      },
-    ];
-  } catch {
-    return [{ user: 'N/A', actions: 'N/A', from: 'N/A', to: 'N/A' }];
-  }
-}
-
-function parseUsagePolicyRows(usagePolicyRaw: string): UsagePolicyRow[] {
-  if (!usagePolicyRaw) return [];
-  try {
-    const parsed = JSON.parse(usagePolicyRaw) as Record<string, unknown>;
-    const permission = getFirstPermission(parsed);
-    const assignee = asRecord(permission?.['assignee']);
-    const constraints = Array.isArray(permission?.['constraint']) ? (permission?.['constraint'] as unknown[]) : [];
-    const countConstraint = constraints.find(item => {
-      const record = asRecord(item);
-      return toDisplayString(record?.['leftOperand'], '').includes('/count');
-    });
-    const maxUseCount = toDisplayString(asRecord(countConstraint)?.['rightOperand'], '');
-
-    return [
-      {
-        user: toDisplayString(assignee?.['uid']),
-        usageType: toArrayAsString(permission?.['action'], true),
-        constraint: maxUseCount || 'N/A',
-      },
-    ];
-  } catch {
-    return [{ user: 'N/A', usageType: 'N/A', constraint: 'N/A' }];
   }
 }
 
@@ -1253,9 +1151,6 @@ export function mapCorpusOfferingSelfDescription(json: Record<string, unknown>):
     dataQuality: dataProperties.dataQuality,
     encryption: dataProperties.encryption,
     contractTemplateDoc: contractTemplate.document,
-
-    accessPolicyRows: servicePolicy.accessPolicyRows,
-    usagePolicyRows: servicePolicy.usagePolicyRows,
 
     sections,
   };

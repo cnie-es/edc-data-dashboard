@@ -107,25 +107,22 @@ describe('PolicyDetailComponent', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('fetches and displays license text when offer.license is set', async () => {
+  const licenseLinks = (): HTMLAnchorElement[] =>
+    Array.from((fixture.nativeElement as HTMLElement).querySelectorAll<HTMLAnchorElement>('a')).filter(
+      a => a.href === LICENSE_URL,
+    );
+
+  it('links once to the original license when offer.license is set, without downloading it', async () => {
     fixture.detectChanges();
     await fixture.whenStable();
-
-    const req = httpMock.expectOne(LICENSE_URL);
-    expect(req.request.method).toBe('GET');
-    req.flush('Apache License\nVersion 2.0');
-
-    await fixture.whenStable();
     fixture.detectChanges();
 
-    const el: HTMLElement = fixture.nativeElement;
-    expect(el.textContent).toContain('Apache License');
-    expect(el.textContent).toContain('Version 2.0');
+    expect(licenseLinks().length).toBe(1);
     expect(fixture.componentInstance.policyKind()).toBe('Contratación');
     expect(fixture.componentInstance.displayDate()).toBe(POLICY_LIST_DATE_TEST_FIXTURE);
   });
 
-  it('fetches license when offer.license is in expanded EDC JSON-LD properties', async () => {
+  it('links to the license when offer.license is in expanded EDC JSON-LD properties', async () => {
     const edcNs = 'https://w3id.org/edc/v0.0.1/ns/';
     const expandedAsset = {
       '@id': 'asset-expanded',
@@ -175,33 +172,18 @@ describe('PolicyDetailComponent', () => {
 
     fixture.detectChanges();
     await fixture.whenStable();
-
-    const req = httpMock.expectOne(LICENSE_URL);
-    req.flush('License body from expanded properties');
-    await fixture.whenStable();
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.textContent).toContain('License body from expanded properties');
-  });
-
-  it('shows license error when HTTP fails', async () => {
-    fixture.detectChanges();
-    await fixture.whenStable();
-    httpMock.expectOne(LICENSE_URL).flush('', { status: 500, statusText: 'Server' });
-    await fixture.whenStable();
-    fixture.detectChanges();
-    expect(fixture.nativeElement.textContent).toContain('No se ha podido cargar la licencia');
+    expect(licenseLinks().length).toBe(1);
   });
 
   it('loads ODRL JSON from embedded mock for SD mock contract policy id without calling management', async () => {
     fixture.detectChanges();
     await fixture.whenStable();
-    httpMock.expectOne(LICENSE_URL).flush('license');
-    await fixture.whenStable();
     fixture.detectChanges();
 
     const buttons = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('button')).filter(b =>
-      (b.textContent ?? '').includes('ODRL'),
+      /ODRL|tabOdrl/.test(b.textContent ?? ''),
     );
     expect(buttons.length).toBeGreaterThanOrEqual(1);
     (buttons[0] as HTMLButtonElement).click();
@@ -224,12 +206,10 @@ describe('PolicyDetailComponent', () => {
 
     fixture.detectChanges();
     await fixture.whenStable();
-    httpMock.expectOne(LICENSE_URL).flush('license');
-    await fixture.whenStable();
     fixture.detectChanges();
 
     const buttons = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('button')).filter(b =>
-      (b.textContent ?? '').includes('ODRL'),
+      /ODRL|tabOdrl/.test(b.textContent ?? ''),
     );
     expect(buttons.length).toBeGreaterThanOrEqual(1);
     (buttons[0] as HTMLButtonElement).click();

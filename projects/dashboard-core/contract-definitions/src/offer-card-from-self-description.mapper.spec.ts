@@ -55,7 +55,22 @@ describe('buildOfferCardViewModelFromSelfDescriptionDetail', () => {
     const vm = mapCorpusOfferingSelfDescription(paidFixture);
     const card = buildOfferCardViewModelFromSelfDescriptionDetail(vm, 'did:web:paid');
 
-    expect(card.priceLabel).toBe('12 € + IVA');
+    expect(card.priceLabel).toBe('12 €');
+  });
+
+  it('uses the offer currency in the paid price label', () => {
+    const plnFixture = {
+      ...flatCorpusOfferingFixture,
+      'simpl:offeringPrice': {
+        'simpl:currency': 'PLN',
+        'simpl:price': { '@type': 'xsd:decimal', '@value': 12 },
+        'simpl:priceType': 'paid',
+      },
+    };
+    const vm = mapCorpusOfferingSelfDescription(plnFixture);
+    const card = buildOfferCardViewModelFromSelfDescriptionDetail(vm, 'did:web:pln');
+
+    expect(card.priceLabel).toBe('12 zł');
   });
 
   it('maps issuanceDate to publishedAt for Mis ofertas card date formatting', () => {

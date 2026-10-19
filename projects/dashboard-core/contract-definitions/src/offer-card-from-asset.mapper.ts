@@ -12,6 +12,7 @@ import {
   resolveAssetCatalogDisplayName,
 } from '@eclipse-edc/dashboard-core/assets';
 import { OFFER_CARD_DEFAULTS } from './contract-definitions-ui.constants';
+import { formatOfferCardPaidPriceLabel } from './offer-card-price-label';
 import { normalizeContractDefinition, type OfferCardViewModel } from './offer-card-view-model';
 
 const EDC_NS_ID = 'https://w3id.org/edc/v0.0.1/ns/id';
@@ -81,7 +82,9 @@ function buildPriceLabel(asset: Asset): string {
   }
   const price = readAssetPropertyString(asset, 'simpl:price');
   if (price && price.length > 0) {
-    return `${price} € + IVA`;
+    const currency =
+      readAssetPropertyString(asset, 'offer.currency') ?? readAssetPropertyString(asset, 'simpl:currency');
+    return formatOfferCardPaidPriceLabel(price, currency);
   }
   return OFFER_CARD_DEFAULTS.priceLabel;
 }

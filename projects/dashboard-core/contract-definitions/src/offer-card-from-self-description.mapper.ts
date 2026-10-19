@@ -4,6 +4,7 @@ import { stripCuriePrefix } from '@eclipse-edc/dashboard-core';
 import type { OfferSelfDescriptionDetailViewModel } from '@eclipse-edc/dashboard-core';
 import { buildContractPolicyLabelsFromUsagePolicyJson, parsePolicyOdrl } from '@eclipse-edc/dashboard-core/policies';
 import { OFFER_CARD_DEFAULTS } from './contract-definitions-ui.constants';
+import { formatOfferCardPaidPriceLabel } from './offer-card-price-label';
 import {
   EMPTY_OFFER_CARD_LICENSE,
   normalizeContractDefinition,
@@ -37,7 +38,7 @@ function buildPriceLabelFromDetail(vm: OfferSelfDescriptionDetailViewModel): str
     return 'Gratuito';
   }
   if (amount.length > 0) {
-    return `${amount} € + IVA`;
+    return formatOfferCardPaidPriceLabel(amount, vm.priceCurrency);
   }
   return OFFER_CARD_DEFAULTS.priceLabel;
 }

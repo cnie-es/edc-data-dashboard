@@ -32,26 +32,18 @@ describe('CorpusSelfDescriptionDetailLayoutComponent formatters', () => {
     expect(component.formatBoolean('unknown')).toBe('unknown');
   });
 
-  it('isEuroCurrency detects euro currency codes', () => {
-    expect(component.isEuroCurrency('EUR')).toBeTrue();
-    expect(component.isEuroCurrency('€')).toBeTrue();
-    expect(component.isEuroCurrency('euro')).toBeTrue();
-    expect(component.isEuroCurrency('USD')).toBeFalse();
-  });
-
-  it('formatOfferPriceLine appends VAT suffix only for euro currencies', async () => {
+  it('formatOfferPriceLine shows amount and currency symbol without VAT suffix', async () => {
     const translate = TestBed.inject(TranslateService);
     translate.setTranslation('es', {
       offers: {
         detail: {
           priceLine: 'Precio: {{amount}} {{currency}}',
-          priceLineWithVat: 'Precio: {{amount}} {{currency}} (+IVA)',
         },
       },
     });
     await translate.use('es');
-    expect(component.formatOfferPriceLine('10', 'EUR')).toContain('(+IVA)');
-    expect(component.formatOfferPriceLine('10', 'USD')).not.toContain('(+IVA)');
+    expect(component.formatOfferPriceLine('10', 'EUR')).toBe('Precio: 10 €');
+    expect(component.formatOfferPriceLine('10', 'PLN')).toBe('Precio: 10 zł');
   });
 
   it('does not render byte-size distribution aside when byteSize and packageFormat are empty', () => {

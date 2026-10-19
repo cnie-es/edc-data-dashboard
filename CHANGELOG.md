@@ -7,6 +7,73 @@ This file will not cover changes about documentation, code clean-up, samples, or
 (respectively milestone), the core features are highlighted. Relevant changes to existing implementations can be found
 in the detailed section referring to by linking pull requests or issues.
 
+## v1.1.0-edval (2026-10-19)
+
+> Derivative work by the **EDNEL-RIOJA** project team for **CNIE-ES**, based on the Eclipse EDC
+> Data Dashboard at commit `4921ba3`. Modified between **2026-02-20 and 2026-10-19**, licensed
+> under the Apache License 2.0 like the original work. See [NOTICE.EDNEL.md](NOTICE.EDNEL.md) for
+> the record of which files were changed, added and removed.
+
+### Offer prices (2026-10-19)
+
+#### Fixed
+
+- Offer cards (Mis ofertas and catalogue search) always showed the price as `€ + IVA`, whatever
+  the currency of the offer (`simpl:currency`); the offer detail already used it. Cards now read
+  the currency from the self-description or, for connector assets, from `offer.currency`
+  ([EDNEL-RIOJA/DataDashboard#59](https://github.com/EDNEL-RIOJA/DataDashboard/pull/59)).
+
+#### Changed
+
+- Prices show the symbol of the offer currency in cards and detail views (`€`, `zł`, `Kč`, `Ft`,
+  `lei`…), taken from the browser `Intl` data so every currency of the offer template gets one.
+  Danish and Swedish krone are shown by code (`DKK`, `SEK`), since both symbols are `kr`. Cards of
+  offers without a currency assume euro.
+- No price carries a VAT suffix any more (`+ IVA` on cards, `(+IVA)` and its translations on the
+  detail views), and the euro icon next to prices is gone.
+
+### Offer policies (2026-10-19)
+
+#### Changed
+
+- The policies section of the offer detail views (Mis ofertas, asset detail, negotiation modal and
+  advanced search) shows every permission of the access and usage policies embedded in the
+  self-description (`simpl:access-policy`, `simpl:usage-policy`), laid out like the policy cards of
+  the offer form, instead of only the first one with raw action IRIs. Each policy has a
+  "View ODRL" button that shows its ODRL.
+
+#### Removed
+
+- The "View policy" button of the offer detail and the policy modal it opened, which duplicated
+  the policies section. In the advanced search detail the button was already hidden.
+
+### Policy detail (2026-10-19)
+
+#### Changed
+
+- The "Legal license text" tab of the policy detail (Mis políticas) downloaded the license from
+  the browser and almost always failed with "the license could not be loaded". It is replaced by a
+  "Summary" tab, shown first, with the policy laid out like the offer form cards: assigner, action,
+  attribute or usage assignee, usage type, number of usages and validity dates. The "ODRL format"
+  tab is kept, and the link to the original license stays in the page header.
+- ODRL policies are read in full: every permission, the number of usages (`odrl:count`), deletion
+  after use (`odrl:deletion` constraint or a `delete` duty or obligation) and logical constraints
+  (`odrl:and`, `odrl:or`…).
+- New labels in the six languages the dashboard ships: `ca`, `en`, `es`, `eu`, `gl` and `va`.
+
+## v1.0.14-edval-v3 (2026-10-15)
+
+### Identity attribute label (2026-10-15)
+
+#### Fixed
+
+- The identity attribute of the data space was translated as `EDNEL_PARTICIPANT` in the six
+  languages (`ca`, `en`, `es`, `eu`, `gl`, `va`); it is `EDVAL_PARTICIPANT`, the code the backend
+  sends. The policy attribute and usage assignee labels now match it
+  ([EDNEL-RIOJA/DataDashboard#57](https://github.com/EDNEL-RIOJA/DataDashboard/pull/57)).
+
+> `v1.0.14-edval-v2` contains the same code; it was published before this entry was added.
+
 ## v1.0.5-edval (2026-10-13)
 
 > Derivative work by the **EDNEL-RIOJA** project team for **CNIE-ES**, based on the Eclipse EDC
@@ -49,7 +116,7 @@ in the detailed section referring to by linking pull requests or issues.
   template provides one.
 - Translated access policy actions (`SEARCH`, `CONSUME`, `RESTRICTED_CONSUME`) and identity
   attributes, the latter used both as policy attribute and as usage assignee, including
-  `EDNEL_PARTICIPANT`. Attributes without a translation keep the label the backend sends.
+  `EDVAL_PARTICIPANT`. Attributes without a translation keep the label the backend sends.
 - All of the above in the six languages the dashboard ships: `ca`, `en`, `es`, `eu`, `gl` and `va`.
 
 #### Changed

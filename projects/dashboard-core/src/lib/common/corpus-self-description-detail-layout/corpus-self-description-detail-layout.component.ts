@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, input, output, computed } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BreadcrumbsComponent, type BreadcrumbItem } from '../breadcrumbs/breadcrumbs.component';
+import { OfferServicePoliciesComponent } from '../offer-service-policies/offer-service-policies.component';
 import type {
   CorpusOfferingLanguageRow,
   OfferSelfDescriptionDetailViewModel,
@@ -10,13 +11,14 @@ import type {
 } from '../../sd/corpus-offering-self-description.mapper';
 import { regionFlagEmoji } from '../../sd/language-bcp47.util';
 import { SdDisplayMapper } from '../../sd/sd-display.mapper';
+import { currencySymbol } from '../../utils/currency-symbol.util';
 
 export type CorpusSelfDescriptionLayoutMode = 'asset' | 'offer';
 
 @Component({
   selector: 'lib-corpus-self-description-detail-layout',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslateModule, BreadcrumbsComponent],
+  imports: [CommonModule, RouterLink, TranslateModule, BreadcrumbsComponent, OfferServicePoliciesComponent],
   templateUrl: './corpus-self-description-detail-layout.component.html',
   styleUrl: './corpus-self-description-detail-layout.component.css',
 })
@@ -36,28 +38,8 @@ export class CorpusSelfDescriptionDetailLayoutComponent {
   readonly showDeleteOffer = input(false);
   readonly deleteOfferDisabled = input(false);
   readonly embeddedInModal = input(false);
-  readonly contractPolicyId = input('');
-  readonly contractPolicyName = input('');
-  readonly contractPolicyNameLoading = input(false);
-  readonly publicationPolicyId = input('');
-  readonly publicationPolicyName = input('');
-  readonly publicationPolicyNameLoading = input(false);
 
   readonly deleteOffer = output<void>();
-  readonly viewPolicy = output<void>();
-  readonly viewPublicationPolicy = output<void>();
-
-  readonly canViewPolicy = computed(() => {
-    const policyId = this.contractPolicyId().trim();
-    const licenseUrl = this.vm()?.licenseUrl?.trim() ?? '';
-    return policyId.length > 0 || licenseUrl.length > 0;
-  });
-
-  readonly canViewPublicationPolicy = computed(() => {
-    const policyId = this.publicationPolicyId().trim();
-    const licenseUrl = this.vm()?.licenseUrl?.trim() ?? '';
-    return policyId.length > 0 || licenseUrl.length > 0;
-  });
 
   // En el archivo .ts del componente
 
@@ -185,16 +167,10 @@ export class CorpusSelfDescriptionDetailLayoutComponent {
     return kind === 'originalSource' ? 'link' : 'key';
   }
 
-  isEuroCurrency(currency?: string | null): boolean {
-    const normalized = (currency ?? '').trim().toUpperCase();
-    return normalized === 'EUR' || normalized === '€' || normalized === 'EURO';
-  }
-
   formatOfferPriceLine(amount?: string | null, currency?: string | null): string {
-    const key = this.isEuroCurrency(currency) ? 'offers.detail.priceLineWithVat' : 'offers.detail.priceLine';
-    return this.translate.instant(key, {
+    return this.translate.instant('offers.detail.priceLine', {
       amount: amount ?? '',
-      currency: currency ?? '',
+      currency: currencySymbol(currency),
     });
   }
 }

@@ -70,6 +70,7 @@ export function buildMockAssetFromVerifiableCredential(vc: Record<string, unknow
       'offer.isPublic': isPublic ? 'true' : 'false',
       'offer.isFree': isFree ? 'true' : 'false',
       'simpl:price': readString(asRecord(offeringPrice['simpl:price'])?.['@value']) ?? '0',
+      'offer.currency': readString(offeringPrice['simpl:currency']) ?? '',
     },
     dataAddress: {
       '@type': 'DataAddress',

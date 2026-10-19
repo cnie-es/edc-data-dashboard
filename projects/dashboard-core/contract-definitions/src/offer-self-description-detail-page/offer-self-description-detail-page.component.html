@@ -10,15 +10,7 @@
   [hasLinkedOffers]="false"
   [showDeleteOffer]="canRevokeOffer()"
   [deleteOfferDisabled]="deleteOfferDisabled"
-  [contractPolicyId]="contractPolicyId()"
-  [contractPolicyName]="contractPolicyName()"
-  [contractPolicyNameLoading]="contractPolicyNameLoading()"
-  [publicationPolicyId]="publicationPolicyId()"
-  [publicationPolicyName]="publicationPolicyName()"
-  [publicationPolicyNameLoading]="publicationPolicyNameLoading()"
   (deleteOffer)="openRevokeConfirmDialog()"
-  (viewPolicy)="openPolicyModal()"
-  (viewPublicationPolicy)="openPublicationPolicyModal()"
 />
 
 <dialog #revokeConfirmDialog class="modal z-50" data-cy="offer-revoke-confirm-dialog">

@@ -317,15 +317,15 @@
     "detail": {
       "loading": "Loading policy...",
       "missingId": "No policy id was provided.",
-      "tabLegal": "Legal license text",
+      "tabSummary": "Summary",
+      "assigner": "Assigner",
+      "permissionTitle": "Policy {{n}}",
+      "validity": "Validity",
+      "summaryEmpty": "The policy could not be interpreted. See the ODRL format.",
       "tabOdrl": "ODRL format",
+      "viewOdrl": "View ODRL",
       "viewOriginalLicense": "View original license",
-      "noLicenseUrl": "There is no license URL on assets linked to this policy.",
-      "loadingLicense": "Loading license text...",
-      "licenseLoadError": "The license could not be loaded.",
-      "loadingOdrl": "Loading ODRL policy definition...",
       "odrlLoadError": "The policy definition (ODRL) could not be loaded.",
-      "modalTitle": "Policy",
       "modalCloseAria": "Close"
     }
   },
@@ -405,7 +405,6 @@
       "cardContracting": "Contracting",
       "cardPublication": "Publication",
       "publicationPlaceholder": "Publication scope is defined by your connector policies.",
-      "viewPolicy": "View policy",
       "cardDistribution": "Distribution",
       "byteSize": "Size (Bytes)",
       "packageFormat": "Package format",
@@ -413,7 +412,6 @@
       "size": "Size",
       "documentId": "Document identifier",
       "priceLine": "Price: {{amount}} {{currency}}",
-      "priceLineWithVat": "Price: {{amount}} {{currency}} (+VAT)",
       "errorInvalidId": "Invalid offer identifier.",
       "errorLoadFailed": "Could not load the offer self-description.",
       "delete": "Delete",
@@ -859,7 +857,7 @@
     "DATA_PROVIDER_PUBLISHER": "Data provider publisher",
     "APP_PROVIDER_PUBLISHER": "Application provider publisher",
     "INFRA_PROVIDER_PUBLISHER": "Infrastructure provider publisher",
-    "EDNEL_PARTICIPANT": "Participant",
+    "EDVAL_PARTICIPANT": "Participant",
     "DATA_SEARCHER": "Data searcher"
   }
 }

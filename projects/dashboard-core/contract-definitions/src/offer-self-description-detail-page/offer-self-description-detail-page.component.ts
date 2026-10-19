@@ -13,7 +13,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   CorpusSelfDescriptionDetailLayoutComponent,
   DashboardStateService,
-  ModalAndAlertService,
   ParticipantNameService,
   applyCorpusDetailDisplayOverrides,
   mapCorpusOfferingSelfDescription,
@@ -23,7 +22,7 @@ import {
   type OfferSelfDescriptionDetailViewModel,
 } from '@eclipse-edc/dashboard-core';
 import { AssetService } from '@eclipse-edc/dashboard-core/assets';
-import { PolicyDetailModalComponent, PolicyListEnrichmentService } from '@eclipse-edc/dashboard-core/policies';
+import { PolicyListEnrichmentService } from '@eclipse-edc/dashboard-core/policies';
 import { SdToolingService } from '@eclipse-edc/dashboard-core/sdtooling';
 import { SimplAdvancedSearchService } from '@eclipse-edc/dashboard-core/xfsc-advSearch';
 import {
@@ -98,7 +97,6 @@ export class OfferSelfDescriptionDetailPageComponent implements OnInit {
   private readonly mockOfferResources = inject(MockOfferResourcesService);
   private readonly policyListEnrichment = inject(PolicyListEnrichmentService);
   private readonly participantNameService = inject(ParticipantNameService);
-  private readonly modalAndAlertService = inject(ModalAndAlertService);
 
   private readonly currentEdcConfig = toSignal(this.dashboardState.currentEdcConfig$, {
     initialValue: undefined,
@@ -110,24 +108,12 @@ export class OfferSelfDescriptionDetailPageComponent implements OnInit {
   /** Asset type from list card (`subtitle`), when navigating from Mis ofertas. */
   private readonly listAssetTypeLabel: string;
   private readonly listContractPolicyId: string;
-  private readonly listAccessPolicyId: string;
-  private readonly listAssetDisplayName: string;
-  private readonly listPolicySummary: string;
-  private readonly listPublicationPolicySummary: string;
   private readonly listProviderLabel: string;
 
   /** Route `offerId` (same as `offer.offerID`); signal keeps `showDeleteOffer` in sync with signal `input()` on the layout. */
   private readonly routeOfferId = signal('');
   /** Passed to layout so the revoke control stays visible/clickable once the route id is known (before/after detail load). */
   readonly canRevokeOffer = computed(() => this.routeOfferId().trim().length > 0);
-
-  readonly contractPolicyId = signal('');
-  readonly contractPolicyName = signal('');
-  readonly contractPolicyNameLoading = signal(false);
-
-  readonly publicationPolicyId = signal('');
-  readonly publicationPolicyName = signal('');
-  readonly publicationPolicyNameLoading = signal(false);
 
   loading = false;
   deleteInProgress = false;
@@ -147,27 +133,8 @@ export class OfferSelfDescriptionDetailPageComponent implements OnInit {
     this.listAssetTypeLabel = typeof listState?.assetTypeLabel === 'string' ? listState.assetTypeLabel.trim() : '';
     this.listContractPolicyId =
       typeof listState?.contractPolicyId === 'string' ? listState.contractPolicyId.trim() : '';
-    this.listAccessPolicyId = typeof listState?.accessPolicyId === 'string' ? listState.accessPolicyId.trim() : '';
-    this.listAssetDisplayName =
-      typeof listState?.assetDisplayName === 'string' ? listState.assetDisplayName.trim() : '';
-    this.listPolicySummary = typeof listState?.policySummary === 'string' ? listState.policySummary.trim() : '';
-    this.listPublicationPolicySummary =
-      typeof listState?.publicationPolicySummary === 'string' ? listState.publicationPolicySummary.trim() : '';
     this.listProviderLabel = typeof listState?.providerLabel === 'string' ? listState.providerLabel.trim() : '';
     this.routeOfferId.set(this.route.snapshot.paramMap.get('offerId')?.trim() ?? '');
-    if (this.listContractPolicyId) {
-      this.contractPolicyId.set(this.listContractPolicyId);
-    }
-    if (this.listAccessPolicyId) {
-      this.publicationPolicyId.set(this.listAccessPolicyId);
-    }
-    const pendingLabel = this.translate.instant('policies.list.pending');
-    if (this.listPolicySummary && this.listPolicySummary !== pendingLabel) {
-      this.contractPolicyName.set(this.listPolicySummary);
-    }
-    if (this.listPublicationPolicySummary && this.listPublicationPolicySummary !== pendingLabel) {
-      this.publicationPolicyName.set(this.listPublicationPolicySummary);
-    }
   }
 
   get breadcrumbItemsTranslated(): BreadcrumbItem[] {
@@ -215,7 +182,7 @@ export class OfferSelfDescriptionDetailPageComponent implements OnInit {
                   providerLabel: this.listProviderLabel || undefined,
                   offeringTypeLabel: this.listAssetTypeLabel || undefined,
                 });
-                void this.resolveAndEnrichOfferPolicies(offerId, mapped.title);
+                void this.applyProviderLabelFromContractPolicy(offerId);
               },
             }),
             catchError(() => {
@@ -230,44 +197,6 @@ export class OfferSelfDescriptionDetailPageComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe();
-  }
-
-  openPolicyModal(): void {
-    const policyId = this.contractPolicyId().trim();
-    const licenseUrl = this.vm?.licenseUrl?.trim();
-    if (!policyId && !licenseUrl) {
-      return;
-    }
-
-    this.modalAndAlertService.openModal(
-      PolicyDetailModalComponent,
-      {
-        policyId,
-        policyName: this.contractPolicyName(),
-        licenseUrl: licenseUrl || undefined,
-      },
-      { closed: () => this.modalAndAlertService.closeModal() },
-      true,
-    );
-  }
-
-  openPublicationPolicyModal(): void {
-    const policyId = this.publicationPolicyId().trim();
-    const licenseUrl = this.vm?.licenseUrl?.trim();
-    if (!policyId && !licenseUrl) {
-      return;
-    }
-
-    this.modalAndAlertService.openModal(
-      PolicyDetailModalComponent,
-      {
-        policyId,
-        policyName: this.publicationPolicyName(),
-        licenseUrl: licenseUrl || undefined,
-      },
-      { closed: () => this.modalAndAlertService.closeModal() },
-      true,
-    );
   }
 
   openRevokeConfirmDialog(): void {
@@ -304,63 +233,16 @@ export class OfferSelfDescriptionDetailPageComponent implements OnInit {
     }
   }
 
-  private async resolveAndEnrichOfferPolicies(offerId: string, vmTitle: string): Promise<void> {
-    let contractPolicyId = this.contractPolicyId().trim();
-    let publicationPolicyId = this.publicationPolicyId().trim();
-    let assetDisplayName = this.listAssetDisplayName || vmTitle.trim();
-
-    if (!contractPolicyId || !publicationPolicyId) {
+  /** The provider shown in the header is the assigner of the offer contract policy, resolved to its display name. */
+  private async applyProviderLabelFromContractPolicy(offerId: string): Promise<void> {
+    let policyId = this.listContractPolicyId;
+    if (!policyId) {
       const snapshot = await this.assetService.getAssetsCacheSnapshotOrLoad();
-      const resolved = resolveOfferContractPolicyFromAssets(snapshot?.data ?? [], offerId);
-      if (resolved) {
-        if (!contractPolicyId) {
-          contractPolicyId = resolved.contractPolicyId;
-          this.contractPolicyId.set(contractPolicyId);
-        }
-        if (!publicationPolicyId) {
-          publicationPolicyId = resolved.accessPolicyId;
-          this.publicationPolicyId.set(publicationPolicyId);
-        }
-        if (!this.listAssetDisplayName) {
-          assetDisplayName = resolved.assetDisplayName;
-        }
-      }
+      policyId = resolveOfferContractPolicyFromAssets(snapshot?.data ?? [], offerId)?.contractPolicyId ?? '';
     }
-
-    await Promise.all([
-      this.enrichContractPolicyName(contractPolicyId, assetDisplayName),
-      // Resolve the provider label independently: when navigating from a card the policy name is
-      // pre-filled, so enrichContractPolicyName short-circuits and would otherwise skip this.
-      this.applyProviderLabelFromPolicy(contractPolicyId),
-      this.enrichPublicationPolicyName(publicationPolicyId, assetDisplayName),
-    ]);
-  }
-
-  private async enrichContractPolicyName(policyId: string, assetDisplayName: string): Promise<void> {
     if (!policyId) {
       return;
     }
-
-    const pendingLabel = this.translate.instant('policies.list.pending');
-    const currentName = this.contractPolicyName().trim();
-    if (currentName && currentName !== pendingLabel && !this.contractPolicyNameLoading()) {
-      return;
-    }
-
-    this.contractPolicyNameLoading.set(true);
-    try {
-      const name = await this.policyListEnrichment.enrichSingleContractPolicyName(
-        policyId,
-        assetDisplayName,
-        this.translate,
-      );
-      this.contractPolicyName.set(name);
-    } finally {
-      this.contractPolicyNameLoading.set(false);
-    }
-  }
-
-  private async applyProviderLabelFromPolicy(policyId: string): Promise<void> {
     const assigner = await this.policyListEnrichment.resolvePolicyAssigner(policyId);
     if (!assigner || !this.vm) {
       return;
@@ -371,30 +253,5 @@ export class OfferSelfDescriptionDetailPageComponent implements OnInit {
       return;
     }
     this.vm = { ...this.vm, providerLabel: providerLabel || assigner };
-  }
-
-  private async enrichPublicationPolicyName(policyId: string, assetDisplayName: string): Promise<void> {
-    if (!policyId) {
-      return;
-    }
-
-    const pendingLabel = this.translate.instant('policies.list.pending');
-    const currentName = this.publicationPolicyName().trim();
-    if (currentName && currentName !== pendingLabel && !this.publicationPolicyNameLoading()) {
-      return;
-    }
-
-    this.publicationPolicyNameLoading.set(true);
-    try {
-      const name = await this.policyListEnrichment.enrichSinglePolicyName(
-        policyId,
-        assetDisplayName,
-        'Publicación',
-        this.translate,
-      );
-      this.publicationPolicyName.set(name);
-    } finally {
-      this.publicationPolicyNameLoading.set(false);
-    }
   }
 }

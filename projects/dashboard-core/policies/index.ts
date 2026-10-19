@@ -17,7 +17,6 @@ export * from './src/policy-card/policy-card.component';
 export * from './src/policy-create/policy-create.component';
 export * from './src/policy-detail/policy-detail.component';
 export * from './src/policy-detail-panel/policy-detail-panel.component';
-export * from './src/policy-detail-modal/policy-detail-modal.component';
 export * from './src/policy-create-contratacion/policy-create-contratacion.component';
 export * from './src/policy.service';
 export * from './src/policy-list-enrichment.service';

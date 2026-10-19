@@ -318,15 +318,15 @@
     "detail": {
       "loading": "Cargando política...",
       "missingId": "Non se indicou ningunha política.",
-      "tabLegal": "Texto de Licenza Legal",
+      "tabSummary": "Resumo",
+      "assigner": "Asignador",
+      "permissionTitle": "Política {{n}}",
+      "validity": "Vixencia",
+      "summaryEmpty": "Non se puido interpretar a política. Consulta o formato ODRL.",
       "tabOdrl": "Formato ODRL",
+      "viewOdrl": "Ver ODRL",
       "viewOriginalLicense": "Ver licenza orixinal",
-      "noLicenseUrl": "Non hai URL de licenza asociada a esta política nos activos.",
-      "loadingLicense": "Cargando texto da licenza...",
-      "licenseLoadError": "Non se puido cargar a licenza.",
-      "loadingOdrl": "Cargando definición ODRL...",
       "odrlLoadError": "Non se puido cargar a definición de política (ODRL).",
-      "modalTitle": "Política",
       "modalCloseAria": "Pechar"
     }
   },
@@ -406,7 +406,6 @@
       "cardContracting": "Contratación",
       "cardPublication": "Publicación",
       "publicationPlaceholder": "O alcance de publicación defíneo as políticas do teu conector.",
-      "viewPolicy": "Ver política",
       "cardDistribution": "Distribución",
       "byteSize": "Tamaño (Bytes)",
       "packageFormat": "Formato empaquetado",
@@ -414,7 +413,6 @@
       "size": "Tamaño",
       "documentId": "Identificador",
       "priceLine": "Prezo: {{amount}} {{currency}}",
-      "priceLineWithVat": "Prezo: {{amount}} {{currency}} (+IVE)",
       "errorInvalidId": "Identificador de oferta non válido.",
       "errorLoadFailed": "Non se puido cargar a autodescripción da oferta.",
       "delete": "Eliminar",
@@ -858,7 +856,7 @@
     "DATA_PROVIDER_PUBLISHER": "Publicador do provedor de datos",
     "APP_PROVIDER_PUBLISHER": "Publicador do provedor de aplicacións",
     "INFRA_PROVIDER_PUBLISHER": "Publicador do provedor de infraestrutura",
-    "EDNEL_PARTICIPANT": "Participante",
+    "EDVAL_PARTICIPANT": "Participante",
     "DATA_SEARCHER": "Buscador de datos"
   },
   "language": {

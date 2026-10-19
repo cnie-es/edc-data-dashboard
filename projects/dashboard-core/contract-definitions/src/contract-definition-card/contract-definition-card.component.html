@@ -133,7 +133,6 @@
       @if (showButtons) {
         <div class="card-actions justify-between items-center mt-auto">
           <div class="text-(--app-color-success-dark) font-semibold text-lg flex items-center">
-            <span class="material-symbols-rounded align-middle text-base! mr-1">euro_symbol</span>
             <span>{{
               'offers.detail.priceLine' | translate: { amount: contractDefinition.priceLabel, currency: '' }
             }}</span>
@@ -158,7 +157,6 @@
         }
       } @else {
         <div class="mt-auto flex items-center gap-2 text-(--app-color-success-dark) font-semibold text-lg">
-          <span class="material-symbols-rounded align-middle text-base! mr-1">euro_symbol</span>
           <span>{{
             'offers.detail.priceLine' | translate: { amount: contractDefinition.priceLabel, currency: '' }
           }}</span>

@@ -932,8 +932,8 @@
           <!-- SECCIÓN: POLÍTICAS (servicePolicy)                         -->
           <!-- ========================================================== -->
           @if (
-            v.sections.servicePolicy.accessPolicyRows.length ||
-            v.sections.servicePolicy.usagePolicyRows.length ||
+            v.sections.servicePolicy.accessPolicyRaw ||
+            v.sections.servicePolicy.usagePolicyRaw ||
             v.sections.servicePolicy.dataProtectionRegime
           ) {
             <section class="bg-base-100 rounded-lg shadow-sm p-4">
@@ -942,64 +942,10 @@
                 {{ 'menu.policies' | translate }}
               </h2>
 
-              @if (v.sections.servicePolicy.usagePolicyRaw) {
-                <div class="mb-4 flex items-center gap-2 rounded-md bg-info/10 px-4 py-2 text-sm text-info">
-                  <span class="material-symbols-rounded text-base!">info</span>
-                  {{ 'sdDetails.detail.usagePolicy' | translate: { count: 'disponible' } }}
-                </div>
-              }
-
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                @if (v.sections.servicePolicy.accessPolicyRows.length) {
-                  <div class="rounded-lg border border-gray-200 p-4">
-                    <div class="flex items-center gap-2 mb-3">
-                      <span class="material-symbols-rounded text-blue-600">lock_open</span>
-                      <span class="font-semibold">{{ 'sdDetails.detail.accessPolicy' | translate }}</span>
-                    </div>
-                    @for (row of v.sections.servicePolicy.accessPolicyRows; track row.user + row.from) {
-                      <div class="border-t border-gray-100 pt-2 mt-2 first:border-t-0 first:pt-0 first:mt-0">
-                        <div class="flex justify-between text-sm">
-                          <span class="text-gray-600">{{ 'sdDetails.detail.users' | translate }}</span>
-                          <span>{{ row.user }}</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                          <span class="text-gray-600">{{ 'sdDetails.detail.actions' | translate }}</span>
-                          <span>{{ row.actions }}</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                          <span class="text-gray-600">{{ 'sdDetails.detail.dateConstraint' | translate }}</span>
-                          <span>{{ row.from }} → {{ row.to }}</span>
-                        </div>
-                      </div>
-                    }
-                  </div>
-                }
-
-                @if (v.sections.servicePolicy.usagePolicyRows.length) {
-                  <div class="rounded-lg border border-gray-200 p-4">
-                    <div class="flex items-center gap-2 mb-3">
-                      <span class="material-symbols-rounded text-green-600">assignment</span>
-                      <span class="font-semibold">{{ 'sdDetails.detail.usagePolicy' | translate }}</span>
-                    </div>
-                    @for (row of v.sections.servicePolicy.usagePolicyRows; track row.user + row.constraint) {
-                      <div class="border-t border-gray-100 pt-2 mt-2 first:border-t-0 first:pt-0 first:mt-0">
-                        <div class="flex justify-between text-sm">
-                          <span class="text-gray-600">{{ 'sdDetails.detail.user' | translate }}</span>
-                          <span>{{ row.user }}</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                          <span class="text-gray-600">{{ 'sdDetails.detail.usageType' | translate }}</span>
-                          <span>{{ row.usageType }}</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                          <span class="text-gray-600">{{ 'sdDetails.detail.constraint' | translate }}</span>
-                          <span>{{ row.constraint }}</span>
-                        </div>
-                      </div>
-                    }
-                  </div>
-                }
-              </div>
+              <lib-offer-service-policies
+                [accessPolicyRaw]="v.sections.servicePolicy.accessPolicyRaw"
+                [usagePolicyRaw]="v.sections.servicePolicy.usagePolicyRaw"
+              />
 
               @if (v.sections.servicePolicy.dataProtectionRegime) {
                 <div class="mt-4 flex flex-col gap-1 rounded-md bg-gray-50 p-3">
@@ -1078,12 +1024,7 @@
       <!-- ============================================================ -->
       <aside class="corpus-offer-detail__aside space-y-4">
         @if (
-          layoutMode() === 'offer' &&
-          (contractPolicyName() ||
-            v.licenseUrl ||
-            v.priceAmount ||
-            canViewPolicy() ||
-            v.sections.corpus.license?.identifiers?.length)
+          layoutMode() === 'offer' && (v.licenseUrl || v.priceAmount || v.sections.corpus.license?.identifiers?.length)
         ) {
           <!-- Tarjeta de contratación -->
           <div class="corpus-offer-detail__aside-card">
@@ -1143,32 +1084,11 @@
             <!-- Precio -->
             @if (v.priceAmount || v.priceCurrency) {
               <p class="corpus-offer-detail__price">
-                <span class="material-symbols-rounded text-xl!">euro_symbol</span>
                 <span>{{ formatOfferPriceLine(v.priceAmount, v.priceCurrency) }}</span>
               </p>
             }
-
-            <!-- Botón para ver política de uso (ODRL) -->
-            @if (canViewPolicy()) {
-              <button type="button" class="corpus-offer-detail__view-policy" (click)="viewPolicy.emit()">
-                {{ 'offers.detail.viewPolicy' | translate }}
-              </button>
-            }
           </div>
         }
-
-        <!-- Tarjeta de publicación (solo si existe política de publicación) -->
-        <!-- @if (layoutMode() === 'offer' && canViewPublicationPolicy() && publicationPolicyName()) {
-          <div class="corpus-offer-detail__aside-card">
-            <span class="corpus-offer-detail__aside-badge is-muted">{{
-              'offers.detail.cardPublication' | translate
-            }}</span>
-            <p class="mb-2 text-sm text-base-content break-words">{{ publicationPolicyName() }}</p>
-            <button type="button" class="corpus-offer-detail__view-policy" (click)="viewPublicationPolicy.emit()">
-              {{ 'offers.detail.viewPolicy' | translate }}
-            </button>
-          </div>
-        } -->
 
         <!-- Distribución (tarjeta) -->
         @if (v.byteSize || v.packageFormat || v.fileFormatLabels.length > 0 || (v.sizeAmount && v.sizeUnit)) {

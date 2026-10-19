@@ -318,15 +318,15 @@
     "detail": {
       "loading": "Carregant política...",
       "missingId": "No s'ha indicat cap política.",
-      "tabLegal": "Text de llicència legal",
+      "tabSummary": "Resum",
+      "assigner": "Assignador",
+      "permissionTitle": "Política {{n}}",
+      "validity": "Vigència",
+      "summaryEmpty": "No s'ha pogut interpretar la política. Consulta el format ODRL.",
       "tabOdrl": "Format ODRL",
+      "viewOdrl": "Vore ODRL",
       "viewOriginalLicense": "Veure llicència original",
-      "noLicenseUrl": "No hi ha URL de llicència associada a aquesta política als actius.",
-      "loadingLicense": "Carregant text de la llicència...",
-      "licenseLoadError": "No s'ha pogut carregar la llicència.",
-      "loadingOdrl": "Carregant definició ODRL...",
       "odrlLoadError": "No s'ha pogut carregar la definició de política (ODRL).",
-      "modalTitle": "Política",
       "modalCloseAria": "Tancar"
     }
   },
@@ -406,7 +406,6 @@
       "cardContracting": "Contractació",
       "cardPublication": "Publicació",
       "publicationPlaceholder": "L'abast de publicació el defineixen les polítiques del teu connector.",
-      "viewPolicy": "Veure política",
       "cardDistribution": "Distribució",
       "byteSize": "Mida (Bytes)",
       "packageFormat": "Format empaquetat",
@@ -414,7 +413,6 @@
       "size": "Mida",
       "documentId": "Identificador",
       "priceLine": "Preu: {{amount}} {{currency}}",
-      "priceLineWithVat": "Preu: {{amount}} {{currency}} (+IVA)",
       "errorInvalidId": "Identificador d'oferta no vàlid.",
       "errorLoadFailed": "No s'ha pogut carregar l'autodescripció de l'oferta.",
       "delete": "Eliminar",
@@ -862,7 +860,7 @@
     "DATA_PROVIDER_PUBLISHER": "Publicador del proveïdor de dades",
     "APP_PROVIDER_PUBLISHER": "Publicador del proveïdor d'aplicacions",
     "INFRA_PROVIDER_PUBLISHER": "Publicador del proveïdor d'infraestructura",
-    "EDNEL_PARTICIPANT": "Participant",
+    "EDVAL_PARTICIPANT": "Participant",
     "DATA_SEARCHER": "Cercador de dades"
   }
 }

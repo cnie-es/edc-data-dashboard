@@ -28,7 +28,7 @@ describe('buildOfferCardViewModelsFromAssets', () => {
     expect(card.policySummary).toBe('');
     expect(card.policyEnrichmentStatus).toBe('idle');
     expect(card.statusBadge).toBe('Cat. Público');
-    expect(card.priceLabel).toBe('12 € + IVA');
+    expect(card.priceLabel).toBe('12 €');
     expect(card.contractPolicyId).toBe('con-pol-1');
     expect(card.accessPolicyId).toBe('acc-pol-1');
     expect(card.offerSelfDescriptionId).toBe('did:web:registry.example:offer-1');
@@ -52,6 +52,30 @@ describe('buildOfferCardViewModelsFromAssets', () => {
     expect(card.providerLabel).toContain('temporary');
     expect(card.isPublicOffering).toBeFalse();
     expect(card.isFreeOffering).toBeTrue();
+  });
+
+  it('uses offer.currency in the paid price label', () => {
+    const asset = {
+      ...baseAsset,
+      properties: {
+        ...(baseAsset as unknown as { properties: Record<string, string> }).properties,
+        'offer.currency': 'CZK',
+      },
+    } as unknown as Asset;
+    const [card] = buildOfferCardViewModelsFromAssets([asset], 'consumer');
+    expect(card.priceLabel).toBe('12 Kč');
+  });
+
+  it('shows euro as € when offer.currency is EUR', () => {
+    const asset = {
+      ...baseAsset,
+      properties: {
+        ...(baseAsset as unknown as { properties: Record<string, string> }).properties,
+        'offer.currency': 'EUR',
+      },
+    } as unknown as Asset;
+    const [card] = buildOfferCardViewModelsFromAssets([asset], 'consumer');
+    expect(card.priceLabel).toBe('12 €');
   });
 
   it('maps title and subtitle from expanded IRI properties like IndexedDB payloads', () => {

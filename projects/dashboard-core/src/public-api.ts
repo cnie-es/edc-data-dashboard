@@ -37,6 +37,8 @@ export * from './lib/common/jsonld-viewer/jsonld-viewer.component';
 export * from './lib/common/filter-input/filter-input.component';
 export * from './lib/common/breadcrumbs/breadcrumbs.component';
 export * from './lib/common/corpus-self-description-detail-layout/corpus-self-description-detail-layout.component';
+export * from './lib/common/odrl-policy-summary/odrl-policy-summary.component';
+export * from './lib/common/offer-service-policies/offer-service-policies.component';
 export * from './lib/common/pagination/pagination.component';
 export * from './lib/common/item-count-selector/item-count-selector.component';
 export * from './lib/common/alert/alert.component';
@@ -63,6 +65,8 @@ export * from './lib/models/runtime-feature-flags';
 export * from './lib/models/edc-bearer-token-provider';
 export * from './lib/models/connector-perspective';
 
+export * from './lib/utils/odrl-policy.util';
+export * from './lib/utils/currency-symbol.util';
 export * from './lib/sd/sd-display.util';
 export { SdDisplayMapper } from './lib/sd/sd-display.mapper';
 export * from './lib/sd/corpus-offering-self-description.mapper';

@@ -316,15 +316,15 @@
     "detail": {
       "loading": "Politika kargatzen...",
       "missingId": "Ez da politikarik adierazi.",
-      "tabLegal": "Lizentzia legalaren testua",
+      "tabSummary": "Laburpena",
+      "assigner": "Esleitzailea",
+      "permissionTitle": "{{n}}. politika",
+      "validity": "Indarraldia",
+      "summaryEmpty": "Ezin izan da politika interpretatu. Ikusi ODRL formatua.",
       "tabOdrl": "ODRL formatua",
+      "viewOdrl": "Ikusi ODRL",
       "viewOriginalLicense": "Ikusi jatorrizko lizentzia",
-      "noLicenseUrl": "Ez dago lizentziaren URLrik politika honi lotuta aktiboetan.",
-      "loadingLicense": "Lizentziaren testua kargatzen...",
-      "licenseLoadError": "Ezin izan da lizentzia kargatu.",
-      "loadingOdrl": "ODRL definizioa kargatzen...",
       "odrlLoadError": "Ezin izan da politika definizioa (ODRL) kargatu.",
-      "modalTitle": "Politika",
       "modalCloseAria": "Itxi"
     }
   },
@@ -404,7 +404,6 @@
       "cardContracting": "Kontratazioa",
       "cardPublication": "Argitalpena",
       "publicationPlaceholder": "Argitalpen esparrua zure konektorearen politikek zehazten dute.",
-      "viewPolicy": "Ikusi politika",
       "cardDistribution": "Banaketa",
       "byteSize": "Tamaina (byte)",
       "packageFormat": "Pakete formatua",
@@ -412,7 +411,6 @@
       "size": "Tamaina",
       "documentId": "Identifikatzailea",
       "priceLine": "Prezioa: {{amount}} {{currency}}",
-      "priceLineWithVat": "Prezioa: {{amount}} {{currency}} (+BEZ)",
       "errorInvalidId": "Eskaintza identifikatzaile baliogabea.",
       "errorLoadFailed": "Ezin izan da eskaintzaren autodeskripzioa kargatu.",
       "delete": "Ezabatu",
@@ -859,7 +857,7 @@
     "DATA_PROVIDER_PUBLISHER": "Datu-hornitzailearen argitaratzailea",
     "APP_PROVIDER_PUBLISHER": "Aplikazio-hornitzailearen argitaratzailea",
     "INFRA_PROVIDER_PUBLISHER": "Azpiegitura-hornitzailearen argitaratzailea",
-    "EDNEL_PARTICIPANT": "Partaidea",
+    "EDVAL_PARTICIPANT": "Partaidea",
     "DATA_SEARCHER": "Datu-bilatzailea"
   }
 }

@@ -98,13 +98,16 @@ describe('SdDetailsViewComponent', () => {
     });
     expect(component.isGetDataDisabled).toBeFalse();
 
-    expect(component.sortedAccessPolicyRows[0].actions).toBe('Consume');
-    expect(component.sortedAccessPolicyRows[0].from).toBe('1 de febrero de 2026');
-    expect(component.sortedAccessPolicyRows[0].to).toBe('31 de marzo de 2026');
+    expect(component.sdViewModel?.sections.servicePolicy.accessPolicyRaw).toContain('actions/consume');
+    expect(component.sdViewModel?.sections.servicePolicy.usagePolicyRaw).toContain('odrl/2/count');
 
-    expect(component.sortedUsagePolicyRows.length).toBeGreaterThan(0);
-    expect(component.sortedUsagePolicyRows[0].usageType).toBe('Restricted number of usages');
-    expect(component.sortedUsagePolicyRows[0].constraint).toBe('10');
+    expect(component.details.hasUsagePolicy).toBeTrue();
+    expect(component.details.policySummary).toContain('maximum of 10 times');
+
+    fixture.detectChanges();
+    const host = fixture.nativeElement as HTMLElement;
+    expect(host.querySelector('[data-cy="offer-service-policy-access"]')).not.toBeNull();
+    expect(host.querySelector('[data-cy="offer-service-policy-usage"]')).not.toBeNull();
   });
 
   it('should show no usage policy when usage-policy is absent', () => {

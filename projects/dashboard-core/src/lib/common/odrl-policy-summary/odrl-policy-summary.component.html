@@ -1,0 +1,69 @@
+<div class="space-y-3 text-sm" data-cy="odrl-policy-summary">
+  @if (showAssigner() && assigner(); as assignerUid) {
+    <p>
+      <span class="font-medium">{{ 'policies.detail.assigner' | translate }}:</span>
+      <span class="ml-1 break-all" [textContent]="assignerUid"></span>
+    </p>
+  }
+
+  @for (permission of permissions(); track $index) {
+    <div class="@container bg-base-100 border border-border rounded-lg p-4 space-y-3">
+      <h4 class="font-semibold">{{ 'policies.detail.permissionTitle' | translate: { n: $index + 1 } }}</h4>
+
+      <dl class="grid gap-3 @md:grid-cols-2">
+        @if (isAccess()) {
+          <div>
+            <dt class="text-sm font-medium mb-1">{{ 'sdtooling.action' | translate }}</dt>
+            <dd class="break-all" [textContent]="accessActionLabel(permission)"></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium mb-1">{{ 'sdtooling.attribute' | translate }}</dt>
+            <dd class="break-all" [textContent]="assigneeLabel(permission)"></dd>
+          </div>
+        } @else {
+          <div>
+            <dt class="text-sm font-medium mb-1">{{ 'sdtooling.usageAssignee' | translate }}</dt>
+            <dd class="break-all" [textContent]="assigneeLabel(permission)"></dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium mb-1">{{ 'sdtooling.usageType' | translate }}</dt>
+            <dd>
+              @if (usageTypeKey(permission); as typeKey) {
+                {{ typeKey | translate }}
+              } @else {
+                -
+              }
+            </dd>
+          </div>
+          @if (permission.maxUseCount !== undefined) {
+            <div>
+              <dt class="text-sm font-medium mb-1">{{ 'sdtooling.numberOfUsages' | translate }}</dt>
+              <dd [textContent]="permission.maxUseCount"></dd>
+            </div>
+          }
+        }
+
+        @if (permission.fromIso; as fromIso) {
+          <div>
+            <dt class="text-sm font-medium mb-1">{{ 'sdtooling.fromDate' | translate }}</dt>
+            <dd [textContent]="formatDate(fromIso)"></dd>
+          </div>
+        }
+        @if (permission.toIso; as toIso) {
+          <div>
+            <dt class="text-sm font-medium mb-1">{{ 'sdtooling.toDate' | translate }}</dt>
+            <dd [textContent]="formatDate(toIso)"></dd>
+          </div>
+        }
+        @if (!permission.fromIso && !permission.toIso && isAccess()) {
+          <div>
+            <dt class="text-sm font-medium mb-1">{{ 'policies.detail.validity' | translate }}</dt>
+            <dd>{{ 'policy.constraint.openEnded' | translate }}</dd>
+          </div>
+        }
+      </dl>
+    </div>
+  } @empty {
+    <p class="text-gray-600">{{ 'policies.detail.summaryEmpty' | translate }}</p>
+  }
+</div>

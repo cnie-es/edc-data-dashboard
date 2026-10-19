@@ -317,15 +317,15 @@
     "detail": {
       "loading": "Cargando política...",
       "missingId": "No se ha indicado una política.",
-      "tabLegal": "Texto de Licencia Legal",
+      "tabSummary": "Resumen",
+      "assigner": "Asignador",
+      "permissionTitle": "Política {{n}}",
+      "validity": "Vigencia",
+      "summaryEmpty": "No se ha podido interpretar la política. Consulta el formato ODRL.",
       "tabOdrl": "Formato ODRL",
+      "viewOdrl": "Ver ODRL",
       "viewOriginalLicense": "Ver licencia original",
-      "noLicenseUrl": "No hay URL de licencia asociada a esta política en los activos.",
-      "loadingLicense": "Cargando texto de la licencia...",
-      "licenseLoadError": "No se ha podido cargar la licencia.",
-      "loadingOdrl": "Cargando definición ODRL...",
       "odrlLoadError": "No se ha podido cargar la definición de política (ODRL).",
-      "modalTitle": "Política",
       "modalCloseAria": "Cerrar"
     }
   },
@@ -405,7 +405,6 @@
       "cardContracting": "Contratación",
       "cardPublication": "Publicación",
       "publicationPlaceholder": "El alcance de publicación lo definen las políticas de su conector.",
-      "viewPolicy": "Ver política",
       "cardDistribution": "Distribución",
       "byteSize": "Tamaño (Bytes)",
       "packageFormat": "Formato empaquetado",
@@ -413,7 +412,6 @@
       "size": "Tamaño",
       "documentId": "Identificador",
       "priceLine": "Precio: {{amount}} {{currency}}",
-      "priceLineWithVat": "Precio: {{amount}} {{currency}} (+IVA)",
       "errorInvalidId": "Identificador de oferta no válido.",
       "errorLoadFailed": "No se pudo cargar la autodescripción de la oferta.",
       "delete": "Eliminar",
@@ -860,7 +858,7 @@
     "DATA_PROVIDER_PUBLISHER": "Publicador del proveedor de datos",
     "APP_PROVIDER_PUBLISHER": "Publicador del proveedor de aplicaciones",
     "INFRA_PROVIDER_PUBLISHER": "Publicador del proveedor de infraestructura",
-    "EDNEL_PARTICIPANT": "Participante",
+    "EDVAL_PARTICIPANT": "Participante",
     "DATA_SEARCHER": "Buscador de datos"
   }
 }

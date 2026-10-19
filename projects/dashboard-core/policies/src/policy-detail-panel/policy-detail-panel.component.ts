@@ -1,20 +1,23 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, computed, effect, inject, input, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, signal, untracked } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { firstValueFrom } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
-import { allowDashboardMocks, DashboardStateService } from '@eclipse-edc/dashboard-core';
+import {
+  allowDashboardMocks,
+  DashboardStateService,
+  OdrlPolicySummaryComponent,
+  type OdrlPolicySummaryVariant,
+} from '@eclipse-edc/dashboard-core';
 import { PolicyService } from '../policy.service';
 import { getMockPolicyDefinitionForRouteId } from '../policy-detail/policy-definition-mock.response';
+import type { PolicyListKind } from '../policy-display.util';
 
 @Component({
   selector: 'lib-policy-detail-panel',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, OdrlPolicySummaryComponent],
   templateUrl: './policy-detail-panel.component.html',
 })
 export class PolicyDetailPanelComponent {
-  private readonly http = inject(HttpClient);
   private readonly policyService = inject(PolicyService);
   private readonly dashboardState = inject(DashboardStateService);
 
@@ -24,114 +27,82 @@ export class PolicyDetailPanelComponent {
   private readonly allowDashboardMocksNow = computed(() => allowDashboardMocks(this.currentEdcConfig()));
 
   readonly policyId = input<string>('');
-  readonly licenseUrl = input<string | undefined>(undefined);
-  readonly embedded = input(false);
+  /** Publication policies are shown like the form access policy cards, contract ones like the usage policy cards. */
+  readonly policyKind = input<PolicyListKind | undefined>(undefined);
 
-  readonly activeTab = signal<'legal' | 'odrl'>('legal');
+  readonly activeTab = signal<'summary' | 'odrl'>('summary');
 
-  readonly licenseLoading = signal(false);
-  readonly licenseLoadFailed = signal(false);
-  readonly licenseText = signal<string | null>(null);
+  readonly loading = signal(false);
+  readonly loadFailed = signal(false);
+  readonly policyDefinition = signal<Record<string, unknown> | null>(null);
 
-  readonly odrlLoading = signal(false);
-  readonly odrlLoadFailed = signal(false);
-  readonly odrlJson = signal<string | null>(null);
+  readonly odrlJson = computed(() => {
+    const def = this.policyDefinition();
+    return def ? JSON.stringify(def, null, 2) : null;
+  });
 
-  private licenseFetchStarted = false;
-  private odrlFetchStarted = false;
-  private lastLicenseUrl = '';
-  private lastPolicyId = '';
+  readonly summaryVariant = computed<OdrlPolicySummaryVariant | undefined>(() => {
+    switch (this.policyKind()) {
+      case 'Publicación':
+        return 'access';
+      case 'Contratación':
+        return 'usage';
+      default:
+        return undefined;
+    }
+  });
+
+  private lastPolicyId: string | null = null;
+  private lastMocksAllowed: boolean | null = null;
+  /** Ignores responses of a load superseded by a newer one. */
+  private loadRequestId = 0;
 
   constructor() {
     effect(() => {
-      const url = this.licenseUrl()?.trim() ?? '';
       const id = this.policyId().trim();
-      if (url !== this.lastLicenseUrl) {
-        this.lastLicenseUrl = url;
-        this.licenseFetchStarted = false;
-        this.licenseText.set(null);
-        this.licenseLoadFailed.set(false);
+      const mocksAllowed = this.allowDashboardMocksNow();
+      if (id === this.lastPolicyId && mocksAllowed === this.lastMocksAllowed) {
+        return;
       }
-      if (id !== this.lastPolicyId) {
-        this.lastPolicyId = id;
-        this.odrlFetchStarted = false;
-        this.odrlJson.set(null);
-        this.odrlLoadFailed.set(false);
-      }
-      if (this.activeTab() === 'legal') {
-        void this.ensureLicenseLoaded();
-      }
+      this.lastPolicyId = id;
+      this.lastMocksAllowed = mocksAllowed;
+      untracked(() => void this.loadPolicyDefinition(id, mocksAllowed));
     });
   }
 
-  setTab(tab: 'legal' | 'odrl'): void {
+  setTab(tab: 'summary' | 'odrl'): void {
     this.activeTab.set(tab);
-    if (tab === 'legal') {
-      void this.ensureLicenseLoaded();
-    } else {
-      void this.ensureOdrlLoaded();
-    }
   }
 
-  private normalizeLicenseUrl(url: string): string {
-    return url.split('?')[0];
-  }
-
-  private async ensureLicenseLoaded(): Promise<void> {
-    const rawUrl = this.licenseUrl()?.trim();
-    if (!rawUrl || this.licenseFetchStarted) {
+  private async loadPolicyDefinition(id: string, mocksAllowed: boolean): Promise<void> {
+    const requestId = ++this.loadRequestId;
+    this.policyDefinition.set(null);
+    this.loadFailed.set(false);
+    this.loading.set(false);
+    if (!id) {
       return;
     }
 
-    const url = this.normalizeLicenseUrl(rawUrl);
-    this.licenseFetchStarted = true;
-    this.licenseLoading.set(true);
-    this.licenseLoadFailed.set(false);
-    this.licenseText.set(null);
-
-    try {
-      const text = await firstValueFrom(
-        this.http.get(url, {
-          responseType: 'text' as 'json',
-        }),
-      );
-
-      if (!text || typeof text !== 'string') {
-        this.licenseLoadFailed.set(true);
-        return;
-      }
-
-      this.licenseText.set(text);
-    } catch {
-      this.licenseLoadFailed.set(true);
-    } finally {
-      this.licenseLoading.set(false);
-    }
-  }
-
-  private async ensureOdrlLoaded(): Promise<void> {
-    const id = this.policyId().trim();
-    if (!id || this.odrlFetchStarted) {
-      return;
-    }
-    this.odrlFetchStarted = true;
-    this.odrlLoadFailed.set(false);
-    this.odrlJson.set(null);
-
-    const mockPayload = this.allowDashboardMocksNow() ? getMockPolicyDefinitionForRouteId(id) : undefined;
+    const mockPayload = mocksAllowed ? getMockPolicyDefinitionForRouteId(id) : undefined;
     if (mockPayload) {
-      this.odrlJson.set(JSON.stringify(mockPayload, null, 2));
+      this.policyDefinition.set(mockPayload);
       return;
     }
 
-    this.odrlLoading.set(true);
+    this.loading.set(true);
     try {
       const def = await this.policyService.getPolicyDefinitionById(id);
-      this.odrlJson.set(JSON.stringify(def as unknown as Record<string, unknown>, null, 2));
+      if (requestId === this.loadRequestId) {
+        this.policyDefinition.set(def as unknown as Record<string, unknown>);
+      }
     } catch {
-      this.odrlLoadFailed.set(true);
+      if (requestId === this.loadRequestId) {
+        this.loadFailed.set(true);
+      }
     } finally {
-      this.odrlLoading.set(false);
+      if (requestId === this.loadRequestId) {
+        this.loading.set(false);
+      }
     }
   }
 }

@@ -25,8 +25,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   mapCorpusOfferingSelfDescription,
   OfferSelfDescriptionDetailViewModel,
-  AccessPolicyRow,
-  UsagePolicyRow,
 } from 'dist/@eclipse-edc/dashboard-core';
 @Component({
   selector: 'lib-sd-details-view',
@@ -59,15 +57,7 @@ export class SdDetailsViewComponent implements OnInit {
   isTransferWizardVisible = false;
   /** La SD la publicó este conector (se llega aquí por URL: en la lista la tarjeta está bloqueada). */
   isOwnOffer = false;
-  isAccessPolicySortAscending = true;
-  isUsagePolicySortAscending = true;
   isPaidAsset = false;
-
-  // Inputs para el layout (políticas)
-  contractPolicyId = '';
-  publicationPolicyId = '';
-  contractPolicyName = '';
-  publicationPolicyName = '';
 
   get displayShortId(): string {
     const fullId = this.sd?.selfDescriptionId ?? '';
@@ -94,21 +84,6 @@ export class SdDetailsViewComponent implements OnInit {
     }
   }
 
-  get sortedAccessPolicyRows(): AccessPolicyRow[] {
-    const rows = this.fullVm?.sections.servicePolicy.accessPolicyRows ?? [];
-    return [...rows].sort((a, b) => {
-      const compare = a.user.localeCompare(b.user, undefined, { sensitivity: 'base' });
-      return this.isAccessPolicySortAscending ? compare : -compare;
-    });
-  }
-
-  get sortedUsagePolicyRows(): UsagePolicyRow[] {
-    const rows = this.fullVm?.sections.servicePolicy.usagePolicyRows ?? [];
-    return [...rows].sort((a, b) => {
-      const compare = a.user.localeCompare(b.user, undefined, { sensitivity: 'base' });
-      return this.isUsagePolicySortAscending ? compare : -compare;
-    });
-  }
 
   get isGetDataDisabled(): boolean {
     return (
@@ -258,12 +233,6 @@ export class SdDetailsViewComponent implements OnInit {
 
           // Determinar si es de pago
           this.isPaidAsset = fullVm.priceType !== 'free';
-
-          // Extraer datos de políticas para los inputs del layout
-          this.contractPolicyId = fullVm.sections.edcRegistration.accessPolicyId;
-          this.publicationPolicyId = fullVm.sections.edcRegistration.servicePolicyId;
-          this.contractPolicyName = 'N/A'; // no disponible en el mapper actual
-          this.publicationPolicyName = 'N/A';
         },
         error: () => {
           this.loading = false;
@@ -325,13 +294,5 @@ export class SdDetailsViewComponent implements OnInit {
   private beginTransferWizard(): void {
     this.isTransferWizardVisible = true;
     this.negotiationState.resetNegotiationState();
-  }
-
-  toggleAccessPolicyUsersOrder(): void {
-    this.isAccessPolicySortAscending = !this.isAccessPolicySortAscending;
-  }
-
-  toggleUsagePolicyUsersOrder(): void {
-    this.isUsagePolicySortAscending = !this.isUsagePolicySortAscending;
   }
 }

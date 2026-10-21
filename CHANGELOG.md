@@ -7,6 +7,25 @@ This file will not cover changes about documentation, code clean-up, samples, or
 (respectively milestone), the core features are highlighted. Relevant changes to existing implementations can be found
 in the detailed section referring to by linking pull requests or issues.
 
+## v1.1.1-edval (2026-10-21)
+
+> Derivative work by the **EDNEL-RIOJA** project team for **CNIE-ES**, based on the Eclipse EDC
+> Data Dashboard at commit `4921ba3`. Modified between **2026-02-20 and 2026-10-21**, licensed
+> under the Apache License 2.0 like the original work. See [NOTICE.EDNEL.md](NOTICE.EDNEL.md) for
+> the record of which files were changed, added and removed.
+
+### Reload on Mis activos (2026-10-21)
+
+#### Fixed
+
+- Reloading (F5) or opening `/assets` directly ("Mis activos") left the browser hanging with
+  `ERR_CONNECTION_TIMED_OUT`. The SPA route `/assets` matches the static folder `/app/assets`, so
+  `try_files $uri/` made nginx issue its directory redirect with an absolute URL built from its own
+  scheme and port (`301 Location: http://<host>:8080/assets/`), unreachable behind the ingress that
+  terminates TLS. `location /` no longer tries `$uri/` (SPA routes always fall back to
+  `index.html`) and `absolute_redirect off` keeps any redirect relative. Static files under
+  `/assets/` and `/config` are served as before.
+
 ## v1.1.0-edval (2026-10-19)
 
 > Derivative work by the **EDNEL-RIOJA** project team for **CNIE-ES**, based on the Eclipse EDC

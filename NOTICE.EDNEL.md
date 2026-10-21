@@ -26,8 +26,8 @@ changed, removed or renamed, and summarise what it added.
 |---|---|
 | Modified by | EDNEL-RIOJA project team, for CNIE-ES |
 | Public repository of this derivative work | https://github.com/cnie-es/edc-data-dashboard |
-| Version of this derivative work | `v1.1.0-edval` |
-| Dates of modification | **2026-02-20 to 2026-10-19** |
+| Version of this derivative work | `v1.1.1-edval` |
+| Dates of modification | **2026-02-20 to 2026-10-21** |
 
 The modifications are licensed under the **Apache License 2.0**, the same licence as the original
 work. Neither the Eclipse Foundation nor the original contributors endorse this fork; "Eclipse" and
@@ -73,9 +73,9 @@ Every file of the original work that this fork changed, with the dates on which 
 |---|---|
 | `.dockerignore` | 2026-05-19 |
 | `.github/workflows/verify.yaml` | 2026-02-20 |
-| `CHANGELOG.md` | 2026-09-11, 2026-09-15, 2026-09-16, 2026-10-13, 2026-10-15, 2026-10-19 |
-| `Dockerfile` | 2026-05-19, 2026-09-11, 2026-09-15, 2026-09-16, 2026-10-13, 2026-10-19 |
-| `README.md` | 2026-05-29, 2026-09-11, 2026-09-15, 2026-09-16, 2026-10-13, 2026-10-19 |
+| `CHANGELOG.md` | 2026-09-11, 2026-09-15, 2026-09-16, 2026-10-13, 2026-10-15, 2026-10-19, 2026-10-21 |
+| `Dockerfile` | 2026-05-19, 2026-09-11, 2026-09-15, 2026-09-16, 2026-10-13, 2026-10-19, 2026-10-21 |
+| `README.md` | 2026-05-29, 2026-09-11, 2026-09-15, 2026-09-16, 2026-10-13, 2026-10-19, 2026-10-21 |
 | `angular.json` | 2026-05-19,2026-06-03 2026-06-18 |
 | `cypress/e2e/asset-view.cy.ts` | 2026-05-29 |
 | `cypress/e2e/contract-definition-view.cy.ts` | 2026-05-19,2026-05-20 2026-06-04 |
@@ -83,7 +83,7 @@ Every file of the original work that this fork changed, with the dates on which 
 | `cypress/e2e/contract_definition.cy.ts` | 2026-05-19 |
 | `cypress/e2e/policy-definition-view.cy.ts` | 2026-05-29 |
 | `cypress/e2e/transfer-history.cy.ts` | 2026-05-29,2026-06-08 |
-| `nginx.conf` | 2026-05-19 |
+| `nginx.conf` | 2026-05-19, 2026-10-21 |
 | `package-lock.json` | 2026-05-19,2026-05-28 2026-06-01,2026-06-18 |
 | `package.json` | 2026-05-19,2026-05-28 2026-06-08 |
 | `projects/dashboard-core/assets/index.ts` | 2026-05-19 |

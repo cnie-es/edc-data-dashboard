@@ -133,6 +133,40 @@ describe('ResourceSharingMethodStateService', () => {
     expect(service.resourceAddress?.['type']).not.toBe('MINIO_S3');
   }));
 
+  it('should be ready without user input when every template field is readonly', fakeAsync(() => {
+    const restApiDocument = {
+      credentialSubject: {
+        'simpl:generalServiceProperties': {
+          'simpl:sharingMethodId': 'REST_API',
+          'simpl:offeringType': 'DATA',
+        },
+      },
+    };
+    const restApiTemplateSchema = {
+      title: 'REST API destination',
+      properties: {
+        type: { type: 'string', const: 'HttpData-PULL' },
+      },
+      required: ['type'],
+    };
+    const restApiTemplateUiSchema = {
+      type: 'VerticalLayout',
+      elements: [{ type: 'Control', scope: '#/properties/type', label: 'Type', options: { readonly: true } }],
+    };
+
+    contractConsumption.resourceAddressTemplates.and.returnValue(of([{ value: '14', label: 'Data Template REST API' }]));
+    contractConsumption.resourceAddressTemplateSchema.and.returnValue(of(restApiTemplateSchema));
+    contractConsumption.resourceAddressTemplateUiSchema.and.returnValue(of(restApiTemplateUiSchema));
+
+    service.initialize(restApiDocument);
+    tick();
+
+    expect(service.selectedTemplate).toBe('14');
+    expect(service.templateForm.disabled).toBeTrue();
+    expect(service.isResourceAddressReady).toBeTrue();
+    expect(service.resourceAddress).toEqual({ type: 'HttpData-PULL' });
+  }));
+
   it('should set templates error when sharing parameters are missing', () => {
     service.initialize({ credentialSubject: {} });
     expect(service.templatesError).toBeTruthy();

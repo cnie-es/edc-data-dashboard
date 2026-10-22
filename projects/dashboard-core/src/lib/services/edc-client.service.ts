@@ -35,6 +35,12 @@ export class EdcClientService implements OnDestroy {
   private healthCheckInterval = 30;
 
   private readonly _client = new BehaviorSubject<EdcConnectorClient | undefined>(undefined);
+  /**
+   * Config and bearer token the current dashboard client was built with. The token is baked into
+   * the client, so {@link getClient} rebuilds it once the provider hands out a renewed token.
+   */
+  private clientConfig?: EdcConfig;
+  private clientBearerToken?: string;
   private readonly _isHealthy: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   readonly isHealthy$ = this._isHealthy.asObservable();
 
@@ -48,7 +54,7 @@ export class EdcClientService implements OnDestroy {
    * @throws Error If no client is available within the specified timeout period.
    */
   public async getClient(): Promise<EdcConnectorClient> {
-    return firstValueFrom(
+    const client = await firstValueFrom(
       this._client.asObservable().pipe(
         filter(x => x !== undefined),
         timeout(this.clientTimeoutMs),
@@ -56,6 +62,26 @@ export class EdcClientService implements OnDestroy {
     ).catch(() => {
       throw new Error(`[${this.constructor.name}] An EDC client is requested, but no client was created yet.`);
     });
+    return this.withFreshBearerToken(client);
+  }
+
+  /**
+   * Rebuilds the dashboard client when the bearer token changed since it was created; otherwise
+   * requests made after the access token expires (e.g. after a long session) fail with 401 until reload.
+   */
+  private async withFreshBearerToken(client: EdcConnectorClient): Promise<EdcConnectorClient> {
+    const config = this.clientConfig;
+    if (!config) {
+      return client;
+    }
+    const bearerToken = await this.bearerTokenProvider.getBearerToken();
+    if (bearerToken === this.clientBearerToken || config !== this.clientConfig) {
+      return this._client.getValue() ?? client;
+    }
+    const refreshed = this.buildEdcConnectorClient(config, bearerToken);
+    this.clientBearerToken = bearerToken;
+    this._client.next(refreshed);
+    return refreshed;
   }
 
   /**
@@ -72,7 +98,11 @@ export class EdcClientService implements OnDestroy {
    * @param config.federatedCatalogUrl - (Optional) The federated catalog URL for the EDC client.
    */
   public async setDashboardClient(config: EdcConfig): Promise<void> {
-    this._client.next(await this.createEdcConnectorClient(config));
+    this.assertValidConfig(config);
+    const bearerToken = await this.bearerTokenProvider.getBearerToken();
+    this.clientConfig = config;
+    this.clientBearerToken = bearerToken;
+    this._client.next(this.buildEdcConnectorClient(config, bearerToken));
     this.startHealthCheckJob();
 
     console.debug(`[${this.constructor.name}] Client created for connector config: ${JSON.stringify(config)}`);
@@ -85,17 +115,24 @@ export class EdcClientService implements OnDestroy {
    * @param {EdcConfig} config
    */
   public async createEdcConnectorClient(config: EdcConfig): Promise<EdcConnectorClient> {
+    this.assertValidConfig(config);
+    return this.buildEdcConnectorClient(config, await this.bearerTokenProvider.getBearerToken());
+  }
+
+  private assertValidConfig(config: EdcConfig): void {
     if (!config.protocolUrl || !config.managementUrl || !config.defaultUrl)
       throw new Error(
         `[${this.constructor.name}] EDC client creation failed. Missing protocolUrl, defaultUrl or managementUrl in config: ${JSON.stringify(
           config,
         )}`,
       );
+  }
+
+  private buildEdcConnectorClient(config: EdcConfig, bearerToken: string | undefined): EdcConnectorClient {
     const connector = new EdcConnectorClient.Builder()
       .managementUrl(config.managementUrl)
       .defaultUrl(config.defaultUrl)
       .protocolUrl(config.protocolUrl);
-    const bearerToken = await this.bearerTokenProvider.getBearerToken();
     if (bearerToken) connector.apiToken(bearerToken);
     if (config.controlUrl) connector.controlUrl(config.controlUrl);
     if (config.federatedCatalogUrl) connector.federatedCatalogUrl(config.federatedCatalogUrl);

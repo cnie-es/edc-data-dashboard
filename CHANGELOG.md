@@ -7,6 +7,33 @@ This file will not cover changes about documentation, code clean-up, samples, or
 (respectively milestone), the core features are highlighted. Relevant changes to existing implementations can be found
 in the detailed section referring to by linking pull requests or issues.
 
+## v1.1.2-edval (2026-10-22)
+
+> Derivative work by the **EDNEL-RIOJA** project team for **CNIE-ES**, based on the Eclipse EDC
+> Data Dashboard at commit `4921ba3`. Modified between **2026-02-20 and 2026-10-22**, licensed
+> under the Apache License 2.0 like the original work. See [NOTICE.EDNEL.md](NOTICE.EDNEL.md) for
+> the record of which files were changed, added and removed.
+
+### Transfers from the negotiation history (2026-10-22)
+
+#### Fixed
+
+- Starting a transfer of a `REST_API` asset from the negotiation history left "Siguiente paso"
+  disabled for good. The template of that sharing method has a single read-only field, the
+  transfer type (`HttpData-PULL`), and a form whose fields are all read-only was never considered
+  valid, so the data destination was never built. Templates without anything to fill in are now
+  ready as soon as they load.
+
+### Session token (2026-10-22)
+
+#### Fixed
+
+- After a long session, such as creating an asset, the negotiation history showed no negotiations
+  until the page was reloaded. The connector client kept the access token it was created with, so
+  once Keycloak renewed the token every request to the connector failed with `401` and the list
+  came back empty. The client is now rebuilt with the current token whenever it changes, which
+  also covers the other pages that read from the connector.
+
 ## v1.1.1-edval (2026-10-21)
 
 > Derivative work by the **EDNEL-RIOJA** project team for **CNIE-ES**, based on the Eclipse EDC

@@ -49,8 +49,9 @@ export class ResourceSharingMethodStateService {
     return this._resourceAddress;
   }
 
+  // Un FormGroup cuyos controles son todos readonly (deshabilitados) queda en estado DISABLED, no VALID.
   get isResourceAddressFormValid(): boolean {
-    return this.templateForm.valid;
+    return !this.templateForm.invalid;
   }
 
   // Modificar get isResourceAddressReady:
@@ -230,7 +231,7 @@ export class ResourceSharingMethodStateService {
   }
 
   private updateResourceAddressFromForm(): void {
-    if (!this.templateForm.valid) {
+    if (!this.isResourceAddressFormValid) {
       this._resourceAddress = null;
       return;
     }

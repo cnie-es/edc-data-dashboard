@@ -75,7 +75,7 @@ describe('EdcClientService', () => {
     expect(service.isHealthy$).toBeTruthy(); //Zustand prüfen
   });
 
-  it('passes token provider callback to EDC builder', () => {
+  function createBuilderSpy(): any {
     const builder: any = {
       managementUrl: jasmine.createSpy('managementUrl'),
       defaultUrl: jasmine.createSpy('defaultUrl'),
@@ -92,22 +92,41 @@ describe('EdcClientService', () => {
     builder.controlUrl.and.callFake(() => builder);
     builder.federatedCatalogUrl.and.callFake(() => builder);
     spyOn(EdcConnectorClient as any, 'Builder').and.returnValue(builder);
+    return builder;
+  }
 
-    const config: EdcConfig = {
-      connectorName: '',
-      federatedCatalogEnabled: false,
-      managementUrl: 'http://management.url',
-      defaultUrl: 'http://default.url',
-      protocolUrl: 'http://protocol.url',
-    };
+  const validConfig: EdcConfig = {
+    connectorName: '',
+    federatedCatalogEnabled: false,
+    managementUrl: 'http://management.url',
+    defaultUrl: 'http://default.url',
+    protocolUrl: 'http://protocol.url',
+  };
 
-    service.createEdcConnectorClient(config);
+  it('passes the provider bearer token to EDC builder', async () => {
+    const builder = createBuilderSpy();
+    spyOn(service['bearerTokenProvider'], 'getBearerToken').and.resolveTo('token-1');
 
-    expect(builder.apiToken).toHaveBeenCalledTimes(1);
-    expect(typeof builder.apiToken.calls.argsFor(0)[0]).toBe('function');
+    await service.createEdcConnectorClient(validConfig);
+
+    expect(builder.apiToken).toHaveBeenCalledOnceWith('token-1');
   });
 
-  it('should throw an error if required config properties are missing', () => {
+  it('rebuilds the dashboard client when the bearer token is renewed', async () => {
+    const builder = createBuilderSpy();
+    const getBearerToken = spyOn(service['bearerTokenProvider'], 'getBearerToken').and.resolveTo('token-1');
+
+    await service.setDashboardClient(validConfig);
+    await service.getClient();
+    expect(builder.apiToken.calls.allArgs()).toEqual([['token-1']]);
+
+    getBearerToken.and.resolveTo('token-2');
+    await service.getClient();
+    await service.getClient();
+    expect(builder.apiToken.calls.allArgs()).toEqual([['token-1'], ['token-2']]);
+  });
+
+  it('should throw an error if required config properties are missing', async () => {
     const config: EdcConfig = {
       connectorName: '',
       federatedCatalogEnabled: false,
@@ -116,7 +135,7 @@ describe('EdcClientService', () => {
       protocolUrl: '',
     };
 
-    expect(() => service.setDashboardClient(config)).toThrowError();
+    await expectAsync(service.setDashboardClient(config)).toBeRejectedWithError();
   });
 
   it('should get the client', async () => {

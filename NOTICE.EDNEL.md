@@ -26,8 +26,8 @@ changed, removed or renamed, and summarise what it added.
 |---|---|
 | Modified by | EDNEL-RIOJA project team, for CNIE-ES |
 | Public repository of this derivative work | https://github.com/cnie-es/edc-data-dashboard |
-| Version of this derivative work | `v1.1.1-edval` |
-| Dates of modification | **2026-02-20 to 2026-10-21** |
+| Version of this derivative work | `v1.1.2-edval` |
+| Dates of modification | **2026-02-20 to 2026-10-22** |
 
 The modifications are licensed under the **Apache License 2.0**, the same licence as the original
 work. Neither the Eclipse Foundation nor the original contributors endorse this fork; "Eclipse" and
@@ -73,9 +73,9 @@ Every file of the original work that this fork changed, with the dates on which 
 |---|---|
 | `.dockerignore` | 2026-05-19 |
 | `.github/workflows/verify.yaml` | 2026-02-20 |
-| `CHANGELOG.md` | 2026-09-11, 2026-09-15, 2026-09-16, 2026-10-13, 2026-10-15, 2026-10-19, 2026-10-21 |
-| `Dockerfile` | 2026-05-19, 2026-09-11, 2026-09-15, 2026-09-16, 2026-10-13, 2026-10-19, 2026-10-21 |
-| `README.md` | 2026-05-29, 2026-09-11, 2026-09-15, 2026-09-16, 2026-10-13, 2026-10-19, 2026-10-21 |
+| `CHANGELOG.md` | 2026-09-11, 2026-09-15, 2026-09-16, 2026-10-13, 2026-10-15, 2026-10-19, 2026-10-21, 2026-10-22 |
+| `Dockerfile` | 2026-05-19, 2026-09-11, 2026-09-15, 2026-09-16, 2026-10-13, 2026-10-19, 2026-10-21, 2026-10-22 |
+| `README.md` | 2026-05-29, 2026-09-11, 2026-09-15, 2026-09-16, 2026-10-13, 2026-10-19, 2026-10-21, 2026-10-22 |
 | `angular.json` | 2026-05-19,2026-06-03 2026-06-18 |
 | `cypress/e2e/asset-view.cy.ts` | 2026-05-29 |
 | `cypress/e2e/contract-definition-view.cy.ts` | 2026-05-19,2026-05-20 2026-06-04 |
@@ -150,8 +150,8 @@ Every file of the original work that this fork changed, with the dates on which 
 | `projects/dashboard-core/src/lib/models/menu-item.ts` | 2026-05-19 |
 | `projects/dashboard-core/src/lib/services/dashboard-state.service.spec.ts` | 2026-05-19 |
 | `projects/dashboard-core/src/lib/services/dashboard-state.service.ts` | 2026-05-19,2026-05-29 |
-| `projects/dashboard-core/src/lib/services/edc-client.service.spec.ts` | 2026-05-19 |
-| `projects/dashboard-core/src/lib/services/edc-client.service.ts` | 2026-05-19,2026-05-29 2026-06-18 |
+| `projects/dashboard-core/src/lib/services/edc-client.service.spec.ts` | 2026-05-19, 2026-10-22 |
+| `projects/dashboard-core/src/lib/services/edc-client.service.ts` | 2026-05-19,2026-05-29 2026-06-18, 2026-10-22 |
 | `projects/dashboard-core/src/lib/services/modal-and-alert.service.ts` | 2026-05-22 |
 | `projects/dashboard-core/src/public-api.ts` | 2026-05-19,2026-05-20 2026-05-21,2026-05-22 2026-05-29,2026-06-03 2026-06-08,2026-06-09 2026-07-02,2026-10-19 |
 | `projects/dashboard-core/transfer/index.ts` | 2026-05-19,2026-06-18 |
